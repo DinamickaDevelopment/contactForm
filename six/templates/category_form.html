@@ -1,0 +1,97 @@
+﻿<form name="bigform" class="bigform" id="bigform{{cat}}"> 
+    <div class="sub-cat" ng-repeat="ct in subs track by $index" ng-if="ct.view == 0"> 
+       
+        <h2 class="form-2-bold up marginheading">{{ct.title}}</h2> 
+        <p class="form-2">{{ct.subtitle}}</p>
+        <div class="bigform-wrap" ng-repeat="item in ct.types track by $index"> 
+           
+            <div ng-if="item == 'i'">
+                <div ng-class="{hidden: ct.placeholders[$index] == 'Primary contact' || ct.placeholders[$index] == 'Leadership'}">
+                <h3 ng-class="{hidden: ct.placeholders[$index] == 'www.yourwebsite.org'}" class="form-2">{{ct.placeholders[$index]}}{{ct.all_placeholders[$index]}}</h3>
+                    <h3 ng-class="{hidden: ct.placeholders[$index] != 'www.yourwebsite.org'}" class="form-2">Your organization website*</h3>
+                    <p class="form-2">{{ct.prompts[$index]}}</p>
+                <input type="text" class="form-input margin form-2i" placeholder="{{ct.placeholders[$index]}}{{ct.all_placeholders[$index]}}" value="{{ct.data[$index]}}"/> 
+                </div> 
+              
+                <div ng-class="{visible: ct.placeholders[$index] == 'Primary contact'|| ct.placeholders[$index] == 'Leadership',
+                         hidden: ct.placeholders[$index] != 'Primary contact' && ct.placeholders[$index] != 'Leadership'}">
+                    <h3 class="form-2">{{ct.placeholders[$index]}}{{ct.all_placeholders[$index]}}</h3>
+                    <p class="form-2">{{ct.prompts[$index]}}</p>
+                    <input type="text" class="form-input margin form-2i" placeholder="First name" value="{{ct.f_name}}" />
+
+                    <input type="text" class="form-input margin form-2i" placeholder="Last name" value="{{ct.l_name}}" />
+
+                </div>
+            </div> 
+
+
+        
+            <div ng-if="item == 't'">
+                <h3 class="form-2">{{ct.placeholders[$index]}}</h3>
+                <p class="form-2">{{ct.prompts[$index]}}</p>
+                <textarea class="form-textarea-2 margin form-2i"  placeholder="{{ct.placeholders[$index]}}">{{ct.data[$index]}}</textarea>
+            </div>
+            <div ng-if="item == 'r'">
+                <h3 class="form-2">{{ct.placeholders[$index]}}{{ct.all_placeholders[$index]}}</h3>
+                <p class="form-2">{{ct.prompts[$index]}}</p> 
+            
+                <label class="switch2" ng-click="switch_radio($event)" id="radio{{$index}}{{$parent.$index}}">
+                    <span class="switch-container-2">
+
+                        <label class="radioli">
+                            <input type="radio" name="radio{{$index}}{{$parent.$index}}"/>
+                            <span class="rad2 y" ng-class="{radsel2: ct.data[$index] == true}"></span>
+                            <span class="input-span">Yes</span>
+                        </label>
+
+
+                        <label class="radioli">
+                            <input type="radio" name="radio{{$index}}{{$parent.$index}}"/>
+                            <span class="rad2 n" ng-class="{radsel2: ct.data[$index] != true}"></span>
+                            <span class="input-span">No</span>
+                        </label>
+                    </span>
+                </label>
+            </div>
+            <div ng-if="item == 'f'"> 
+                
+                <h3 class="form-2">{{ct.placeholders[$index]}}{{ct.all_placeholders[$index]}}</h3>
+                <p class="form-2">{{ct.prompts[$index]}}</p>  
+                <div class="btn-container">
+                <label class="add-btn plus" id="add{{num}}">
+                    <input type="file" name="f{{$index}}" ng-click="upload($event, ct, $index)"/>
+                    <img src="img/plus.png" class="icon-visible" />
+                </label> 
+                
+                </div> 
+                <p class="form-2 f-val" id="f{{$index}}"><span ng-show="ct.data[$index].name">Current file: {{ct.data[$index].name}}</span></p>
+            </div>
+            <div ng-if="item == 'd' && ct.info[$index] == 'multidrop'">
+
+                <div class="form-select"  ng-repeat="d in ct.info track by $index" ng-if="ct.info[$index] == 'multidrop'" > 
+                    <p class="hidden">{{ct_i = $index}}</p>
+                <h3 class="form-2">{{ct.placeholders[$parent.$index]}}</h3>
+                <select multiple ng-if="ct.info[$index] == 'multidrop'" class="form-control form-sel" ng-class="{tall: $index == 1}">
+                    <optgroup ng-repeat="i in ct.values[1] track by $index" label="{{i}}">
+                        <option ng-selected="map_vals1(v, $index, ct, ct_i)" ng-repeat="v in ct.drops[$index] track by $index">
+                            {{v}} 
+                        </option>
+                    </optgroup> 
+                </select>
+                </div> 
+
+            </div> 
+            <div ng-if="item == 'd' && ct.info[$index] == 'drop'"> 
+              
+                <div class="form-select" ng-repeat="d in ct.info track by $index" ng-if="ct.info[$index] == 'drop'"> 
+                    <p class="hidden">{{ct_i = $index}}</p>
+                    <h3 class="form-2">{{ct.placeholders[$parent.$index]}}</h3>
+                    <select multiple ng-if="ct.info[$index] == 'drop'" class="form-control form-sel">
+                        <option ng-selected="map_vals2(val, $index, ct,  ct_i)" ng-repeat="val in ct.values[$parent.$index] track by $index">{{val}}</option>
+                    </select>
+                </div>
+            </div>
+
+            </div>
+    </div>
+</form>
