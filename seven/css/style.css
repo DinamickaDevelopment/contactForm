@@ -1,0 +1,424 @@
+﻿@font-face {
+    font-family: 'Lato';
+    src: url(../fonts/Lato-Regular.ttf);
+}
+
+#body {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(202, 221, 255, 0.29);
+    font-family: 'Lato', sans-serif;
+    min-width: 600px;
+}  
+
+.category-heading {
+    margin-bottom: 70px;
+}
+
+.category-heading h1 {
+    color: #1f467d; 
+    font-family: 'Lato', sans-serif; 
+    font-size: 45px; 
+    font-weight: normal; 
+}
+
+.form-wrap {
+    text-align: center; 
+    padding: 0px 24%;
+}
+
+.category-wrap {
+    margin-top: 100px; 
+    display: inline-block; 
+}
+ 
+.input-wrap {
+    /*max-width: 1170px; 
+    min-width: 600px;*/  
+
+    margin-top: 15px; 
+
+}
+
+.input-overlay {
+    margin-top: -100px;
+    height: 100px;
+    background-color: #c3cbe1; 
+    padding-left: 30px; 
+    width: 100%; 
+}
+
+/* progress bar */
+
+.progress-bar-top {
+    top: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 999999999999;
+}
+
+.meter-top {
+    height: 50px;
+    position: relative;
+    background: #1f467d;
+}
+
+    .meter-top > span {
+        display: block;
+        height: 100%;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        background-color: rgb(30, 222, 140);
+        background-image: -moz-linear-gradient( center bottom, rgb(43,194,83) 37%, rgb(84,240,84) 69% );
+        position: relative;
+        overflow: hidden;
+    }
+
+        .meter-top > span:after, .animate > span > span {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent) );
+            background-image: -moz-linear-gradient( -45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent );
+            z-index: 1;
+            background-size: 50px 50px;
+            -webkit-animation: move 2s linear infinite;
+            -webkit-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            overflow: hidden;
+        }
+
+.animate > span:after {
+    display: none;
+}  
+
+.stats {
+    color: #fff;
+    font-size: 20px;
+    position: fixed;
+    right: 30px;
+    top: 10px;
+    font-weight: 800;
+    font-family: 'Lato', sans-serif; 
+}
+
+
+/* form inputs */  
+
+.form-input {
+    height: 100px;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    font-size: 23px;
+    color: #8a97bb;
+    position: relative;
+    z-index: 100; 
+    padding-left: 30px; 
+    display: inline-block;
+    background-color: #c3cbe1; 
+    padding-bottom: 0;
+    padding-top: 0;
+    /*transition: color 0.5s linear;
+    transition: background-color 0.5s linear;*/ 
+    font-family: 'Lato', sans-serif; 
+} 
+ 
+    .form-input:focus {
+        outline: none;
+    }
+
+.form-textarea {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    font-size: 23px;
+    color: #8a97bb;
+    position: relative;
+    z-index: 100;
+    padding-left: 30px;
+    padding-bottom: 0;
+    padding-top: 0;
+    display: inline-block;
+    /*transition: color 0.5s linear;
+    transition: background-color 0.5s linear;*/
+    font-family: 'Lato', sans-serif;
+    padding-top: 34px;
+    padding-bottom: 10px;
+    padding-right: 0;
+}
+
+    .form-textarea:focus {
+        outline: none;
+    }
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #8a97bb; 
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+    color: #8a97bb;
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+    color: #8a97bb;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: #8a97bb;
+}
+
+
+/* radio buttons */
+.switch-container {
+    margin-top: 10px;
+    width: 250px;
+    display: block;
+}
+
+input[type=radio] {
+    display: none;
+}
+
+.rad {
+    transition: background-color 0.3s linear;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-image: url(../img/unchecked.png);
+    width: 25px;
+    height: 25px;
+    display: block;
+    margin-right: 10px; 
+    cursor: pointer;
+    float: left;
+}
+
+.rad2 {
+    transition: background-color 0.3s linear;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-image: url(../img/unchecked2.png);
+    width: 25px;
+    height: 25px;
+    display: block;
+    margin-right: 10px; 
+    cursor: pointer;
+    float: left;
+}
+
+
+.rad-sel {
+    transition: background-color 0.3s linear;
+    background-image: url('../img/checked.png');
+}
+
+.radioli {
+    display: block;
+    float: left; 
+    margin-right: 10px; 
+}
+
+/* prompt */ 
+
+.prompt {
+    position: relative;
+    padding-left: 30px; 
+    background-color: #9dabd0;
+    font-family: Lato, sans-serif;
+    color: #fff;
+    font-size: 14px; 
+    margin-top: -75px; 
+    padding-top: 25px; 
+    height: 50px;
+    z-index: -1; 
+    width: 100%; 
+    /*transition: background-color 0.3s linear;*/
+}
+
+.prompt span {
+    margin-right: 30px;
+}
+
+/* slider animation */ 
+
+.hidden-wrap {
+    display: none; 
+    height: 100px;
+}
+
+.active-wrap {
+    height: 100px; 
+}
+
+.old-wrap {
+    height: 100px; 
+}
+
+/* add input */
+.plus {
+    height: 100px;
+    width: 100px;
+    background-color: #c3cbe1;
+    cursor: pointer;
+    transition: background-color 0.2s linear;
+}
+
+    .plus:hover {
+        background-color: rgb(60, 104, 167);
+    } 
+.icon {
+    width: 50px;
+    margin-top: 25px;
+    display: none;
+}
+
+
+.icon-visible {
+    width: 50px;
+    margin-top: 25px;
+}
+
+
+.add-text {
+    position: absolute;
+    margin-top: -66px;
+    margin-left: 120px;
+    font-size: 20px;
+    color: #9897bb;
+}
+
+/* addition */  
+
+.hideadd {
+    display: none; 
+} 
+.addition {
+    display: none; 
+}
+
+.stats-wrap {
+    width: 100%; 
+    text-align: left;
+} 
+
+.small-stats {
+    float: right;
+    margin-right: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1f467d;
+    margin-top: -20px;
+    display: inline-block;
+}
+ 
+.sub {
+
+    margin-right: 35px;
+    color: #162a63;
+} 
+
+.form-label {
+   color: #1f467d; 
+   font-size: 20px; 
+   font-weight: bold;
+} 
+
+.exp {
+    display: none; 
+}
+ 
+/* small input progress bars */ 
+
+.input-meter {
+    height: 10px;
+    position: relative;
+    background-color: #d9dfee;
+    padding-left: 30px; 
+    width: 100%; 
+} 
+.meter-span {
+    background-color: #162a63;
+    position: absolute;
+    width: 0%;
+    height: 10px; 
+} 
+
+/* continue button */ 
+
+
+#continue-btn:focus {
+    outline: none;
+}
+
+#continue-btn:hover {
+    transition: 0.2s background-color 0.2s color ease-in-out;
+    color: #1f467d;
+    background-color: rgba(134, 143, 183, 0.42);
+}
+
+.continue-btn-container {
+    margin: 0 auto;
+    margin-top: 100px; 
+    margin-bottom: 100px; 
+}
+
+#continue-btn {
+    font-weight: 600;
+    color: #fff;
+    border-radius: 25px;
+    height: 50px;
+    width: 100px;
+    background-color: #1f467d;
+    /*transition: all 0.2s ease-in-out;*/
+    border: 3px solid #1f467d;
+    margin: 0 auto;
+    display: block;
+    font-size: 17px; 
+    cursor: pointer; 
+} 
+
+.right {
+    width: 0px;
+    height: 100px;
+    position: relative;
+    margin-top: -110px;
+    float: right;
+    background-color: #28d68c;
+    z-index: 100000;
+    cursor: pointer;
+    margin-right: -30px;
+    transition: background-color 0.3s linear; 
+    cursor: pointer;  
+    /*transition: width linear 0.05s;*/ 
+}
+
+
+
+.wrong {
+    width: 0px;
+    height: 100px;
+    position: relative;
+    margin-top: -110px;
+    float: right;
+    background-color: #d85c5c; 
+    z-index: 99999;
+    cursor: pointer;
+    margin-right: -30px; 
+    cursor: pointer; 
+    /*transition: width linear 0.05s;*/ 
+}
+
+
+.submit {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute; 
+    cursor: pointer; 
+}
+
+
+/* form preview */ 
