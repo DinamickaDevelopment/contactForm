@@ -462,8 +462,14 @@ input[type=radio] {
 
 .sub-exp {
     height: 200px;
-    margin-top: -0px; 
+    margin-top: 0; 
+} 
+
+.sub-exp1 {
+    height: 200px;
+    margin-top: -200px; 
 }
+
 
 /* input file */
 input[type=file] {
