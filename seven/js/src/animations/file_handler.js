@@ -5,11 +5,9 @@
             $(this).parent('.label-wrap').animate({
                 'width': '100%'
             }, {
-                duration: 500,
-                start: function () {
-                    $(this).find('span').animate({ opacity: 0 }, 100); 
-                },
+                duration: 700,
                 complete: function () {
+                    $(this).find('span').animate({ opacity: 0 }, 100);
                     $(this).fadeOut(300, function () {
                         var id = '#' + $(this).attr('data-sub') + $(this).attr('data-q');
                         $(id).submit();

@@ -8,8 +8,8 @@ var inputmask_handler = require('./validation/inputmask_handler');
 var focus_handler = require('./animations/focus_handler.js');
 var question_change_handler = require('./animations/question_change_handler.js');
 var file_handler = require('./animations/file_handler.js');
+var add_input_handler = require('./animations/add_input_handler.js'); 
 
-var prompt_handler = require('./animations/prompt_handler.js');
 //var dropdown_handler = require('./animations/dropdown_handler.js');
 
 window.onload = function () {
@@ -18,5 +18,8 @@ window.onload = function () {
     focus_handler();
     question_change_handler();
     file_handler();
-    prompt_handler(); 
+    add_input_handler(); 
+
+
+
 }
