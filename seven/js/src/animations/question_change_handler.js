@@ -1,6 +1,4 @@
-﻿require('../../lib/vivus.min.js'); 
-
-module.exports = function () {
+﻿module.exports = function () {
 
     var curr_q = 0;  
     var curr_sub = 0; 
@@ -51,7 +49,6 @@ module.exports = function () {
         var q = parseInt(curr.attr('data-q')) + 1;
         var sub = parseInt(curr.attr('data-sub'));  
         var max = parseInt(r.attr('data-max'));
-
 
         var next = $(this).parent('.input-wrap').find('.hidden-wrap[data-q="' + q + '"][data-sub="' + sub + '"]');
         next.css({
@@ -149,9 +146,14 @@ module.exports = function () {
  
                         function cb() {
 
-                            if (q > max) {
+                            var stats = curr.parent('.input-wrap').find('.small-stats');
+                            var bar = curr.parent('.input-wrap').find('.input-meter').find('.meter-span');
+                            
 
-                                end_form(curr); 
+                            if (q > max) {
+ 
+
+                                small_progress(q, max, bar, stats, end_form, curr);
                                 return false; 
                             }
                             curr.fadeOut({
@@ -159,6 +161,7 @@ module.exports = function () {
                                 complete: function () {
 
 
+                                    curr.prev('.mock-input').css({ 'display': 'none' });
 
                                     r.css({
                                         'margin-right': '-30px',
@@ -189,8 +192,6 @@ module.exports = function () {
                                             
                                             curr.removeClass('active-wrap');
 
-                                            var stats = next.parent('.input-wrap').find('.small-stats'); 
-                                            var bar = next.parent('.input-wrap').find('.input-meter').find('.meter-span'); 
                                             small_progress(q, max, bar, stats); 
                                         }
                                     })
@@ -205,21 +206,48 @@ module.exports = function () {
 
 
     function end_form(elem) {
-        var thanx = elem.parent('.input-wrap').find('.thanx');
 
+            var thanx = elem.parent('.input-wrap').find('.thanx');
+            var id = thanx.find('svg').attr('id');
 
+            thanx.fadeIn(200, function () {
+
+                thanx.find('.big-input-meter').animate({
+                    width: '100%'
+                }, {
+                    duration: 700,
+                    complete: function () {
+                        var cool_check = new Vivus(id, {
+
+                            duration: 50,
+                            type: 'async',
+                            start: 'autostart',
+                            onReady: function () {
+                                thanx.find('svg').fadeIn(100);
+                            }
+                        });
+
+                        thanx.find('.thanx-p').fadeIn(200);
+                    }
+                })
+            })
     }
 
-    function small_progress(q, max, bar, s) {
-        
+    function small_progress(q, max, bar, s, cb, elem) {
+
         q--;
+ 
         var step = 100 / max;
         var width = step * q + '%';
-        console.log(width)
 
         bar.animate({
             width: width
-        }, 300);
+        }, {
+            duration: 300,
+            complete: function () {
+                if (cb) cb(elem);
+            }
+        });
 
         s.html(q + '/' + max); 
 

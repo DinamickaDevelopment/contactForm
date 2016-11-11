@@ -1,7 +1,7 @@
 require('../lib/jquery.router.js');
 require('../lib/inputmask.js');
 require('../lib/jquery.maskMoney.js'); 
-require('../lib/vivus.min.js'); 
+
 
 var radio_handler = require('./animations/radio_handler.js');
 var inputmask_handler = require('./validation/inputmask_handler');

@@ -45,6 +45,8 @@ module.exports = function () {
 
 
         if (!$(this).hasClass('addshown') && $(this).hasClass('show-add')) {
+
+         
             var wrap = $(this).parent('.mock-input').parent('.input-wrap');
             wrap.find('.hideadd').slideDown(300);
 
@@ -74,10 +76,10 @@ module.exports = function () {
                 height: '200px'
             })
 
-            $('.input-overlay[data-sub="' + sub + '"]').css({
-                'height': '200px',
-                'marginTop': '-200px'
-            })
+            //$('.input-overlay[data-sub="' + sub + '"]').css({
+            //    'height': '200px',
+            //    'marginTop': '-200px'
+            //})
 
             
             var next = $(this).parent('.mock-input').next('.exp');
