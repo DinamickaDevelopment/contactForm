@@ -7,51 +7,96 @@
 
     $('.form-textarea').on('input', handle_textarea);
 
-    //var isAnimating = false; 
+    var isAnimating = false; 
 
-    function handle_input() {
+    function handle_input(e) {
+    
+        
 
         $(this).css({
             'color': '#1f467d'
         })
 
-        //if (isAnimating) return false;
-        //else isAnimating = true; 
+        var sub = $(this).attr('data-sub');
 
-        var r = $(this).parents('.input-wrap').find('.right');
-        var w = $(this).parents('.input-wrap').find('.wrong');
- 
-        if (r.attr('data-sub') != $(this).attr('data-sub')) return false; 
 
-        if ($(this).hasClass('req')) {
+        if (isAnimating) return false;
+        else isAnimating = true; 
+
+        var r = $('#right' + sub);
+        var w = $('#wrong' + sub);
+
+        if (!$(this).hasClass('req')) {
                 show(r);
         } else {
-            if ($(this).val() == '') {
+            if (e.type == 'input') {
+                if ($(this).val() == '') {
 
-                hide(r);
-                show(w)
+                    hide(r);
+                    show(w)
+                } else {
+
+                    show(r);
+                }
             } else {
+                if ($(this).hasClass('add')) {
 
-                show(r); 
+                }
+
+                if ($(this).hasClass('addmask')) {
+                    if ($(this).inputmask('unmaskedvalue') != '') {
+                        show(r);
+                    } else {
+                        hide(r);
+                        show(w)
+                    }
+                } else if (!$(this).hasClass('req')) {
+                    show(r);
+                } else {
+                    show(w);
+                }
             }
         }
     }
 
-    function handle_textarea() {
+    function handle_textarea(e) {
+        var sub = $(this).attr('data-sub');
+
+
+        var r = $('#right' + sub);
+        var w = $('#wrong' + sub);
+
+        if (e.type == 'input') {
+            //var text = $(this).val(); 
+            //text = text.replace(/[^a-zA-Z\s]/g, '');
+
+            //var words = text.split(/[\s]+/);
+
+            //// show word limit! 
+            //console.log(words); 
+
+            //if (words.length > parseInt($(this).attr('data-wordcount'))) {
+                
+            //    hide(r);
+            //    show(w);
+
+            //    return false;
+            //} else {
+            //    show(r); 
+            //}
+        } 
+
         $(this).css({
             'color': '#1f467d'
         })
 
-        //if (isAnimating) return false;
-        //else isAnimating = true;
+     
 
-        var r = $(this).parents('.input-wrap').find('.right');
-   
-        var w = $(this).parents('.input-wrap').find('.wrong');
+        if (isAnimating) return false;
+        else isAnimating = true;
 
-        if (r.attr('data-sub') != $(this).attr('data-sub')) return false;
 
-        if (!$(this).attr('required')) {
+        if (!$(this).hasClass('req')) {
                show(r, true);
         } else {
             if ($(this).val() == '') {
@@ -67,6 +112,7 @@
     }
 
     function show(elem, isBig, cb) {
+
         elem.animate({
             width: 100 + 'px',
             height: function () {
@@ -77,7 +123,7 @@
             duration: 200,
             complete: function () {
                 elem.find('.icon').fadeIn(200, function () {
-                    //isAnimating = false;
+                    isAnimating = false;
                     if (cb) cb();
                 });
             }
@@ -95,7 +141,7 @@
             }, {
                 duration: 200,
                 complete: function () {
-                    //isAnimating = false;
+                    isAnimating = false;
                     if (cb) cb();
                 }
             })

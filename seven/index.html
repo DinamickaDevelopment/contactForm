@@ -36,97 +36,131 @@
                 <div class="stats-wrap">
                     <label class="form-label" id="label00">Basic Organization Information</label>
                     <p class="sub" id="sub00"></p>
-                    <span class="small-stats" id="stats00" data-max="15"></span>
+                    <span class="small-stats" id="stats00" data-max="14"></span>
                 </div>
 
 
-                <div class="active-wrap" data-q="1">
-                    <form class="input-form" id="01" data-category="0" >
+                <div class="active-wrap" data-q="1" data-category="0" data-sub="0">
+                    <form class="input-form" id="01" name="01" data-category="0" data-sub="0">
                         <input data-sub="0" required class="req form-input addmask showprompt" data-maskval="99-9999999" id="inp00" placeholder="Employer Identification Number (EIN)*" />
                         <div class="prompt big-prompt">
                             <span>Enter this 9-digit number using the following format XX-XXXXXXX. EIN is an Employer Identification Number assigned by the IRS to identify a particular organization</span>
-                        </div>
+                        </div> 
+
+                        <input type="submit" class="submit" data-sub="0" data-q="1"/>
                     </form>
                 </div>
 
-                <div class="hidden-wrap" data-q="2">
-                    <form class="input-form" id="02" data-category="0" >
+                <div class="hidden-wrap" data-q="2" data-category="0" data-sub="0">
+                    <form class="input-form" id="02" name="02" data-category="0" data-sub="0">
                         <input data-sub="0" required class="req form-input" type="text" placeholder="Full legal name of the organization*" />
-                    </form>
+                        <input type="submit" class="submit" data-sub="0" data-q="2" />
+                     </form> 
+
+                    
                 </div>
-                <div class="hidden-wrap" data-q="3">
-                    <form class="input-form" id="03" data-category="0" >
+                <div class="hidden-wrap" data-q="3" data-category="0" data-sub="0">
+                    <form class="input-form" id="03" name="03" data-category="0" data-sub="0">
                         <input data-sub="0" class="form-input" type="text" placeholder="Your organization is also known as (AKA)" />
-                    </form>
+                        <input type="submit" class="submit" data-sub="0" data-q="3" />
+                     </form> 
+
+                   
                 </div>
-                <div class="hidden-wrap" data-q="4">
-                    <form class="input-form" id="04" data-category="0" >
+                <div class="hidden-wrap" data-q="4" data-category="0" data-sub="0">
+                    <form class="input-form" id="04" name="04" data-category="0" data-sub="0">
                         <input data-sub="0" required class="req form-input showprompt" pattern="^(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})$" title="Valid format: www.yoursite.com or http://www.yoursite.com" placeholder="www.yourwebsite.org" />
                         <div class="prompt">
                             <span>Your organization website. Required field</span>
-                        </div>
-                    </form>
-                </div>
-                <div class="hidden-wrap" data-q="5">
-                    <form class="input-form" id="05" data-category="0" >
-                        <textarea data-sub="0" class="form-textarea wordcount" data-wordcount="30" placeholder="Please add your organization mission statement here."></textarea>
-                    </form>
-                </div>
-                <div class="hidden-wrap" data-q="6">
-                    <form class="form-input" id="06" data-category="0" >
-                        <textarea data-sub="0" class="form-textarea wordcount" data-wordcount="30" placeholder="Please include your organization history."></textarea>
-                    </form>
-                </div>
-                <div class="hidden-wrap" data-q="7">
-                    <form class="form-input" id="07" data-category="0" >
-                        <textarea data-sub="0" class="form-textarea wordcount" data-wordcount="50" placeholder="Please describe your organization's work"></textarea>
-                    </form>
-                </div>
-                <div class="hidden-wrap" data-q="8" >
+                        </div> 
 
-                    <form class="form-input" id="08" data-category="0" >
+                        <input type="submit" class="submit" data-sub="0" data-q="4" />
+                    </form>
+                </div>
+                <div class="hidden-wrap" data-q="5" data-type="t" data-category="0" data-sub="0">
+                    <form class="input-form" id="05" name="05" data-category="0" data-sub="0">
+                        <textarea data-sub="0" class="form-textarea wordcount" data-wordcount="30" placeholder="Please add your organization mission statement here."></textarea>
+                        <input type="submit" class="submit" data-sub="0" data-q="5" />
+                     </form> 
+
+                   
+                </div>
+                <div class="hidden-wrap" data-q="6" data-type="t" data-category="0" data-sub="0">
+                    <form class="input-form" id="06" name="06" data-category="0" data-sub="0">
+                        <textarea data-sub="0" class="form-textarea wordcount" data-wordcount="30" placeholder="Please include your organization history."></textarea>
+                        <input type="submit" class="submit" data-sub="0" data-q="6" />
+                     </form> 
+
+                  
+                </div>
+                <div class="hidden-wrap" data-q="7" data-type="t" data-category="0" data-sub="0">
+                    <form class="input-form" id="07" name="07" data-category="0" data-sub="0">
+                        <textarea data-sub="0" class="form-textarea wordcount" data-wordcount="50" placeholder="Please describe your organization's work"></textarea>
+                        <input type="submit" class="submit" data-sub="0" data-q="7" />
+                      </form> 
+
+                   
+                </div>
+                <div class="hidden-wrap" data-q="8" data-category="0" data-sub="0">
+
+                    <form class="input-form" id="08" data-category="0" data-sub="0">
                         <input data-sub="0" class="form-input" type="text" placeholder="Add a tagline for your organization" />
-                    </form>
+                        <input type="submit" class="submit" data-sub="0" data-q="8" />
+                     </form> 
+
+                   
                 </div>
-                <div class="hidden-wrap" data-q="9">
-                    <form class="form-input" id="09" data-category="0" >
-                        <label class="label-wrap">
+                <div class="hidden-wrap" data-q="9" data-type="file" data-category="0" data-sub="0">
+                    <form class="input-form" id="09" data-category="0" data-sub="0" data-q="9">
+                        <label class="label-wrap" data-sub="0" data-q="9">
                             <span>Add organization logo</span>
-                            <input data-sub="0" type="file" id="f00" name="f00" />
-                        </label>
-                    </form>
+                            <input type="file" id="f00" name="f00"/>
+                        </label> 
+
+                        <input type="submit" class="submit" data-sub="0" data-q="9"/>
+                    </form> 
                 </div>
-                <div class="hidden-wrap" data-q="10">
-                    <form class="form-input" id="010" data-category="0" >
+                <div class="hidden-wrap" data-q="10" data-category="0" data-sub="0">
+                    <form class="input-form" id="010" data-category="0" data-sub="0">
                         <input data-sub="0" class="form-input" pattern="^[0-9-]{1,20}$" title="Only digits allowed" placeholder="Number of staff at your organization" />
-                    </form>
+                        <input type="submit" class="submit" data-sub="0" data-q="10" />
+                    </form> 
+
+                 
                 </div>
-                <div class="hidden-wrap" data-q="11">
-                    <form class="form-input" id="011" data-category="0">
+                <div class="hidden-wrap" data-q="11"  data-category="0" data-sub="0">
+                    <form class="input-form" id="011" data-sub="0" data-q="11" data-category="0">
                         <div class="name-wrap showprompt">
                             <input  data-sub="0" class="form-input" type="text" placeholder="First name" />
                             <input  data-sub="0" class="form-input" type="text" placeholder="Last name" />
-                        </div>
+                        </div>  
+
+                        <input type="submit" class="submit" />
                         <div class="prompt">
                             <span>First name and last name</span>
-                        </div>
+                        </div> 
+
+                       
                     </form>
                 </div>
-                <div class="hidden-wrap" data-q="12" data-category="0" >
-                    <form class="form-input" id="012">
+                <div class="hidden-wrap" data-q="12" data-category="0" data-sub="0">
+                    <form class="input-form" id="012" data-sub="0" data-q="12" data-category="0">
                         <input data-sub="0" class="form-input" type="email" placeholder="Primary contact email" />
-                    </form>
+                        <input type="submit" data-sub="0" data-q="12" class="submit" />
+                    </form> 
                 </div>
-                <div class="hidden-wrap" data-q="13" data-category="0" >
-                    <form class="form-input" id="013">
+                <div class="hidden-wrap" data-q="13" data-category="0" data-sub="0">
+                    <form class="input-form" id="013"  data-q="13" data-category="0"  data-sub="0">
                         <input data-sub="0" class="form-input addmask" type="text" data-maskval="(999) 999-9999" placeholder="Primary contact phone number" />
+                        <input type="submit" data-sub="0" data-q="13" class="submit" />
                     </form>
                 </div> 
-                <div class="hidden-wrap" data-q="14" data-category="0" >
-                    <form class="form-input" id="014">
-                        <div class="form-input showprompt">
-                            <span>Can an individual or an organization contact you regarding your organization?</span>
+                <div class="hidden-wrap" data-q="14" data-category="0" data-type="r" data-sub="0">
+                    <form class="input-form" id="014"  data-q="14" data-category="0"  data-sub="0">
+                        <div class="form-input showprompt radio-inp">
+                            <span class="radio-q">Can an individual or an organization contact you regarding your organization?</span>
                         </div>
+                        <input type="submit" data-sub="0" data-q="14" class="submit" />
                         <div class="prompt">
                             <label class="switch" id="switch00">
                                 <span class="switch-container">
@@ -146,20 +180,21 @@
                                 </span>
                             </label>
                         </div>
+                    
                     </form>
                 </div>
 
-                <div class="input-overlay"></div>
+                <div class="input-overlay" data-sub="0"></div>
 
                 <div class="input-meter">
                     <div class="meter-span"></div>
                 </div>
 
-                <div class="right" data-sub="0">
-                    <input type="submit" class="submit" />
+                <div class="right" data-sub="0" data-q="1" id="right0" data-max="14">
+                   
                     <img class="icon" src="img/arr.png" />
                 </div>
-                <div class="wrong" data-sub="0">
+                <div class="wrong" data-sub="0" id="wrong0">
                     <img class="icon" src="img/cross.png" />
                 </div>
 
@@ -170,56 +205,60 @@
                 <div class="stats-wrap">
                     <label class="form-label" id="label01a">Address</label>
                     <p class="sub" id="sub01a"></p>
-                    <span class="small-stats" id="stats01a" data-max="2"></span>
+                    <span class="small-stats" id="stats01a" data-max="1"></span>
                 </div>
 
                 <div class="mock-input">
-                    <input class="form-input" placeholder="Address" />
+                    <input class="form-input add" placeholder="Address" data-sub="1"/>
                 </div>
 
-                <div class="active-wrap exp" data-q="1">
-                    <div class="input-drop" id="drop01a">
-                        <input class="form-input input-cell" placeholder="Main/physical address*" />
-                        <input class="form-input input-cell" placeholder="Building/suite number" />
-                        <input class="form-input input-cell" placeholder="State" />
-                        <input class="form-input input-cell" placeholder="City" />
-                        <input class="form-input input-cell addmask" data-maskval="99999" placeholder="Zip Code" />
-                        <input class="form-input input-cell" placeholder="Country" />
-                        <div class="form-input input-cell" id="radio01a">
-                            <label class="switch" id="switch01a">
-                                <span class="switch-container">
+                <div class="active-wrap exp" data-q="1" data-category="0" data-sub="1" >
+                    <form class="input-form" id="11" data-q="1" data-category="0" data-sub="1">
+                        <div class="input-drop" id="drop01a">
+                            <input class="form-input input-cell" placeholder="Main/physical address*" />
+                            <input class="form-input input-cell" placeholder="Building/suite number" />
+                            <input class="form-input input-cell" placeholder="State" />
+                            <input class="form-input input-cell" placeholder="City" />
+                            <input class="form-input input-cell addmask" data-maskval="99999" placeholder="Zip Code" />
+                            <input class="form-input input-cell" placeholder="Country" />
+                            <div class="form-input input-cell" id="radio01a">
+                                <label class="switch" id="switch01a">
+                                    <span class="switch-container">
 
-                                    <label class="radioli">
-                                        <input type="radio" name="check01a" />
-                                        <span class="rad y" id="check01a"></span>
-                                        <span class="input-span">Yes</span>
-                                    </label>
+                                        <label class="radioli">
+                                            <input type="radio" name="check01a" />
+                                            <span class="rad y" id="check01a"></span>
+                                            <span class="input-span">Yes</span>
+                                        </label>
 
 
-                                    <label class="radioli">
-                                        <input type="radio" name="check01a" />
-                                        <span class="rad n" id="check01an"></span>
-                                        <span class="input-span">No</span>
-                                    </label>
-                                </span>
-                            </label>
+                                        <label class="radioli">
+                                            <input type="radio" name="check01a" />
+                                            <span class="rad n" id="check01an"></span>
+                                            <span class="input-span">No</span>
+                                        </label>
+                                    </span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
+
+                        <input type="submit" class="submit" data-sub="1" data-q="1" />
+                    </form>
                 </div>
                 <div class="input-overlay"></div>
                 <div class="input-meter">
                     <div class="meter-span"></div>
                 </div>
 
-                <div class="right">
-                    <input type="submit" class="submit" />
+                <div class="right" id="right1" data-sub="1" data-q="1" data-max="1">
+                  
                     <img class="icon" src="img/arr.png" />
                 </div>
                 <div class="wrong">
                     <img class="icon" src="img/cross.png" />
                 </div>
 
-                <div class="add-inp hideadd">
+                <div class="add-inp hideadd" id="add1">
 
                     <div class="add-btn plus">
                         <img src="img/plus.png" class="icon-visible" />
