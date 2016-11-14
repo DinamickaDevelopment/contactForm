@@ -14,6 +14,8 @@ var nested_dropdown_handler = require('./animations/nested_dropdown_handler.js')
 
 window.onload = function () {
     var flag = false;
+    var init_flag = false; 
+
     $.router.add('/view', function () {
         if (flag) {
             flag = false;
@@ -29,14 +31,19 @@ window.onload = function () {
         $('.content-wrap').fadeIn(300);
         $('.form-preview-wrap').fadeOut(300);
 
-        radio_handler();
-        inputmask_handler();
-        focus_handler();
-        question_change_handler();
-        file_handler();
-        add_input_handler();
-        dropdown_select_handler();
-        nested_dropdown_handler();
+        if (!init_flag) {
+
+            init_flag = true; 
+
+            radio_handler();
+            inputmask_handler();
+            focus_handler();
+            question_change_handler();
+            file_handler();
+            add_input_handler();
+            dropdown_select_handler();
+            nested_dropdown_handler();
+        }
 
     });
     $.router.go('/view');
