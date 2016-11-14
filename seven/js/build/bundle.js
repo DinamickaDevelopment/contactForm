@@ -174,7 +174,6 @@
 	                        var html = '<div class="form-input2" data-q="' + (i + 1) + '">' +
 	                            '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
 	                            '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>'
-	                            //+ new_inputs.eq(i).prop('outerHTML') +
 	                          + '</div> '
 	                        if (new_inputs.eq(i).attr('data-type') == 'radio') {
 
@@ -192,8 +191,8 @@
 	                            var html = '<div class="form-input2" data-q="' + (i + 1) + '">' +
 	                            '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
 	                            '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>' +
-	                            '<label class="add-file plus">'// + new_inputs.eq(i).prop('outerHTML')
-	                            + '<img class="icon2" src="img/plus.png" /></label>' + '<span class="file-span"></span>'
+	                            '<label class="add-file plus">'
+	                            + '<div class="icon-plus"></div></label>' + '<span class="file-span"></span>'
 	                            '</div> '
 
 	                        }
