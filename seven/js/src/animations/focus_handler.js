@@ -12,11 +12,6 @@ module.exports = function () {
 
     $('.rad').on('click', function () {
         var sub = $(this).attr('data-sub');
-        if (sub == '0') {
-            $('#right0').css({
-                'marginTop': '-185px'
-            }); 
-        }
 
         show($('#right' + sub)); 
     });
@@ -25,10 +20,14 @@ module.exports = function () {
 
     function handle_input(e) {
         
+        var wrap = $(this).parent('form').parent('.active-wrap');
+        var s = wrap.find('.submit'); 
+
         if (e.target.classList.contains('exp-drop')) {
             dropdown_handler($(this));
             return false; 
         }
+
 
         $(this).css({
             'color': '#1f467d'
@@ -37,12 +36,27 @@ module.exports = function () {
         var sub = $(this).attr('data-sub');
 
 
-        if (isAnimating) return false;
+        if (isAnimating) {
+            setTimeout(function() {
+                isAnimating = false; 
+            }, 200)
+            return false; 
+        }
         else isAnimating = true; 
 
         var r = $('#right' + sub);
         var w = $('#wrong' + sub);
 
+        if (r.width() > 0) {
+            s.css({
+                'display': 'block'
+            })
+        }
+
+        if ($(this).hasClass('input-cell')) {
+            isAnimating = false;
+            return false; 
+        }
 
         if (!$(this).hasClass('addshown') && $(this).hasClass('show-add')) {
 
@@ -55,7 +69,8 @@ module.exports = function () {
 
             if ($(this).hasClass('drop')) {
 
-                dropdown_handler($(this)); 
+                dropdown_handler($(this));
+                isAnimating = false; 
                 return false; 
             } 
 
@@ -66,21 +81,14 @@ module.exports = function () {
             var self = $(this);
 
 
-
             w.animate({
-                marginTop: '-210px',
+                marginTop: '-200px',
                 height: '200px'
             })
             r.animate({
-                marginTop: '-210px',
+                marginTop: '-200px',
                 height: '200px'
             })
-
-            //$('.input-overlay[data-sub="' + sub + '"]').css({
-            //    'height': '200px',
-            //    'marginTop': '-200px'
-            //})
-
             
             var next = $(this).parent('.mock-input').next('.exp');
 
@@ -90,6 +98,7 @@ module.exports = function () {
             }); 
             next.slideDown(400, function () {
 
+              
                 self.css({'opacity': '0'})
 
                 isAnimating = false;
@@ -100,12 +109,28 @@ module.exports = function () {
         }
 
         if ($(this).hasClass('showprompt')) {
-            $(this).removeClass('showprompt');
-            prompt_handler($(this), r, w);
+            if (!$(this).hasClass('multiprompt')) {
+                $(this).removeClass('showprompt');
+            }
+            prompt_handler($(this));
+        } else if ($(this).parent('.name-wrap').hasClass('showprompt')) {
+            prompt_handler($(this).parent('.name-wrap'));
         }
 
-        if (!$(this).hasClass('expanded') && $(this).parent('.name-wrap').hasClass('fullname')) {
+        if ($(this).parent('div').hasClass('name-wrap')) {
+            var s = $(this).parent('.name-wrap').parent('form').find('.submit');
 
+            s.css({
+                'display': 'block'
+            })
+        }
+        if (!$(this).hasClass('expanded') && $(this).parent('.name-wrap').hasClass('fullname')) {
+             
+            var s = $(this).parent('.name-wrap').parent('form').find('.submit'); 
+
+            s.css({
+                  'display': 'block'
+            })
             var self = $(this);
 
             $(this).parent('.name-wrap').parent('form').parent('.active-wrap').animate({
@@ -122,11 +147,11 @@ module.exports = function () {
                 'margin-top': '-200px'
             }, 300)
             w.animate({
-                marginTop: '-210px',
+                marginTop: '-200px',
                 height: '200px'
             })
             r.animate({
-                marginTop: '-210px',
+                marginTop: '-200px',
                 height: '200px'
             }, {
                 duration: 300,
@@ -135,6 +160,8 @@ module.exports = function () {
                     self.addClass('expanded');
                 }
             })
+
+
         }
     
         if ($(this).parent('form').parent('.active-wrap').hasClass('exp1') && !$(this).hasClass('expanded')) {
@@ -154,12 +181,12 @@ module.exports = function () {
             }, 300)
 
             w.animate({
-                marginTop: '-210px',
+                marginTop: '-200px',
                 height: '200px'
             })
 
             r.animate({
-                marginTop: '-210px',
+                marginTop: '-200px',
                 height: '200px'
             }, {
                 duration: 300,
@@ -172,32 +199,34 @@ module.exports = function () {
         }
 
         if (!$(this).hasClass('req')) {
+                s.css({ 'display': 'block' });
                 show(r);
         } else {
             if (e.type == 'input') {
                 if ($(this).val() == '') {
 
+                    s.css({ 'display': 'none' }); 
                     hide(r);
                     show(w)
                 } else {
-
+                    s.css({ 'display': 'block' }); 
                     show(r);
                 }
             } else {
-                if ($(this).hasClass('add')) {
-
-                }
 
                 if ($(this).hasClass('addmask')) {
                     if ($(this).inputmask('unmaskedvalue') != '') {
+                        s.css({ 'display': 'block' }); 
                         show(r);
                     } else {
-                        hide(r);
-                        show(w)
+                        s.css({ 'display': 'none' });
+                        hide(r, null, show, w, null);
                     }
                 } else if (!$(this).hasClass('req')) {
+                    s.css({ 'display': 'block' }); 
                     show(r);
                 } else {
+                    s.css({ 'display': 'none' });
                     show(w);
                 }
             }
@@ -209,9 +238,25 @@ module.exports = function () {
 
     function handle_textarea(e) {
         var sub = $(this).attr('data-sub');
+        var wrap = $(this).parent('form').parent('.active-wrap');
+        var all_wrap = wrap.parent('.input-wrap'); 
+        var q = wrap.attr('data-q');
+        var s = wrap.find('.submit'); 
 
         var r = $('#right' + sub);
+
+        if (r.width() > 0) {
+            s.css({
+                'display': 'block'
+            })
+        }
+
         var w = $('#wrong' + sub);
+
+        if ($(this).hasClass('showprompt')) {
+            $(this).removeClass('showprompt');
+            prompt_handler($(this));
+        }
 
         if (!$(this).hasClass('expanded')) {
 
@@ -235,12 +280,12 @@ module.exports = function () {
             }, 300) 
 
             w.animate({
-                marginTop: '-210px',
+                marginTop: '-200px',
                 height: '200px'
             })
 
             r.animate({
-                marginTop: '-210px',
+                marginTop: '-200px',
                 height: '200px'
             }, {
                 duration: 300,
@@ -254,25 +299,29 @@ module.exports = function () {
 
 
         if (e.type == 'input') {
+
+            var prompt = all_wrap.find('.prompt[data-q="' + q + '"]'); 
+
             var text = $(this).val(); 
             text = text.replace(/[^a-zA-Z\s]/g, '');
 
             var words = text.split(/[\s]+/);
 
             // show word limit! 
-            console.log(words.length); 
+            console.log(words.length);
+            prompt.find('span').html(words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used'); 
 
             if (words.length > parseInt($(this).attr('data-wordcount')) && !wrong_shown) {
                 wrong_shown = true;
-                right_shown = false; 
-
-                hide(r);
-                show(w);
+                right_shown = false;
+                s.css({ 'display': 'none' });
+                hide(r, true, show, w, true);
 
                 return false;
             } else if (!right_shown) {
                 wrong_shown = false;
                 right_shown = true;
+                s.css({ 'display': 'block' }); 
                 show(r); 
             }
         } 
@@ -288,28 +337,33 @@ module.exports = function () {
 
 
         if (!$(this).hasClass('req')) {
+               s.css({ 'display': 'block' });
                show(r, true);
         } else {
             if ($(this).val() == '') {
-
-                hide(r, true); 
-                show(w, true)
+                s.css({ 'display': 'none' });
+                hide(r, true, show, w, true); 
+         
                 
             } else {
-
+                s.css({ 'display': 'block' });
                 show(r, true);
             }
         }
     }
 
+    var isAnimating2 = false; 
     function show(elem, isBig, cb) {
+        if (isAnimating2) return false;
+        else isAnimating2 = true; 
 
         elem.animate({
             width: 100 + 'px',
             height: function () {
                 if (isBig) return '200px';
                 else {
-                    isAnimating = false; 
+                    isAnimating = false;
+                    isAnimating2 = false; 
                     return false
                 };
             }
@@ -318,13 +372,17 @@ module.exports = function () {
             complete: function () {
                 elem.find('.icon').fadeIn(200, function () {
                     isAnimating = false;
+                    isAnimating2 = false;
                     if (cb) cb();
                 });
             }
         })
     }
 
-    function hide(elem, isBig, cb) {
+    function hide(elem, isBig, cb, w, isBig2) {
+        if (isAnimating2) return false;
+        else isAnimating2 = true;
+
         elem.find('.icon').fadeOut(200, function () {
             elem.animate({
                 width: '0px',
@@ -332,6 +390,7 @@ module.exports = function () {
                     if (isBig) return '200px';
                     else {
                         isAnimating = false;
+                        isAnimating2 = false;
                         return false
                     };
                 }
@@ -339,7 +398,8 @@ module.exports = function () {
                 duration: 200,
                 complete: function () {
                     isAnimating = false;
-                    if (cb) cb();
+                    isAnimating2 = false;
+                    if (cb) cb(w, isBig2);
                 }
             })
         })

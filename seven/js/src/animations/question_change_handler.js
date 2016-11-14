@@ -1,10 +1,10 @@
-﻿module.exports = function () {
+﻿var end_form = require('./check_handler'); 
+var small_progress = require('./progress_bar'); 
 
-    var curr_q = 0;  
-    var curr_sub = 0; 
+module.exports = function () {
 
     var input_forms = document.forms;
-    console.log(input_forms); 
+
     for (var i = 0; i < input_forms.length; i++) {
         input_forms[i].onsubmit = function (e) {
            
@@ -47,7 +47,7 @@
 
         var curr = $(this).parents('.input-wrap').find('.active-wrap');
         var q = parseInt(curr.attr('data-q')) + 1;
-        var sub = parseInt(curr.attr('data-sub'));  
+        var sub = parseInt(curr.attr('data-sub'));
         var max = parseInt(r.attr('data-max'));
 
         var next = $(this).parent('.input-wrap').find('.hidden-wrap[data-q="' + q + '"][data-sub="' + sub + '"]');
@@ -55,63 +55,55 @@
             'z-index': q + 1
         });
 
+
         if (curr.hasClass('prompt_shown')) {
 
-            if (curr.attr('data-type') == 't') {
-                animate_q();
-            } else {
-                curr.animate({
-                    height: '100px'
-                }, {
-                    duration: 300,
-                    complete: function () {
-                       
-                    }
+            var pr = curr.parent('.input-wrap').find('.prompt[data-q="' + (q - 1) + '"]');
+
+            pr.find('span').fadeOut(100, function () {
+                pr.slideUp({
+                    duration: 200,
+                    start: animate_q
                 })
-
-                r.animate({
-                    marginTop: '-110px'
-
-                }, 300)
-
-                w.animate({
-                    marginTop: '-110px'
-                }, 300)
-                animate_q();
-            }
+            })
 
         } else {
-            animate_q(); 
+            animate_q();
         }
 
         function animate_q() {
             if (curr.hasClass('collapse')) {
-                curr.animate({
-                    'height': curr.height() - 100 + 'px'
-                }, 300)
-
-                if (curr.attr('data-type') == 't') {
-                    curr.find('textarea').animate({
-                        'height': '100px'
-                    }, {
-                        duration: 300,
-                        complete: function () {
-                            animate_transition();
-                        }
-                    })
-                } else {
-                    animate_transition();
-                }
 
                 r.animate({
                     height: '100px',
-                    marginTop: '-110px'
-                }, 300);
+                    marginTop: '-100px'
+                }, {
+                    duration: 300,
+                    start: function () {
+                        curr.animate({
+                            'height': curr.height() - 100 + 'px'
+                        }, 300)
+
+                        if (curr.attr('data-type') == 't') {
+                            curr.find('textarea').animate({
+                                'height': '100px'
+                            }, {
+                                duration: 300,
+                                complete: function () {
+                                    animate_transition();
+                                }
+                            })
+                        } else {
+                            animate_transition();
+                        }
+
+                    }
+                });
 
                 w.css({
                     'width': '0px',
                     'height': '100px',
-                    'margin-top': '-110px'
+                    'margin-top': '-100px'
                 });
                 w.find('.icon').css({
                     'display': 'none'
@@ -121,6 +113,9 @@
                     height: '100px',
                     marginTop: '-100px'
                 }, 300);
+
+
+
             } else {
                 animate_transition();
             }
@@ -143,18 +138,18 @@
                         }
 
                         cb();
- 
+
                         function cb() {
 
                             var stats = curr.parent('.input-wrap').find('.small-stats');
                             var bar = curr.parent('.input-wrap').find('.input-meter').find('.meter-span');
-                            
+
 
                             if (q > max) {
- 
+
 
                                 small_progress(q, max, bar, stats, end_form, curr);
-                                return false; 
+                                return false;
                             }
                             curr.fadeOut({
                                 duration: 300,
@@ -181,7 +176,7 @@
 
                                     next.addClass('active-wrap');
                                     next.removeClass('hidden-wrap');
-                                    next.css({'opacity': '0'})
+                                    next.css({ 'opacity': '0' })
 
 
                                     next.animate({
@@ -189,10 +184,14 @@
                                     }, {
                                         duration: 200,
                                         complete: function () {
-                                            
+
                                             curr.removeClass('active-wrap');
 
-                                            small_progress(q, max, bar, stats); 
+                                            small_progress(q, max, bar, stats);
+
+                                            if (next.hasClass('showradio')) {
+                                                next.find('.radio-inp').trigger('click'); 
+                                            }
                                         }
                                     })
                                 }
@@ -203,54 +202,4 @@
             })
         }
     }
-
-
-    function end_form(elem) {
-
-            var thanx = elem.parent('.input-wrap').find('.thanx');
-            var id = thanx.find('svg').attr('id');
-
-            thanx.fadeIn(200, function () {
-
-                thanx.find('.big-input-meter').animate({
-                    width: '100%'
-                }, {
-                    duration: 700,
-                    complete: function () {
-                        var cool_check = new Vivus(id, {
-
-                            duration: 50,
-                            type: 'async',
-                            start: 'autostart',
-                            onReady: function () {
-                                thanx.find('svg').fadeIn(100);
-                            }
-                        });
-
-                        thanx.find('.thanx-p').fadeIn(200);
-                    }
-                })
-            })
-    }
-
-    function small_progress(q, max, bar, s, cb, elem) {
-
-        q--;
- 
-        var step = 100 / max;
-        var width = step * q + '%';
-
-        bar.animate({
-            width: width
-        }, {
-            duration: 300,
-            complete: function () {
-                if (cb) cb(elem);
-            }
-        });
-
-        s.html(q + '/' + max); 
-
-    }
-
 }
