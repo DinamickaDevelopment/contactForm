@@ -12,13 +12,17 @@ var add_input_handler = require('./animations/add_input_handler.js');
 var dropdown_select_handler = require('./animations/dropdown_select_handler.js');
 var nested_dropdown_handler = require('./animations/nested_dropdown_handler.js');
 
+var data_handler = require('./data_handler.js'); 
+
+
 window.onload = function () {
     var flag = false;
     var init_flag = false; 
 
-    $.router.add('/view', function () {
+    $.router.add('/view', function () { 
         if (flag) {
             flag = false;
+            data_handler.refresh_data();
             $('.form-preview-wrap').find('.form-input2').remove(); 
         }
 
@@ -71,8 +75,11 @@ window.onload = function () {
         })
 
     })
-    $.router.add('/preview', function () {
 
+    var handler_added = false; 
+
+    $.router.add('/preview', function () {
+       
         $('.big-container').fadeIn(500);
         $('.thank-you-screen').css({
             'height': '0px',
@@ -96,14 +103,72 @@ window.onload = function () {
 
         if (!flag) {
             flag = true;
+
+            var isMapped = false; 
+  
+            
             var btn = $('#continue-btn');
             map_inputs.call(btn);
-            $('#continue-btn-2').on('click', function () {
-                $.router.go('/done');
-            })
+
+            if (!handler_added) {
+                $('#ct0').on('submit', function (e) {
+
+                    e.preventDefault();
+
+                    var form_inputs = $(this).find('.map-input').not('.hidden-addition').not('.l').not('.a').not('.sel');
+                    var leadership_inputs = $(this).find('.map-input.l').not('.hidden-addition');
+                    var address_inputs = $(this).find('.map-input.a').not('.hidden-addition');
+                    var dropdowns = $(this).find('.map-input.sel').not('.hidden-addition');
+
+                    for (var i = 0 ; i < form_inputs.length; i++) {
+                        var propname = form_inputs.eq(i).attr('name');
+
+                        if (propname != 'regions') {
+                            if (propname.split('.').length > 1) {
+                                var propname = propname.split('.')[0];
+                                var nested_prop = propname.split('.')[1];
+                                data_handler.set_field(form_inputs.eq(i), propname, nested_prop);
+                            } else {
+                                data_handler.set_field(form_inputs.eq(i), propname);
+                            }
+                        } else {
+                            data_handler.set_regions(form_inputs.eq(i));
+                        }
+
+                    }
+
+                    for (var i = 0; i < leadership_inputs.length; i++) {
+                        var l_propname = leadership_inputs.eq(i).attr('name').substr(0, leadership_inputs.eq(i).attr('name').length - 1);
+                        data_handler.set_multi(leadership_inputs.eq(i), 'leadership', l_propname, leadership_inputs.eq(i).attr('data-index'));
+                    }
+
+                    for (var i = 0; i < address_inputs.length; i++) {
+                        var a_propname = address_inputs.eq(i).attr('name').substr(0, address_inputs.eq(i).attr('name').length - 1);
+                        if (address_inputs.eq(i).hasClass('yes') && address_inputs.eq(i).prop('checked')) {
+
+                            data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'), true);
+                        } else {
+                            data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'));
+                        }
+
+                    }
+                    for (var i = 0; i < dropdowns.length; i++) {
+
+                        data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
+                    }
+
+                    console.log('-------form data---------');
+                    console.log(data_handler.get_data());
+                    console.log('-------form data json------');
+                    console.log(data_handler.get_json_data());
+                    $.router.go('/done');
+                })
+            }
+
             
         } else {
 
+            data_handler.refresh_data();
 
             var preview = $('.form-preview-wrap');
             $('.content-wrap').fadeOut(500, function () {
@@ -111,15 +176,18 @@ window.onload = function () {
             });
 
         }
+
         function map_inputs() {
             var cat = parseInt($(this).attr('data-view'));
             var max = parseInt($(this).attr('data-max'));
 
             $('.content-wrap').fadeOut(500, function () {
 
-                var inputs = $('input[type!="submit"]');
+                var inputs = $('.map-input');
+
                 var new_inputs = inputs.clone();
-                //console.log(inputs);
+              
+
                 new_inputs.removeAttr('disabled');
 
                 var preview = $('.form-preview-wrap');
@@ -158,21 +226,27 @@ window.onload = function () {
 
                         }
 
+                      
 
                         preview.find('div[data-sub="' + sub + '"]').append(html);
 
                         if (new_inputs.eq(i).attr('data-type') == 'file') {
                             preview.find('div[data-sub="' + sub + '"]').find('.add-file').append(new_inputs.eq(i));
 
-                            var f_inp = document.querySelector('div[data-sub="' + sub + '"] input[type="file"]');
                             try {
-                                preview.find('div[data-sub="' + sub + '"]').find('.file-span').html(f_inp.files[0].name); 
+                               
+                                var files = inputs.eq(i).prop('files');
+                                new_inputs.eq(i).prop('files', files);
+                                preview.find('div[data-sub="' + sub + '"]').find('.file-span').html(files[0].name);
+                              
                             } catch (err) {
+                                
                                 preview.find('div[data-sub="' + sub + '"]').find('.file-span').html(''); 
                             }
 
                         } else if (new_inputs.eq(i).attr('data-type') != 'radio') {
                             preview.find('div[data-sub="' + sub + '"]').find('.form-input2[data-q="' + (i + 1) + '"]').append(new_inputs.eq(i)); 
+                         
                         }
                     }
 
@@ -186,11 +260,12 @@ window.onload = function () {
                 }
 
                 $('.add-file').on('click', function (e) {
+
                     var id = e.target.id;
                     var self = $(this);
 
-                    e.target.onchange = function () {
-               
+                    e.target.onchange = function (e) {
+                        
                         self.next('span').html(e.target.files[0].name);
 
                     }
@@ -205,7 +280,7 @@ window.onload = function () {
                 map_dropdowns(preview)
 
                 function map_dropdowns(wrap) {
-                    var drops = $('.drop');
+                    var drops = $('.drop'); 
                     var mapped_drops = [];
 
                     for (var i = 0; i < drops.length; i++) {
@@ -223,7 +298,9 @@ window.onload = function () {
                                     if (drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).hasClass('selected')) {
                                         inner_cells.push('<option selected>' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
                                     } else {
-                                        inner_cells.push('<option>' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
+                                        inner_cells.push('<option data-cat="' + drops.eq(i).find('.cell').eq(j).attr('data-text') 
+                                            + '" value="' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text')
+                                            + '">' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
                                     }
 
                                 }
@@ -234,7 +311,7 @@ window.onload = function () {
                                 if (drops.eq(i).find('.cell').eq(j).hasClass('selected')) {
                                     cells.push('<option selected>' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '</option>')
                                 } else {
-                                    cells.push('<option>' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '</option>')
+                                    cells.push('<option value="' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '">' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '</option>')
                                 }
 
                             }
@@ -242,7 +319,7 @@ window.onload = function () {
                         }
 
                         mapped_drops[i] = '<div class="form-input2"><h3>' + drops.eq(i).attr('data-placeholder') + '</h3>'
-                            + '<select class="form-control" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
+                            + '<select data-name="' + drops.eq(i).attr('data-name') + '" class="form-control map-input sel" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
 
                         var sub = drops.eq(i).attr('data-sub');
                         var curr = wrap.find('.form-sub[data-sub="' + sub + '"]');

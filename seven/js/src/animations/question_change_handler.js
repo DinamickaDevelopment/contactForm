@@ -17,11 +17,14 @@ module.exports = function () {
             var sub = e.target.dataset.sub;
             var max = e.target.dataset.max; 
 
-            if (e.target.id == sub.toString() + curr_q.toString() && parseInt(curr_q) <= parseInt(max)) {
+            try {
+                if (e.target.id == sub.toString() + curr_q.toString() && parseInt(curr_q) <= parseInt(max)) {
 
-                console.log($('#' + e.target.id));
-                change_q.call($('#' + e.target.id).parents('.input-wrap').find('.right'));
-            } 
+                    change_q.call($('#' + e.target.id).parents('.input-wrap').find('.right'));
+                } 
+            } catch (err) {
+
+            }
         }
     }
 
@@ -58,14 +61,25 @@ module.exports = function () {
 
         if (curr.hasClass('prompt_shown')) {
 
+
             var pr = curr.parent('.input-wrap').find('.prompt[data-q="' + (q - 1) + '"]');
 
-            pr.find('span').fadeOut(100, function () {
-                pr.slideUp({
-                    duration: 200,
-                    start: animate_q
+            if (!curr.hasClass('showradio')) {
+                pr.find('span').fadeOut(100, function () {
+                    pr.slideUp({
+                        duration: 200,
+                        start: animate_q
+                    })
                 })
-            })
+            } else {
+                pr.find('span').fadeOut(100, function () {
+                    pr.slideUp({
+                        duration: 400,
+                        start: animate_q
+                    })
+                })
+            }
+
 
         } else {
             animate_q();

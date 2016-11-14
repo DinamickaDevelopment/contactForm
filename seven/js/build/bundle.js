@@ -58,13 +58,17 @@
 	var dropdown_select_handler = __webpack_require__(14);
 	var nested_dropdown_handler = __webpack_require__(15);
 
+	var data_handler = __webpack_require__(16); 
+
+
 	window.onload = function () {
 	    var flag = false;
 	    var init_flag = false; 
 
-	    $.router.add('/view', function () {
+	    $.router.add('/view', function () { 
 	        if (flag) {
 	            flag = false;
+	            data_handler.refresh_data();
 	            $('.form-preview-wrap').find('.form-input2').remove(); 
 	        }
 
@@ -117,8 +121,11 @@
 	        })
 
 	    })
-	    $.router.add('/preview', function () {
 
+	    var handler_added = false; 
+
+	    $.router.add('/preview', function () {
+	       
 	        $('.big-container').fadeIn(500);
 	        $('.thank-you-screen').css({
 	            'height': '0px',
@@ -142,14 +149,72 @@
 
 	        if (!flag) {
 	            flag = true;
+
+	            var isMapped = false; 
+	  
+	            
 	            var btn = $('#continue-btn');
 	            map_inputs.call(btn);
-	            $('#continue-btn-2').on('click', function () {
-	                $.router.go('/done');
-	            })
+
+	            if (!handler_added) {
+	                $('#ct0').on('submit', function (e) {
+
+	                    e.preventDefault();
+
+	                    var form_inputs = $(this).find('.map-input').not('.hidden-addition').not('.l').not('.a').not('.sel');
+	                    var leadership_inputs = $(this).find('.map-input.l').not('.hidden-addition');
+	                    var address_inputs = $(this).find('.map-input.a').not('.hidden-addition');
+	                    var dropdowns = $(this).find('.map-input.sel').not('.hidden-addition');
+
+	                    for (var i = 0 ; i < form_inputs.length; i++) {
+	                        var propname = form_inputs.eq(i).attr('name');
+
+	                        if (propname != 'regions') {
+	                            if (propname.split('.').length > 1) {
+	                                var propname = propname.split('.')[0];
+	                                var nested_prop = propname.split('.')[1];
+	                                data_handler.set_field(form_inputs.eq(i), propname, nested_prop);
+	                            } else {
+	                                data_handler.set_field(form_inputs.eq(i), propname);
+	                            }
+	                        } else {
+	                            data_handler.set_regions(form_inputs.eq(i));
+	                        }
+
+	                    }
+
+	                    for (var i = 0; i < leadership_inputs.length; i++) {
+	                        var l_propname = leadership_inputs.eq(i).attr('name').substr(0, leadership_inputs.eq(i).attr('name').length - 1);
+	                        data_handler.set_multi(leadership_inputs.eq(i), 'leadership', l_propname, leadership_inputs.eq(i).attr('data-index'));
+	                    }
+
+	                    for (var i = 0; i < address_inputs.length; i++) {
+	                        var a_propname = address_inputs.eq(i).attr('name').substr(0, address_inputs.eq(i).attr('name').length - 1);
+	                        if (address_inputs.eq(i).hasClass('yes') && address_inputs.eq(i).prop('checked')) {
+
+	                            data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'), true);
+	                        } else {
+	                            data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'));
+	                        }
+
+	                    }
+	                    for (var i = 0; i < dropdowns.length; i++) {
+
+	                        data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
+	                    }
+
+	                    console.log('-------form data---------');
+	                    console.log(data_handler.get_data());
+	                    console.log('-------form data json------');
+	                    console.log(data_handler.get_json_data());
+	                    $.router.go('/done');
+	                })
+	            }
+
 	            
 	        } else {
 
+	            data_handler.refresh_data();
 
 	            var preview = $('.form-preview-wrap');
 	            $('.content-wrap').fadeOut(500, function () {
@@ -157,15 +222,18 @@
 	            });
 
 	        }
+
 	        function map_inputs() {
 	            var cat = parseInt($(this).attr('data-view'));
 	            var max = parseInt($(this).attr('data-max'));
 
 	            $('.content-wrap').fadeOut(500, function () {
 
-	                var inputs = $('input[type!="submit"]');
+	                var inputs = $('.map-input');
+
 	                var new_inputs = inputs.clone();
-	                //console.log(inputs);
+	              
+
 	                new_inputs.removeAttr('disabled');
 
 	                var preview = $('.form-preview-wrap');
@@ -204,21 +272,27 @@
 
 	                        }
 
+	                      
 
 	                        preview.find('div[data-sub="' + sub + '"]').append(html);
 
 	                        if (new_inputs.eq(i).attr('data-type') == 'file') {
 	                            preview.find('div[data-sub="' + sub + '"]').find('.add-file').append(new_inputs.eq(i));
 
-	                            var f_inp = document.querySelector('div[data-sub="' + sub + '"] input[type="file"]');
 	                            try {
-	                                preview.find('div[data-sub="' + sub + '"]').find('.file-span').html(f_inp.files[0].name); 
+	                               
+	                                var files = inputs.eq(i).prop('files');
+	                                new_inputs.eq(i).prop('files', files);
+	                                preview.find('div[data-sub="' + sub + '"]').find('.file-span').html(files[0].name);
+	                              
 	                            } catch (err) {
+	                                
 	                                preview.find('div[data-sub="' + sub + '"]').find('.file-span').html(''); 
 	                            }
 
 	                        } else if (new_inputs.eq(i).attr('data-type') != 'radio') {
 	                            preview.find('div[data-sub="' + sub + '"]').find('.form-input2[data-q="' + (i + 1) + '"]').append(new_inputs.eq(i)); 
+	                         
 	                        }
 	                    }
 
@@ -232,11 +306,12 @@
 	                }
 
 	                $('.add-file').on('click', function (e) {
+
 	                    var id = e.target.id;
 	                    var self = $(this);
 
-	                    e.target.onchange = function () {
-	               
+	                    e.target.onchange = function (e) {
+	                        
 	                        self.next('span').html(e.target.files[0].name);
 
 	                    }
@@ -251,7 +326,7 @@
 	                map_dropdowns(preview)
 
 	                function map_dropdowns(wrap) {
-	                    var drops = $('.drop');
+	                    var drops = $('.drop'); 
 	                    var mapped_drops = [];
 
 	                    for (var i = 0; i < drops.length; i++) {
@@ -269,7 +344,9 @@
 	                                    if (drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).hasClass('selected')) {
 	                                        inner_cells.push('<option selected>' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
 	                                    } else {
-	                                        inner_cells.push('<option>' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
+	                                        inner_cells.push('<option data-cat="' + drops.eq(i).find('.cell').eq(j).attr('data-text') 
+	                                            + '" value="' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text')
+	                                            + '">' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
 	                                    }
 
 	                                }
@@ -280,7 +357,7 @@
 	                                if (drops.eq(i).find('.cell').eq(j).hasClass('selected')) {
 	                                    cells.push('<option selected>' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '</option>')
 	                                } else {
-	                                    cells.push('<option>' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '</option>')
+	                                    cells.push('<option value="' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '">' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '</option>')
 	                                }
 
 	                            }
@@ -288,7 +365,7 @@
 	                        }
 
 	                        mapped_drops[i] = '<div class="form-input2"><h3>' + drops.eq(i).attr('data-placeholder') + '</h3>'
-	                            + '<select class="form-control" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
+	                            + '<select data-name="' + drops.eq(i).attr('data-name') + '" class="form-control map-input sel" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
 
 	                        var sub = drops.eq(i).attr('data-sub');
 	                        var curr = wrap.find('.form-sub[data-sub="' + sub + '"]');
@@ -3886,9 +3963,7 @@
 	    var wrap = elem.parent('form').parent('.active-wrap').parent('.input-wrap');
 	    var container = elem.parent('form').parent('.active-wrap'); 
 	    var q = container.attr('data-q'); 
-	    var p = wrap.find('.prompt[data-q="'+ q + '"]');
-	    console.log(q);
-	    console.log(p)
+	    var p = wrap.find('.prompt[data-q="' + q + '"]');
 
 	    if (elem.hasClass('multiprompt')) {
 	        p.find('span').html(elem.attr('data-prompt')); 
@@ -4245,8 +4320,6 @@
 
 	            var words = text.split(/[\s]+/);
 
-	            // show word limit! 
-	            console.log(words.length);
 	            prompt.find('span').html(words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used'); 
 
 	            if (words.length > parseInt($(this).attr('data-wordcount')) && !wrong_shown) {
@@ -4290,9 +4363,13 @@
 	        }
 	    }
 
-	    var isAnimating2 = false; 
+	    var isAnimating2 = false;
 	    function show(elem, isBig, cb) {
-	        if (isAnimating2) return false;
+	        if (isAnimating2) {
+	            setTimeout(function () {
+	                isAnimating2 = false; 
+	            }, 100)
+	            return false }
 	        else isAnimating2 = true; 
 
 	        elem.animate({
@@ -4405,11 +4482,14 @@
 	            var sub = e.target.dataset.sub;
 	            var max = e.target.dataset.max; 
 
-	            if (e.target.id == sub.toString() + curr_q.toString() && parseInt(curr_q) <= parseInt(max)) {
+	            try {
+	                if (e.target.id == sub.toString() + curr_q.toString() && parseInt(curr_q) <= parseInt(max)) {
 
-	                console.log($('#' + e.target.id));
-	                change_q.call($('#' + e.target.id).parents('.input-wrap').find('.right'));
-	            } 
+	                    change_q.call($('#' + e.target.id).parents('.input-wrap').find('.right'));
+	                } 
+	            } catch (err) {
+
+	            }
 	        }
 	    }
 
@@ -4446,14 +4526,25 @@
 
 	        if (curr.hasClass('prompt_shown')) {
 
+
 	            var pr = curr.parent('.input-wrap').find('.prompt[data-q="' + (q - 1) + '"]');
 
-	            pr.find('span').fadeOut(100, function () {
-	                pr.slideUp({
-	                    duration: 200,
-	                    start: animate_q
+	            if (!curr.hasClass('showradio')) {
+	                pr.find('span').fadeOut(100, function () {
+	                    pr.slideUp({
+	                        duration: 200,
+	                        start: animate_q
+	                    })
 	                })
-	            })
+	            } else {
+	                pr.find('span').fadeOut(100, function () {
+	                    pr.slideUp({
+	                        duration: 400,
+	                        start: animate_q
+	                    })
+	                })
+	            }
+
 
 	        } else {
 	            animate_q();
@@ -4676,11 +4767,9 @@
 	                duration: 700,
 	                complete: function () {
 	                    $(this).find('span').animate({ opacity: 0 }, 100);
-	                    $(this).fadeOut(300, function () {
-	                        var id = '#' + $(this).attr('data-sub') + $(this).attr('data-q');
-	                        $(id).submit();
-	                        console.log($(id));
-	                    })
+	                    $(this).fadeOut(300);
+	                    var id = '#' + $(this).attr('data-sub') + $(this).attr('data-q');
+	                    $(id).submit(); 
 	                }
 	            })
 	        })
@@ -4696,7 +4785,8 @@
 	        var target_id = e.target.dataset.tid;
 
 	        $('#' + target_id).slideDown(300, function () {
-	            $(this).find('input').addClass('shown');
+	            $(this).find('.map-input').removeClass('hidden-addition');
+	            $(this).find('.map-input').addClass('shown');
 	        });
 	    });
 	}
@@ -5007,6 +5097,237 @@
 	            $(this).removeClass('selected');
 	        }
 	    }); 
+
+	}
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	    data: {
+	        name: "",
+	        aka: "",
+	        numberOfStaff: "",
+	        ein: "",
+	        website: "",
+	        tagline: "",
+	        missionStatement: "",
+	        history: "",
+	        overallwork: "",
+	        primaryContact: {
+	            firstName: "",
+	            lastName: "", 
+	            email: "",
+	            phone: ""
+	        },
+	        showContactInfo: false,
+	        physicaladdresses: [],
+	        fiscalStartDate: "",
+	        fiscalEndDate: "",
+	        assetAmount: 0, 
+	        assetAmountYear: 0,
+	        revenueAmount: 0,
+	        revenueAmountYear: 0,
+	        incomeAmount: 0,
+	        incomeAmountYear: 0,
+	        yearFounded: "",
+	        yearIncorporated: "",
+	        organizationType: [],
+	        serviceArea: [],
+	        regionsDescription: "",
+	        regions: [],
+	        leadership: []
+	    },
+
+
+	    set_ext: function (elem, index) {
+	        var phone_ext = elem.inputmask('unmaskedvalue'); 
+
+	        this.data.leadership[index].extension = phone_ext.substr(phone_ext.length - 4);
+	        this.data.leadership[index].phone = phone_ext.substr(0, phone_ext.length - 4);
+	     
+	    },
+	    set_regions: function (elem) {
+	        var r = elem.val().split(' ');
+
+	        this.data.regions = r.map(function (item) {
+	            return {
+	                  zipcode: item,
+	                  latlng: "",
+	                  formattedAddress: "",
+	                  region: "",
+	                  state: ""
+	            }
+	        })
+
+	    },
+
+	    set_field: function (elem, propname, nested_prop) {
+	        if (elem.attr('data-type') == 'file') {
+	            if (typeof elem.prop('files') != 'undefined') { 
+	                this.data[propname] = elem.prop('files')[0];
+	   
+	            }
+
+	        } else {
+	            if (!nested_prop) {
+	                if (elem.attr('data-maskval') == 'cash') {
+	                    var v = elem.val().replace('$ ', '');
+	                    v = v.replace(',', '');
+	                    v = parseFloat(v); 
+	                    if (isNaN(v)) { v = 0 } 
+	                    this.data[propname] = v; 
+	                    
+	                } else if (elem.attr('data-maskval') == '(999) 999-9999') {
+	                    var v = elem.inputmask('unmaskedvalue');
+	                    this.data[propname] = v;
+
+	                } else if (elem.attr('data-maskval') == '9999') {
+	                    var v = elem.inputmask('unmaskedvalue');
+	                    v = parseInt(v);
+
+	                    if (isNaN(v)) { v = 0 }
+	                    this.data[propname] = v; 
+	                }
+	                else if (propname == 'numberOfStaff') {
+	                    var v = parseInt(elem.val());
+	                    if (isNaN(v)) { v = 0 }
+	                    this.data[propname] = v;
+	                }
+	                else if (elem.hasClass('rad2')) {
+	                    if (elem.prop('checked')) {
+	                        if (elem.val() == 'true') {
+	                            var v = true; 
+	                        } else {
+	                            var v = false;
+	                        }
+
+	                        this.data[propname] = v; 
+	                    }
+	                } else {
+	                    this.data[propname] = elem.val();
+	                }
+	            }
+	            else {
+	                this.data[propname][nested_prop] = elem.val(); 
+	            }
+	        }
+	 
+	    },
+	    
+	    isSet: false, 
+	    set_multi: function (elem, catname, propname, index, flag) {
+
+	        var obj = {};
+
+	        if (typeof this.data[catname][index] == 'undefined') {
+
+	            this.data[catname].push(obj);
+
+	            map_vals.call(this);
+
+	        } else {
+
+	            map_vals.call(this); 
+	        }
+
+	        function map_vals() {
+	            if (elem.attr('data-type') != 'file') {
+	                if (propname != 'phoneExt') {
+	                 
+	                    if (elem.hasClass('rad2')) {
+	                      
+	                        if (flag && !this.isSet) {
+	                            this.data[catname][index][propname] = true
+	                            this.isSet = true;
+	                            return false; 
+	                        };
+	                        if (!flag && !this.isSet) {
+	                            this.data[catname][index][propname] = false;
+	                            this.isSet = true;
+	                            return false;
+	                        };
+	                        if (!flag && this.isSet) {
+	                            this.isSet = false;
+	                            return false;
+	                        }
+	                        if (flag && this.isSet) {
+	                            this.isSet = false;
+	                            return false;
+	                        }
+	                    } else {
+	                        this.data[catname][index][propname] = elem.val();
+	                    }
+	                }
+	  
+	                else {
+	                    this.set_ext(elem, index);
+	                }
+	            }
+	            else {
+	                if (typeof elem.prop('files') != 'undefined') {
+	                    this.data[catname][index][propname] = elem.prop('files')[0];
+	                }
+	            }
+
+	        }
+
+	    },
+
+
+	    set_drop: function (drop, propname) {
+
+	        var opts = drop.find(":selected");
+
+	        if (opts.length == 0) return false; 
+
+	        if (drop.find('optgroup').length > 0) {
+	            if (this.data[propname].length > 0) {
+	                this.data[propname] = []; 
+	            }
+
+	            var optgroups= drop.find('optgroup'); 
+
+	            for (var i = 0; i < optgroups.length; i++) {
+
+	                this.data[propname].push({});
+	                this.data[propname][i][optgroups.eq(i).attr('label')] = []; 
+	                
+	                var cells = optgroups.eq(i).find(':selected');
+
+	                for (var j = 0; j < cells.length; j++) {
+	                    this.data[propname][i][optgroups.eq(i).attr('label')].push(cells.eq(j).val()); 
+	                }
+	            }
+
+	        } else {
+	            for (var i = 0; i< opts.length; i++) {
+	                this.data[propname].push(opts.eq(i).val()); 
+	            }
+	        }
+	    }, 
+
+	    get_data: function () {
+	        return this.data; 
+	    },
+
+	    get_json_data: function () {
+	        return JSON.stringify(this.data); 
+	    },
+	    refresh_data: function () {
+	        for (prop in this.data) {
+	            if (Object.prototype.toString.call(this.data[prop]) === '[object Array]') {
+	                this.data[prop] = new Array(); 
+	         
+	            } else if (typeof this.data[prop] == 'number') {
+	                this.data[prop] = 0; 
+	            } 
+	            else {
+	            this.data[prop] = ''; 
+	            }
+	        }
+	    }
 
 	}
 

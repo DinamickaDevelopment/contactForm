@@ -45,14 +45,14 @@
 
                     <div class="active-wrap" data-q="1" data-category="0" data-sub="0">
                         <form class="input-form" id="01" data-max="14" name="01" data-category="0" data-sub="0">
-                            <input data-sub="0" data-q="1" required data-prompt="Enter this 9-digit number using the following format XX-XXXXXXX. EIN is an Employer Identification Number assigned by the IRS to identify a particular organization" class="req form-input addmask showprompt" data-maskval="99-9999999" id="inp00" placeholder="Employer Identification Number (EIN)*" />
+                            <input data-sub="0" name="ein" data-q="1" required data-prompt="Enter this 9-digit number using the following format XX-XXXXXXX. EIN is an Employer Identification Number assigned by the IRS to identify a particular organization" class="req form-input addmask showprompt map-input" data-maskval="99-9999999" id="inp00" placeholder="Employer Identification Number (EIN)*" />
                             <input type="submit" class="submit" data-sub="0" data-q="1" />
                         </form>
                     </div>
 
                     <div class="hidden-wrap" data-q="2" data-category="0" data-sub="0">
                         <form class="input-form" id="02" data-max="14" name="02" data-category="0" data-sub="0">
-                            <input data-sub="0" data-q="2" required class="req form-input" type="text" placeholder="Full legal name of the organization*" />
+                            <input data-sub="0" name="name" data-q="2" required class="map-input req form-input" type="text" placeholder="Full legal name of the organization*" />
                             <input type="submit" class="submit" data-sub="0" data-q="2" />
                         </form>
 
@@ -60,7 +60,7 @@
                     </div>
                     <div class="hidden-wrap" data-q="3" data-category="0" data-sub="0">
                         <form class="input-form" id="03" data-max="14" name="03" data-category="0" data-sub="0">
-                            <input data-sub="0" data-q="3" class="form-input" type="text" placeholder="Your organization is also known as (AKA)" />
+                            <input data-sub="0" name="aka" data-q="3" class="map-input form-input" type="text" placeholder="Your organization is also known as (AKA)" />
                             <input type="submit" class="submit" data-sub="0" data-q="3" />
                         </form>
 
@@ -68,13 +68,13 @@
                     </div>
                     <div class="hidden-wrap" data-q="4" data-category="0" data-sub="0">
                         <form class="input-form" id="04" data-max="14" name="04" data-category="0" data-sub="0">
-                            <input data-sub="0" data-q="4" required class="req form-input showprompt" data-prompt="Your organization website. Required field." pattern="^(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})$" title="Valid format: www.yoursite.com or http://www.yoursite.com" placeholder="www.yourwebsite.org" />
+                            <input data-sub="0" name="website" data-q="4" required class="map-input req form-input showprompt" data-prompt="Your organization website. Required field." pattern="^(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})$" title="Valid format: www.yoursite.com or http://www.yoursite.com" placeholder="www.yourwebsite.org*" />
                             <input type="submit" class="submit" data-sub="0" data-q="4" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="5" data-type="t" data-category="0" data-sub="0">
                         <form class="input-form" id="05" data-max="14" name="05" data-category="0" data-sub="0">
-                            <textarea data-sub="0" data-q="5" class="form-textarea wordcount showprompt" data-prompt="30 words limit" data-type="t" data-wordcount="30" placeholder="Please add your organization mission statement here."></textarea>
+                            <textarea data-sub="0" name="missionStatement" data-q="5" class="map-input form-textarea wordcount showprompt" data-prompt="30 words limit" data-type="t" data-wordcount="30" placeholder="Please add your organization mission statement here"></textarea>
                             <input type="submit" class="submit" data-sub="0" data-q="5" />
                         </form>
 
@@ -82,7 +82,7 @@
                     </div>
                     <div class="hidden-wrap exp-wrap" data-q="6" data-type="t" data-category="0" data-sub="0">
                         <form class="input-form" id="06" data-max="14" name="06" data-category="0" data-sub="0">
-                            <textarea data-sub="0" data-q="6" class="form-textarea wordcount expanded showprompt" data-prompt="30 words limit" data-type="t" data-wordcount="30" placeholder="Please include your organization history."></textarea>
+                            <textarea data-sub="0" name="history" data-q="6" class="map-input form-textarea wordcount expanded showprompt" data-prompt="30 words limit" data-type="t" data-wordcount="30" placeholder="Please include your organization history"></textarea>
                             <input type="submit" class="submit sub-exp" data-sub="0" data-q="6" />
                         </form>
 
@@ -90,7 +90,7 @@
                     </div>
                     <div class="hidden-wrap exp-wrap collapse" data-q="7" data-type="t" data-category="0" data-sub="0">
                         <form class="input-form" id="07" data-max="14" name="07" data-category="0" data-sub="0">
-                            <textarea data-sub="0" data-q="7" class="form-textarea wordcount expanded showprompt" data-prompt="50 words limit" data-type="t" data-wordcount="50" placeholder="Please describe your organization's work"></textarea>
+                            <textarea data-sub="0" name="overallwork" data-q="7" class="map-input form-textarea wordcount expanded showprompt" data-prompt="50 words limit" data-type="t" data-wordcount="50" placeholder="Please describe your organization's work"></textarea>
                             <input type="submit" class="submit sub-exp" data-sub="0" data-q="7" />
                         </form>
 
@@ -99,7 +99,7 @@
                     <div class="hidden-wrap" data-q="8" data-category="0" data-sub="0">
 
                         <form class="input-form" id="08" data-max="14" data-category="0" data-sub="0">
-                            <input data-sub="0" data-q="8" class="form-input" type="text" placeholder="Add a tagline for your organization" />
+                            <input data-sub="0" name="tagline" data-q="8" class="map-input form-input" type="text" placeholder="Add a tagline for your organization" />
                             <input type="submit" class="submit" data-sub="0" data-q="8" />
                         </form>
 
@@ -109,7 +109,7 @@
                         <form class="input-form" id="09" data-max="14" data-category="0" data-sub="0" data-q="9">
                             <label class="label-wrap" data-sub="0" data-q="9">
                                 <span>Add organization logo</span>
-                                <input type="file" data-fid="ct0" data-q="9" data-type="file" data-sub="0" id="f00" name="f00" placeholder="Add organization logo" />
+                                <input type="file" name="logo" data-fid="ct0" data-q="9" data-type="file" data-sub="0" id="f00" class="map-input" placeholder="Add organization logo" />
                             </label>
 
                             <input type="submit" class="submit" data-sub="0" data-q="9" />
@@ -117,7 +117,7 @@
                     </div>
                     <div class="hidden-wrap" data-q="10" data-category="0" data-sub="0">
                         <form class="input-form" id="010" data-max="14" data-category="0" data-sub="0">
-                            <input data-sub="0" data-q="10" class="form-input" pattern="^[0-9-]{1,20}$" title="Only digits allowed" placeholder="Number of staff at your organization" />
+                            <input data-sub="0" name="numberOfStaff" data-q="10" class="form-input map-input" pattern="^[0-9-]{1,20}$" title="Only digits allowed" placeholder="Number of staff at your organization" />
                             <input type="submit" class="submit" data-sub="0" data-q="10" />
                         </form>
 
@@ -126,8 +126,8 @@
                     <div class="hidden-wrap collapse" data-q="11" data-category="0" data-sub="0">
                         <form class="input-form" id="011" data-max="14" data-sub="0" data-q="11" data-category="0">
                             <div class="name-wrap showprompt fullname">
-                                <input data-sub="0" data-q="11" class="form-input" type="text" data-prompt="Primary contact first name" placeholder="First name" />
-                                <input data-sub="0" class="form-input" type="text" data-prompt="Primary contact last name" placeholder="Last name" />
+                                <input data-sub="0" name="primaryContact.firstName" data-q="11" class="form-input" type="text" data-prompt="Primary contact first name" placeholder="First name" />
+                                <input data-sub="0" name="primaryContact.lastName" class="form-input map-input" type="text" data-prompt="Primary contact last name" placeholder="Last name" />
                             </div>
 
                             <input type="submit" class="submit" data-sub="0" data-q="11" />
@@ -137,13 +137,13 @@
                     </div>
                     <div class="hidden-wrap" data-q="12" data-category="0" data-sub="0">
                         <form class="input-form" id="012" data-max="14" data-sub="0" data-q="12" data-category="0">
-                            <input data-sub="0" data-q="12" class="form-input" type="email" placeholder="Primary contact email" />
+                            <input data-sub="0" name="primaryContact.email" data-q="12" class="map-input form-input" type="email" placeholder="Primary contact email" />
                             <input type="submit" data-sub="0" data-q="12" class="submit" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="13" data-category="0" data-sub="0">
                         <form class="input-form" id="013" data-max="14" data-q="13" data-category="0" data-sub="0">
-                            <input data-sub="0" data-q="13" class="form-input addmask" type="text" data-maskval="(999) 999-9999" placeholder="Primary contact phone number" />
+                            <input data-sub="0" name="primaryContact.phone" data-q="13" class="map-input form-input addmask" type="text" data-maskval="(999) 999-9999" placeholder="Primary contact phone number" />
                             <input type="submit" data-sub="0" data-q="13" class="submit" />
                         </form>
                     </div>
@@ -192,17 +192,17 @@
                     <div class="prompt" data-q="14">
                         <span>
                             <label class="switch" id="switch00">
-                                <span class="switch-container">
+                                <span class="switch-container centered">
 
                                     <label class="radioli" data-sub="0">
-                                        <input type="radio" class="yes" value="true" data-type="radio" data-caption="Yes" data-sub="0" data-q="14" name="check00" placeholder="Can an individual or an organization contact you regarding your organization?"/>
+                                        <input type="radio" name="showContactInfo" class="yes map-input" value="true" data-type="radio" data-caption="Yes" data-sub="0" data-q="14" placeholder="Can an individual or an organization contact you regarding your organization?"/>
                                         <span class="rad y fin" id="check00" data-sub="0"></span>
                                         <span class="input-span">Yes</span>
                                     </label>
 
 
                                     <label class="radioli" data-sub="0">
-                                        <input type="radio" class="no" value="false" checked="checked" data-type="radio" data-caption="No" data-sub="0" data-q="14" name="check00" />
+                                        <input type="radio" name="showContactInfo" class="no map-input" value="false" checked="checked" data-type="radio" data-caption="No" data-sub="0" data-q="14" />
                                         <span class="rad n fin" id="check00n" data-sub="0"></span>
                                         <span class="input-span">No</span>
                                     </label>
@@ -245,26 +245,26 @@
                     <div class="active-wrap exp final" data-q="1" data-category="0" data-sub="1" data-dropheight="700">
                         <form class="input-form" id="11" data-q="1" data-max="1" data-category="0" data-sub="1">
                             <div class="drop">
-                                <input class="form-input input-cell" data-q="1" data-sub="1" placeholder="Main/physical address*" />
-                                <input class="form-input input-cell" data-q="2" data-sub="1" placeholder="Building/suite number" />
-                                <input class="form-input input-cell" data-q="3" data-sub="1" placeholder="State" />
-                                <input class="form-input input-cell" data-q="4" data-sub="1" placeholder="City" />
-                                <input class="form-input input-cell addmask" data-q="5" data-sub="1" data-maskval="99999" placeholder="Zip Code" />
-                                <input class="form-input input-cell" data-q="6" data-sub="1" placeholder="Country" />
+                                <input class="form-input input-cell map-input a" data-index="0" name="street1" data-q="1" data-sub="1" placeholder="Main/physical address*" />
+                                <input class="form-input input-cell map-input a" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" name="suite1" data-q="2" data-sub="1" placeholder="Building/suite number" />
+                                <input class="form-input input-cell map-input a" data-index="0" data-q="3" data-sub="1" name="city1" placeholder="State" />
+                                <input class="form-input input-cell map-input a" data-index="0" data-q="4" data-sub="1" name="state1" placeholder="City" />
+                                <input class="form-input input-cell addmask map-input a" data-index="0" data-q="5" data-sub="1" name="zip1" data-maskval="99999" placeholder="Zip Code" />
+                                <input class="form-input input-cell map-input a" data-index="0" data-q="6" data-sub="1" name="country1"  placeholder="Country" />
                                 <div class="form-input input-cell" data-sub="1" id="radio01a">
                                     <p class="q-p">Is this your primary address?</p>
                                     <label class="switch inp-drop-switch" id="switch01a">
                                         <span class="switch-container">
 
                                             <label class="radioli">
-                                                <input type="radio" class="yes" placeholder="Is this your primary address?" data-type="radio" data-caption="Yes" value="true" data-q="7" data-sub="1" name="check01a" />
+                                                <input type="radio" class="yes map-input a" data-index="0" name="isPrimaryAddress1" placeholder="Is this your primary address?" data-type="radio" data-caption="Yes" value="true" data-q="7" data-sub="1" />
                                                 <span class="rad y" id="check01a"></span>
                                                 <span class="input-span white">Yes</span>
                                             </label>
 
 
                                             <label class="radioli">
-                                                <input type="radio" class="no" checked="checked" value="false" data-type="radio" data-caption="No" data-q="7" data-sub="1" name="check01a" />
+                                                <input type="radio" class="no map-input a" data-index="0" name="isPrimaryAddress1" checked="checked" value="false" data-type="radio" data-caption="No" data-q="7" data-sub="1" />
                                                 <span class="rad n" id="check01an"></span>
                                                 <span class="input-span white">No</span>
                                             </label>
@@ -337,26 +337,26 @@
                     <div class="active-wrap exp final" data-q="1" data-category="0" data-sub="2" data-dropheight="700">
                         <form class="input-form" id="21" data-q="1" data-max="1" data-category="0" data-sub="2">
                             <div class="drop">
-                                <input class="form-input input-cell" data-q="1" data-sub="2" placeholder="Main/physical address*" />
-                                <input class="form-input input-cell" data-q="2" data-sub="2" placeholder="Building/suite number" />
-                                <input class="form-input input-cell" data-q="3" data-sub="2" placeholder="State" />
-                                <input class="form-input input-cell" data-q="4" data-sub="2" placeholder="City" />
-                                <input class="form-input input-cell addmask" data-q="5" data-sub="2" data-maskval="99999" placeholder="Zip Code" />
-                                <input class="form-input input-cell" data-q="6" data-sub="2" placeholder="Country" />
+                                <input class="form-input input-cell map-input hidden-addition a" data-index="1" data-q="1" name="street2" data-sub="2" placeholder="Main/physical address*" />
+                                <input class="form-input input-cell map-input hidden-addition a" data-index="1" data-q="2" pattern="^[0-9-]{1,20}$" title="Only digits allowed" name="suite2" data-sub="2" placeholder="Building/suite number" />
+                                <input class="form-input input-cell map-input hidden-addition a" data-index="1" data-q="3" name="city2" data-sub="2" placeholder="State" />
+                                <input class="form-input input-cell map-input hidden-addition a" data-index="1" data-q="4" name="state2" data-sub="2" placeholder="City" />
+                                <input class="form-input input-cell addmask map-input hidden-addition a" data-index="1" name="zip2" data-q="5" data-sub="2" data-maskval="99999" placeholder="Zip Code" />
+                                <input class="form-input input-cell map-input hidden-addition a" data-index="1" data-q="6" data-sub="2" name="country2"  placeholder="Country" />
                                 <div class="form-input input-cell" id="radio01b">
                                     <p class="q-p">Is this your primary address?</p>
                                     <label class="switch inp-drop-switch" id="switch01b">
                                         <span class="switch-container">
 
                                             <label class="radioli">
-                                                <input type="radio" placeholder="Is this your primary address?" class="yes" value="true" data-type="radio" data-caption="Yes" data-q="7" data-sub="2" name="check01b" />
+                                                <input type="radio" placeholder="Is this your primary address?" name="isPrimaryAddress2" class="yes map-input hidden-addition a" data-index="1" value="true" data-type="radio" data-caption="Yes" data-q="7" data-sub="2" />
                                                 <span class="rad y" id="check01b"></span>
                                                 <span class="input-span">Yes</span>
                                             </label>
 
 
                                             <label class="radioli">
-                                                <input type="radio" class="no" checked="checked"  value="false" data-type="radio" data-caption="No" data-q="7" data-sub="2"  name="check01b" />
+                                                <input type="radio" class="no map-input hidden-addition a" checked="checked"  value="false" data-type="radio" name="isPrimaryAddress2" data-index="1" data-caption="No" data-q="7" data-sub="2" />
                                                 <span class="rad n" id="check01bn"></span>
                                                 <span class="input-span">No</span>
                                             </label>
@@ -414,16 +414,16 @@
 
                     <div class="active-wrap exp1" data-q="1" data-category="0" data-sub="3">
                         <form class="input-form" id="31" data-q="1" data-max="5" data-category="0" data-sub="3">
-                            <input data-sub="3" data-q="1" required class="req form-input" type="text" placeholder="Fiscal year start month*" />
-                            <input data-sub="3" data-q="2" required class="req form-input" type="text" placeholder="Fiscal year end month*" />
+                            <input data-sub="3" data-q="1" required class="req form-input map-input" name="fiscalStartDate" type="text" placeholder="Fiscal year start month*" />
+                            <input data-sub="3" data-q="2" required class="req form-input map-input" name="fiscalEndDate" type="text" placeholder="Fiscal year end month*" />
 
                             <input type="submit" data-sub="0" data-q="1" class="submit visible" />
                         </form>
                     </div>
                     <div class="hidden-wrap expanded1" data-q="2" data-category="0" data-sub="3">
                         <form class="input-form" id="32" data-q="2" data-category="0" data-max="5" data-sub="3">
-                            <input data-sub="3" data-q="3" class="form-input addmask showprompt multiprompt" data-prompt="Asset amount is an amount from the most recent 990 return by your organization." data-maskval="cash" placeholder="Asset Amount" />
-                            <input data-sub="3" data-q="4" class="form-input addmask showprompt multiprompt" data-prompt="Please add the year that corresponded to your organization’s asset amount." data-maskval="9999" placeholder="Asset Amount Year" />
+                            <input data-sub="3" data-q="3" class="form-input addmask showprompt multiprompt map-input" name="assetAmount" data-prompt="Asset amount is an amount from the most recent 990 return by your organization." data-maskval="cash" placeholder="Asset Amount" />
+                            <input data-sub="3" data-q="4" class="form-input addmask showprompt multiprompt map-input" name="assetAmountYear" data-prompt="Please add the year that corresponded to your organization’s asset amount." data-maskval="9999" placeholder="Asset Amount Year" />
 
                             <input type="submit" data-sub="0" data-q="1" class="submit sub-exp1" />
                         </form>
@@ -431,8 +431,8 @@
                     </div>
                     <div class="hidden-wrap expanded1" data-q="3" data-category="0" data-sub="3">
                         <form class="input-form" id="33" data-q="3" data-category="0" data-max="5" data-sub="3">
-                            <input data-sub="3" data-q="5" class="form-input addmask showprompt multiprompt" data-prompt="Revenue amount is an amount from the most recent 990 return by your organization." data-maskval="cash" placeholder="Revenue Amount" />
-                            <input data-sub="3" data-q="6" class="form-input addmask showprompt multiprompt" data-prompt="Please add the year that corresponded to your organization’s revenue amount." data-maskval="9999" placeholder="Revenue Amount Year" />
+                            <input data-sub="3" data-q="5" class="form-input addmask showprompt multiprompt map-input" name="revenueAmount" data-prompt="Revenue amount is an amount from the most recent 990 return by your organization." data-maskval="cash" placeholder="Revenue Amount" />
+                            <input data-sub="3" data-q="6" class="form-input addmask showprompt multiprompt map-input" name="revenueAmountYear" data-prompt="Please add the year that corresponded to your organization’s revenue amount." data-maskval="9999" placeholder="Revenue Amount Year" />
 
                             <input type="submit" data-sub="0" data-q="1" class="submit sub-exp1" />
                         </form>
@@ -440,16 +440,16 @@
                     </div>
                     <div class="hidden-wrap expanded1" data-q="4" data-category="0" data-sub="3">
                         <form class="input-form" id="34" data-q="4" data-max="5" data-category="0" data-sub="3">
-                            <input data-sub="3" data-q="7" class="form-input addmask showprompt multiprompt" data-prompt="Income amount is an amount from the most recent 990 return by your organization." data-maskval="cash" placeholder="Income Amount" />
-                            <input data-sub="3" data-q="8" class="form-input addmask showprompt multiprompt" data-prompt="Please add the year that corresponded to your organization income amount." data-maskval="9999" placeholder="Income Amount Year" />
+                            <input data-sub="3" data-q="7" class="form-input addmask showprompt multiprompt map-input" name="incomeAmount" data-prompt="Income amount is an amount from the most recent 990 return by your organization." data-maskval="cash" placeholder="Income Amount" />
+                            <input data-sub="3" data-q="8" class="form-input addmask showprompt multiprompt map-input" name="incomeAmountYear" data-prompt="Please add the year that corresponded to your organization income amount." data-maskval="9999" placeholder="Income Amount Year" />
 
                             <input type="submit" data-sub="0" data-q="1" class="submit sub-exp1" />
                         </form>
                     </div>
                     <div class="hidden-wrap expanded1 collapse" data-q="5" data-category="0" data-sub="3">
                         <form class="input-form" id="35" data-q="5" data-max="5" data-category="0" data-sub="3">
-                            <input data-sub="3" data-q="9" required class="req form-input addmask" data-maskval="9999" placeholder="Year when your organization was founded*" />
-                            <input data-sub="3" data-q="10" class="form-input addmask" data-maskval="9999" placeholder="Year when your organization was incorporated" />
+                            <input data-sub="3" data-q="9" required class="req form-input addmask map-input" name="yearFounded" data-maskval="9999" placeholder="Year when your organization was founded*" />
+                            <input data-sub="3" data-q="10" class="form-input addmask map-input" data-maskval="9999" name="yearIncorporated" placeholder="Year when your organization was incorporated" />
 
                             <input type="submit" data-sub="0" data-q="1" class="submit sub-exp1" />
                         </form>
@@ -521,8 +521,8 @@
 
                     <div class="active-wrap exp dropstyle" data-dropheight="400" data-q="1" data-category="0" data-sub="4">
 
-                        <div class="drop" data-placeholder="Select your organization type" data-height="84px" data-sub="4" data-q="1">
-                            <div class="cell big-option" data-text="Nonprofit Organization">
+                        <div class="drop" data-placeholder="Select your organization type" data-height="84px" data-name="organizationType" data-sub="4" data-q="1">
+                            <div class="cell big-option" data-text="Nonprofit Organization" data-name="organizationType">
                                 Nonprofit Organization
                                 <svg version="1.1" id="ic410" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
                                 <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
@@ -559,7 +559,7 @@
 
                     <div class="hidden-wrap dropstyle final show-overflow" data-dropheight="200" data-q="2" data-category="0" data-sub="4">
 
-                        <div class="drop" data-placeholder="Service area of your organization" data-height="270px" data-sub="4" data-q="2">
+                        <div class="drop" data-placeholder="Service area of your organization" data-height="270px" data-sub="4" data-q="2" data-name="serviceArea">
                             <div class="cell exp-cell" data-cell="0" data-text="Health">
                                 <span>Health</span>
                                 <div class="down-sm" data-dropheight="200">
@@ -714,13 +714,13 @@
 
                     <div class="active-wrap" data-q="1" data-category="0" data-sub="5">
                         <form class="input-form" data-max="2" data-q="1" id="51" data-category="0" data-sub="5">
-                            <input required class="req form-input" id="inp04" data-sub="5" data-q="1" placeholder="Geographic area(s) served by this program*" />
+                            <input required  name="regionsDescription" class="req form-input map-input" id="inp04" data-sub="5" data-q="1" placeholder="Geographic area(s) served by this program*" />
                             <input type="submit" data-sub="5" data-q="1" class="submit" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="2" data-category="0" data-sub="5">
                         <form class="input-form" data-max="2" data-q="2" id="52" data-category="0" data-sub="5">
-                            <input required class="req form-input addmask" data-sub="5" data-q="2" data-maskval="99999[ 99999[ 99999 [99999 [99999]]]]" placeholder="5 digit zip code of the regions you serve*" />
+                            <input required name="regions" class="req form-input addmask map-input" data-sub="5" data-q="2" data-maskval="99999[ 99999[ 99999 [99999 [99999]]]]" placeholder="5 digit zip code of the regions you serve*" />
                             <input type="submit" data-sub="5" data-q="2" class="submit" />
                         </form>
                     </div>
@@ -773,21 +773,21 @@
                     <div class="active-wrap exp collapse warp" data-q="1" data-category="0" data-sub="6">
                         <form class="input-form" id="61" data-max="6" data-sub="6" data-q="1" data-category="0">
                             <div class="name-wrap showprompt">
-                                <input class="form-input" data-sub="6" data-q="1" type="text" data-prompt="Your current senior leadership information. Please add them according to their hierarchy level. It can be your Executive Director/President/CEO, board chair/president and so forth." placeholder="First name" />
-                                <input class="form-input" data-sub="6" data-q="2" type="text" placeholder="Last name" />
+                                <input class="form-input map-input l" data-index="0" name="firstName6" data-sub="6" data-q="1" type="text" data-prompt="Your current senior leadership information. Please add them according to their hierarchy level. It can be your Executive Director/President/CEO, board chair/president and so forth." placeholder="First name" />
+                                <input class="form-input map-input l" data-index="0" name="lastName6" data-sub="6" data-q="2" type="text" placeholder="Last name" />
                             </div>
                             <input type="submit" class="submit sub-exp1 visible" data-q="1" data-sub="6" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="2" data-category="0" data-sub="6">
                         <form class="input-form" id="62" data-max="6" data-sub="6" data-q="2" data-category="0">
-                            <input data-sub="6" class="form-input" data-q="3" type="text" placeholder="Leadership Job Title" />
+                            <input data-sub="6" class="form-input map-input l" data-index="0" name="title6" data-q="3" type="text" placeholder="Leadership Job Title" />
                             <input type="submit" class="submit" data-q="2" data-sub="6" />
                         </form>
                     </div>
                     <div class="hidden-wrap collapse" data-q="3" data-category="0" data-sub="6" data-type="t">
                         <form class="input-form" id="63" data-max="6" data-sub="6" data-q="3" data-category="0">
-                            <textarea data-sub="6" class="form-textarea wordcount showprompt" data-q="4" data-prompt="Please provide up to 50 word professional bio of your senior leadership team" data-wordcount="50" placeholder="Leadership Bio"></textarea>
+                            <textarea data-sub="6" name="bio6" class="form-textarea wordcount showprompt map-input l" data-index="0" data-q="4" data-prompt="Please provide up to 50 word professional bio of your senior leadership team" data-wordcount="50" placeholder="Leadership Bio"></textarea>
                             <input type="submit" class="submit sub-exp" data-q="3" data-sub="6" />
                         </form>
                     </div>
@@ -795,20 +795,20 @@
                         <form class="input-form" id="64" data-max="6" data-sub="6" data-q="4" data-category="0">
                             <label class="label-wrap" data-sub="6" data-q="4">
                                 <span>Add Leadership Picture</span>
-                                <input data-sub="6" data-fid="ct0" data-f_index="1" data-type="file" type="file" id="f06" data-q="5" name="f06" placeholder="Add Leadership Picture"/>
+                                <input data-sub="6" name="picture6" data-fid="ct0" class="map-input l" data-index="0" data-type="file" type="file" id="f06" data-q="5" placeholder="Add Leadership Picture"/>
                             </label>
                             <input type="submit" class="submit" data-q="4" data-sub="6" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="5" data-category="0" data-sub="6">
                         <form class="input-form" id="65" data-max="6" data-sub="6" data-q="5" data-category="0">
-                            <input data-sub="6" class="form-input addmask" data-q="6" data-maskval="(999) 999-9999 ext 9999" placeholder="Leadership Contact Phone with extension" />
+                            <input data-sub="6"  name="phoneExt6" class="form-input addmask map-input l" data-index="0" data-q="6" data-maskval="(999) 999-9999 ext 9999" placeholder="Leadership Contact Phone with extension" />
                             <input type="submit" class="submit" data-q="5" data-sub="6" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="6" data-category="0" data-sub="6">
                         <form class="input-form" id="66" data-max="6" data-sub="6" data-q="6" data-category="0">
-                            <input data-sub="6" class="form-input" data-q="7" type="email" placeholder="Leadership Contact Email" />
+                            <input data-sub="6"  name="email6" class="form-input map-input l" data-index="0" data-q="7" type="email" placeholder="Leadership Contact Email" />
                             <input type="submit" class="submit" data-q="6" data-sub="6" />
                         </form>
                     </div>
@@ -882,21 +882,21 @@
                     <div class="active-wrap exp collapse warp" data-q="1" data-category="0" data-sub="7">
                         <form class="input-form" id="71" data-max="6" data-sub="7" data-q="1" data-category="0">
                             <div class="name-wrap showprompt">
-                                <input class="form-input" data-sub="7" data-q="1" type="text" placeholder="First name" data-prompt="Your current senior leadership information. Please add them according to their hierarchy level. It can be your Executive Director/President/CEO, board chair/president and so forth."/>
-                                <input class="form-input" data-sub="7" data-q="2" type="text" placeholder="Last name" />
+                                <input class="form-input map-input hidden-addition l" data-index="1" data-sub="7" name="firstName7" data-q="1" type="text" placeholder="First name" data-prompt="Your current senior leadership information. Please add them according to their hierarchy level. It can be your Executive Director/President/CEO, board chair/president and so forth."/>
+                                <input class="form-input map-input hidden-addition l" data-index="1" data-sub="7" name="lastName7" data-q="2" type="text" placeholder="Last name" />
                             </div>
                             <input type="submit" class="submit sub-exp1 visible" data-q="1" data-sub="7" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="2" data-category="0" data-sub="7">
                         <form class="input-form" id="72" data-max="6" data-sub="7" data-q="2" data-category="0">
-                            <input data-sub="7" class="form-input" data-q="3" type="text" placeholder="Leadership Job Title" />
+                            <input data-sub="7" class="form-input map-input hidden-addition l" data-index="1" name="title7" data-q="3" type="text" placeholder="Leadership Job Title" />
                             <input type="submit" class="submit" data-q="2" data-sub="7" />
                         </form>
                     </div>
                     <div class="hidden-wrap collapse" data-q="3" data-category="0" data-sub="7" data-type="t">
                         <form class="input-form" id="73" data-max="6" data-sub="7" data-q="3" data-category="0">
-                            <textarea data-sub="7" class="form-textarea wordcount showprompt" data-q="4" data-prompt="Please provide up to 50 word professional bio of your senior leadership team" data-wordcount="50" placeholder="Leadership Bio"></textarea>
+                            <textarea data-sub="7" class="form-textarea wordcount showprompt map-input hidden-addition l" data-index="1" name="bio7" data-q="4" data-prompt="Please provide up to 50 word professional bio of your senior leadership team" data-wordcount="50" placeholder="Leadership Bio"></textarea>
                             <input type="submit" class="submit sub-exp" data-q="3" data-sub="7" />
                         </form>
                     </div>
@@ -904,20 +904,20 @@
                         <form class="input-form" id="74" data-max="6" data-sub="7" data-q="4" data-category="0">
                             <label class="label-wrap" data-sub="7" data-q="4">
                                 <span> Add Leadership Picture</span>
-                                <input data-sub="7" data-fid="ct0" data-type="file"  data-f_index="2" type="file" id="f07" name="f07" data-q="5" placeholder="Add Leadership Picture"/>
+                                <input data-sub="7" data-fid="ct0" class="map-input hidden-addition l" data-index="1" name="picture7" data-type="file"  data-f_index="2" type="file" id="f07" name="f07" data-q="5" placeholder="Add Leadership Picture"/>
                             </label>
                             <input type="submit" class="submit" data-q="4" data-sub="7" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="5" data-category="0" data-sub="7">
                         <form class="input-form" id="75" data-max="6" data-sub="7" data-q="5" data-category="0">
-                            <input data-sub="7" class="form-input addmask" data-q="6" data-maskval="(999) 999-9999 ext 9999" placeholder="Leadership Contact Phone with extension" />
+                            <input data-sub="7" class="form-input addmask map-input hidden-addition l" data-index="1" name="phoneExt7" data-q="6" data-maskval="(999) 999-9999 ext 9999" placeholder="Leadership Contact Phone with extension" />
                             <input type="submit" class="submit" data-q="5" data-sub="7" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="6" data-category="0" data-sub="7">
                         <form class="input-form" id="76" data-max="6" data-sub="7" data-q="6" data-category="0">
-                            <input data-sub="7" class="form-input" type="email" data-q="7" placeholder="Leadership Contact Email" />
+                            <input data-sub="7" class="form-input map-input hidden-addition l" data-index="1" type="email" data-q="7" name="email7" placeholder="Leadership Contact Email" />
                             <input type="submit" class="submit" data-q="6" data-sub="7" />
                         </form>
                     </div>
@@ -992,21 +992,21 @@
                     <div class="active-wrap exp collapse warp" data-q="1" data-category="0" data-sub="8">
                         <form class="input-form" id="81" data-max="6" data-sub="8" data-q="1" data-category="0">
                             <div class="name-wrap showprompt">
-                                <input class="form-input" data-sub="8" data-q="1" type="text" placeholder="First name" data-prompt="Your current senior leadership information. Please add them according to their hierarchy level. It can be your Executive Director/President/CEO, board chair/president and so forth."/>
-                                <input class="form-input" data-sub="8" data-q="2" type="text" placeholder="Last name" />
+                                <input class="form-input map-input hidden-addition l" data-index="2" name="firstName8" data-sub="8" data-q="1" type="text" placeholder="First name" data-prompt="Your current senior leadership information. Please add them according to their hierarchy level. It can be your Executive Director/President/CEO, board chair/president and so forth."/>
+                                <input class="form-input map-input hidden-addition l" data-index="2" name="lastName8" data-sub="8" data-q="2" type="text" placeholder="Last name" />
                             </div>
                             <input type="submit" class="submit sub-exp1 visible" data-q="1" data-sub="8" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="2" data-category="0" data-sub="8">
                         <form class="input-form" id="82" data-max="6" data-sub="8" data-q="2" data-category="0">
-                            <input data-sub="8" class="form-input" data-q="3" type="text" placeholder="Leadership Job Title" />
+                            <input data-sub="8" class="form-input map-input hidden-addition l" data-index="2" name="title8" data-q="3" type="text" placeholder="Leadership Job Title" />
                             <input type="submit" class="submit" data-q="2" data-sub="8" />
                         </form>
                     </div>
                     <div class="hidden-wrap collapse" data-q="3" data-category="0" data-sub="8" data-type="t">
                         <form class="input-form" id="83" data-max="6" data-sub="8" data-q="3" data-category="0">
-                            <textarea data-sub="8" class="form-textarea wordcount showprompt" data-q="4" data-wordcount="50" data-prompt="Please provide up to 50 word professional bio of your senior leadership team" placeholder="Leadership Bio"></textarea>
+                            <textarea data-sub="8" class="form-textarea wordcount showprompt map-input hidden-addition l" data-index="2" name="bio8" data-q="4" data-wordcount="50" data-prompt="Please provide up to 50 word professional bio of your senior leadership team" placeholder="Leadership Bio"></textarea>
                             <input type="submit" class="submit sub-exp" data-q="3" data-sub="8" />
                         </form>
                     </div>
@@ -1014,20 +1014,20 @@
                         <form class="input-form" id="84" data-max="6" data-sub="8" data-q="4" data-category="0">
                             <label class="label-wrap" data-sub="8" data-q="4">
                                 <span> Add Leadership Picture</span>
-                                <input data-sub="8" data-fid="ct0" data-f_index="3" data-type="file" type="file" id="f08" name="f08" data-q="5" placeholder="Add Leadership Picture"/>
+                                <input data-sub="8" class="map-input hidden-addition l" data-index="2" data-fid="ct0" data-f_index="3" data-type="file" name="picture8" type="file" id="f08" name="f08" data-q="5" placeholder="Add Leadership Picture"/>
                             </label>
                             <input type="submit" class="submit" data-q="4" data-sub="8" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="5" data-category="0" data-sub="8">
                         <form class="input-form" id="85" data-max="6" data-sub="8" data-q="5" data-category="0">
-                            <input data-sub="8" class="form-input addmask" data-q="6" data-maskval="(999) 999-9999 ext 9999" placeholder="Leadership Contact Phone with extension" />
+                            <input data-sub="8" class="form-input addmask map-input hidden-addition l" data-index="2" data-q="6" data-maskval="(999) 999-9999 ext 9999" name="phoneExt8" placeholder="Leadership Contact Phone with extension" />
                             <input type="submit" class="submit" data-q="5" data-sub="8" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="6" data-category="0" data-sub="8">
                         <form class="input-form" id="86" data-max="6" data-sub="8" data-q="6" data-category="0">
-                            <input data-sub="8" class="form-input" type="email" data-q="7" placeholder="Leadership Contact Email" />
+                            <input data-sub="8" class="form-input map-input hidden-addition l" data-index="2" type="email" data-q="7" name="email8" placeholder="Leadership Contact Email" />
                             <input type="submit" class="submit" data-q="6" data-sub="8" />
                         </form>
                     </div>
@@ -1114,7 +1114,7 @@
             </div> 
 
         <div class="continue-btn-container-2">
-            <button id="continue-btn-2" data-category="0" data-view="1" data-max="2">Continue</button>
+            <input type="submit" id="continue-btn-2" data-category="0" data-view="1" data-max="2" value="Submit" />
         </div> 
         </form>
     </div>

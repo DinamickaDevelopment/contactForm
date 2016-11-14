@@ -8,11 +8,9 @@
                 duration: 700,
                 complete: function () {
                     $(this).find('span').animate({ opacity: 0 }, 100);
-                    $(this).fadeOut(300, function () {
-                        var id = '#' + $(this).attr('data-sub') + $(this).attr('data-q');
-                        $(id).submit();
-                        console.log($(id));
-                    })
+                    $(this).fadeOut(300);
+                    var id = '#' + $(this).attr('data-sub') + $(this).attr('data-q');
+                    $(id).submit(); 
                 }
             })
         })

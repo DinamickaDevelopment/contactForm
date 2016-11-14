@@ -307,8 +307,6 @@ module.exports = function () {
 
             var words = text.split(/[\s]+/);
 
-            // show word limit! 
-            console.log(words.length);
             prompt.find('span').html(words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used'); 
 
             if (words.length > parseInt($(this).attr('data-wordcount')) && !wrong_shown) {
@@ -352,9 +350,13 @@ module.exports = function () {
         }
     }
 
-    var isAnimating2 = false; 
+    var isAnimating2 = false;
     function show(elem, isBig, cb) {
-        if (isAnimating2) return false;
+        if (isAnimating2) {
+            setTimeout(function () {
+                isAnimating2 = false; 
+            }, 100)
+            return false }
         else isAnimating2 = true; 
 
         elem.animate({

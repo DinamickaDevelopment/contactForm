@@ -5,9 +5,7 @@
     var wrap = elem.parent('form').parent('.active-wrap').parent('.input-wrap');
     var container = elem.parent('form').parent('.active-wrap'); 
     var q = container.attr('data-q'); 
-    var p = wrap.find('.prompt[data-q="'+ q + '"]');
-    console.log(q);
-    console.log(p)
+    var p = wrap.find('.prompt[data-q="' + q + '"]');
 
     if (elem.hasClass('multiprompt')) {
         p.find('span').html(elem.attr('data-prompt')); 
