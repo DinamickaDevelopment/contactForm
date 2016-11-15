@@ -3940,32 +3940,26 @@
 
 	module.exports = function () {
 		$('.rad.y').on('click', function() {
-			$(this).css({
-				'background-image': 'url(../img/checked.png)'
-			}) 
+		    $(this).addClass('checked-img'); 
 			
 			$(this).prev('input[type="radio"]').attr('checked', 'checked');
 			var id = $(this).attr('id'); 
 			
-			$('#' + id + 'n').css({
-			    'background-image': 'url(../img/unchecked.png)'
-			});
+			$('#' + id + 'n').removeClass('checked-img'); 
+			$('#' + id + 'n').addClass('unckecked-img'); 
 			$('#' + id + 'n').prev('input[type="radio"]').removeAttr('checked')
 
 		}); 
 		
 		$('.rad.n').on('click', function() {
-			$(this).css({
-				'background-image': 'url(../img/checked.png)'  
-			})
+		    $(this).addClass('checked-img');
 				
 			var id = $(this).attr('id'); 
 			var new_id = id.replace('n', ''); 
 			
 			$(this).prev('input[type="radio"]').attr('checked', "checked");
-			$('#' + new_id).css({
-				'background-image': 'url(../img/unchecked.png)'
-			})
+			$('#' + new_id).removeClass('checked-img');
+			$('#' + new_id).addClass('checked-img'); 
 			$('#' + new_id).prev('input[type="radio"]').removeAttr('checked')
 		});
 

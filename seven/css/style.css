@@ -505,6 +505,16 @@ input[type=radio] {
     cursor: pointer;  
 }
 
+.checked-img {
+    background-image: url('../img/checked.png'); 
+    transition: background-image 0.2s linear; 
+}
+
+.unchecked-img {
+    background-image: url('../img/unchecked.png');  
+    transition: background-image 0.2s linear; 
+}
+
 .colorchange {
     background-color: #28d68c;  
 }
