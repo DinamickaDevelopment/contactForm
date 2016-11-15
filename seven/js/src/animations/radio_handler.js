@@ -10,7 +10,7 @@ module.exports = function () {
 		var id = $(this).attr('id'); 
 		
 		$('#' + id + 'n').css({
-		    'background-image': 'url(img/unchecked.png)'
+		    'background-image': 'url(../img/unchecked.png)'
 		});
 		$('#' + id + 'n').prev('input[type="radio"]').removeAttr('checked')
 
@@ -26,7 +26,7 @@ module.exports = function () {
 		
 		$(this).prev('input[type="radio"]').attr('checked', "checked");
 		$('#' + new_id).css({
-			'background-image': 'url(img/unchecked.png)'
+			'background-image': 'url(../img/unchecked.png)'
 		})
 		$('#' + new_id).prev('input[type="radio"]').removeAttr('checked')
 	});

@@ -1,5 +1,5 @@
 ﻿module.exports = {
-    all_data : [{
+    data : {
         name: "",
         aka: "",
         numberOfStaff: "",
@@ -32,13 +32,7 @@
         regionsDescription: "",
         regions: [],
         leadership: []
-    }, {
-        programName: "",
-
-    }],
-    data: function () {
-        return this.all_data[0]
-    },
+    }, 
 
     set_ext: function (elem, index) {
         var phone_ext = elem.inputmask('unmaskedvalue'); 

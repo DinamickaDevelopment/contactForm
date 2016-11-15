@@ -19,6 +19,10 @@ window.onload = function () {
     var flag = false;
     var init_flag = false;
 
+    $.router.addErrorHandler(function (url) {
+        console.log(url);
+    });
+
     $.router.add('/view/:ct', function (data) { 
         if (flag) {
             flag = false;

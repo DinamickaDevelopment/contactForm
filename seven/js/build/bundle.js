@@ -65,6 +65,10 @@
 	    var flag = false;
 	    var init_flag = false;
 
+	    $.router.addErrorHandler(function (url) {
+	        console.log(url);
+	    });
+
 	    $.router.add('/view/:ct', function (data) { 
 	        if (flag) {
 	            flag = false;
@@ -3944,7 +3948,7 @@
 			var id = $(this).attr('id'); 
 			
 			$('#' + id + 'n').css({
-			    'background-image': 'url(img/unchecked.png)'
+			    'background-image': 'url(../img/unchecked.png)'
 			});
 			$('#' + id + 'n').prev('input[type="radio"]').removeAttr('checked')
 
@@ -3960,7 +3964,7 @@
 			
 			$(this).prev('input[type="radio"]').attr('checked', "checked");
 			$('#' + new_id).css({
-				'background-image': 'url(img/unchecked.png)'
+				'background-image': 'url(../img/unchecked.png)'
 			})
 			$('#' + new_id).prev('input[type="radio"]').removeAttr('checked')
 		});
@@ -4024,7 +4028,18 @@
 	                    showMaskOnFocus: false,
 	                    greedy: false
 	                });
-	            }    
+
+	                if (maskval == '99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99]]]]]]]]]]]]]]]]]') {
+	                    $(this).inputmask({
+	                        mask: maskval,
+	                        showMaskOnHover: false,
+	                        showMaskOnFocus: false,
+	                        greedy: false,
+	                        removeMaskOnSubmit: true,
+	                        autoUnmask: true
+	                    });
+	                }
+	            }  
 	            else {
 	                $(this).inputmask({
 	                    mask: maskval,
@@ -4079,6 +4094,9 @@
 	    function handle_input(e) {
 	        
 	        var wrap = $(this).parent('form').parent('.active-wrap');
+	        if (wrap.length == 0) {
+	            wrap = $(this).parent('div').parent('form').parent('.active-wrap');
+	        }
 
 	        var s = wrap.find('.submit'); 
 
@@ -4349,7 +4367,7 @@
 	    //        }
 	    //    }
 	    //})
-
+	    var flag1 = false;
 	    function handle_textarea(e) {
 	        var sub = $(this).attr('data-sub');
 	        var wrap = $(this).parent('form').parent('.active-wrap');
@@ -4411,65 +4429,15 @@
 	            })
 	        }
 
-	   
 
-	        $(this).css({
-	            'color': '#1f467d'
-	        })
-	    
-	    var flag1 = false; 
+	  
 	    if (e.type == 'input') {
-	        if (typeof $(this).attr('data-wordcount') != 'undefined') {
-	            var prompt = all_wrap.find('.prompt[data-q="' + q + '"]');
 
-	            var text = $(this).val();
-	            text = text.replace(/[^a-zA-Z\s]/g, '');
-
-	            var words = text.split(/[\s]+/);
-
-	            prompt.find('span').html(words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used');
-
-	            if (words.length >= parseInt($(this).attr('data-wordcount'))) {
-
-	                s.css({ 'display': 'none' });
-	         
-
-	                    flag1 = true; 
-	                    w.css({
-	                        'z-index': parseInt(r.css('z-index')) + 2
-	                    })
-
-	                    r.css({
-	                        'z-index': parseInt(r.css('z-index')) - 3
-	                    });
-	                
-
-	                show(w);
-
-	                return false;
-
-	            }
-	            else {
-	       
-	                    flag1 = false; 
-	                    w.css({
-	                        'z-index': parseInt(r.css('z-index')) - 3
-	                    })
-	                    r.css({
-	                        'z-index': parseInt(r.css('z-index')) + 2
-	                    });
-	                    s.css({ 'display': 'block' });
-	                    show(r);
-	                
-	                return false;
-
-	            }
-	        }
-
+	     
 	        $(this).css({
 	            'color': '#1f467d'
 	        })
-
+	        count_w.call(this);
 	     
 
 	        if (isAnimating) {
@@ -4481,23 +4449,30 @@
 	        else isAnimating = true;
 
 
-	        if (!$(this).hasClass('req')) {
+	        if (!$(this).hasClass('req') && !flag1) {
 	            s.css({ 'display': 'block' });
 	            show(r, true);
 	        } else {
-	            if ($(this).val() == '') {
-	                s.css({ 'display': 'none' });
-	                hide(r, true, show, w, true); 
-	         
-	                
-	            } else {
-	                s.css({ 'display': 'block' });
-	                show(r, true);
+	            if (!flag1) {
+	                if ($(this).val() == '') {
+	                    s.css({ 'display': 'none' });
+	                    hide(r, true, show, w, true);
+
+
+	                } else {
+	                    s.css({ 'display': 'block' });
+	                    show(r, true);
+	                }
 	            }
 	        }
 	    } else {
 
+	        count_w.call(this);
+	    }
+
+	    function count_w() {
 	        if (typeof $(this).attr('data-wordcount') != 'undefined') {
+	            flag1 = true;
 	            var prompt = all_wrap.find('.prompt[data-q="' + q + '"]');
 
 	            var text = $(this).val();
@@ -4509,41 +4484,53 @@
 
 	            if (words.length >= parseInt($(this).attr('data-wordcount'))) {
 
-	                s.css({ 'display': 'none' });
+	              
+
+	                if (w.width() == 0) {
+	                    s.css({ 'display': 'none' });
+	                    w.css({
+	                        'z-index': '100000'
+	                    })
+
+	                    r.css({
+	                        'z-index': '99999',
+	                        'width': '0px'
+	                    });
+	                    r.find('img').css({
+	                        'display': 'none'
+	                    }); 
 
 
-	                flag1 = true;
-	                w.css({
-	                    'z-index': parseInt(r.css('z-index')) + 2
-	                })
+	                    show(w);
+	                }
+	               
 
-	                r.css({
-	                    'z-index': parseInt(r.css('z-index')) - 3
-	                });
-
-
-	                show(w);
 
 	                return false;
 
 	            }
 	            else {
-
-	                flag1 = false;
-	                w.css({
-	                    'z-index': parseInt(r.css('z-index')) - 3
-	                })
-	                r.css({
-	                    'z-index': parseInt(r.css('z-index')) + 2
-	                });
-	                s.css({ 'display': 'block' });
-	                show(r);
+	                console.log(r.width())
+	                if (r.width() == 0) {
+	                    w.css({
+	                        'z-index': '99999',
+	                        'width': '0px'
+	                    })
+	                    w.find('img').css({
+	                        'display': 'none'
+	                    })
+	                    r.css({
+	                        'z-index': '100000'
+	                    });
+	                    s.css({ 'display': 'block' });
+	                    show(r);
+	                }
 
 	                return false;
 
 	            }
 	        }
-	     }
+	    }
 	    }   
 
 	    var isAnimating2 = false;
@@ -4969,22 +4956,31 @@
 	    $('input[type=file]').on('click', function () {
 	        $(this).on('change', function () {
 
-	            var self = $(this); 
-	            $(this).parent('.label-wrap').prev('.skip-container').fadeOut(300, function () {
-	               self.parent('.label-wrap').css({ 'z-index': '90999999' });
-	               self.parent('.label-wrap').animate({
-	                    'width': '100%'
+	            var self = $(this);
+	 
+	            $(this).parent('.label-wrap').prev('.skip-container').find('span').fadeOut(100, function () {
+	                self.parent('.label-wrap').prev('.skip-container').animate({
+	                    width: '0px',
+	                    padding: '0px',
+	                    margin: '0px'
 	                }, {
-	                    duration: 700,
+	                    duration: 300,
 	                    complete: function () {
-	                        self.find('span').animate({ opacity: 0 }, 100);
-	                        self.fadeOut(300);
-	                        var id = '#' + self.attr('data-category') + self.attr('data-sub') + self.attr('data-q');
-	                        $(id).submit();
+	                        self.parent('.label-wrap').css({ 'z-index': '90999999' });
+	                        self.parent('.label-wrap').animate({
+	                            'width': '100%'
+	                        }, {
+	                            duration: 700,
+	                            complete: function () {
+	                                $(this).find('span').animate({ opacity: 0 }, 100);
+	                                $(this).fadeOut(500);
+	                                var id = '#' + $(this).attr('data-category') + $(this).attr('data-sub') + $(this).attr('data-q');
+	                                $(id).submit();
+	                            }
+	                        })
 	                    }
 	                })
 	            })
-
 	        })
 	    });
 
@@ -4998,10 +4994,19 @@
 	            }, {
 	                duration: 300,
 	                complete: function () {
-	                    self.parent('form').fadeOut(200, function () {
-	                        var id = '#' + self.attr('data-category') + self.attr('data-sub') + self.attr('data-q');
-	                        $(id).submit();
+	                    self.next('.label-wrap').find('span').animate({ opacity: 0 }, 100);
+	                    self.next('.label-wrap').animate({
+	                        width: 100 + '%'
+	                    }, {
+	                        duration: 500,
+	                        complete: function () {
+	                            self.parent('form').fadeOut(500, function () {
+	                                var id = '#' + self.attr('data-category') + self.attr('data-sub') + self.attr('data-q');
+	                                $(id).submit();
+	                            })
+	                        }
 	                    })
+
 
 	                }
 	            })
@@ -5404,7 +5409,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	    all_data : [{
+	    data : {
 	        name: "",
 	        aka: "",
 	        numberOfStaff: "",
@@ -5437,13 +5442,7 @@
 	        regionsDescription: "",
 	        regions: [],
 	        leadership: []
-	    }, {
-	        programName: "",
-
-	    }],
-	    data: function () {
-	        return this.all_data[0]
-	    },
+	    }, 
 
 	    set_ext: function (elem, index) {
 	        var phone_ext = elem.inputmask('unmaskedvalue'); 

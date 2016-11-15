@@ -11,7 +11,18 @@
                     showMaskOnFocus: false,
                     greedy: false
                 });
-            }    
+
+                if (maskval == '99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99]]]]]]]]]]]]]]]]]') {
+                    $(this).inputmask({
+                        mask: maskval,
+                        showMaskOnHover: false,
+                        showMaskOnFocus: false,
+                        greedy: false,
+                        removeMaskOnSubmit: true,
+                        autoUnmask: true
+                    });
+                }
+            }  
             else {
                 $(this).inputmask({
                     mask: maskval,
