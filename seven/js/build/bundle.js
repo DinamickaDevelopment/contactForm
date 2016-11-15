@@ -3959,7 +3959,7 @@
 			
 			$(this).prev('input[type="radio"]').attr('checked', "checked");
 			$('#' + new_id).removeClass('checked-img');
-			$('#' + new_id).addClass('checked-img'); 
+			$('#' + new_id).addClass('unchecked-img'); 
 			$('#' + new_id).prev('input[type="radio"]').removeAttr('checked')
 		});
 
