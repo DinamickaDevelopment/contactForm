@@ -10,17 +10,28 @@ module.exports = function () {
 
     $('.form-textarea').on('input', handle_textarea);
 
-    $('.rad').on('click', function () {
-        var sub = $(this).attr('data-sub');
+    var handler_added = false;
+    if (!handler_added) {
+        handler_added = true; 
+        $('.rad').on('click', function () {
+            
+            var sub = $(this).attr('data-sub');
+            var cat = $(this).attr('data-category');
 
-        show($('#right' + sub)); 
-    });
+            var wrap = $('.category-wrap[data-category="' + cat + '"]').find('.input-wrap[data-sub="' + sub + '"]');
+
+            var r = wrap.find('.right');
+
+            show(r);
+        });
+    } 
 
     var isAnimating = false; 
 
     function handle_input(e) {
         
         var wrap = $(this).parent('form').parent('.active-wrap');
+
         var s = wrap.find('.submit'); 
 
         if (e.target.classList.contains('exp-drop')) {
@@ -44,8 +55,8 @@ module.exports = function () {
         }
         else isAnimating = true; 
 
-        var r = $('#right' + sub);
-        var w = $('#wrong' + sub);
+        var r = wrap.parent('.input-wrap').find('.right'); 
+        var w = wrap.parent('.input-wrap').find('.wrong');
 
         if (r.width() > 0) {
             s.css({
@@ -78,6 +89,9 @@ module.exports = function () {
         } 
 
         if ($(this).hasClass('exp-name')) {
+            var w = $(this).parent('div').parent('.input-wrap').find('.wrong');
+            var r = $(this).parent('div').parent('.input-wrap').find('.right'); 
+
             var self = $(this);
 
 
@@ -98,7 +112,7 @@ module.exports = function () {
             }); 
             next.slideDown(400, function () {
 
-              
+                next.find('input').eq(0).trigger('focus'); 
                 self.css({'opacity': '0'})
 
                 isAnimating = false;
@@ -129,7 +143,7 @@ module.exports = function () {
             var s = $(this).parent('.name-wrap').parent('form').find('.submit'); 
 
             s.css({
-                  'display': 'block'
+                'display': 'block'
             })
             var self = $(this);
 
@@ -199,8 +213,8 @@ module.exports = function () {
         }
 
         if (!$(this).hasClass('req')) {
-                s.css({ 'display': 'block' });
-                show(r);
+            s.css({ 'display': 'block' });
+            show(r);
         } else {
             if (e.type == 'input') {
                 if ($(this).val() == '') {
@@ -234,7 +248,59 @@ module.exports = function () {
     }
 
     var right_shown = false;
-    var wrong_shown = false; 
+    var wrong_shown = false;
+
+    //$('textarea').on('paste', function () {
+    //    var sub = $(this).attr('data-sub');
+    //    var wrap = $(this).parent('form').parent('.active-wrap');
+    //    var s = wrap.find('.submit');
+    //    var q = wrap.attr('data-q');
+    //    var all_wrap = wrap.parent('.input-wrap');
+
+
+    //    var r = wrap.parent('.input-wrap').find('.right');
+    //    var w = wrap.parent('.input-wrap').find('.wrong');
+
+    //    if (typeof $(this).attr('data-wordcount') != 'undefined') {
+    //        var prompt = all_wrap.find('.prompt[data-q="' + q + '"]');
+
+    //        var text = $(this).val();
+    //        text = text.replace(/[^a-zA-Z\s]/g, '');
+
+    //        var words = text.split(/[\s]+/);
+
+    //        prompt.find('span').html(words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used');
+
+    //        if (words.length >= parseInt($(this).attr('data-wordcount'))) {
+
+    //            s.css({ 'display': 'none' });
+
+    //            w.css({
+    //                'z-index': parseInt(r.css('z-index')) + 2
+    //            })
+    //            r.css({
+    //                'z-index': parseInt(r.css('z-index')) - 1
+    //            });
+    //            show(w);
+
+    //            return false;
+
+    //        }
+    //        else {
+
+    //            w.css({
+    //                'z-index': parseInt(r.css('z-index')) - 1
+    //            })
+    //            r.css({
+    //                'z-index': parseInt(r.css('z-index')) + 2
+    //            });
+    //            s.css({ 'display': 'block' });
+    //            show(r);
+    //            return false;
+
+    //        }
+    //    }
+    //})
 
     function handle_textarea(e) {
         var sub = $(this).attr('data-sub');
@@ -243,7 +309,9 @@ module.exports = function () {
         var q = wrap.attr('data-q');
         var s = wrap.find('.submit'); 
 
-        var r = $('#right' + sub);
+        var r = wrap.parent('.input-wrap').find('.right');
+        var w = wrap.parent('.input-wrap').find('.wrong');
+
 
         if (r.width() > 0) {
             s.css({
@@ -251,7 +319,6 @@ module.exports = function () {
             })
         }
 
-        var w = $('#wrong' + sub);
 
         if ($(this).hasClass('showprompt')) {
             $(this).removeClass('showprompt');
@@ -269,7 +336,7 @@ module.exports = function () {
                 'height': '156px'
             }, 300)
 
-            $('.input-overlay[data-sub="' + sub + '"]').animate({
+            $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.input-overlay').animate({
                 height: '200px',
                 marginTop: '-200px'
             }, 300)
@@ -296,33 +363,60 @@ module.exports = function () {
             })
         }
 
+   
 
+        $(this).css({
+            'color': '#1f467d'
+        })
+    
+    var flag1 = false; 
+    if (e.type == 'input') {
+        if (typeof $(this).attr('data-wordcount') != 'undefined') {
+            var prompt = all_wrap.find('.prompt[data-q="' + q + '"]');
 
-        if (e.type == 'input') {
-
-            var prompt = all_wrap.find('.prompt[data-q="' + q + '"]'); 
-
-            var text = $(this).val(); 
+            var text = $(this).val();
             text = text.replace(/[^a-zA-Z\s]/g, '');
 
             var words = text.split(/[\s]+/);
 
-            prompt.find('span').html(words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used'); 
+            prompt.find('span').html(words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used');
 
-            if (words.length > parseInt($(this).attr('data-wordcount')) && !wrong_shown) {
-                wrong_shown = true;
-                right_shown = false;
+            if (words.length >= parseInt($(this).attr('data-wordcount'))) {
+
                 s.css({ 'display': 'none' });
-                hide(r, true, show, w, true);
+         
+
+                    flag1 = true; 
+                    w.css({
+                        'z-index': parseInt(r.css('z-index')) + 2
+                    })
+
+                    r.css({
+                        'z-index': parseInt(r.css('z-index')) - 3
+                    });
+                
+
+                show(w);
 
                 return false;
-            } else if (!right_shown) {
-                wrong_shown = false;
-                right_shown = true;
-                s.css({ 'display': 'block' }); 
-                show(r); 
+
             }
-        } 
+            else {
+       
+                    flag1 = false; 
+                    w.css({
+                        'z-index': parseInt(r.css('z-index')) - 3
+                    })
+                    r.css({
+                        'z-index': parseInt(r.css('z-index')) + 2
+                    });
+                    s.css({ 'display': 'block' });
+                    show(r);
+                
+                return false;
+
+            }
+        }
 
         $(this).css({
             'color': '#1f467d'
@@ -330,13 +424,18 @@ module.exports = function () {
 
      
 
-        if (isAnimating) return false;
+        if (isAnimating) {
+            setTimeout(function () {
+                isAnimating = false;
+            }, 100);
+            return false; 
+        }
         else isAnimating = true;
 
 
         if (!$(this).hasClass('req')) {
-               s.css({ 'display': 'block' });
-               show(r, true);
+            s.css({ 'display': 'block' });
+            show(r, true);
         } else {
             if ($(this).val() == '') {
                 s.css({ 'display': 'none' });
@@ -348,7 +447,56 @@ module.exports = function () {
                 show(r, true);
             }
         }
-    }
+    } else {
+
+        if (typeof $(this).attr('data-wordcount') != 'undefined') {
+            var prompt = all_wrap.find('.prompt[data-q="' + q + '"]');
+
+            var text = $(this).val();
+            text = text.replace(/[^a-zA-Z\s]/g, '');
+
+            var words = text.split(/[\s]+/);
+
+            prompt.find('span').html(words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used');
+
+            if (words.length >= parseInt($(this).attr('data-wordcount'))) {
+
+                s.css({ 'display': 'none' });
+
+
+                flag1 = true;
+                w.css({
+                    'z-index': parseInt(r.css('z-index')) + 2
+                })
+
+                r.css({
+                    'z-index': parseInt(r.css('z-index')) - 3
+                });
+
+
+                show(w);
+
+                return false;
+
+            }
+            else {
+
+                flag1 = false;
+                w.css({
+                    'z-index': parseInt(r.css('z-index')) - 3
+                })
+                r.css({
+                    'z-index': parseInt(r.css('z-index')) + 2
+                });
+                s.css({ 'display': 'block' });
+                show(r);
+
+                return false;
+
+            }
+        }
+     }
+    }   
 
     var isAnimating2 = false;
     function show(elem, isBig, cb) {

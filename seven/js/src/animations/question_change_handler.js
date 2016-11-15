@@ -7,20 +7,24 @@ module.exports = function () {
 
     for (var i = 0; i < input_forms.length; i++) {
         input_forms[i].onsubmit = function (e) {
-           
+
             e.preventDefault();
+
 
             var curr_q = e.target.dataset.q;
             if (typeof curr_q == 'undefined') {
                 curr_q = e.target.parentElement.dataset.q; 
             }
+
+            var cat = e.target.dataset.category; 
             var sub = e.target.dataset.sub;
             var max = e.target.dataset.max; 
 
             try {
-                if (e.target.id == sub.toString() + curr_q.toString() && parseInt(curr_q) <= parseInt(max)) {
+                if (e.target.id == cat.toString() + sub.toString() + curr_q.toString() && parseInt(curr_q) <= parseInt(max)) {
 
-                    change_q.call($('#' + e.target.id).parents('.input-wrap').find('.right'));
+                        change_q.call($('#' + e.target.id).parent('.active-wrap').parent('.input-wrap').find('.right'));
+                    
                 } 
             } catch (err) {
 
@@ -43,9 +47,10 @@ module.exports = function () {
         'height': '200px'
     })
 
+
     function change_q() {
 
-        var r = $(this).parents('.input-wrap').find('.right');
+        var r = $(this); 
         var w = $(this).parents('.input-wrap').find('.wrong');
 
         var curr = $(this).parents('.input-wrap').find('.active-wrap');
@@ -65,6 +70,7 @@ module.exports = function () {
             var pr = curr.parent('.input-wrap').find('.prompt[data-q="' + (q - 1) + '"]');
 
             if (!curr.hasClass('showradio')) {
+                counter = 0; 
                 pr.find('span').fadeOut(100, function () {
                     pr.slideUp({
                         duration: 200,
@@ -72,10 +78,20 @@ module.exports = function () {
                     })
                 })
             } else {
+    
+                var counter = 0; 
                 pr.find('span').fadeOut(100, function () {
                     pr.slideUp({
+                        
                         duration: 400,
-                        start: animate_q
+                        complete: function () {
+                            if (counter == 0) {
+                                counter++; 
+                                animate_q(); 
+                            } else {
+                                $(this).stop(true, true); 
+                            }
+                        }
                     })
                 })
             }
@@ -88,6 +104,14 @@ module.exports = function () {
         function animate_q() {
             if (curr.hasClass('collapse')) {
 
+                curr.parent('.input-wrap').find('.input-overlay').css({
+                    display: 'block'
+                })
+
+                curr.parent('.input-wrap').find('.input-overlay').animate({
+                    height: '100px',
+                    marginTop: '-100px'
+                }, 301);
                 r.animate({
                     height: '100px',
                     marginTop: '-100px'
@@ -96,7 +120,7 @@ module.exports = function () {
                     start: function () {
                         curr.animate({
                             'height': curr.height() - 100 + 'px'
-                        }, 300)
+                        }, 300) 
 
                         if (curr.attr('data-type') == 't') {
                             curr.find('textarea').animate({
@@ -123,12 +147,6 @@ module.exports = function () {
                     'display': 'none'
                 });
 
-                $('.input-overlay[data-sub="' + sub + '"]').animate({
-                    height: '100px',
-                    marginTop: '-100px'
-                }, 300);
-
-
 
             } else {
                 animate_transition();
@@ -137,7 +155,6 @@ module.exports = function () {
 
         function animate_transition() {
             w.fadeOut(100, function () {
-
 
                 r.animate({
                     marginRight: '170px',

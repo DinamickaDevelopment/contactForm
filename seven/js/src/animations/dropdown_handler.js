@@ -8,11 +8,19 @@
 
     function drop(elem) {
 
-
-         var wrap = elem.parent('div').parent('.input-wrap');
-
+ 
+        var wrap = elem.parent('div').parent('.input-wrap');
 
         var down = wrap.find('.down');
+        if (down.length == 0) {
+            var wrap = elem.parent('div'); 
+            down = wrap.find('.down');
+  
+        } else if (down.length > 1) {
+            var wrap = elem.parent('div');
+            down = wrap.find('.down');
+        }
+
 
         elem.css({
             'background-color': 'rgb(172, 185, 218)',

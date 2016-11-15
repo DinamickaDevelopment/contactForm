@@ -3,7 +3,7 @@ var prompt_handler = require('./prompt_handler');
 module.exports = function () {
 	$('.rad.y').on('click', function() {
 		$(this).css({
-			'background-image': 'url(img/checked.png)'
+			'background-image': 'url(../img/checked.png)'
 		}) 
 		
 		$(this).prev('input[type="radio"]').attr('checked', 'checked');
@@ -18,7 +18,7 @@ module.exports = function () {
 	
 	$('.rad.n').on('click', function() {
 		$(this).css({
-			'background-image': 'url(img/checked.png)'  
+			'background-image': 'url(../img/checked.png)'  
 		})
 			
 		var id = $(this).attr('id'); 
@@ -33,8 +33,8 @@ module.exports = function () {
 
 
 	$('.radio-inp').on('click', function () {
-	    var r = $(this).parent('form').parent('.active-wrap').find('.right');
-	    var w = $(this).parent('form').parent('.active-wrap').find('.wrong');
+	    var r = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.right');
+	    var w = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.wrong');
 
 	    prompt_handler($(this), r, w); 
 	})

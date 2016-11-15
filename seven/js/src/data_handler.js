@@ -1,5 +1,5 @@
 ﻿module.exports = {
-    data: {
+    all_data : [{
         name: "",
         aka: "",
         numberOfStaff: "",
@@ -32,8 +32,13 @@
         regionsDescription: "",
         regions: [],
         leadership: []
-    },
+    }, {
+        programName: "",
 
+    }],
+    data: function () {
+        return this.all_data[0]
+    },
 
     set_ext: function (elem, index) {
         var phone_ext = elem.inputmask('unmaskedvalue'); 
@@ -174,12 +179,15 @@
 
         var opts = drop.find(":selected");
 
+      
+
         if (opts.length == 0) return false; 
 
+        if (this.data[propname].length > 0) {
+            this.data[propname] = [];
+        }
+
         if (drop.find('optgroup').length > 0) {
-            if (this.data[propname].length > 0) {
-                this.data[propname] = []; 
-            }
 
             var optgroups= drop.find('optgroup'); 
 

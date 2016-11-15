@@ -17,9 +17,9 @@ var data_handler = require('./data_handler.js');
 
 window.onload = function () {
     var flag = false;
-    var init_flag = false; 
+    var init_flag = false;
 
-    $.router.add('/view', function () { 
+    $.router.add('/view/:ct', function (data) { 
         if (flag) {
             flag = false;
             data_handler.refresh_data();
@@ -30,7 +30,12 @@ window.onload = function () {
         $('.meter-top span').animate({
             width: '0%'
         }, 500);
-        $('.stats').html('0/2'); 
+        $('.stats').html(data.ct + '/4'); 
+
+        $('.form-wrap').find('.category-wrap[data-category="'+ data.ct + '"]').css({ 'display': 'block' });
+        $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
+
+        $('.form-wrap').fadeIn(300);
 
         $('.content-wrap').fadeIn(300);
         $('.form-preview-wrap').fadeOut(300);
@@ -47,14 +52,18 @@ window.onload = function () {
             add_input_handler();
             dropdown_select_handler();
             nested_dropdown_handler();
+
+            $('.view-preview').on('click', function () {
+                $.router.go('/preview/' + data.ct);
+            })
+
         }
 
+
     });
-    $.router.go('/view');
- 
-    $('#continue-btn').on('click', function () {
-        $.router.go('/preview');
-    })
+
+    
+    $.router.go('/view/0');
 
     $.router.add('/done', function () {
         $('.meter-top span').animate({
@@ -78,26 +87,26 @@ window.onload = function () {
 
     var handler_added = false; 
 
-    $.router.add('/preview', function () {
+    $.router.add('/preview/:category', function (data) {
+        var ct = data.category; 
        
         $('.big-container').fadeIn(500);
         $('.thank-you-screen').css({
             'height': '0px',
             'opacity': '0'
         });
-        var btn = $('#continue-btn');
-        var cat = parseInt(btn.attr('data-view'));
-        var max = parseInt(btn.attr('data-max'));
+        var btn = $('#continue-btn');   
+        var max = 4;
 
         var step = 100 / max;
-        var w = step * cat;
+        var w = step * data.category;
 
         $('.meter-top span').animate({
             width: w + '%'
         }, {
             duration: 500,
             complete: function () {
-                $('.stats').html('1/2');
+                $('.stats').html( data.category + '/4');
             }
         });
 
@@ -111,67 +120,76 @@ window.onload = function () {
             map_inputs.call(btn);
 
             if (!handler_added) {
-                $('#ct0').on('submit', function (e) {
-
-                    e.preventDefault();
-
-                    var form_inputs = $(this).find('.map-input').not('.hidden-addition').not('.l').not('.a').not('.sel');
-                    var leadership_inputs = $(this).find('.map-input.l').not('.hidden-addition');
-                    var address_inputs = $(this).find('.map-input.a').not('.hidden-addition');
-                    var dropdowns = $(this).find('.map-input.sel').not('.hidden-addition');
-
-                    for (var i = 0 ; i < form_inputs.length; i++) {
-                        var propname = form_inputs.eq(i).attr('name');
-
-                        if (propname != 'regions') {
-                            if (propname.split('.').length > 1) {
-                                var propname = propname.split('.')[0];
-                                var nested_prop = propname.split('.')[1];
-                                data_handler.set_field(form_inputs.eq(i), propname, nested_prop);
-                            } else {
-                                data_handler.set_field(form_inputs.eq(i), propname);
-                            }
-                        } else {
-                            data_handler.set_regions(form_inputs.eq(i));
-                        }
-
-                    }
-
-                    for (var i = 0; i < leadership_inputs.length; i++) {
-                        var l_propname = leadership_inputs.eq(i).attr('name').substr(0, leadership_inputs.eq(i).attr('name').length - 1);
-                        data_handler.set_multi(leadership_inputs.eq(i), 'leadership', l_propname, leadership_inputs.eq(i).attr('data-index'));
-                    }
-
-                    for (var i = 0; i < address_inputs.length; i++) {
-                        var a_propname = address_inputs.eq(i).attr('name').substr(0, address_inputs.eq(i).attr('name').length - 1);
-                        if (address_inputs.eq(i).hasClass('yes') && address_inputs.eq(i).prop('checked')) {
-
-                            data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'), true);
-                        } else {
-                            data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'));
-                        }
-
-                    }
-                    for (var i = 0; i < dropdowns.length; i++) {
-
-                        data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
-                    }
-
-                    console.log('-------form data---------');
-                    console.log(data_handler.get_data());
-                    console.log('-------form data json------');
-                    console.log(data_handler.get_json_data());
-                    $.router.go('/done');
-                })
+                $('#ct0').on('submit', submit_handler);
+                $('#ct1').on('submit', submit_handler);
+                $('#ct2').on('submit', submit_handler); 
             }
 
+            function submit_handler (e) {
+
+                e.preventDefault();
+
+                var form_inputs = $(this).find('.map-input').not('.hidden-addition').not('.l').not('.a').not('.sel');
+                var leadership_inputs = $(this).find('.map-input.l').not('.hidden-addition');
+                var address_inputs = $(this).find('.map-input.a').not('.hidden-addition');
+                var dropdowns = $(this).find('.map-input.sel').not('.hidden-addition');
+
+                for (var i = 0 ; i < form_inputs.length; i++) {
+                    var propname = form_inputs.eq(i).attr('name');
+
+                    if (propname != 'regions') {
+                        if (propname.split('.').length > 1) {
+                            var propname = propname.split('.')[0];
+                            var nested_prop = propname.split('.')[1];
+                            data_handler.set_field(form_inputs.eq(i), propname, nested_prop);
+                        } else {
+                            data_handler.set_field(form_inputs.eq(i), propname);
+                        }
+                    } else {
+                        data_handler.set_regions(form_inputs.eq(i));
+                    }
+
+                }
+
+                for (var i = 0; i < leadership_inputs.length; i++) {
+                    var l_propname = leadership_inputs.eq(i).attr('name').substr(0, leadership_inputs.eq(i).attr('name').length - 1);
+                    data_handler.set_multi(leadership_inputs.eq(i), 'leadership', l_propname, leadership_inputs.eq(i).attr('data-index'));
+                }
+
+                for (var i = 0; i < address_inputs.length; i++) {
+                    var a_propname = address_inputs.eq(i).attr('name').substr(0, address_inputs.eq(i).attr('name').length - 1);
+                    if (address_inputs.eq(i).hasClass('yes') && address_inputs.eq(i).prop('checked')) {
+
+                        data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'), true);
+                    } else {
+                        data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'));
+                    }
+
+                }
+                for (var i = 0; i < dropdowns.length; i++) {
+
+                    data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
+                }
+
+                console.log('-------form data---------');
+                console.log(data_handler.get_data());
+                console.log('-------form data json------');
+                console.log(data_handler.get_json_data());
+
+                //if (data.category < 1) {
+                //    $.router.go('/view' + data.category);
+                //} else {
+                    $.router.go('/done');
+                //}
+
+            }
             
         } else {
 
             data_handler.refresh_data();
 
             var preview = $('.form-preview-wrap');
-            $('.content-wrap').fadeOut(500, function () {
+            $('.form-wrap').fadeOut(500, function () {
                 preview.fadeIn(500);
             });
 
@@ -181,9 +199,10 @@ window.onload = function () {
             var cat = parseInt($(this).attr('data-view'));
             var max = parseInt($(this).attr('data-max'));
 
-            $('.content-wrap').fadeOut(500, function () {
+            $('.form-wrap').fadeOut(500, function () {
 
-                var inputs = $('.map-input');
+                var wrap = $('.category-wrap[data-category="' + data.category + '"]'); 
+                var inputs = wrap.find('.map-input');
 
                 var new_inputs = inputs.clone();
               
@@ -191,6 +210,9 @@ window.onload = function () {
                 new_inputs.removeAttr('disabled');
 
                 var preview = $('.form-preview-wrap');
+                preview.find('form[data-category!="' + data.category + '"]').css({
+                    'display': 'none'
+                }); 
 
                 for (var i = 0; i < new_inputs.length; i++) {
                   
@@ -280,7 +302,8 @@ window.onload = function () {
                 map_dropdowns(preview)
 
                 function map_dropdowns(wrap) {
-                    var drops = $('.drop'); 
+                    var bigwrap = $('.category-wrap[data-category="' + data.category + '"]');
+                    var drops = bigwrap.find('.drop'); 
                     var mapped_drops = [];
 
                     for (var i = 0; i < drops.length; i++) {

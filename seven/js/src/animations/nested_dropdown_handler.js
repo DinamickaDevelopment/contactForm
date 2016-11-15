@@ -53,20 +53,20 @@
         }
     })
 
-    function exp_multi_drop() {
-
-    }
-
-    function collapse_multi_drop() {
-
-    }
 
     $('.down-sm').on('click', function () {
 
+        var flag = false; 
         var wrap = $(this).parent('div').parent('div').parent('.active-wrap');
         var d = parseInt($(this).attr('data-dropheight')); 
         var m = $(this).next('.multi-drop');
         var h = parseInt(m.attr('data-dropheight')); 
+
+        if (wrap.length == 0) {
+            wrap = $(this).parent('div').parent('div').parent('form').parent('.active-wrap');
+            flag = true;
+            var h = parseInt(m.attr('data-dropheight')) + 100;
+        }
 
         if (!$(this).find('img').hasClass('rotate2')) {
             $(this).find('img').addClass('rotate2');
@@ -100,7 +100,12 @@
         if (!$(this).hasClass('selected')) {
 
             var wrap = $(this).parent('div').parent('.exp-cell');
+            
             var all_wrap = wrap.parent('div').parent('.active-wrap').parent('.input-wrap');
+            if (all_wrap.length == 0) {
+                all_wrap = wrap.parent('div').parent('form').parent('.active-wrap'); 
+            }
+
             var down = all_wrap.find('.down');
 
 

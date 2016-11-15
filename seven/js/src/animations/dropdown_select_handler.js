@@ -4,98 +4,153 @@ var small_progress = require('./progress_bar');
 
 module.exports = function () {
     $('.down').on('click', function () {
-
+        var flag = false; 
         var dropwrap = $(this).parent('.input-wrap').find('.active-wrap');
+        if (dropwrap.length == 0) {
+            dropwrap = $(this).parent('.active-wrap');
+            flag = true; 
+        }
 
         if (!$(this).hasClass('colorchange')) {
 
-            var h = dropwrap.attr('data-dropheight');
-
-            dropwrap.css({
-                'height': h + 'px'
-            });
-            $(this).parent('.input-wrap').find('.input-overlay').css({
+            dropwrap.parent('.input-wrap').find('.input-overlay').css({
                 'display': 'none'
             })
-            dropwrap.slideDown(500);
+
+            var h = dropwrap.attr('data-dropheight');
+            if (!flag) {
+                dropwrap.css({
+                    'height': h + 'px'
+                });
+
+                dropwrap.slideDown(500);
+            } else {
+
+                dropwrap.find('.input-form').fadeIn(300); 
+                dropwrap.animate({
+                    height: h + 'px'
+                }, {
+                    duration: 500 
+                })
+            }
         } else {
 
             var self = $(this);
 
-    
-     
-            dropwrap.slideUp(500, function () {
-                self.animate({
-                    marginRight: '200px',
-                    opacity: '0'
+            if (!flag) {
+                dropwrap.slideUp(500, cb1)
+            } else {
+                dropwrap.css({
+                    'overflow': 'hidden'
+                }); 
+                dropwrap.animate({
+                    height: '100px'
                 }, {
                     duration: 500,
                     complete: function () {
-                         
-                        var s = dropwrap.parent('.input-wrap').find('.small-stats')
-                        var bar = dropwrap.parent('.input-wrap').find('.meter-span');
-
-                     
-                        if (dropwrap.hasClass('final')) {
-                            bar.animate({
-                                width: '100%'
-                            }, {
-                                dutration: 300,
-                                complete: function () {
-                                    end_form(dropwrap, true); 
-                                }
-                            });
-
-                         
-                            s.html(s.attr('data-max') + '/' + s.attr('data-max')); 
-                        } else {
-                            var q = parseInt($(this).attr('data-q'));
-                            q++;
-
-                            $(this).attr('data-q', q); 
-
-                            small_progress(q, parseInt(s.attr('data-max')), bar, s);
-
-                            $(this).removeClass('colorchange');
-                            $(this).find('.icon').css({ 'display': 'none' }); 
-                            $(this).find('.icon').removeClass('rotate'); 
-                            $(this).css({
-                                'margin-right': '-30px',
-                                'width': '0px',
-                                'opacity': '1'
-                            });
-
-                            var mock = dropwrap.parent('.input-wrap').find('.mock-input');
-
-                            var n = dropwrap.next('.hidden-wrap');
-
-                            mock.css({
-                                'z-index': '-1'
-                            })
-                            dropwrap.removeClass('active-wrap');
-                            n.addClass('active-wrap'); 
-                            n.css({
-                                'display': 'none'
-                            });
-
-                            dropwrap.parent('.input-wrap').find('.input-overlay').css({
-                                'display': 'block'
-                            })
-                            mock.find('input').fadeOut(300, function () {
-                                var c = mock.find('.curr-inp');
-                                c.removeClass('curr-inp');
-                                c.next('input').addClass('curr-inp').fadeIn(300, function () {
-                                    dropwrap.parent('.input-wrap').find('.input-overlay').css({
-                                        'display': 'none'
-                                    })
+                        var down = dropwrap.find('.down');
+                        down.animate({
+                            marginRight: '200px',
+                            opacity: 0
+                        }, {
+                            duration: 300,
+                            complete: function () {
+                                dropwrap.parent('.input-wrap').find('.input-overlay').css({
+                                    'display': 'block'
+                                })
+                                $(this).css({
+                                    'opacity': 1,
+                                    'margin-right': '0px',
+                                    'width': '0px'
                                 });
+                                $(this).find('img').css({
+                                    'display': 'none'
+                                }); 
 
-                            })
-                            
-                        }
+                                var s = dropwrap.find('form').trigger('submit');
+                            }
+                        })
+
+
+
                     }
                 })
-            })
+            }
+
+            function cb1() {
+             
+                    self.animate({
+                        marginRight: '200px',
+                        opacity: '0'
+                    }, {
+                        duration: 500,
+                        complete: function () {
+                         
+                            var s = dropwrap.parent('.input-wrap').find('.small-stats')
+                            var bar = dropwrap.parent('.input-wrap').find('.meter-span');
+
+                     
+                            if (dropwrap.hasClass('final')) {
+                                bar.animate({
+                                    width: '100%'
+                                }, {
+                                    dutration: 300,
+                                    complete: function () {
+                                        end_form(dropwrap, true); 
+                                    }
+                                });
+
+                         
+                                s.html(s.attr('data-max') + '/' + s.attr('data-max')); 
+                            } else {
+                                var q = parseInt($(this).attr('data-q'));
+                                q++;
+
+                                $(this).attr('data-q', q); 
+
+                                small_progress(q, parseInt(s.attr('data-max')), bar, s);
+
+                                $(this).removeClass('colorchange');
+                                $(this).find('.icon').css({ 'display': 'none' }); 
+                                $(this).find('.icon').removeClass('rotate'); 
+                                $(this).css({
+                                    'margin-right': '-30px',
+                                    'width': '0px',
+                                    'opacity': '1'
+                                });
+
+                                var mock = dropwrap.parent('.input-wrap').find('.mock-input');
+
+                                var n = dropwrap.next('.hidden-wrap');
+
+                                mock.css({
+                                    'z-index': '-1'
+                                })
+                                dropwrap.removeClass('active-wrap');
+                                n.addClass('active-wrap'); 
+                                n.css({
+                                    'display': 'none'
+                                });
+
+                                dropwrap.parent('.input-wrap').find('.input-overlay').css({
+                                    'display': 'block'
+                                })
+                                mock.find('input').fadeOut(300, function () {
+                                    var c = mock.find('.curr-inp');
+                                    c.removeClass('curr-inp');
+                                    c.next('input').addClass('curr-inp').fadeIn(300, function () {
+                                        dropwrap.parent('.input-wrap').find('.input-overlay').css({
+                                            'display': 'none'
+                                        })
+                                    });
+
+                                })
+                            
+                            }
+                        }
+                    })
+                
+            }
         }
 
     })
@@ -105,6 +160,9 @@ module.exports = function () {
 
             var wrap = $(this).parent('div').parent('.active-wrap').parent('.input-wrap');
             var d = wrap.find('.down');
+            if (d.length == 0) {
+                d = $(this).parent('div').parent('form').parent('.active-wrap').find('.down'); 
+            }
 
             if (!d.hasClass('colorchange')) {
                 d.addClass('colorchange');
