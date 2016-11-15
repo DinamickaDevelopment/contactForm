@@ -3939,7 +3939,8 @@
 	var prompt_handler = __webpack_require__(5); 
 
 	module.exports = function () {
-		$('.rad.y').on('click', function() {
+	    $('.rad.y').on('click', function () {
+	        $(this).removeClass('unchecked-img');
 		    $(this).addClass('checked-img'); 
 			
 			$(this).prev('input[type="radio"]').attr('checked', 'checked');
@@ -3951,7 +3952,8 @@
 
 		}); 
 		
-		$('.rad.n').on('click', function() {
+	    $('.rad.n').on('click', function () {
+	        $(this).removeClass('unchecked-img');
 		    $(this).addClass('checked-img');
 				
 			var id = $(this).attr('id'); 
