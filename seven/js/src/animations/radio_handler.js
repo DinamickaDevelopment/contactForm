@@ -8,7 +8,7 @@ module.exports = function () {
 		var id = $(this).attr('id'); 
 		
 		$('#' + id + 'n').removeClass('checked-img'); 
-		$('#' + id + 'n').addClass('unckecked-img'); 
+		$('#' + id + 'n').addClass('unchecked-img'); 
 		$('#' + id + 'n').prev('input[type="radio"]').removeAttr('checked')
 
 	}); 
