@@ -56,11 +56,15 @@
 
     },
 
-    set_field: function (elem, propname, nested_prop) {
+    set_field: function (elem, propname, nested_prop, old_elem) {
         if (elem.attr('data-type') == 'file') {
-            if (typeof elem.prop('files') != 'undefined') { 
+
+            if (elem.prop('files').length > 0) {
+   
                 this.data[propname] = elem.prop('files')[0];
    
+            } else if (old_elem.prop('files').length > 0) {
+                this.data[propname] = old_elem.prop('files')[0];
             }
 
         } else {

@@ -19,6 +19,8 @@ window.onload = function () {
     var flag = false;
     var init_flag = false;
 
+    $('form').attr('autocomplete', 'off'); 
+
     $.router.addErrorHandler(function (url) {
         console.log(url);
     });
@@ -130,13 +132,15 @@ window.onload = function () {
             }
 
             function submit_handler (e) {
-
+                
                 e.preventDefault();
+                var wrap = $('.category-wrap[data-category="' + data.category + '"]');
+                var inputs = wrap.find('.map-input').not('.hidden-addition').not('.l').not('.a').not('.sel');
 
                 var form_inputs = $(this).find('.map-input').not('.hidden-addition').not('.l').not('.a').not('.sel');
                 var leadership_inputs = $(this).find('.map-input.l').not('.hidden-addition');
                 var address_inputs = $(this).find('.map-input.a').not('.hidden-addition');
-                var dropdowns = $(this).find('.map-input.sel').not('.hidden-addition');
+                var dropdowns = $(this).find('.map-input.sel').not('.hidden-addition');                
 
                 for (var i = 0 ; i < form_inputs.length; i++) {
                     var propname = form_inputs.eq(i).attr('name');
@@ -147,7 +151,7 @@ window.onload = function () {
                             var nested_prop = propname.split('.')[1];
                             data_handler.set_field(form_inputs.eq(i), propname, nested_prop);
                         } else {
-                            data_handler.set_field(form_inputs.eq(i), propname);
+                            data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i));
                         }
                     } else {
                         data_handler.set_regions(form_inputs.eq(i));
@@ -174,6 +178,7 @@ window.onload = function () {
 
                     data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
                 }
+
 
                 console.log('-------form data---------');
                 console.log(data_handler.get_data());
@@ -261,8 +266,7 @@ window.onload = function () {
 
                             try {
                                
-                                var files = inputs.eq(i).prop('files');
-                                new_inputs.eq(i).prop('files', files);
+                                var files = inputs.eq(i).prop('files');               
                                 preview.find('div[data-sub="' + sub + '"]').find('.file-span').html(files[0].name);
                               
                             } catch (err) {

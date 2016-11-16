@@ -447,7 +447,7 @@ module.exports = function () {
 
             }
             else {
-                console.log(r.width())
+              
                 if (r.width() == 0) {
                     w.css({
                         'z-index': '99999',
