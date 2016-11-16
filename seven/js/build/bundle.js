@@ -71,26 +71,36 @@
 	        console.log(url);
 	    });
 
-	    $.router.add('/view/:ct', function (data) { 
-	        if (flag) {
-	            flag = false;
-	            data_handler.refresh_data();
-	            $('.form-preview-wrap').find('.form-input2').remove(); 
-	        }
+	    $.router.add('/view/:ct', function (data) {
+	     
 
-	        $('.big-container').fadeIn(500);
-	        $('.meter-top span').animate({
-	            width: '0%'
-	        }, 500);
-	        $('.stats').html(data.ct + '/4'); 
+	        $('input[type="radio"]').css({
+	            'display': 'none'
+	        })
 
-	        $('.form-wrap').find('.category-wrap[data-category="'+ data.ct + '"]').css({ 'display': 'block' });
-	        $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
+	        $('.form-preview-wrap').fadeOut(500, function () {
+	            $('.form-preview-wrap').find('.form-input2').remove();
+	            $('.form-wrap').find('.category-wrap[data-category="' + data.ct + '"]').css({ 'display': 'block' });
+	            $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
 
-	        $('.form-wrap').fadeIn(300);
+	            $('.big-container').fadeIn(500);
+	            var max = 3;
 
-	        $('.content-wrap').fadeIn(300);
-	        $('.form-preview-wrap').fadeOut(300);
+	            var step = 100 / max;
+	            var w = step * data.ct;
+
+	            $('.meter-top span').animate({
+	                width: w + '%'
+	            }, {
+	                duration: 500,
+	                complete: function () {
+	                    $('.stats').html(data.ct + '/2');
+	                }
+	            });
+	            $('.form-wrap').fadeIn(300);
+	        });
+
+
 
 	        if (!init_flag) {
 
@@ -105,25 +115,107 @@
 	            dropdown_select_handler();
 	            nested_dropdown_handler();
 
-	            $('.view-preview').on('click', function () {
-	                $.router.go('/preview/' + data.ct);
-	            })
-
 	        }
-
 
 	    });
 
-	    
+
+	    $('.view-preview').on('click', function (e) {
+	        var ct = e.target.dataset.category;
+	        $.router.go('/preview/' + ct); 
+	    });
+
+	    $('#ct0').on('submit', function (e) {
+
+	        e.preventDefault();
+	        submit_handler.call($('#ct0'), e, '0');
+	    });
+	    $('#ct1').on('submit', function (e) {
+
+	        e.preventDefault();
+	        submit_handler.call($('#ct1'), e, '1');
+	    });
+	     
+
+	    function submit_handler(e, ct) {
+
+	        data_handler.refresh_data();
+
+	        var wrap = $('.category-wrap[data-category="' + ct + '"]');
+	        var inputs = wrap.find('.map-input').not('.hidden-addition').not('.l').not('.a').not('.sel');
+
+	        var form_inputs = $(this).find('.map-input').not('.hidden-addition').not('.l').not('.a').not('.sel');
+
+	        var leadership_inputs = $(this).find('.map-input.l').not('.hidden-addition');
+	        var address_inputs = $(this).find('.map-input.a').not('.hidden-addition');
+	        var dropdowns = $(this).find('.map-input.sel').not('.hidden-addition');
+
+	     
+
+	        for (var i = 0 ; i < form_inputs.length; i++) {
+	            var propname = form_inputs.eq(i).attr('name');
+
+	            if (propname != 'regions') {
+	                if (propname.split('.').length > 1) {
+	                    var propname = propname.split('.')[0];
+	                    var nested_prop = propname.split('.')[1];
+	                    data_handler.set_field(form_inputs.eq(i), propname, nested_prop);
+	                } else {
+	                    data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i));
+	                }
+	            } else {
+	                data_handler.set_regions(form_inputs.eq(i));
+	            }
+
+	        }
+
+	        if (ct == '0') {
+	            for (var i = 0; i < leadership_inputs.length; i++) {
+	                var l_propname = leadership_inputs.eq(i).attr('name').substr(0, leadership_inputs.eq(i).attr('name').length - 1);
+	                data_handler.set_multi(leadership_inputs.eq(i), 'leadership', l_propname, leadership_inputs.eq(i).attr('data-index'));
+	            }
+
+	            for (var i = 0; i < address_inputs.length; i++) {
+	                var a_propname = address_inputs.eq(i).attr('name').substr(0, address_inputs.eq(i).attr('name').length - 1);
+	                if (address_inputs.eq(i).hasClass('yes') && address_inputs.eq(i).prop('checked')) {
+
+	                    data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'), true);
+	                } else {
+	                    data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'));
+	                }
+
+	            }
+	        }
+	        for (var i = 0; i < dropdowns.length; i++) {
+
+	            data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
+	        }
+
+
+	        console.log('-------form data---------');
+	        console.log(data_handler.get_data());
+	        console.log('-------form data json------');
+	        console.log(data_handler.get_json_data());
+
+	        if (ct < 1) {
+	            var next_cat = parseInt(ct) + 1;
+	            $.router.go('/view/' + next_cat);
+	        } else {
+	            $.router.go('/done');
+	        }
+
+	    }
+
 	    $.router.go('/view/0');
 
 	    $.router.add('/done', function () {
+	        $('.stats').html('2/2');
 	        $('.meter-top span').animate({
 	            width: '100%'
 	        }, {
 	            duration: 500,
 	            complete: function () {
-	                $('.stats').html('2/2');
+	        
 	                $('.big-container').fadeOut(500, function () {
 	                    $('.thank-you-screen').css({
 	                        'height': '100%'
@@ -140,15 +232,18 @@
 	    var handler_added = false; 
 
 	    $.router.add('/preview/:category', function (data) {
-	        var ct = data.category; 
-	       
+	   
+	        data_handler.set_category(data.category);
+
 	        $('.big-container').fadeIn(500);
+
+
 	        $('.thank-you-screen').css({
 	            'height': '0px',
 	            'opacity': '0'
 	        });
 	        var btn = $('#continue-btn');   
-	        var max = 4;
+	        var max = 3;
 
 	        var step = 100 / max;
 	        var w = step * data.category;
@@ -158,106 +253,39 @@
 	        }, {
 	            duration: 500,
 	            complete: function () {
-	                $('.stats').html( data.category + '/4');
+	                $('.stats').html( data.category + '/2');
 	            }
 	        });
 
-	        if (!flag) {
-	            flag = true;
+	           
+	 
+	        var btn = $('#continue-btn' + data.category);
 
-	            var isMapped = false; 
-	  
-	            
-	            var btn = $('#continue-btn');
+	        var preview = $('.form-preview-wrap');
+	        preview.find('#ct' + data.category).find('.form-input2').remove();
 	            map_inputs.call(btn);
 
-	            if (!handler_added) {
-	                $('#ct0').on('submit', submit_handler);
-	                $('#ct1').on('submit', submit_handler);
-	                $('#ct2').on('submit', submit_handler); 
-	            }
 
-	            function submit_handler (e) {
-	                
-	                e.preventDefault();
-	                var wrap = $('.category-wrap[data-category="' + data.category + '"]');
-	                var inputs = wrap.find('.map-input').not('.hidden-addition').not('.l').not('.a').not('.sel');
-
-	                var form_inputs = $(this).find('.map-input').not('.hidden-addition').not('.l').not('.a').not('.sel');
-	                var leadership_inputs = $(this).find('.map-input.l').not('.hidden-addition');
-	                var address_inputs = $(this).find('.map-input.a').not('.hidden-addition');
-	                var dropdowns = $(this).find('.map-input.sel').not('.hidden-addition');                
-
-	                for (var i = 0 ; i < form_inputs.length; i++) {
-	                    var propname = form_inputs.eq(i).attr('name');
-
-	                    if (propname != 'regions') {
-	                        if (propname.split('.').length > 1) {
-	                            var propname = propname.split('.')[0];
-	                            var nested_prop = propname.split('.')[1];
-	                            data_handler.set_field(form_inputs.eq(i), propname, nested_prop);
-	                        } else {
-	                            data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i));
-	                        }
-	                    } else {
-	                        data_handler.set_regions(form_inputs.eq(i));
-	                    }
-
-	                }
-
-	                for (var i = 0; i < leadership_inputs.length; i++) {
-	                    var l_propname = leadership_inputs.eq(i).attr('name').substr(0, leadership_inputs.eq(i).attr('name').length - 1);
-	                    data_handler.set_multi(leadership_inputs.eq(i), 'leadership', l_propname, leadership_inputs.eq(i).attr('data-index'));
-	                }
-
-	                for (var i = 0; i < address_inputs.length; i++) {
-	                    var a_propname = address_inputs.eq(i).attr('name').substr(0, address_inputs.eq(i).attr('name').length - 1);
-	                    if (address_inputs.eq(i).hasClass('yes') && address_inputs.eq(i).prop('checked')) {
-
-	                        data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'), true);
-	                    } else {
-	                        data_handler.set_multi(address_inputs.eq(i), 'physicaladdresses', a_propname, address_inputs.eq(i).attr('data-index'));
-	                    }
-
-	                }
-	                for (var i = 0; i < dropdowns.length; i++) {
-
-	                    data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
-	                }
-
-
-	                console.log('-------form data---------');
-	                console.log(data_handler.get_data());
-	                console.log('-------form data json------');
-	                console.log(data_handler.get_json_data());
-
-	                //if (data.category < 1) {
-	                //    $.router.go('/view' + data.category);
-	                //} else {
-	                    $.router.go('/done');
-	                //}
-
-	            }
-	            
-	        } else {
-
-	            data_handler.refresh_data();
-
-	            var preview = $('.form-preview-wrap');
 	            $('.form-wrap').fadeOut(500, function () {
 	                preview.fadeIn(500);
 	            });
+	            $('input[type="radio"]').css({
+	                'display': 'block',
+	                'opacity': '0'
+	            })
 
-	        }
+	            function map_inputs() {
 
-	        function map_inputs() {
+	        
 	            var cat = parseInt($(this).attr('data-view'));
 	            var max = parseInt($(this).attr('data-max'));
+	     
 
 	            $('.form-wrap').fadeOut(500, function () {
 
 	                var wrap = $('.category-wrap[data-category="' + data.category + '"]'); 
 	                var inputs = wrap.find('.map-input');
+	                var fl_inputs = wrap.find('input[type="file"]');
 
 	                var new_inputs = inputs.clone();
 	              
@@ -269,7 +297,9 @@
 	                    'display': 'none'
 	                }); 
 
-	                for (var i = 0; i < new_inputs.length; i++) {
+	                var ln = new_inputs.length; 
+
+	                for (var i = 0; i < ln; i++) {
 	                  
 	                    if (!new_inputs.eq(i).hasClass('mock')) {
 
@@ -294,11 +324,13 @@
 
 	                        } else if (new_inputs.eq(i).attr('data-type') == 'file') {
 
+	                            var filename = inputs.eq(i).prop('files').length > 0 ? inputs.eq(i).prop('files')[0].name : ''; 
+
 	                            var html = '<div class="form-input2" data-q="' + (i + 1) + '">' +
 	                            '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
 	                            '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>' +
 	                            '<label class="add-file plus">'
-	                            + '<div class="icon-plus"></div></label>' + '<span class="file-span"></span>'
+	                            + '<div class="icon-plus"></div></label>' + '<span class="file-span">' +  filename  + '</span>'
 	                            '</div> '
 
 	                        }
@@ -308,23 +340,31 @@
 	                        preview.find('div[data-sub="' + sub + '"]').append(html);
 
 	                        if (new_inputs.eq(i).attr('data-type') == 'file') {
+	                    
+	                            var span_id = 'span' + new_inputs.eq(i).attr('id'); 
+	                            new_inputs.eq(i).removeAttr('id'); 
 	                            preview.find('div[data-sub="' + sub + '"]').find('.add-file').append(new_inputs.eq(i));
-
-	                            try {
-	                               
-	                                var files = inputs.eq(i).prop('files');               
-	                                preview.find('div[data-sub="' + sub + '"]').find('.file-span').html(files[0].name);
-	                              
-	                            } catch (err) {
-	                                
-	                                preview.find('div[data-sub="' + sub + '"]').find('.file-span').html(''); 
-	                            }
+	                 
+	                           
+	                
 
 	                        } else if (new_inputs.eq(i).attr('data-type') != 'radio') {
 	                            preview.find('div[data-sub="' + sub + '"]').find('.form-input2[data-q="' + (i + 1) + '"]').append(new_inputs.eq(i)); 
-	                         
+	                        
 	                        }
 	                    }
+
+	                    $('.add-file').on('click', function (e) {
+
+	                        var id = e.target.id;
+	                        var self = $(this);
+
+	                        e.target.onchange = function (e) {
+
+	                            self.next('span').html(e.target.files[0].name);
+
+	                        }
+	                    });
 
 
 	                    if (preview.find('.hidden[data-sub="' + sub + '"]').find('.shown').length == 0) {
@@ -334,24 +374,12 @@
 	                        preview.find('.hidden[data-sub="' + sub + '"]').css({ 'display': 'block' });
 	                    }
 	                }
-
-	                $('.add-file').on('click', function (e) {
-
-	                    var id = e.target.id;
-	                    var self = $(this);
-
-	                    e.target.onchange = function (e) {
-	                        
-	                        self.next('span').html(e.target.files[0].name);
-
-	                    }
-	                });
+	                 
 
 
-	                $('input[type="radio"]').css({
-	                    'display': 'block',
-	                    'opacity': '0'
-	                })
+
+
+
 
 	                map_dropdowns(preview)
 
@@ -412,8 +440,15 @@
 
 	                    }
 	                }
-
+	                preview.find('form[data-category!="' + data.category + '"]').css({
+	                    'display': 'none'
+	                })
+	                preview.find('form[data-category="' + data.category + '"]').css({
+	                    'display': 'block'
+	                })
 	                preview.fadeIn(500, function () {
+
+
 	                    inputmask_handler();
 	                });
 	            });
@@ -4029,9 +4064,10 @@
 	                    greedy: false
 	                });
 
-	                if (maskval == '99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99]]]]]]]]]]]]]]]]]') {
+	                if (maskval == 'nums') {
 	                    $(this).inputmask({
-	                        mask: maskval,
+	                    mask: '9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[' + 
+	                    '9[9[9[9[9[9[9[9[9[9[9[9]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
 	                        showMaskOnHover: false,
 	                        showMaskOnFocus: false,
 	                        greedy: false,
@@ -4529,6 +4565,8 @@
 	                return false;
 
 	            }
+	        } else {
+	            show(r); 
 	        }
 	    }
 	    }   
@@ -4751,16 +4789,17 @@
 	                    display: 'block'
 	                })
 
-	                curr.parent('.input-wrap').find('.input-overlay').animate({
-	                    height: '100px',
-	                    marginTop: '-100px'
-	                }, 301);
 	                r.animate({
 	                    height: '100px',
 	                    marginTop: '-100px'
 	                }, {
 	                    duration: 300,
 	                    start: function () {
+
+	                        curr.parent('.input-wrap').find('.input-overlay').animate({
+	                            height: '100px',
+	                            marginTop: '-100px'
+	                        }, 300);
 	                        curr.animate({
 	                            'height': curr.height() - 100 + 'px'
 	                        }, 300) 
@@ -5409,7 +5448,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	    data : {
+	    data0 : {
 	        name: "",
 	        aka: "",
 	        numberOfStaff: "",
@@ -5442,8 +5481,20 @@
 	        regionsDescription: "",
 	        regions: [],
 	        leadership: []
-	    }, 
+	    },
+	    data1: {
+	        programActivities: [],
+	        programOutput: [],
+	        programOutcomes: [], 
+	        serviceArea: [],
+	        programStatus: [],
+	        programLength: []
 
+	    }, 
+	    set_category: function(ct) {
+	        this.data = this["data" + ct];
+	    }, 
+	    data: {}, 
 	    set_ext: function (elem, index) {
 	        var phone_ext = elem.inputmask('unmaskedvalue'); 
 
@@ -5468,52 +5519,71 @@
 
 	    set_field: function (elem, propname, nested_prop, old_elem) {
 	        if (elem.attr('data-type') == 'file') {
+	            if (!old_elem.prop('files')) return false; 
 
 	            if (elem.prop('files').length > 0) {
-	   
-	                this.data[propname] = elem.prop('files')[0];
+	                if (typeof elem.prop('files')[0] != 'undefined') {
+	                    this.data[propname] = elem.prop('files')[0].name;
+	                } else {
+	                    this.data[propname] = ''; 
+	                }
 	   
 	            } else if (old_elem.prop('files').length > 0) {
-	                this.data[propname] = old_elem.prop('files')[0];
+	                if (typeof old_elem.prop('files')[0] != 'undefined') {
+	                    this.data[propname] = old_elem.prop('files')[0].name;
+	                } else {
+	                    this.data[propname] = '';
+	                }
 	            }
 
 	        } else {
 	            if (!nested_prop) {
-	                if (elem.attr('data-maskval') == 'cash') {
-	                    var v = elem.val().replace('$ ', '');
-	                    v = v.replace(',', '');
-	                    v = parseFloat(v); 
-	                    if (isNaN(v)) { v = 0 } 
-	                    this.data[propname] = v; 
-	                    
-	                } else if (elem.attr('data-maskval') == '(999) 999-9999') {
-	                    var v = elem.inputmask('unmaskedvalue');
-	                    this.data[propname] = v;
-
-	                } else if (elem.attr('data-maskval') == '9999') {
-	                    var v = elem.inputmask('unmaskedvalue');
-	                    v = parseInt(v);
-
-	                    if (isNaN(v)) { v = 0 }
-	                    this.data[propname] = v; 
+	             
+	                if (Object.prototype.toString.call(this.data[propname]) === '[object Array]') {
+	                    this.data[propname].push(elem.val())
 	                }
-	                else if (propname == 'numberOfStaff') {
-	                    var v = parseInt(elem.val());
-	                    if (isNaN(v)) { v = 0 }
-	                    this.data[propname] = v;
-	                }
-	                else if (elem.hasClass('rad2')) {
-	                    if (elem.prop('checked')) {
-	                        if (elem.val() == 'true') {
-	                            var v = true; 
-	                        } else {
-	                            var v = false;
-	                        }
+	                else {
+	                    if (elem.attr('data-maskval') == 'cash') {
+	                        var v = elem.val().replace('$ ', '');
+	                        v = v.replace(',', '');
+	                        v = parseFloat(v);
+	                        if (isNaN(v)) { v = 0 }
+	                        this.data[propname] = v;
 
-	                        this.data[propname] = v; 
+	                    } else if (elem.attr('data-maskval') == '(999) 999-9999') {
+	                        var v = elem.inputmask('unmaskedvalue');
+	                        this.data[propname] = v;
+
+	                    } else if (elem.attr('data-maskval') == '9999') {
+	                        var v = elem.inputmask('unmaskedvalue');
+	                        v = parseInt(v);
+
+	                        if (isNaN(v)) { v = 0 }
+	                        this.data[propname] = v;
+	                    } else if (elem.attr('data-maskval') == 'nums') {
+	                        v = parseInt(elem.val()); 
+	                        if (isNaN(v)) { v = 0 }
+
+	                        this.data[propname] = v;
 	                    }
-	                } else {
-	                    this.data[propname] = elem.val();
+	                    else if (propname == 'numberOfStaff') {
+	                        var v = parseInt(elem.val());
+	                        if (isNaN(v)) { v = 0 }
+	                        this.data[propname] = v;
+	                    }
+	                    else if (elem.hasClass('rad2')) {
+	                        if (elem.prop('checked')) {
+	                            if (elem.val() == 'true') {
+	                                var v = true;
+	                            } else {
+	                                var v = false;
+	                            }
+
+	                            this.data[propname] = v;
+	                        }
+	                    } else {
+	                        this.data[propname] = elem.val();
+	                    }
 	                }
 	            }
 	            else {
@@ -5574,7 +5644,11 @@
 	            }
 	            else {
 	                if (typeof elem.prop('files') != 'undefined') {
-	                    this.data[catname][index][propname] = elem.prop('files')[0];
+	                    if (typeof elem.prop('files')[0] != 'undefined') {
+	                        this.data[catname][index][propname] = elem.prop('files')[0].name;
+	                    } else {
+	                        this.data[catname][index][propname] = '';
+	                    }
 	                }
 	            }
 
@@ -5618,7 +5692,7 @@
 	        }
 	    }, 
 
-	    get_data: function () {
+	    get_data: function (ct) {
 	        return this.data; 
 	    },
 

@@ -535,6 +535,10 @@ input[type=radio] {
     margin-right: -30px; 
     cursor: pointer; 
     /*transition: width linear 0.05s;*/ 
+} 
+
+.check-container {
+    margin-left: -30px; 
 }
 
 
@@ -801,7 +805,7 @@ p {
     outline: none;
 }
 
-.continue-btn-2:hover {
+.continue-btn:hover {
     transition: 0.2s background-color 0.2s color ease-in-out;
     color: #1f467d;
     background-color: rgba(134, 143, 183, 0.42);
@@ -912,7 +916,9 @@ p {
 .form-input2 input:focus {
     color: #1f467d;
 }
- 
+ .no-padding-left {
+     padding-left: 0; 
+ }
  
  
 /* thank you screen */ 
@@ -941,8 +947,35 @@ p {
 
 .noshow {
     z-index: -100; 
+} 
+
+.form-input2 textarea {
+    height: 200px!important;
+    color: rgb(31, 70, 125);
+    padding: 30px;
+    width: calc(100% - 30px); 
+    transition: background-color linear 0.3s; 
+} 
+
+.form-input2 input {
+    transition: background-color linear 0.3s; 
 }
 
+.form-input2 input:focus {
+    background-color: #cfd8f1; 
+}
+
+.form-input2 textarea:focus {
+    background-color: #cfd8f1; 
+}
+
+
+/* style corrections for Edge */ 
+@supports (-ms-ime-align:auto) {
+  .small-cell { 
+        padding: 12.25px; 
+  } 
+}
 
 @media screen and (max-width: 1650px) {
     .form-wrap {

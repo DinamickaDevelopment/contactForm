@@ -466,6 +466,8 @@ module.exports = function () {
                 return false;
 
             }
+        } else {
+            show(r); 
         }
     }
     }   

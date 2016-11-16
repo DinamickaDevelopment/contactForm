@@ -1,5 +1,5 @@
 ﻿module.exports = {
-    data : {
+    data0 : {
         name: "",
         aka: "",
         numberOfStaff: "",
@@ -32,8 +32,20 @@
         regionsDescription: "",
         regions: [],
         leadership: []
-    }, 
+    },
+    data1: {
+        programActivities: [],
+        programOutput: [],
+        programOutcomes: [], 
+        serviceArea: [],
+        programStatus: [],
+        programLength: []
 
+    }, 
+    set_category: function(ct) {
+        this.data = this["data" + ct];
+    }, 
+    data: {}, 
     set_ext: function (elem, index) {
         var phone_ext = elem.inputmask('unmaskedvalue'); 
 
@@ -58,52 +70,71 @@
 
     set_field: function (elem, propname, nested_prop, old_elem) {
         if (elem.attr('data-type') == 'file') {
+            if (!old_elem.prop('files')) return false; 
 
             if (elem.prop('files').length > 0) {
-   
-                this.data[propname] = elem.prop('files')[0];
+                if (typeof elem.prop('files')[0] != 'undefined') {
+                    this.data[propname] = elem.prop('files')[0].name;
+                } else {
+                    this.data[propname] = ''; 
+                }
    
             } else if (old_elem.prop('files').length > 0) {
-                this.data[propname] = old_elem.prop('files')[0];
+                if (typeof old_elem.prop('files')[0] != 'undefined') {
+                    this.data[propname] = old_elem.prop('files')[0].name;
+                } else {
+                    this.data[propname] = '';
+                }
             }
 
         } else {
             if (!nested_prop) {
-                if (elem.attr('data-maskval') == 'cash') {
-                    var v = elem.val().replace('$ ', '');
-                    v = v.replace(',', '');
-                    v = parseFloat(v); 
-                    if (isNaN(v)) { v = 0 } 
-                    this.data[propname] = v; 
-                    
-                } else if (elem.attr('data-maskval') == '(999) 999-9999') {
-                    var v = elem.inputmask('unmaskedvalue');
-                    this.data[propname] = v;
-
-                } else if (elem.attr('data-maskval') == '9999') {
-                    var v = elem.inputmask('unmaskedvalue');
-                    v = parseInt(v);
-
-                    if (isNaN(v)) { v = 0 }
-                    this.data[propname] = v; 
+             
+                if (Object.prototype.toString.call(this.data[propname]) === '[object Array]') {
+                    this.data[propname].push(elem.val())
                 }
-                else if (propname == 'numberOfStaff') {
-                    var v = parseInt(elem.val());
-                    if (isNaN(v)) { v = 0 }
-                    this.data[propname] = v;
-                }
-                else if (elem.hasClass('rad2')) {
-                    if (elem.prop('checked')) {
-                        if (elem.val() == 'true') {
-                            var v = true; 
-                        } else {
-                            var v = false;
-                        }
+                else {
+                    if (elem.attr('data-maskval') == 'cash') {
+                        var v = elem.val().replace('$ ', '');
+                        v = v.replace(',', '');
+                        v = parseFloat(v);
+                        if (isNaN(v)) { v = 0 }
+                        this.data[propname] = v;
 
-                        this.data[propname] = v; 
+                    } else if (elem.attr('data-maskval') == '(999) 999-9999') {
+                        var v = elem.inputmask('unmaskedvalue');
+                        this.data[propname] = v;
+
+                    } else if (elem.attr('data-maskval') == '9999') {
+                        var v = elem.inputmask('unmaskedvalue');
+                        v = parseInt(v);
+
+                        if (isNaN(v)) { v = 0 }
+                        this.data[propname] = v;
+                    } else if (elem.attr('data-maskval') == 'nums') {
+                        v = parseInt(elem.val()); 
+                        if (isNaN(v)) { v = 0 }
+
+                        this.data[propname] = v;
                     }
-                } else {
-                    this.data[propname] = elem.val();
+                    else if (propname == 'numberOfStaff') {
+                        var v = parseInt(elem.val());
+                        if (isNaN(v)) { v = 0 }
+                        this.data[propname] = v;
+                    }
+                    else if (elem.hasClass('rad2')) {
+                        if (elem.prop('checked')) {
+                            if (elem.val() == 'true') {
+                                var v = true;
+                            } else {
+                                var v = false;
+                            }
+
+                            this.data[propname] = v;
+                        }
+                    } else {
+                        this.data[propname] = elem.val();
+                    }
                 }
             }
             else {
@@ -164,7 +195,11 @@
             }
             else {
                 if (typeof elem.prop('files') != 'undefined') {
-                    this.data[catname][index][propname] = elem.prop('files')[0];
+                    if (typeof elem.prop('files')[0] != 'undefined') {
+                        this.data[catname][index][propname] = elem.prop('files')[0].name;
+                    } else {
+                        this.data[catname][index][propname] = '';
+                    }
                 }
             }
 
@@ -208,7 +243,7 @@
         }
     }, 
 
-    get_data: function () {
+    get_data: function (ct) {
         return this.data; 
     },
 

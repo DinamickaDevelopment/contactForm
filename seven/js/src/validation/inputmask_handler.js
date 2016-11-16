@@ -12,9 +12,10 @@
                     greedy: false
                 });
 
-                if (maskval == '99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99[99]]]]]]]]]]]]]]]]]') {
+                if (maskval == 'nums') {
                     $(this).inputmask({
-                        mask: maskval,
+                    mask: '9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[' + 
+                    '9[9[9[9[9[9[9[9[9[9[9[9]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
                         showMaskOnHover: false,
                         showMaskOnFocus: false,
                         greedy: false,

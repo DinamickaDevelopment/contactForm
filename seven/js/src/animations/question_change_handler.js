@@ -108,16 +108,17 @@ module.exports = function () {
                     display: 'block'
                 })
 
-                curr.parent('.input-wrap').find('.input-overlay').animate({
-                    height: '100px',
-                    marginTop: '-100px'
-                }, 301);
                 r.animate({
                     height: '100px',
                     marginTop: '-100px'
                 }, {
                     duration: 300,
                     start: function () {
+
+                        curr.parent('.input-wrap').find('.input-overlay').animate({
+                            height: '100px',
+                            marginTop: '-100px'
+                        }, 300);
                         curr.animate({
                             'height': curr.height() - 100 + 'px'
                         }, 300) 
