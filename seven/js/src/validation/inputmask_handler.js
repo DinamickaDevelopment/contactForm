@@ -1,9 +1,9 @@
 ﻿module.exports = function () {
     $('.addmask').on('click', function () {
+        if ($(this).attr('data-masked') == '1') return false; 
 
-        if ($(this).val().length > 0) return false;  
         var maskval = $(this).attr('data-maskval');
-
+        $(this).attr('data-masked', '1'); 
 
         if (maskval != 'cash') {
 

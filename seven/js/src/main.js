@@ -187,6 +187,7 @@ window.onload = function () {
 
     $.router.add('/preview/:category', function (data) {
    
+        $('.map-input').removeAttr('data-masked'); 
         data_handler.set_category(data.category);
 
         $('.big-container').fadeIn(500);
