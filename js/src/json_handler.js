@@ -10,6 +10,7 @@ module.exports = {
 
         // send data
         var xhr = new XMLHttpRequest();
+
         xhr.open('POST', '/');
 
         xhr.send(data);
