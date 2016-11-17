@@ -72,13 +72,13 @@
 	    });
 
 	    $.router.add('/view/:ct', function (data) {
-	     
 
-	        $('input[type="radio"]').css({
-	            'display': 'none'
-	        })
-
-	        $('.form-preview-wrap').fadeOut(500, function () {
+	        $('.form-preview-wrap').fadeOut(500, function () { 
+			
+			    $('input[type="radio"]').css({
+					'display': 'none'
+				})
+			
 	            $('.form-preview-wrap').find('.form-input2').remove();
 	            $('.form-wrap').find('.category-wrap[data-category="' + data.ct + '"]').css({ 'display': 'block' });
 	            $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });

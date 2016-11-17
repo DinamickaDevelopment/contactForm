@@ -56,6 +56,10 @@ module.exports = function () {
 
     function handle_input(e) {
 
+        $(this).css({
+            'color': '#1f467d'
+        })
+
         if (e.target.classList.contains('exp-drop')) {
             dropdown_handler($(this));
             return false;
@@ -74,11 +78,6 @@ module.exports = function () {
         }
 
         var s = wrap.find('.submit');
-
-
-        $(this).css({
-            'color': '#1f467d'
-        })
 
         var sub = $(this).attr('data-sub');
 
