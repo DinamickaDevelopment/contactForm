@@ -13,10 +13,10 @@ var dropdown_select_handler = require('./animations/dropdown_select_handler.js')
 var nested_dropdown_handler = require('./animations/nested_dropdown_handler.js');
 
 var data_handler = require('./data_handler.js'); 
-
+var json_handler = require('./json_handler.js'); 
 
 window.onload = function () {
-    var flag = false;
+
     var init_flag = false;
 
     $('form').attr('autocomplete', 'off'); 
@@ -145,15 +145,18 @@ window.onload = function () {
 
         console.log('-------form data---------');
         console.log(data_handler.get_data());
-        console.log('-------form data json------');
-        console.log(data_handler.get_json_data());
+    
+        // send form data
+        json_handler.send_data(); 
 
         $.router.go('/done');
         
     }
 
     $.router.add('/done', function () {
+
         $('.stats').html('1/1');
+
         $('.meter-top span').animate({
             width: '100%'
         }, {
@@ -212,10 +215,11 @@ window.onload = function () {
             $('.form-wrap').fadeOut(500, function () {
                 preview.fadeIn(500);
             });
+
             $('input[type="radio"]').css({
                 'display': 'block',
                 'opacity': '0'
-            })
+            }); 
 
             function map_inputs() {
 
@@ -257,6 +261,7 @@ window.onload = function () {
                             '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
                             '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>'
                           + '</div> '
+
                         if (new_inputs.eq(i).attr('data-type') == 'radio') {
 
                             new_inputs.eq(i).addClass('rad2');
@@ -282,8 +287,6 @@ window.onload = function () {
 
                         }
 
-                      
-
                         preview.find('div[data-sub="' + sub + '"]').append(html);
 
                         if (new_inputs.eq(i).attr('data-type') == 'file') {
@@ -291,13 +294,9 @@ window.onload = function () {
                             var span_id = 'span' + new_inputs.eq(i).attr('id'); 
                             new_inputs.eq(i).removeAttr('id'); 
                             preview.find('div[data-sub="' + sub + '"]').find('.add-file').append(new_inputs.eq(i));
-                 
-                           
-                
 
                         } else if (new_inputs.eq(i).attr('data-type') != 'radio') {
                             preview.find('div[data-sub="' + sub + '"]').find('.form-input2[data-q="' + (i + 1) + '"]').append(new_inputs.eq(i)); 
-                        
                         }
                     }
 
@@ -323,11 +322,6 @@ window.onload = function () {
                 }
                  
 
-
-
-
-
-
                 map_dropdowns(preview)
 
                 function map_dropdowns(wrap) {
@@ -347,6 +341,7 @@ window.onload = function () {
                             if (drops.eq(i).find('.exp-cell').eq(j).length > 0) {
 
                                 for (var k = 0; k < drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').length; k++) {
+
                                     if (drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).hasClass('selected')) {
                                         inner_cells.push('<option selected>' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
                                     } else {
@@ -354,8 +349,8 @@ window.onload = function () {
                                             + '" value="' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text')
                                             + '">' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
                                     }
-
                                 }
+
                                 cells.push('<optgroup label="' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '">' +
                                    inner_cells.join('') + '</optgroup>')
 
@@ -394,8 +389,6 @@ window.onload = function () {
                     'display': 'block'
                 })
                 preview.fadeIn(500, function () {
-
-
                     inputmask_handler();
                 });
             });

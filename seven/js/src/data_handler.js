@@ -211,8 +211,6 @@
 
         var opts = drop.find(":selected");
 
-      
-
         if (opts.length == 0) return false; 
 
         if (this.data[propname].length > 0) {
