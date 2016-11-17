@@ -13,6 +13,7 @@ module.exports = {
 
         xhr.open('POST', '/');
 
+        xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(data);
         xhr.onload = function () {
             console.log('request successful');
