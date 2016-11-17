@@ -38,7 +38,7 @@
         programOutput: [],
         programOutcomes: [], 
         serviceArea: [],
-        programStatus: [] 
+        programStatus: []
 
     }, 
     set_category: function(ct) {

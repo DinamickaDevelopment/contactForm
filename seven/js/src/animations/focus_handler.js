@@ -10,6 +10,31 @@ module.exports = function () {
 
     $('.form-textarea').on('input', handle_textarea);
 
+    function add_input() {
+        if (!$(this).hasClass('addshown') && $(this).hasClass('show-add')) {
+
+
+            var wrap = $(this).parent('.mock-input').parent('.input-wrap');
+            if (wrap.length == 0) {
+                wrap = $(this).parent('form').parent('.active-wrap').parent('.input-wrap');
+            }
+
+            wrap.find('.hideadd').slideDown(300);
+
+
+            isAnimating = false;
+
+            if ($(this).hasClass('drop')) {
+
+                dropdown_handler($(this));
+                isAnimating = false;
+                return false;
+            }
+
+            $(this).addClass('addshown');
+        }
+    }
+
     var handler_added = false;
     if (!handler_added) {
         handler_added = true; 
@@ -72,24 +97,7 @@ module.exports = function () {
             return false; 
         }
 
-        if (!$(this).hasClass('addshown') && $(this).hasClass('show-add')) {
-
-         
-            var wrap = $(this).parent('.mock-input').parent('.input-wrap');
-            wrap.find('.hideadd').slideDown(300);
-
-
-            isAnimating = false;
-
-            if ($(this).hasClass('drop')) {
-
-                dropdown_handler($(this));
-                isAnimating = false; 
-                return false; 
-            } 
-
-            $(this).addClass('addshown'); 
-        } 
+        add_input.call(this); 
 
         if ($(this).hasClass('exp-name')) {
             var w = $(this).parent('div').parent('.input-wrap').find('.wrong');
@@ -269,7 +277,9 @@ module.exports = function () {
     var wrong_shown = false;
 
     var flag1 = false;
+
     function handle_textarea(e) {
+
         var sub = $(this).attr('data-sub');
         var wrap = $(this).parent('form').parent('.active-wrap');
         var all_wrap = wrap.parent('.input-wrap'); 
@@ -286,6 +296,7 @@ module.exports = function () {
             })
         }
 
+        add_input.call(this);
 
         if ($(this).hasClass('showprompt')) {
             $(this).removeClass('showprompt');

@@ -206,7 +206,7 @@
 
 	    }
 
-	    $.router.go('/view/1');
+	    $.router.go('/view/0');
 
 	    $.router.add('/done', function () {
 	        $('.stats').html('2/2');
@@ -4115,6 +4115,31 @@
 
 	    $('.form-textarea').on('input', handle_textarea);
 
+	    function add_input() {
+	        if (!$(this).hasClass('addshown') && $(this).hasClass('show-add')) {
+
+
+	            var wrap = $(this).parent('.mock-input').parent('.input-wrap');
+	            if (wrap.length == 0) {
+	                wrap = $(this).parent('form').parent('.active-wrap').parent('.input-wrap');
+	            }
+
+	            wrap.find('.hideadd').slideDown(300);
+
+
+	            isAnimating = false;
+
+	            if ($(this).hasClass('drop')) {
+
+	                dropdown_handler($(this));
+	                isAnimating = false;
+	                return false;
+	            }
+
+	            $(this).addClass('addshown');
+	        }
+	    }
+
 	    var handler_added = false;
 	    if (!handler_added) {
 	        handler_added = true; 
@@ -4177,24 +4202,7 @@
 	            return false; 
 	        }
 
-	        if (!$(this).hasClass('addshown') && $(this).hasClass('show-add')) {
-
-	         
-	            var wrap = $(this).parent('.mock-input').parent('.input-wrap');
-	            wrap.find('.hideadd').slideDown(300);
-
-
-	            isAnimating = false;
-
-	            if ($(this).hasClass('drop')) {
-
-	                dropdown_handler($(this));
-	                isAnimating = false; 
-	                return false; 
-	            } 
-
-	            $(this).addClass('addshown'); 
-	        } 
+	        add_input.call(this); 
 
 	        if ($(this).hasClass('exp-name')) {
 	            var w = $(this).parent('div').parent('.input-wrap').find('.wrong');
@@ -4374,7 +4382,9 @@
 	    var wrong_shown = false;
 
 	    var flag1 = false;
+
 	    function handle_textarea(e) {
+
 	        var sub = $(this).attr('data-sub');
 	        var wrap = $(this).parent('form').parent('.active-wrap');
 	        var all_wrap = wrap.parent('.input-wrap'); 
@@ -4391,6 +4401,7 @@
 	            })
 	        }
 
+	        add_input.call(this);
 
 	        if ($(this).hasClass('showprompt')) {
 	            $(this).removeClass('showprompt');
@@ -4977,39 +4988,7 @@
 	        $(this).on('change', function () {
 
 	            var self = $(this);
-	            if (self.hasClass('multi-file')) {
-	                var sp = self.parent('.label-wrap').next('.file-span-wrap').find('span');
-	                console.log(self.prop('files'))
-	                sp.html(self.prop('files').length);
 
-	                var r = self.parent('.label-wrap').parent('form').parent('.active-wrap').parent('.input-wrap').find('.right');
-
-	                var s = self.parent('.label-wrap').parent('form').parent('.active-wrap').find('.submit');
-
-	                $(this).parent('.label-wrap').prev('.skip-container').find('span').fadeOut(100, function () {
-	                    self.parent('.label-wrap').prev('.skip-container').animate({
-	                        width: '0px',
-	                        padding: '0px',
-	                        margin: '0px'
-	                    }, {
-	                        duration: 300,
-	                        complete: function () {
-	                            s.css({
-	                                'display': 'block'
-	                            });
-	                            r.animate({
-	                                width: 100 + 'px'
-	                            }, {
-	                                duration: 200,
-	                                complete: function () {
-	                                    r.find('img').fadeIn(100);
-	                                }
-	                            });
-	                        }
-	                    })
-	                })
-
-	            } else {
 	            $(this).parent('.label-wrap').prev('.skip-container').find('span').fadeOut(100, function () {
 	                self.parent('.label-wrap').prev('.skip-container').animate({
 	                    width: '0px',
@@ -5035,7 +5014,6 @@
 	                    }
 	                })
 	             })
-	          }
 	        })
 	    });
 
@@ -5061,15 +5039,10 @@
 	                            })
 	                        }
 	                    })
-
-
 	                }
 	            })
 	        })
-
 	    })
-
-
 	}
 
 /***/ },
@@ -5503,7 +5476,7 @@
 	        programOutput: [],
 	        programOutcomes: [], 
 	        serviceArea: [],
-	        programStatus: [] 
+	        programStatus: []
 
 	    }, 
 	    set_category: function(ct) {

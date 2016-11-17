@@ -5,39 +5,7 @@
         $(this).on('change', function () {
 
             var self = $(this);
-            //if (self.hasClass('multi-file')) {
-            //    var sp = self.parent('.label-wrap').next('.file-span-wrap').find('span');
-            //    console.log(self.prop('files'))
-            //    sp.html(self.prop('files').length);
 
-            //    var r = self.parent('.label-wrap').parent('form').parent('.active-wrap').parent('.input-wrap').find('.right');
-
-            //    var s = self.parent('.label-wrap').parent('form').parent('.active-wrap').find('.submit');
-
-            //    $(this).parent('.label-wrap').prev('.skip-container').find('span').fadeOut(100, function () {
-            //        self.parent('.label-wrap').prev('.skip-container').animate({
-            //            width: '0px',
-            //            padding: '0px',
-            //            margin: '0px'
-            //        }, {
-            //            duration: 300,
-            //            complete: function () {
-            //                s.css({
-            //                    'display': 'block'
-            //                });
-            //                r.animate({
-            //                    width: 100 + 'px'
-            //                }, {
-            //                    duration: 200,
-            //                    complete: function () {
-            //                        r.find('img').fadeIn(100);
-            //                    }
-            //                });
-            //            }
-            //        })
-            //    })
-
-            //} else {
             $(this).parent('.label-wrap').prev('.skip-container').find('span').fadeOut(100, function () {
                 self.parent('.label-wrap').prev('.skip-container').animate({
                     width: '0px',
@@ -63,7 +31,6 @@
                     }
                 })
              })
-          //}
         })
     });
 
@@ -89,13 +56,8 @@
                             })
                         }
                     })
-
-
                 }
             })
         })
-
     })
-
-
 }

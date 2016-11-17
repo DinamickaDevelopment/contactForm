@@ -160,7 +160,7 @@ window.onload = function () {
 
     }
 
-    $.router.go('/view/1');
+    $.router.go('/view/0');
 
     $.router.add('/done', function () {
         $('.stats').html('2/2');
