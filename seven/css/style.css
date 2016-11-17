@@ -139,10 +139,11 @@
     background-color: #c3cbe1; 
     padding-bottom: 0;
     padding-top: 0;
-    /*transition: color 0.5s linear;
-    transition: background-color 0.5s linear;*/ 
+    transition: background-color 0.5s linear, color 0.4s linear;  
     font-family: 'Lato', sans-serif; 
-} 
+}  
+
+
  
     .form-input:focus {
         outline: none;
@@ -165,13 +166,29 @@
     padding-bottom: 10px;
     padding-right: 0; 
     resize: none; 
-    overflow: hidden; 
+    overflow: hidden;  
+    transition: color linear 0.4s; 
 }
 
     .form-textarea:focus {
         outline: none;
     }
 
+
+.filelist {
+    display: table-cell;
+    color: white;
+    font-size: 12px;
+    max-width: 300px;
+    vertical-align: middle;
+}
+
+.file-span-wrap {
+    display: table;
+    vertical-align: middle;
+    height: 100px;
+    padding-left: 20px;
+}
 
 .skip-btn {
 margin-top: 38px;
@@ -873,11 +890,25 @@ p {
     display: inline-block;
     margin-left: 25px;
     transition: transform 0.3s linear;
+}  
+
+.clear {
+    clear: both; 
 } 
+
+.radiowrap {
+    margin-bottom: 20px; 
+}
+
+.sp1 {
+    float: left;
+    margin-top: 17px; 
+    margin-right: 20px;
+}
 
 .form-control {
     display: block;
-    width: 100%;
+    width: calc(100% + 30px); 
     height: auto; 
     padding: 6px 12px;
     font-size: 14px;

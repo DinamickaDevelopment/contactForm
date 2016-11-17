@@ -17,8 +17,7 @@
 
                 if (maskval == 'nums') {
                     $(this).inputmask({
-                    mask: '9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[' + 
-                    '9[9[9[9[9[9[9[9[9[9[9[9]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
+                    mask: '9{1,100}',
                         showMaskOnHover: false,
                         showMaskOnFocus: false,
                         greedy: false,

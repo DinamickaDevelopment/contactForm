@@ -160,7 +160,7 @@ window.onload = function () {
 
     }
 
-    $.router.go('/view/0');
+    $.router.go('/view/1');
 
     $.router.add('/done', function () {
         $('.stats').html('2/2');
@@ -217,9 +217,8 @@ window.onload = function () {
         var btn = $('#continue-btn' + data.category);
 
         var preview = $('.form-preview-wrap');
-        preview.find('#ct' + data.category).find('.form-input2').remove();
+            preview.find('#ct' + data.category).find('.form-input2').remove();
             map_inputs.call(btn);
-
 
             $('.form-wrap').fadeOut(500, function () {
                 preview.fadeIn(500);
@@ -242,8 +241,11 @@ window.onload = function () {
                 var inputs = wrap.find('.map-input');
                 var fl_inputs = wrap.find('input[type="file"]');
 
+                inputs.css({
+                    'color': '#1f467d'
+                })
                 var new_inputs = inputs.clone();
-              
+
 
                 new_inputs.removeAttr('disabled');
 
@@ -269,10 +271,11 @@ window.onload = function () {
                         if (new_inputs.eq(i).attr('data-type') == 'radio') {
 
                             new_inputs.eq(i).addClass('rad2');
+
                             var html = '<div class="form-input2" data-q="' + (i + 1) + '">' +
                             '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
                             '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>' +
-                            '<label class="radioli">' + new_inputs.eq(i).prop('outerHTML')
+                            '<label class="radioli radiowrap">' + new_inputs.eq(i).prop('outerHTML')
                             + '<div></div><span>' + new_inputs.eq(i).attr('data-caption') + '</span></label>'
                             '</div> '
 
@@ -378,7 +381,7 @@ window.onload = function () {
 
                         }
 
-                        mapped_drops[i] = '<div class="form-input2"><h3>' + drops.eq(i).attr('data-placeholder') + '</h3>'
+                        mapped_drops[i] = '<div class="form-input2 clear"><h3>' + drops.eq(i).attr('data-placeholder') + '</h3>'
                             + '<select data-name="' + drops.eq(i).attr('data-name') + '" class="form-control map-input sel" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
 
                         var sub = drops.eq(i).attr('data-sub');
