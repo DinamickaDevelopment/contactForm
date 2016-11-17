@@ -4146,6 +4146,13 @@
 	            'color': '#1f467d'
 	        })
 
+	        
+	        if (e.target.classList.contains('exp-drop')) {
+	            dropdown_handler($(this));
+	            return false;
+	        }
+
+
 	        if (isAnimating) {
 	            setTimeout(function() {
 	                isAnimating = false; 
@@ -4159,11 +4166,6 @@
 	        }
 
 	        var s = wrap.find('.submit');
-
-	        if (e.target.classList.contains('exp-drop')) {
-	            dropdown_handler($(this));
-	            return false;
-	        }
 
 
 

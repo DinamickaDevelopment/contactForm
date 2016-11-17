@@ -59,6 +59,13 @@ module.exports = function () {
             'color': '#1f467d'
         })
 
+        
+        if (e.target.classList.contains('exp-drop')) {
+            dropdown_handler($(this));
+            return false;
+        }
+
+
         if (isAnimating) {
             setTimeout(function() {
                 isAnimating = false; 
@@ -72,11 +79,6 @@ module.exports = function () {
         }
 
         var s = wrap.find('.submit');
-
-        if (e.target.classList.contains('exp-drop')) {
-            dropdown_handler($(this));
-            return false;
-        }
 
 
 
