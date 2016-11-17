@@ -31,8 +31,6 @@ module.exports = function () {
         }
     }
 
-
-
     $('.expanded').css({
         'height': '156px'
     });
