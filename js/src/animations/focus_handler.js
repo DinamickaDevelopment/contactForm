@@ -55,7 +55,9 @@ module.exports = function () {
     var isAnimating = false; 
 
     function handle_input(e) {
-
+        $(this).css({
+            'color': '#1f467d'
+        })
 
         if (isAnimating) {
             setTimeout(function() {
@@ -77,9 +79,7 @@ module.exports = function () {
         }
 
 
-        $(this).css({
-            'color': '#1f467d'
-        })
+
 
         var sub = $(this).attr('data-sub');
 
