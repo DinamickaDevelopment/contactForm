@@ -48,7 +48,7 @@ window.onload = function () {
             }, {
                 duration: 500,
                 complete: function () {
-                    $('.stats').html(data.ct + '/2');
+                    $('.stats').html(data.ct + '/3');
                 }
             });
             $('.form-wrap').fadeIn(300);
@@ -89,6 +89,12 @@ window.onload = function () {
         e.preventDefault();
         submit_handler.call($('#ct1'), e, '1');
     });
+    $('#ct2').on('submit', function (e) {
+        e.preventDefault();
+        $.router.go('/done'); 
+        
+    });
+
      
 
     function submit_handler(e, ct) {
@@ -152,7 +158,7 @@ window.onload = function () {
         // send form data
         json_handler.send_data(); 
 
-        if (ct < 1) {
+        if (ct < 2) {
             var next_cat = parseInt(ct) + 1;
             $.router.go('/view/' + next_cat);
         } else {
@@ -165,7 +171,7 @@ window.onload = function () {
 
     $.router.add('/done', function () {
 
-        $('.stats').html('2/2');
+        $('.stats').html('3/3');
         $('.meter-top span').animate({
             width: '100%'
         }, {
@@ -210,7 +216,7 @@ window.onload = function () {
         }, {
             duration: 500,
             complete: function () {
-                $('.stats').html( data.category + '/2');
+                $('.stats').html( data.category + '/3');
             }
         });
 

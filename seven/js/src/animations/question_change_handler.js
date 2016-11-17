@@ -58,15 +58,18 @@ module.exports = function () {
         var max = parseInt(r.attr('data-max'));
 
         var next = $(this).parent('.input-wrap').find('.hidden-wrap[data-q="' + q + '"][data-sub="' + sub + '"]');
+
         next.css({
             'z-index': q + 1
         });
 
         curr.find('textarea').css({
-            'color': '#c3cbe1'
+            'color': '#c3cbe1',
+            'background-color': '#c3cbe1'
         });
         curr.find('input').css({
-            'color': '#c3cbe1'
+            'color': '#c3cbe1',
+            'background-color': '#c3cbe1'
         });
 
         if (curr.hasClass('prompt_shown')) {

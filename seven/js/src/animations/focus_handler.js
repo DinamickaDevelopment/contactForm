@@ -56,6 +56,10 @@ module.exports = function () {
 
     function handle_input(e) {
 
+        if (e.target.classList.contains('exp-drop')) {
+            dropdown_handler($(this));
+            return false;
+        }
 
         if (isAnimating) {
             setTimeout(function() {
@@ -70,11 +74,6 @@ module.exports = function () {
         }
 
         var s = wrap.find('.submit');
-
-        if (e.target.classList.contains('exp-drop')) {
-            dropdown_handler($(this));
-            return false;
-        }
 
 
         $(this).css({
@@ -303,9 +302,10 @@ module.exports = function () {
             prompt_handler($(this));
         }
 
-        if (!$(this).hasClass('expanded')) {
+        if (!$(this).hasClass('expanded') && !$(this).hasClass('huge')) {
 
-            var self = $(this); 
+            var self = $(this);
+
 
             $(this).parent('form').parent('.active-wrap').animate({
                 height: '200px'
@@ -337,6 +337,43 @@ module.exports = function () {
                 complete: function () {
                     isAnimating = false;
                     self.addClass('expanded'); 
+                }
+            })
+        }
+        if (!$(this).hasClass('expanded') && $(this).hasClass('huge')) {
+            var self = $(this);
+
+
+            $(this).parent('form').parent('.active-wrap').animate({
+                height: '500px'
+            }, 300);
+            $(this).animate({
+                'height': '456px'
+            }, 300)
+
+            $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.input-overlay').animate({
+                height: '500px',
+                marginTop: '-500px'
+            }, 300)
+
+            $(this).next('.submit').css({
+                'height': '500px',
+                'margin-top': '0px'
+            }, 300)
+
+            w.animate({
+                marginTop: '-500px',
+                height: '500px'
+            })
+
+            r.animate({
+                marginTop: '-500px',
+                height: '500px'
+            }, {
+                duration: 300,
+                complete: function () {
+                    isAnimating = false;
+                    self.addClass('expanded');
                 }
             })
         }

@@ -1,6 +1,5 @@
 ﻿module.exports = function (elem, flag) {
 
-
     var thanx = elem.parent('.input-wrap').find('.thanx');
     if (thanx.hasClass('done')) return false;
 

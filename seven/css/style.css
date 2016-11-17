@@ -167,7 +167,7 @@
     padding-right: 0; 
     resize: none; 
     overflow: hidden;  
-    transition: color linear 0.4s; 
+    transition: color linear 0.4s, background-color linear 0.4s; 
 }
 
     .form-textarea:focus {
@@ -431,6 +431,11 @@ input[type=radio] {
    font-size: 20px; 
    font-weight: bold;
 } 
+
+.colormask {
+    color: #eff5ff; 
+} 
+
 
 .exp {
     display: none; 
@@ -789,6 +794,7 @@ svg {
 .dropstyle-overflow input {
    width: calc(100% - 30px); 
 }
+ 
 
 /* form preview */  
 

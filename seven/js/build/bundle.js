@@ -94,7 +94,7 @@
 	            }, {
 	                duration: 500,
 	                complete: function () {
-	                    $('.stats').html(data.ct + '/2');
+	                    $('.stats').html(data.ct + '/3');
 	                }
 	            });
 	            $('.form-wrap').fadeIn(300);
@@ -135,6 +135,12 @@
 	        e.preventDefault();
 	        submit_handler.call($('#ct1'), e, '1');
 	    });
+	    $('#ct2').on('submit', function (e) {
+	        e.preventDefault();
+	        $.router.go('/done'); 
+	        
+	    });
+
 	     
 
 	    function submit_handler(e, ct) {
@@ -198,7 +204,7 @@
 	        // send form data
 	        json_handler.send_data(); 
 
-	        if (ct < 1) {
+	        if (ct < 2) {
 	            var next_cat = parseInt(ct) + 1;
 	            $.router.go('/view/' + next_cat);
 	        } else {
@@ -211,7 +217,7 @@
 
 	    $.router.add('/done', function () {
 
-	        $('.stats').html('2/2');
+	        $('.stats').html('3/3');
 	        $('.meter-top span').animate({
 	            width: '100%'
 	        }, {
@@ -256,7 +262,7 @@
 	        }, {
 	            duration: 500,
 	            complete: function () {
-	                $('.stats').html( data.category + '/2');
+	                $('.stats').html( data.category + '/3');
 	            }
 	        });
 
@@ -4153,6 +4159,10 @@
 
 	    function handle_input(e) {
 
+	        if (e.target.classList.contains('exp-drop')) {
+	            dropdown_handler($(this));
+	            return false;
+	        }
 
 	        if (isAnimating) {
 	            setTimeout(function() {
@@ -4167,11 +4177,6 @@
 	        }
 
 	        var s = wrap.find('.submit');
-
-	        if (e.target.classList.contains('exp-drop')) {
-	            dropdown_handler($(this));
-	            return false;
-	        }
 
 
 	        $(this).css({
@@ -4400,9 +4405,10 @@
 	            prompt_handler($(this));
 	        }
 
-	        if (!$(this).hasClass('expanded')) {
+	        if (!$(this).hasClass('expanded') && !$(this).hasClass('huge')) {
 
-	            var self = $(this); 
+	            var self = $(this);
+
 
 	            $(this).parent('form').parent('.active-wrap').animate({
 	                height: '200px'
@@ -4434,6 +4440,43 @@
 	                complete: function () {
 	                    isAnimating = false;
 	                    self.addClass('expanded'); 
+	                }
+	            })
+	        }
+	        if (!$(this).hasClass('expanded') && $(this).hasClass('huge')) {
+	            var self = $(this);
+
+
+	            $(this).parent('form').parent('.active-wrap').animate({
+	                height: '500px'
+	            }, 300);
+	            $(this).animate({
+	                'height': '456px'
+	            }, 300)
+
+	            $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.input-overlay').animate({
+	                height: '500px',
+	                marginTop: '-500px'
+	            }, 300)
+
+	            $(this).next('.submit').css({
+	                'height': '500px',
+	                'margin-top': '0px'
+	            }, 300)
+
+	            w.animate({
+	                marginTop: '-500px',
+	                height: '500px'
+	            })
+
+	            r.animate({
+	                marginTop: '-500px',
+	                height: '500px'
+	            }, {
+	                duration: 300,
+	                complete: function () {
+	                    isAnimating = false;
+	                    self.addClass('expanded');
 	                }
 	            })
 	        }
@@ -4711,15 +4754,18 @@
 	        var max = parseInt(r.attr('data-max'));
 
 	        var next = $(this).parent('.input-wrap').find('.hidden-wrap[data-q="' + q + '"][data-sub="' + sub + '"]');
+
 	        next.css({
 	            'z-index': q + 1
 	        });
 
 	        curr.find('textarea').css({
-	            'color': '#c3cbe1'
+	            'color': '#c3cbe1',
+	            'background-color': '#c3cbe1'
 	        });
 	        curr.find('input').css({
-	            'color': '#c3cbe1'
+	            'color': '#c3cbe1',
+	            'background-color': '#c3cbe1'
 	        });
 
 	        if (curr.hasClass('prompt_shown')) {
@@ -4900,7 +4946,6 @@
 /***/ function(module, exports) {
 
 	module.exports = function (elem, flag) {
-
 
 	    var thanx = elem.parent('.input-wrap').find('.thanx');
 	    if (thanx.hasClass('done')) return false;
