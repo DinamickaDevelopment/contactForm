@@ -84,7 +84,7 @@
 	            $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
 
 	            $('.big-container').fadeIn(500);
-	            var max = 3;
+	            var max = 2;
 
 	            var step = 100 / max;
 	            var w = step * data.ct;
@@ -94,7 +94,7 @@
 	            }, {
 	                duration: 500,
 	                complete: function () {
-	                    $('.stats').html(data.ct + '/2');
+	                    $('.stats').html(data.ct + '/1');
 	                }
 	            });
 	            $('.form-wrap').fadeIn(300);
@@ -119,6 +119,7 @@
 
 	    });
 
+	    $.router.go('/view/0');
 
 	    $('.view-preview').on('click', function (e) {
 	        var ct = e.target.dataset.category;
@@ -130,12 +131,8 @@
 	        e.preventDefault();
 	        submit_handler.call($('#ct0'), e, '0');
 	    });
-	    $('#ct1').on('submit', function (e) {
+	      
 
-	        e.preventDefault();
-	        submit_handler.call($('#ct1'), e, '1');
-	    });
-	     
 
 	    function submit_handler(e, ct) {
 
@@ -198,20 +195,14 @@
 	        // send form data
 	        json_handler.send_data(); 
 
-	        if (ct < 1) {
-	            var next_cat = parseInt(ct) + 1;
-	            $.router.go('/view/' + next_cat);
-	        } else {
-	            $.router.go('/done');
-	        }
-
+	        $.router.go('/done');
+	        
 	    }
-
-	    $.router.go('/view/0');
 
 	    $.router.add('/done', function () {
 
-	        $('.stats').html('2/2');
+	        $('.stats').html('1/1');
+
 	        $('.meter-top span').animate({
 	            width: '100%'
 	        }, {
@@ -228,7 +219,6 @@
 	                });
 	            }
 	        })
-
 	    })
 
 	    var handler_added = false; 
@@ -246,7 +236,7 @@
 	            'opacity': '0'
 	        });
 	        var btn = $('#continue-btn');   
-	        var max = 3;
+	        var max = 2;
 
 	        var step = 100 / max;
 	        var w = step * data.category;
@@ -256,7 +246,7 @@
 	        }, {
 	            duration: 500,
 	            complete: function () {
-	                $('.stats').html( data.category + '/2');
+	                $('.stats').html( data.category + '/1');
 	            }
 	        });
 
@@ -4683,8 +4673,6 @@
 	            }
 	        }
 	    }
-
-
 
 	    $('.expanded').css({
 	        'height': '156px'
