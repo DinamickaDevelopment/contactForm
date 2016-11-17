@@ -59,10 +59,10 @@
 	var nested_dropdown_handler = __webpack_require__(15);
 
 	var data_handler = __webpack_require__(16); 
-
+	var json_handler = __webpack_require__(17); 
 
 	window.onload = function () {
-	    var flag = false;
+
 	    var init_flag = false;
 
 	    $('form').attr('autocomplete', 'off'); 
@@ -194,8 +194,9 @@
 
 	        console.log('-------form data---------');
 	        console.log(data_handler.get_data());
-	        console.log('-------form data json------');
-	        console.log(data_handler.get_json_data());
+	    
+	        // send form data
+	        json_handler.send_data(); 
 
 	        if (ct < 1) {
 	            var next_cat = parseInt(ct) + 1;
@@ -209,6 +210,7 @@
 	    $.router.go('/view/0');
 
 	    $.router.add('/done', function () {
+
 	        $('.stats').html('2/2');
 	        $('.meter-top span').animate({
 	            width: '100%'
@@ -269,10 +271,11 @@
 	            $('.form-wrap').fadeOut(500, function () {
 	                preview.fadeIn(500);
 	            });
+
 	            $('input[type="radio"]').css({
 	                'display': 'block',
 	                'opacity': '0'
-	            })
+	            }); 
 
 	            function map_inputs() {
 
@@ -314,6 +317,7 @@
 	                            '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
 	                            '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>'
 	                          + '</div> '
+
 	                        if (new_inputs.eq(i).attr('data-type') == 'radio') {
 
 	                            new_inputs.eq(i).addClass('rad2');
@@ -339,8 +343,6 @@
 
 	                        }
 
-	                      
-
 	                        preview.find('div[data-sub="' + sub + '"]').append(html);
 
 	                        if (new_inputs.eq(i).attr('data-type') == 'file') {
@@ -348,13 +350,9 @@
 	                            var span_id = 'span' + new_inputs.eq(i).attr('id'); 
 	                            new_inputs.eq(i).removeAttr('id'); 
 	                            preview.find('div[data-sub="' + sub + '"]').find('.add-file').append(new_inputs.eq(i));
-	                 
-	                           
-	                
 
 	                        } else if (new_inputs.eq(i).attr('data-type') != 'radio') {
 	                            preview.find('div[data-sub="' + sub + '"]').find('.form-input2[data-q="' + (i + 1) + '"]').append(new_inputs.eq(i)); 
-	                        
 	                        }
 	                    }
 
@@ -380,11 +378,6 @@
 	                }
 	                 
 
-
-
-
-
-
 	                map_dropdowns(preview)
 
 	                function map_dropdowns(wrap) {
@@ -404,6 +397,7 @@
 	                            if (drops.eq(i).find('.exp-cell').eq(j).length > 0) {
 
 	                                for (var k = 0; k < drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').length; k++) {
+
 	                                    if (drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).hasClass('selected')) {
 	                                        inner_cells.push('<option selected>' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
 	                                    } else {
@@ -411,8 +405,8 @@
 	                                            + '" value="' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text')
 	                                            + '">' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
 	                                    }
-
 	                                }
+
 	                                cells.push('<optgroup label="' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '">' +
 	                                   inner_cells.join('') + '</optgroup>')
 
@@ -451,8 +445,6 @@
 	                    'display': 'block'
 	                })
 	                preview.fadeIn(500, function () {
-
-
 	                    inputmask_handler();
 	                });
 	            });
@@ -4445,8 +4437,6 @@
 	                }
 	            })
 	        }
-
-
 	  
 	    if (e.type == 'input') {
 
@@ -4488,7 +4478,9 @@
 	    }
 
 	    function count_w() {
+
 	        if (typeof $(this).attr('data-wordcount') != 'undefined') {
+
 	            flag1 = true;
 	            var prompt = all_wrap.find('.prompt[data-q="' + q + '"]');
 
@@ -4520,12 +4512,9 @@
 	                        'display': 'none'
 	                    }); 
 
-
 	                    show(w);
 	                }
 	               
-
-
 	                return false;
 
 	            }
@@ -4551,8 +4540,8 @@
 	            }
 	        } else {
 	            show(r); 
+	            }
 	        }
-	    }
 	    }   
 
 	    var isAnimating2 = false;
@@ -4611,7 +4600,6 @@
 	            })
 	        })
 	    }
-
 	}
 
 /***/ },
@@ -5070,6 +5058,7 @@
 
 	module.exports = function () {
 	    $('.down').on('click', function () {
+
 	        var flag = false; 
 	        var dropwrap = $(this).parent('.input-wrap').find('.active-wrap');
 	        if (dropwrap.length == 0) {
@@ -5136,9 +5125,6 @@
 	                                var s = dropwrap.find('form').trigger('submit');
 	                            }
 	                        })
-
-
-
 	                    }
 	                })
 	            }
@@ -5166,9 +5152,10 @@
 	                                    }
 	                                });
 
-	                         
-	                                s.html(s.attr('data-max') + '/' + s.attr('data-max')); 
+	                                s.html(s.attr('data-max') + '/' + s.attr('data-max'));
+
 	                            } else {
+
 	                                var q = parseInt($(this).attr('data-q'));
 	                                q++;
 
@@ -5209,17 +5196,13 @@
 	                                            'display': 'none'
 	                                        })
 	                                    });
-
 	                                })
-	                            
 	                            }
 	                        }
 	                    })
-	                
-	            }
-	        }
-
-	    })
+	                }
+	           }
+	     })
 
 	    $('.big-option').on('click', function () {
 	        if (!$(this).hasClass('selected')) {
@@ -5373,10 +5356,7 @@
 	                    m.slideUp(300);
 	                }
 	            });
-
-
 	        }
-
 	    })
 
 	    $('.small-cell').on('click', function () {
@@ -5416,10 +5396,9 @@
 	                }
 	            });
 
-
 	            $(this).addClass('selected');
-	        } else {
 
+	        } else {
 
 	            $(this).find('svg').fadeOut(200);
 	            $(this).css({
@@ -5649,8 +5628,6 @@
 
 	        var opts = drop.find(":selected");
 
-	      
-
 	        if (opts.length == 0) return false; 
 
 	        if (this.data[propname].length > 0) {
@@ -5698,6 +5675,35 @@
 	            else {
 	            this.data[prop] = ''; 
 	            }
+	        }
+	    }
+
+	}
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var data_handler = __webpack_require__(16); 
+
+	module.exports = {
+
+	    send_data: function() {
+	        // get form data in json format
+	        var data = data_handler.get_json_data();
+	        console.log('-------form data json------');
+	        console.log(data);
+
+	        // send data
+	        var xhr = new XMLHttpRequest();
+	        xhr.open('POST', '/');
+
+	        xhr.send(data);
+	        xhr.onload = function () {
+	            console.log('request successful');
+	        }
+	        xhr.onerror = function () {
+	            console.log('request error');
 	        }
 	    }
 

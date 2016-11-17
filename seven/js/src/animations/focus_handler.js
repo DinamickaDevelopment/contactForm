@@ -340,8 +340,6 @@ module.exports = function () {
                 }
             })
         }
-
-
   
     if (e.type == 'input') {
 
@@ -383,7 +381,9 @@ module.exports = function () {
     }
 
     function count_w() {
+
         if (typeof $(this).attr('data-wordcount') != 'undefined') {
+
             flag1 = true;
             var prompt = all_wrap.find('.prompt[data-q="' + q + '"]');
 
@@ -415,12 +415,9 @@ module.exports = function () {
                         'display': 'none'
                     }); 
 
-
                     show(w);
                 }
                
-
-
                 return false;
 
             }
@@ -446,8 +443,8 @@ module.exports = function () {
             }
         } else {
             show(r); 
+            }
         }
-    }
     }   
 
     var isAnimating2 = false;
@@ -506,5 +503,4 @@ module.exports = function () {
             })
         })
     }
-
 }
