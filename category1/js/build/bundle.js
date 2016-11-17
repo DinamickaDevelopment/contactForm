@@ -4142,6 +4142,15 @@
 	    var isAnimating = false; 
 
 	    function handle_input(e) {
+	        $(this).css({
+	            'color': '#1f467d'
+	        })
+
+	        
+	        if (e.target.classList.contains('exp-drop')) {
+	            dropdown_handler($(this));
+	            return false;
+	        }
 
 
 	        if (isAnimating) {
@@ -4158,15 +4167,8 @@
 
 	        var s = wrap.find('.submit');
 
-	        if (e.target.classList.contains('exp-drop')) {
-	            dropdown_handler($(this));
-	            return false;
-	        }
 
 
-	        $(this).css({
-	            'color': '#1f467d'
-	        })
 
 	        var sub = $(this).attr('data-sub');
 
