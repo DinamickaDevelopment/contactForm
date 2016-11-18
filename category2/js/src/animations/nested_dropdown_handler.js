@@ -90,10 +90,7 @@
                     m.slideUp(300);
                 }
             });
-
-
         }
-
     })
 
     $('.small-cell').on('click', function () {
@@ -133,10 +130,9 @@
                 }
             });
 
-
             $(this).addClass('selected');
-        } else {
 
+        } else {
 
             $(this).find('svg').fadeOut(200);
             $(this).css({

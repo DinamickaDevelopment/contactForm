@@ -13,10 +13,10 @@ var dropdown_select_handler = require('./animations/dropdown_select_handler.js')
 var nested_dropdown_handler = require('./animations/nested_dropdown_handler.js');
 
 var data_handler = require('./data_handler.js'); 
-
+var json_handler = require('./json_handler.js'); 
 
 window.onload = function () {
-    var flag = false;
+
     var init_flag = false;
 
     $('form').attr('autocomplete', 'off'); 
@@ -26,13 +26,14 @@ window.onload = function () {
     });
 
     $.router.add('/view/:ct', function (data) {
-     
-
-        $('input[type="radio"]').css({
-            'display': 'none'
-        })
+    
 
         $('.form-preview-wrap').fadeOut(500, function () {
+
+            $('input[type="radio"]').css({
+                'display': 'none'
+            }); 
+
             $('.form-preview-wrap').find('.form-input2').remove();
             $('.form-wrap').find('.category-wrap[data-category="' + data.ct + '"]').css({ 'display': 'block' });
             $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
@@ -79,16 +80,12 @@ window.onload = function () {
         $.router.go('/preview/' + ct); 
     });
 
-    $('#ct0').on('submit', function (e) {
-
-        e.preventDefault();
-        submit_handler.call($('#ct0'), e, '0');
-    });
     $('#ct1').on('submit', function (e) {
 
         e.preventDefault();
         submit_handler.call($('#ct1'), e, '1');
     });
+
      
 
     function submit_handler(e, ct) {
@@ -148,8 +145,9 @@ window.onload = function () {
 
         console.log('-------form data---------');
         console.log(data_handler.get_data());
-        console.log('-------form data json------');
-        console.log(data_handler.get_json_data());
+    
+        // send form data
+        json_handler.send_data(); 
 
         if (ct < 1) {
             var next_cat = parseInt(ct) + 1;
@@ -163,6 +161,7 @@ window.onload = function () {
     $.router.go('/view/1');
 
     $.router.add('/done', function () {
+
         $('.stats').html('2/2');
         $('.meter-top span').animate({
             width: '100%'
@@ -187,6 +186,7 @@ window.onload = function () {
 
     $.router.add('/preview/:category', function (data) {
    
+        $('.map-input').removeAttr('data-masked'); 
         data_handler.set_category(data.category);
 
         $('.big-container').fadeIn(500);
@@ -216,17 +216,17 @@ window.onload = function () {
         var btn = $('#continue-btn' + data.category);
 
         var preview = $('.form-preview-wrap');
-        preview.find('#ct' + data.category).find('.form-input2').remove();
+            preview.find('#ct' + data.category).find('.form-input2').remove();
             map_inputs.call(btn);
-
 
             $('.form-wrap').fadeOut(500, function () {
                 preview.fadeIn(500);
             });
+
             $('input[type="radio"]').css({
                 'display': 'block',
                 'opacity': '0'
-            })
+            }); 
 
             function map_inputs() {
 
@@ -241,8 +241,11 @@ window.onload = function () {
                 var inputs = wrap.find('.map-input');
                 var fl_inputs = wrap.find('input[type="file"]');
 
+                inputs.css({
+                    'color': '#1f467d'
+                })
                 var new_inputs = inputs.clone();
-              
+
 
                 new_inputs.removeAttr('disabled');
 
@@ -265,13 +268,15 @@ window.onload = function () {
                             '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
                             '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>'
                           + '</div> '
+
                         if (new_inputs.eq(i).attr('data-type') == 'radio') {
 
                             new_inputs.eq(i).addClass('rad2');
+
                             var html = '<div class="form-input2" data-q="' + (i + 1) + '">' +
                             '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
                             '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>' +
-                            '<label class="radioli">' + new_inputs.eq(i).prop('outerHTML')
+                            '<label class="radioli radiowrap">' + new_inputs.eq(i).prop('outerHTML')
                             + '<div></div><span>' + new_inputs.eq(i).attr('data-caption') + '</span></label>'
                             '</div> '
 
@@ -289,8 +294,6 @@ window.onload = function () {
 
                         }
 
-                      
-
                         preview.find('div[data-sub="' + sub + '"]').append(html);
 
                         if (new_inputs.eq(i).attr('data-type') == 'file') {
@@ -298,13 +301,9 @@ window.onload = function () {
                             var span_id = 'span' + new_inputs.eq(i).attr('id'); 
                             new_inputs.eq(i).removeAttr('id'); 
                             preview.find('div[data-sub="' + sub + '"]').find('.add-file').append(new_inputs.eq(i));
-                 
-                           
-                
 
                         } else if (new_inputs.eq(i).attr('data-type') != 'radio') {
                             preview.find('div[data-sub="' + sub + '"]').find('.form-input2[data-q="' + (i + 1) + '"]').append(new_inputs.eq(i)); 
-                        
                         }
                     }
 
@@ -330,11 +329,6 @@ window.onload = function () {
                 }
                  
 
-
-
-
-
-
                 map_dropdowns(preview)
 
                 function map_dropdowns(wrap) {
@@ -354,6 +348,7 @@ window.onload = function () {
                             if (drops.eq(i).find('.exp-cell').eq(j).length > 0) {
 
                                 for (var k = 0; k < drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').length; k++) {
+
                                     if (drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).hasClass('selected')) {
                                         inner_cells.push('<option selected>' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
                                     } else {
@@ -361,8 +356,8 @@ window.onload = function () {
                                             + '" value="' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text')
                                             + '">' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
                                     }
-
                                 }
+
                                 cells.push('<optgroup label="' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '">' +
                                    inner_cells.join('') + '</optgroup>')
 
@@ -377,7 +372,7 @@ window.onload = function () {
 
                         }
 
-                        mapped_drops[i] = '<div class="form-input2"><h3>' + drops.eq(i).attr('data-placeholder') + '</h3>'
+                        mapped_drops[i] = '<div class="form-input2 clear"><h3>' + drops.eq(i).attr('data-placeholder') + '</h3>'
                             + '<select data-name="' + drops.eq(i).attr('data-name') + '" class="form-control map-input sel" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
 
                         var sub = drops.eq(i).attr('data-sub');
@@ -401,8 +396,6 @@ window.onload = function () {
                     'display': 'block'
                 })
                 preview.fadeIn(500, function () {
-
-
                     inputmask_handler();
                 });
             });

@@ -38,8 +38,7 @@
         programOutput: [],
         programOutcomes: [], 
         serviceArea: [],
-        programStatus: [],
-        programLength: []
+        programStatus: []
 
     }, 
     set_category: function(ct) {
@@ -211,8 +210,6 @@
     set_drop: function (drop, propname) {
 
         var opts = drop.find(":selected");
-
-      
 
         if (opts.length == 0) return false; 
 

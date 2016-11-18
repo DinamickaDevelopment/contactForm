@@ -10,7 +10,6 @@ module.exports = function () {
 
             e.preventDefault();
 
-
             var curr_q = e.target.dataset.q;
             if (typeof curr_q == 'undefined') {
                 curr_q = e.target.parentElement.dataset.q; 
@@ -59,10 +58,19 @@ module.exports = function () {
         var max = parseInt(r.attr('data-max'));
 
         var next = $(this).parent('.input-wrap').find('.hidden-wrap[data-q="' + q + '"][data-sub="' + sub + '"]');
+
         next.css({
             'z-index': q + 1
         });
 
+        curr.find('textarea').css({
+            'color': '#c3cbe1',
+            'background-color': '#c3cbe1'
+        });
+        curr.find('input').css({
+            'color': '#c3cbe1',
+            'background-color': '#c3cbe1'
+        });
 
         if (curr.hasClass('prompt_shown')) {
 
@@ -103,7 +111,7 @@ module.exports = function () {
 
         function animate_q() {
             if (curr.hasClass('collapse')) {
-
+            
                 curr.parent('.input-wrap').find('.input-overlay').css({
                     display: 'block'
                 })
@@ -120,10 +128,11 @@ module.exports = function () {
                             marginTop: '-100px'
                         }, 300);
                         curr.animate({
-                            'height': curr.height() - 100 + 'px'
+                            'height': '100px'
                         }, 300) 
-
+                         
                         if (curr.attr('data-type') == 't') {
+
                             curr.find('textarea').animate({
                                 'height': '100px'
                             }, {
@@ -156,7 +165,7 @@ module.exports = function () {
 
         function animate_transition() {
             w.fadeOut(100, function () {
-
+                
                 r.animate({
                     marginRight: '170px',
                     opacity: 0

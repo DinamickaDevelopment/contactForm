@@ -4,6 +4,7 @@ var small_progress = require('./progress_bar');
 
 module.exports = function () {
     $('.down').on('click', function () {
+
         var flag = false; 
         var dropwrap = $(this).parent('.input-wrap').find('.active-wrap');
         if (dropwrap.length == 0) {
@@ -70,9 +71,6 @@ module.exports = function () {
                                 var s = dropwrap.find('form').trigger('submit');
                             }
                         })
-
-
-
                     }
                 })
             }
@@ -100,9 +98,10 @@ module.exports = function () {
                                     }
                                 });
 
-                         
-                                s.html(s.attr('data-max') + '/' + s.attr('data-max')); 
+                                s.html(s.attr('data-max') + '/' + s.attr('data-max'));
+
                             } else {
+
                                 var q = parseInt($(this).attr('data-q'));
                                 q++;
 
@@ -143,17 +142,13 @@ module.exports = function () {
                                             'display': 'none'
                                         })
                                     });
-
                                 })
-                            
                             }
                         }
                     })
-                
-            }
-        }
-
-    })
+                }
+           }
+     })
 
     $('.big-option').on('click', function () {
         if (!$(this).hasClass('selected')) {

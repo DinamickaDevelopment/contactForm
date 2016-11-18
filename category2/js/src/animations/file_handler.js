@@ -1,9 +1,11 @@
 ﻿module.exports = function () {
+
+
     $('input[type=file]').on('click', function () {
         $(this).on('change', function () {
 
             var self = $(this);
- 
+
             $(this).parent('.label-wrap').prev('.skip-container').find('span').fadeOut(100, function () {
                 self.parent('.label-wrap').prev('.skip-container').animate({
                     width: '0px',
@@ -18,15 +20,17 @@
                         }, {
                             duration: 700,
                             complete: function () {
+                               
                                 $(this).find('span').animate({ opacity: 0 }, 100);
                                 $(this).fadeOut(500);
                                 var id = '#' + $(this).attr('data-category') + $(this).attr('data-sub') + $(this).attr('data-q');
                                 $(id).submit();
+                                
                             }
                         })
                     }
                 })
-            })
+             })
         })
     });
 
@@ -52,13 +56,8 @@
                             })
                         }
                     })
-
-
                 }
             })
         })
-
     })
-
-
 }

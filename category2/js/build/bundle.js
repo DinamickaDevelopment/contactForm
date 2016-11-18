@@ -59,10 +59,10 @@
 	var nested_dropdown_handler = __webpack_require__(15);
 
 	var data_handler = __webpack_require__(16); 
-
+	var json_handler = __webpack_require__(17); 
 
 	window.onload = function () {
-	    var flag = false;
+
 	    var init_flag = false;
 
 	    $('form').attr('autocomplete', 'off'); 
@@ -72,13 +72,14 @@
 	    });
 
 	    $.router.add('/view/:ct', function (data) {
-	     
-
-	        $('input[type="radio"]').css({
-	            'display': 'none'
-	        })
+	    
 
 	        $('.form-preview-wrap').fadeOut(500, function () {
+
+	            $('input[type="radio"]').css({
+	                'display': 'none'
+	            }); 
+
 	            $('.form-preview-wrap').find('.form-input2').remove();
 	            $('.form-wrap').find('.category-wrap[data-category="' + data.ct + '"]').css({ 'display': 'block' });
 	            $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
@@ -125,16 +126,12 @@
 	        $.router.go('/preview/' + ct); 
 	    });
 
-	    $('#ct0').on('submit', function (e) {
-
-	        e.preventDefault();
-	        submit_handler.call($('#ct0'), e, '0');
-	    });
 	    $('#ct1').on('submit', function (e) {
 
 	        e.preventDefault();
 	        submit_handler.call($('#ct1'), e, '1');
 	    });
+
 	     
 
 	    function submit_handler(e, ct) {
@@ -194,8 +191,9 @@
 
 	        console.log('-------form data---------');
 	        console.log(data_handler.get_data());
-	        console.log('-------form data json------');
-	        console.log(data_handler.get_json_data());
+	    
+	        // send form data
+	        json_handler.send_data(); 
 
 	        if (ct < 1) {
 	            var next_cat = parseInt(ct) + 1;
@@ -209,6 +207,7 @@
 	    $.router.go('/view/1');
 
 	    $.router.add('/done', function () {
+
 	        $('.stats').html('2/2');
 	        $('.meter-top span').animate({
 	            width: '100%'
@@ -233,6 +232,7 @@
 
 	    $.router.add('/preview/:category', function (data) {
 	   
+	        $('.map-input').removeAttr('data-masked'); 
 	        data_handler.set_category(data.category);
 
 	        $('.big-container').fadeIn(500);
@@ -262,17 +262,17 @@
 	        var btn = $('#continue-btn' + data.category);
 
 	        var preview = $('.form-preview-wrap');
-	        preview.find('#ct' + data.category).find('.form-input2').remove();
+	            preview.find('#ct' + data.category).find('.form-input2').remove();
 	            map_inputs.call(btn);
-
 
 	            $('.form-wrap').fadeOut(500, function () {
 	                preview.fadeIn(500);
 	            });
+
 	            $('input[type="radio"]').css({
 	                'display': 'block',
 	                'opacity': '0'
-	            })
+	            }); 
 
 	            function map_inputs() {
 
@@ -287,8 +287,11 @@
 	                var inputs = wrap.find('.map-input');
 	                var fl_inputs = wrap.find('input[type="file"]');
 
+	                inputs.css({
+	                    'color': '#1f467d'
+	                })
 	                var new_inputs = inputs.clone();
-	              
+
 
 	                new_inputs.removeAttr('disabled');
 
@@ -311,13 +314,15 @@
 	                            '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
 	                            '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>'
 	                          + '</div> '
+
 	                        if (new_inputs.eq(i).attr('data-type') == 'radio') {
 
 	                            new_inputs.eq(i).addClass('rad2');
+
 	                            var html = '<div class="form-input2" data-q="' + (i + 1) + '">' +
 	                            '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
 	                            '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>' +
-	                            '<label class="radioli">' + new_inputs.eq(i).prop('outerHTML')
+	                            '<label class="radioli radiowrap">' + new_inputs.eq(i).prop('outerHTML')
 	                            + '<div></div><span>' + new_inputs.eq(i).attr('data-caption') + '</span></label>'
 	                            '</div> '
 
@@ -335,8 +340,6 @@
 
 	                        }
 
-	                      
-
 	                        preview.find('div[data-sub="' + sub + '"]').append(html);
 
 	                        if (new_inputs.eq(i).attr('data-type') == 'file') {
@@ -344,13 +347,9 @@
 	                            var span_id = 'span' + new_inputs.eq(i).attr('id'); 
 	                            new_inputs.eq(i).removeAttr('id'); 
 	                            preview.find('div[data-sub="' + sub + '"]').find('.add-file').append(new_inputs.eq(i));
-	                 
-	                           
-	                
 
 	                        } else if (new_inputs.eq(i).attr('data-type') != 'radio') {
 	                            preview.find('div[data-sub="' + sub + '"]').find('.form-input2[data-q="' + (i + 1) + '"]').append(new_inputs.eq(i)); 
-	                        
 	                        }
 	                    }
 
@@ -376,11 +375,6 @@
 	                }
 	                 
 
-
-
-
-
-
 	                map_dropdowns(preview)
 
 	                function map_dropdowns(wrap) {
@@ -400,6 +394,7 @@
 	                            if (drops.eq(i).find('.exp-cell').eq(j).length > 0) {
 
 	                                for (var k = 0; k < drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').length; k++) {
+
 	                                    if (drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).hasClass('selected')) {
 	                                        inner_cells.push('<option selected>' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
 	                                    } else {
@@ -407,8 +402,8 @@
 	                                            + '" value="' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text')
 	                                            + '">' + drops.eq(i).find('.exp-cell').eq(j).find('.small-cell').eq(k).attr('data-text') + '</option>')
 	                                    }
-
 	                                }
+
 	                                cells.push('<optgroup label="' + drops.eq(i).find('.cell').eq(j).attr('data-text') + '">' +
 	                                   inner_cells.join('') + '</optgroup>')
 
@@ -423,7 +418,7 @@
 
 	                        }
 
-	                        mapped_drops[i] = '<div class="form-input2"><h3>' + drops.eq(i).attr('data-placeholder') + '</h3>'
+	                        mapped_drops[i] = '<div class="form-input2 clear"><h3>' + drops.eq(i).attr('data-placeholder') + '</h3>'
 	                            + '<select data-name="' + drops.eq(i).attr('data-name') + '" class="form-control map-input sel" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
 
 	                        var sub = drops.eq(i).attr('data-sub');
@@ -447,8 +442,6 @@
 	                    'display': 'block'
 	                })
 	                preview.fadeIn(500, function () {
-
-
 	                    inputmask_handler();
 	                });
 	            });
@@ -4052,8 +4045,11 @@
 
 	module.exports = function () {
 	    $('.addmask').on('click', function () {
+	        if ($(this).attr('data-masked') == '1') return false; 
 
 	        var maskval = $(this).attr('data-maskval');
+	        $(this).attr('data-masked', '1'); 
+
 	        if (maskval != 'cash') {
 
 	            if (maskval != '99/99/9999') {
@@ -4066,8 +4062,7 @@
 
 	                if (maskval == 'nums') {
 	                    $(this).inputmask({
-	                    mask: '9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[9[' + 
-	                    '9[9[9[9[9[9[9[9[9[9[9[9]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]',
+	                    mask: '9{1,100}',
 	                        showMaskOnHover: false,
 	                        showMaskOnFocus: false,
 	                        greedy: false,
@@ -4109,6 +4104,31 @@
 
 	    $('.form-textarea').on('input', handle_textarea);
 
+	    function add_input() {
+	        if (!$(this).hasClass('addshown') && $(this).hasClass('show-add')) {
+
+
+	            var wrap = $(this).parent('.mock-input').parent('.input-wrap');
+	            if (wrap.length == 0) {
+	                wrap = $(this).parent('form').parent('.active-wrap').parent('.input-wrap');
+	            }
+
+	            wrap.find('.hideadd').slideDown(300);
+
+
+	            isAnimating = false;
+
+	            if ($(this).hasClass('drop')) {
+
+	                dropdown_handler($(this));
+	                isAnimating = false;
+	                return false;
+	            }
+
+	            $(this).addClass('addshown');
+	        }
+	    }
+
 	    var handler_added = false;
 	    if (!handler_added) {
 	        handler_added = true; 
@@ -4125,37 +4145,35 @@
 	        });
 	    } 
 
+
 	    var isAnimating = false; 
 
 	    function handle_input(e) {
-	        
-	        var wrap = $(this).parent('form').parent('.active-wrap');
-	        if (wrap.length == 0) {
-	            wrap = $(this).parent('div').parent('form').parent('.active-wrap');
-	        }
-
-	        var s = wrap.find('.submit'); 
-
-	        if (e.target.classList.contains('exp-drop')) {
-	            dropdown_handler($(this));
-	            return false; 
-	        }
-
 
 	        $(this).css({
 	            'color': '#1f467d'
 	        })
 
-	        var sub = $(this).attr('data-sub');
-
+	        if (e.target.classList.contains('exp-drop')) {
+	            dropdown_handler($(this));
+	            return false;
+	        }
 
 	        if (isAnimating) {
 	            setTimeout(function() {
 	                isAnimating = false; 
-	            }, 200)
+	            }, 100)
 	            return false; 
 	        }
 	        else isAnimating = true; 
+	        var wrap = $(this).parent('form').parent('.active-wrap');
+	        if (wrap.length == 0) {
+	            wrap = $(this).parent('div').parent('form').parent('.active-wrap');
+	        }
+
+	        var s = wrap.find('.submit');
+
+	        var sub = $(this).attr('data-sub');
 
 	        var r = wrap.parent('.input-wrap').find('.right'); 
 	        var w = wrap.parent('.input-wrap').find('.wrong');
@@ -4171,24 +4189,7 @@
 	            return false; 
 	        }
 
-	        if (!$(this).hasClass('addshown') && $(this).hasClass('show-add')) {
-
-	         
-	            var wrap = $(this).parent('.mock-input').parent('.input-wrap');
-	            wrap.find('.hideadd').slideDown(300);
-
-
-	            isAnimating = false;
-
-	            if ($(this).hasClass('drop')) {
-
-	                dropdown_handler($(this));
-	                isAnimating = false; 
-	                return false; 
-	            } 
-
-	            $(this).addClass('addshown'); 
-	        } 
+	        add_input.call(this); 
 
 	        if ($(this).hasClass('exp-name')) {
 	            var w = $(this).parent('div').parent('.input-wrap').find('.wrong');
@@ -4279,31 +4280,36 @@
 
 
 	        }
-	    
+
+
 	        if ($(this).parent('form').parent('.active-wrap').hasClass('exp1') && !$(this).hasClass('expanded')) {
 	            var self = $(this);
+	            var expheight = $(this).parent('form').parent('.active-wrap').attr('data-expheight');
+	            $('.input-overlay[data-sub="' + sub + '"]').css({
+	                'display': 'block'
+	            })
 	            $('.input-overlay[data-sub="' + sub + '"]').animate({
-	                height: '200px',
-	                marginTop: '-200px'
+	                height: expheight + 'px',
+	                marginTop: '-' + expheight +'px'
 	            }, 300)
 
 	            $(this).parent('form').find('.submit').css({
-	                'height': '200px',
-	                'margin-top': '-200px'
+	                height: expheight + 'px',
+	                marginTop: '-' + expheight + 'px'
 	            }, 300)
 
 	            $(this).parent('form').parent('.active-wrap').animate({
-	                height: '200px'
+	                height: expheight + 'px',
 	            }, 300)
 
 	            w.animate({
-	                marginTop: '-200px',
-	                height: '200px'
+	                height: expheight + 'px',
+	                marginTop: '-' + expheight + 'px'
 	            })
 
 	            r.animate({
-	                marginTop: '-200px',
-	                height: '200px'
+	                height: expheight + 'px',
+	                marginTop: '-' + expheight + 'px'
 	            }, {
 	                duration: 300,
 	                complete: function () {
@@ -4315,18 +4321,28 @@
 	        }
 
 	        if (!$(this).hasClass('req')) {
+
 	            s.css({ 'display': 'block' });
-	            show(r);
+
+	            if (r.width() == 0) {
+	                show(r);
+	            }
 	        } else {
 	            if (e.type == 'input') {
 	                if ($(this).val() == '') {
 
-	                    s.css({ 'display': 'none' }); 
-	                    hide(r);
-	                    show(w)
+	                    s.css({ 'display': 'none' });
+
+	                        hide(r);
+	                        show(w);
+	                    
 	                } else {
-	                    s.css({ 'display': 'block' }); 
-	                    show(r);
+	                    s.css({ 'display': 'block' });
+	                    if (r.width() == 0) {
+	                        show(r);
+	                    }
+	                   
+	                    
 	                }
 	            } else {
 
@@ -4352,59 +4368,10 @@
 	    var right_shown = false;
 	    var wrong_shown = false;
 
-	    //$('textarea').on('paste', function () {
-	    //    var sub = $(this).attr('data-sub');
-	    //    var wrap = $(this).parent('form').parent('.active-wrap');
-	    //    var s = wrap.find('.submit');
-	    //    var q = wrap.attr('data-q');
-	    //    var all_wrap = wrap.parent('.input-wrap');
-
-
-	    //    var r = wrap.parent('.input-wrap').find('.right');
-	    //    var w = wrap.parent('.input-wrap').find('.wrong');
-
-	    //    if (typeof $(this).attr('data-wordcount') != 'undefined') {
-	    //        var prompt = all_wrap.find('.prompt[data-q="' + q + '"]');
-
-	    //        var text = $(this).val();
-	    //        text = text.replace(/[^a-zA-Z\s]/g, '');
-
-	    //        var words = text.split(/[\s]+/);
-
-	    //        prompt.find('span').html(words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used');
-
-	    //        if (words.length >= parseInt($(this).attr('data-wordcount'))) {
-
-	    //            s.css({ 'display': 'none' });
-
-	    //            w.css({
-	    //                'z-index': parseInt(r.css('z-index')) + 2
-	    //            })
-	    //            r.css({
-	    //                'z-index': parseInt(r.css('z-index')) - 1
-	    //            });
-	    //            show(w);
-
-	    //            return false;
-
-	    //        }
-	    //        else {
-
-	    //            w.css({
-	    //                'z-index': parseInt(r.css('z-index')) - 1
-	    //            })
-	    //            r.css({
-	    //                'z-index': parseInt(r.css('z-index')) + 2
-	    //            });
-	    //            s.css({ 'display': 'block' });
-	    //            show(r);
-	    //            return false;
-
-	    //        }
-	    //    }
-	    //})
 	    var flag1 = false;
+
 	    function handle_textarea(e) {
+
 	        var sub = $(this).attr('data-sub');
 	        var wrap = $(this).parent('form').parent('.active-wrap');
 	        var all_wrap = wrap.parent('.input-wrap'); 
@@ -4421,15 +4388,17 @@
 	            })
 	        }
 
+	        add_input.call(this);
 
 	        if ($(this).hasClass('showprompt')) {
 	            $(this).removeClass('showprompt');
 	            prompt_handler($(this));
 	        }
 
-	        if (!$(this).hasClass('expanded')) {
+	        if (!$(this).hasClass('expanded') && !$(this).hasClass('huge')) {
 
-	            var self = $(this); 
+	            var self = $(this);
+
 
 	            $(this).parent('form').parent('.active-wrap').animate({
 	                height: '200px'
@@ -4464,8 +4433,43 @@
 	                }
 	            })
 	        }
+	        if (!$(this).hasClass('expanded') && $(this).hasClass('huge')) {
+	            var self = $(this);
 
 
+	            $(this).parent('form').parent('.active-wrap').animate({
+	                height: '500px'
+	            }, 300);
+	            $(this).animate({
+	                'height': '456px'
+	            }, 300)
+
+	            $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.input-overlay').animate({
+	                height: '500px',
+	                marginTop: '-500px'
+	            }, 300)
+
+	            $(this).next('.submit').css({
+	                'height': '500px',
+	                'margin-top': '0px'
+	            }, 300)
+
+	            w.animate({
+	                marginTop: '-500px',
+	                height: '500px'
+	            })
+
+	            r.animate({
+	                marginTop: '-500px',
+	                height: '500px'
+	            }, {
+	                duration: 300,
+	                complete: function () {
+	                    isAnimating = false;
+	                    self.addClass('expanded');
+	                }
+	            })
+	        }
 	  
 	    if (e.type == 'input') {
 
@@ -4507,7 +4511,9 @@
 	    }
 
 	    function count_w() {
+
 	        if (typeof $(this).attr('data-wordcount') != 'undefined') {
+
 	            flag1 = true;
 	            var prompt = all_wrap.find('.prompt[data-q="' + q + '"]');
 
@@ -4516,7 +4522,10 @@
 
 	            var words = text.split(/[\s]+/);
 
-	            prompt.find('span').html(words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used');
+	            if (prompt.find('span').find('span').length == 0) {
+	                prompt.find('span').append('<span></span>');
+	            }
+	            prompt.find('span').find('span').html(' ' + words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used');
 
 	            if (words.length >= parseInt($(this).attr('data-wordcount'))) {
 
@@ -4536,12 +4545,9 @@
 	                        'display': 'none'
 	                    }); 
 
-
 	                    show(w);
 	                }
 	               
-
-
 	                return false;
 
 	            }
@@ -4567,8 +4573,8 @@
 	            }
 	        } else {
 	            show(r); 
+	            }
 	        }
-	    }
 	    }   
 
 	    var isAnimating2 = false;
@@ -4627,7 +4633,6 @@
 	            })
 	        })
 	    }
-
 	}
 
 /***/ },
@@ -4691,7 +4696,6 @@
 
 	            e.preventDefault();
 
-
 	            var curr_q = e.target.dataset.q;
 	            if (typeof curr_q == 'undefined') {
 	                curr_q = e.target.parentElement.dataset.q; 
@@ -4740,10 +4744,19 @@
 	        var max = parseInt(r.attr('data-max'));
 
 	        var next = $(this).parent('.input-wrap').find('.hidden-wrap[data-q="' + q + '"][data-sub="' + sub + '"]');
+
 	        next.css({
 	            'z-index': q + 1
 	        });
 
+	        curr.find('textarea').css({
+	            'color': '#c3cbe1',
+	            'background-color': '#c3cbe1'
+	        });
+	        curr.find('input').css({
+	            'color': '#c3cbe1',
+	            'background-color': '#c3cbe1'
+	        });
 
 	        if (curr.hasClass('prompt_shown')) {
 
@@ -4784,7 +4797,7 @@
 
 	        function animate_q() {
 	            if (curr.hasClass('collapse')) {
-
+	            
 	                curr.parent('.input-wrap').find('.input-overlay').css({
 	                    display: 'block'
 	                })
@@ -4801,10 +4814,11 @@
 	                            marginTop: '-100px'
 	                        }, 300);
 	                        curr.animate({
-	                            'height': curr.height() - 100 + 'px'
+	                            'height': '100px'
 	                        }, 300) 
-
+	                         
 	                        if (curr.attr('data-type') == 't') {
+
 	                            curr.find('textarea').animate({
 	                                'height': '100px'
 	                            }, {
@@ -4837,7 +4851,7 @@
 
 	        function animate_transition() {
 	            w.fadeOut(100, function () {
-
+	                
 	                r.animate({
 	                    marginRight: '170px',
 	                    opacity: 0
@@ -4923,7 +4937,6 @@
 
 	module.exports = function (elem, flag) {
 
-
 	    var thanx = elem.parent('.input-wrap').find('.thanx');
 	    if (thanx.hasClass('done')) return false;
 
@@ -4992,11 +5005,13 @@
 /***/ function(module, exports) {
 
 	module.exports = function () {
+
+
 	    $('input[type=file]').on('click', function () {
 	        $(this).on('change', function () {
 
 	            var self = $(this);
-	 
+
 	            $(this).parent('.label-wrap').prev('.skip-container').find('span').fadeOut(100, function () {
 	                self.parent('.label-wrap').prev('.skip-container').animate({
 	                    width: '0px',
@@ -5011,15 +5026,17 @@
 	                        }, {
 	                            duration: 700,
 	                            complete: function () {
+	                               
 	                                $(this).find('span').animate({ opacity: 0 }, 100);
 	                                $(this).fadeOut(500);
 	                                var id = '#' + $(this).attr('data-category') + $(this).attr('data-sub') + $(this).attr('data-q');
 	                                $(id).submit();
+	                                
 	                            }
 	                        })
 	                    }
 	                })
-	            })
+	             })
 	        })
 	    });
 
@@ -5045,15 +5062,10 @@
 	                            })
 	                        }
 	                    })
-
-
 	                }
 	            })
 	        })
-
 	    })
-
-
 	}
 
 /***/ },
@@ -5081,6 +5093,7 @@
 
 	module.exports = function () {
 	    $('.down').on('click', function () {
+
 	        var flag = false; 
 	        var dropwrap = $(this).parent('.input-wrap').find('.active-wrap');
 	        if (dropwrap.length == 0) {
@@ -5147,9 +5160,6 @@
 	                                var s = dropwrap.find('form').trigger('submit');
 	                            }
 	                        })
-
-
-
 	                    }
 	                })
 	            }
@@ -5177,9 +5187,10 @@
 	                                    }
 	                                });
 
-	                         
-	                                s.html(s.attr('data-max') + '/' + s.attr('data-max')); 
+	                                s.html(s.attr('data-max') + '/' + s.attr('data-max'));
+
 	                            } else {
+
 	                                var q = parseInt($(this).attr('data-q'));
 	                                q++;
 
@@ -5220,17 +5231,13 @@
 	                                            'display': 'none'
 	                                        })
 	                                    });
-
 	                                })
-	                            
 	                            }
 	                        }
 	                    })
-	                
-	            }
-	        }
-
-	    })
+	                }
+	           }
+	     })
 
 	    $('.big-option').on('click', function () {
 	        if (!$(this).hasClass('selected')) {
@@ -5384,10 +5391,7 @@
 	                    m.slideUp(300);
 	                }
 	            });
-
-
 	        }
-
 	    })
 
 	    $('.small-cell').on('click', function () {
@@ -5427,10 +5431,9 @@
 	                }
 	            });
 
-
 	            $(this).addClass('selected');
-	        } else {
 
+	        } else {
 
 	            $(this).find('svg').fadeOut(200);
 	            $(this).css({
@@ -5487,8 +5490,7 @@
 	        programOutput: [],
 	        programOutcomes: [], 
 	        serviceArea: [],
-	        programStatus: [],
-	        programLength: []
+	        programStatus: []
 
 	    }, 
 	    set_category: function(ct) {
@@ -5661,8 +5663,6 @@
 
 	        var opts = drop.find(":selected");
 
-	      
-
 	        if (opts.length == 0) return false; 
 
 	        if (this.data[propname].length > 0) {
@@ -5710,6 +5710,35 @@
 	            else {
 	            this.data[prop] = ''; 
 	            }
+	        }
+	    }
+
+	}
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var data_handler = __webpack_require__(16); 
+
+	module.exports = {
+
+	    send_data: function() {
+	        // get form data in json format
+	        var data = data_handler.get_json_data();
+	        console.log('-------form data json------');
+	        console.log(data);
+
+	        // send data
+	        var xhr = new XMLHttpRequest();
+	        xhr.open('POST', '/');
+
+	        xhr.send(data);
+	        xhr.onload = function () {
+	            console.log('request successful');
+	        }
+	        xhr.onerror = function () {
+	            console.log('request error');
 	        }
 	    }
 
