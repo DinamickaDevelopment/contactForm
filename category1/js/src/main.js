@@ -16,7 +16,7 @@ var data_handler = require('./data_handler.js');
 var json_handler = require('./json_handler.js'); 
 
 window.onload = function () {
-
+    
     var init_flag = false;
 
     $('form').attr('autocomplete', 'off'); 
@@ -25,20 +25,23 @@ window.onload = function () {
         console.log(url);
     });
 
-    $.router.add('/view/:ct', function (data) {
+    $.router.add('/view/:ct', view);
 
-        $('.form-preview-wrap').fadeOut(500, function () { 
-		
-		    $('input[type="radio"]').css({
-				'display': 'none'
-			})
-		
+    function view(data) {
+    
+
+        $('.form-preview-wrap').fadeOut(500, function () {
+
+            $('input[type="radio"]').css({
+                'display': 'none'
+            }); 
+
             $('.form-preview-wrap').find('.form-input2').remove();
             $('.form-wrap').find('.category-wrap[data-category="' + data.ct + '"]').css({ 'display': 'block' });
             $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
 
             $('.big-container').fadeIn(500);
-            var max = 2;
+            var max = 3;
 
             var step = 100 / max;
             var w = step * data.ct;
@@ -71,22 +74,30 @@ window.onload = function () {
 
         }
 
-    });
-
-    $.router.go('/view/0');
+    }
 
     $('.view-preview').on('click', function (e) {
         var ct = e.target.dataset.category;
-        $.router.go('/preview/' + ct); 
+        try {
+            $.router.go('/preview/' + ct);
+        } catch (err) {
+
+            var data = {
+                category: ct
+            }
+            preview(data); 
+        }
     });
+
 
     $('#ct0').on('submit', function (e) {
 
         e.preventDefault();
         submit_handler.call($('#ct0'), e, '0');
     });
-      
 
+
+     
 
     function submit_handler(e, ct) {
 
@@ -149,14 +160,31 @@ window.onload = function () {
         // send form data
         json_handler.send_data(); 
 
-        $.router.go('/done');
+
+            try {
+                $.router.go('/done');
+            } catch (err) {
+                done(); 
+            }
         
+
     }
 
-    $.router.add('/done', function () {
+    try {
+        $.router.go('/view/0');
+    } catch (err) {
+        var data = {
+            ct: 0
+        }
+        view(data); 
+    }
+ 
+
+
+    $.router.add('/done', done)
+    function done() {
 
         $('.stats').html('1/1');
-
         $('.meter-top span').animate({
             width: '100%'
         }, {
@@ -173,11 +201,14 @@ window.onload = function () {
                 });
             }
         })
-    })
+
+    }
 
     var handler_added = false; 
 
-    $.router.add('/preview/:category', function (data) {
+    $.router.add('/preview/:category', preview) 
+
+    function preview(data) {
    
         $('.map-input').removeAttr('data-masked'); 
         data_handler.set_category(data.category);
@@ -190,7 +221,7 @@ window.onload = function () {
             'opacity': '0'
         });
         var btn = $('#continue-btn');   
-        var max = 2;
+        var max = 3;
 
         var step = 100 / max;
         var w = step * data.category;
@@ -209,19 +240,19 @@ window.onload = function () {
         var btn = $('#continue-btn' + data.category);
 
         var preview = $('.form-preview-wrap');
-            preview.find('#ct' + data.category).find('.form-input2').remove();
-            map_inputs.call(btn);
+        preview.find('#ct' + data.category).find('.form-input2').remove();
+        map_inputs.call(btn);
 
-            $('.form-wrap').fadeOut(500, function () {
-                preview.fadeIn(500);
-            });
+        $('.form-wrap').fadeOut(500, function () {
+            preview.fadeIn(500);
+        });
 
-            $('input[type="radio"]').css({
-                'display': 'block',
-                'opacity': '0'
-            }); 
+        $('input[type="radio"]').css({
+            'display': 'block',
+            'opacity': '0'
+        }); 
 
-            function map_inputs() {
+        function map_inputs() {
 
         
             var cat = parseInt($(this).attr('data-view'));
@@ -393,5 +424,5 @@ window.onload = function () {
                 });
             });
         }
-    })
+    }
 }
