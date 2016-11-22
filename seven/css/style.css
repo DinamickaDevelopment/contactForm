@@ -36,7 +36,8 @@
 .input-wrap {
     /*max-width: 1170px; 
     min-width: 600px;*/  
-
+    padding-right: 30px;
+    margin-right: -30px;
     margin-top: 15px; 
 
 }
@@ -239,7 +240,8 @@ input[type=radio] {
     display: none;
 }
 
-.rad {
+.rad1 + span {
+    display: inline-block; 
     transition: background-color 0.3s linear;
     background-size: 25px;
     background-repeat: no-repeat;
@@ -250,6 +252,10 @@ input[type=radio] {
     margin-right: 10px; 
     cursor: pointer;
     float: left;
+}
+
+.rad1:checked + span {
+    background-image: url(../img/checked.png);
 }
 
 .rad2 {

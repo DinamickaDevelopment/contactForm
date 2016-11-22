@@ -3692,29 +3692,35 @@
 
 	module.exports = function () {
 	    $('.rad.y').on('click', function () {
-	        $(this).removeClass('unchecked-img');
-		    $(this).addClass('checked-img'); 
-			
-			$(this).prev('input[type="radio"]').attr('checked', 'checked');
+	        $(this).prev('input').removeClass('unchecked');
+	        $(this).prev('input').addClass('checked');
+	        $(this).prev('input').attr('checked', true); 
+
+		//	$(this).prev('input[type="radio"]').attr('checked', 'checked');
 			var id = $(this).attr('id'); 
-			
-			$('#' + id + 'n').removeClass('checked-img'); 
-			$('#' + id + 'n').addClass('unchecked-img'); 
-			$('#' + id + 'n').prev('input[type="radio"]').removeAttr('checked')
+			console.log($('#' + id + 'n').prev('input'))
+			$('#' + id + 'n').prev('input').removeClass('checked'); 
+			$('#' + id + 'n').prev('input').addClass('unchecked');
+			$('#' + id + 'n').prev('input').removeAttr('checked');
+
+		
+		//	$('#' + id + 'n').prev('input[type="radio"]').removeAttr('checked')
 
 		}); 
 		
 	    $('.rad.n').on('click', function () {
-	        $(this).removeClass('unchecked-img');
-		    $(this).addClass('checked-img');
+	        $(this).prev('input').removeClass('unchecked');
+	        $(this).prev('input').addClass('checked');
+	        $(this).prev('input').attr('checked', true);
 				
 			var id = $(this).attr('id'); 
 			var new_id = id.replace('n', ''); 
 			
-			$(this).prev('input[type="radio"]').attr('checked', "checked");
-			$('#' + new_id).removeClass('checked-img');
-			$('#' + new_id).addClass('unchecked-img'); 
-			$('#' + new_id).prev('input[type="radio"]').removeAttr('checked')
+		//	$(this).prev('input[type="radio"]').attr('checked', "checked");
+			$('#' + new_id).prev('input').removeClass('checked');
+			$('#' + new_id).prev('input').addClass('unchecked');
+			$('#' + new_id).prev('input').removeAttr('checked');
+		//	$('#' + new_id).prev('input[type="radio"]').removeAttr('checked')
 		});
 
 
@@ -3843,6 +3849,7 @@
 	            } 
 	            isAnimating = false;
 
+	            $(this).addClass('addshown');
 	            if ($(this).hasClass('drop')) {
 
 	                dropdown_handler($(this));
@@ -3850,7 +3857,8 @@
 	                return false;
 	            }
 
-	            $(this).addClass('addshown');
+
+	            
 	        }
 	    }
 
@@ -4121,7 +4129,7 @@
 	            prompt_handler($(this));
 	        }
 
-	        if (!$(this).hasClass('expanded') && !$(this).hasClass('huge') && !(this).hasClass('noexp')) {
+	        if (!$(this).hasClass('expanded') && !$(this).hasClass('huge') && !$(this).hasClass('noexp')) {
 
 	            var self = $(this);
 
@@ -4375,7 +4383,6 @@
 
 	    function drop(elem) {
 
-	 
 	        var wrap = elem.parent('div').parent('.input-wrap');
 
 	        var down = wrap.find('.down');
@@ -4413,7 +4420,7 @@
 	var end_form = __webpack_require__(10); 
 	var small_progress = __webpack_require__(11); 
 
-	module.exports = function () {
+	module.exports = function (flag) {
 
 	    var input_forms = document.forms;
 
@@ -4445,23 +4452,23 @@
 	    }
 
 
+	    if (!flag) {
+	        $('.expanded').css({
+	            'height': '156px'
+	        });
 
-	    $('.expanded').css({
-	        'height': '156px'
-	    });
+	        $('.noexp').css({
+	            'height': '100px'
+	        });
 
-	    $('.noexp').css({
-	        'height': '100px'
-	    });
+	        $('.expanded1').css({
+	            'height': '200px'
+	        });
 
-
-	    $('.expanded1').css({
-	        'height': '200px'
-	    });
-
-	    $('.exp-wrap').css({
-	        'height': '200px'
-	    })
+	        $('.exp-wrap').css({
+	            'height': '200px'
+	        })
+	    }
 
 
 	    function change_q() {
@@ -4687,7 +4694,6 @@
 	            }, {
 	                duration: 700,
 	                complete: function () {
-	                    $('.hideadd').slideUp(300);
 
 	                    thanx.find('.big-input-meter').css({ 'margin-top': '-108px' });
 	              
@@ -4861,6 +4867,31 @@
 	        }
 	        var sub_arr = sub.find('.input-form');
 
+	        var rads = sub.find('input[type="radio"]');
+	        var r2 = sub.find('.rad'); 
+
+	       
+	        for (var i = 0; i < rads.length; i++) {
+
+	            var oldname = rads.eq(i).attr('name');
+	            var oldindex = parseInt(oldname.substr(oldname.length - 1));
+	            if (!isNaN(oldindex)) {
+	                oldindex++;
+	                var new_name = oldname.substr(0, oldname.length - 1) + oldindex;
+	            } else {
+	                var new_name = oldname.substr(0, oldname.length - 1) + index;
+	            }
+	        
+	            var n_id = index.toString() + new_name; 
+	            if (rads.eq(i).hasClass('yes')) {
+
+	                r2.eq(i).attr('id', 'check' + n_id); 
+	            } else {
+	                r2.eq(i).attr('id', 'check' + n_id + 'n');
+	            }
+	            rads.eq(i).attr('name', new_name);
+
+	        }
 
 	        var category = wrap.parent('.category-wrap');
 	        if (category.length == 0) {
@@ -4873,7 +4904,9 @@
 	        for (var i = 0; i < subs.length; i++) {
 	            if (parseInt(subs.eq(i).attr('data-sub')) >= new_sub) {
 
-	                subs.eq(i).find('input[type="radio"]').attr('name', 'nct' + i + ct); 
+
+
+	                subs.eq(i).find('input[type="radio"]').attr('name', n2); 
 	                subs.eq(i).children().attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
 	                subs.eq(i).find('input').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
 	                subs.eq(i).find('textarea').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
@@ -4884,10 +4917,16 @@
 	                subs.eq(i).find('.label-wrap').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
 	                
 	                var radios = subs.eq(i).find('.rad');
+	                
 	                for (var x = 0; x < radios.length; x++) {
+	                    var name1 = radios.eq(x).attr('name').substr(0, radios.eq(x).attr('name').length - 1);
+	                    var n2 = name1 + index.toString();
+
+	                    radios.eq(x).attr('name', n2); 
 	                    var id = Math.random(); 
 	                    if (radios.eq(i).hasClass('y')) {
-	                        radios.eq(i).attr('id', id); 
+	                        radios.eq(i).attr('id', id);
+	                   
 	                    } else {
 	                        radios.eq(i).attr('id', id + 'n');
 	                    }
@@ -4936,7 +4975,7 @@
 	        radio_handler();
 	        inputmask_handler();
 	        focus_handler();
-	        question_change_handler();
+	        question_change_handler(true);
 	        file_handler();
 	        dropdown_select_handler();
 	        nested_dropdown_handler();
@@ -5459,6 +5498,12 @@
 
 	                            new_inputs.eq(i).addClass('rad2');
 	                            console.log(new_inputs.eq(i))
+	                            if (new_inputs.eq(i).hasClass('checked')) {
+	                                new_inputs.eq(i).attr('checked', true); 
+	                            }
+	                            if (new_inputs.eq(i).hasClass('unchecked')) {
+	                                new_inputs.eq(i).removeAttr('checked');
+	                            }
 
 	                            var html = '<div class="form-input2" data-q="' + (i + 1) + '">' +
 	                            '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
@@ -5494,7 +5539,7 @@
 
 	                        } else if (new_inputs.eq(i).attr('data-type') != 'radio') {
 	                            preview.find('div[data-sub="' + sub + '"]').find('.form-input2[data-q="' + (i + 1) + '"]').append(new_inputs.eq(i));
-	                        }
+	                        } 
 	                    }
 
 	                    $('.add-file').on('click', function (e) {

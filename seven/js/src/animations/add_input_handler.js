@@ -55,6 +55,31 @@ module.exports = function () {
         }
         var sub_arr = sub.find('.input-form');
 
+        var rads = sub.find('input[type="radio"]');
+        var r2 = sub.find('.rad'); 
+
+       
+        for (var i = 0; i < rads.length; i++) {
+
+            var oldname = rads.eq(i).attr('name');
+            var oldindex = parseInt(oldname.substr(oldname.length - 1));
+            if (!isNaN(oldindex)) {
+                oldindex++;
+                var new_name = oldname.substr(0, oldname.length - 1) + oldindex;
+            } else {
+                var new_name = oldname.substr(0, oldname.length - 1) + index;
+            }
+        
+            var n_id = index.toString() + new_name; 
+            if (rads.eq(i).hasClass('yes')) {
+
+                r2.eq(i).attr('id', 'check' + n_id); 
+            } else {
+                r2.eq(i).attr('id', 'check' + n_id + 'n');
+            }
+            rads.eq(i).attr('name', new_name);
+
+        }
 
         var category = wrap.parent('.category-wrap');
         if (category.length == 0) {
@@ -67,7 +92,9 @@ module.exports = function () {
         for (var i = 0; i < subs.length; i++) {
             if (parseInt(subs.eq(i).attr('data-sub')) >= new_sub) {
 
-                subs.eq(i).find('input[type="radio"]').attr('name', 'nct' + i + ct); 
+
+
+                subs.eq(i).find('input[type="radio"]').attr('name', n2); 
                 subs.eq(i).children().attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
                 subs.eq(i).find('input').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
                 subs.eq(i).find('textarea').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
@@ -78,10 +105,16 @@ module.exports = function () {
                 subs.eq(i).find('.label-wrap').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
                 
                 var radios = subs.eq(i).find('.rad');
+                
                 for (var x = 0; x < radios.length; x++) {
+                    var name1 = radios.eq(x).attr('name').substr(0, radios.eq(x).attr('name').length - 1);
+                    var n2 = name1 + index.toString();
+
+                    radios.eq(x).attr('name', n2); 
                     var id = Math.random(); 
                     if (radios.eq(i).hasClass('y')) {
-                        radios.eq(i).attr('id', id); 
+                        radios.eq(i).attr('id', id);
+                   
                     } else {
                         radios.eq(i).attr('id', id + 'n');
                     }
@@ -130,7 +163,7 @@ module.exports = function () {
         radio_handler();
         inputmask_handler();
         focus_handler();
-        question_change_handler();
+        question_change_handler(true);
         file_handler();
         dropdown_select_handler();
         nested_dropdown_handler();

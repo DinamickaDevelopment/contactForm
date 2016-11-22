@@ -133,6 +133,12 @@ module.exports = {
 
                             new_inputs.eq(i).addClass('rad2');
                             console.log(new_inputs.eq(i))
+                            if (new_inputs.eq(i).hasClass('checked')) {
+                                new_inputs.eq(i).attr('checked', true); 
+                            }
+                            if (new_inputs.eq(i).hasClass('unchecked')) {
+                                new_inputs.eq(i).removeAttr('checked');
+                            }
 
                             var html = '<div class="form-input2" data-q="' + (i + 1) + '">' +
                             '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
@@ -168,7 +174,7 @@ module.exports = {
 
                         } else if (new_inputs.eq(i).attr('data-type') != 'radio') {
                             preview.find('div[data-sub="' + sub + '"]').find('.form-input2[data-q="' + (i + 1) + '"]').append(new_inputs.eq(i));
-                        }
+                        } 
                     }
 
                     $('.add-file').on('click', function (e) {

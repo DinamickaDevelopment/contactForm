@@ -29,6 +29,7 @@ module.exports = function () {
             } 
             isAnimating = false;
 
+            $(this).addClass('addshown');
             if ($(this).hasClass('drop')) {
 
                 dropdown_handler($(this));
@@ -36,7 +37,8 @@ module.exports = function () {
                 return false;
             }
 
-            $(this).addClass('addshown');
+
+            
         }
     }
 
@@ -307,7 +309,7 @@ module.exports = function () {
             prompt_handler($(this));
         }
 
-        if (!$(this).hasClass('expanded') && !$(this).hasClass('huge') && !(this).hasClass('noexp')) {
+        if (!$(this).hasClass('expanded') && !$(this).hasClass('huge') && !$(this).hasClass('noexp')) {
 
             var self = $(this);
 

@@ -1,7 +1,7 @@
 ﻿var end_form = require('./check_handler'); 
 var small_progress = require('./progress_bar'); 
 
-module.exports = function () {
+module.exports = function (flag) {
 
     var input_forms = document.forms;
 
@@ -33,22 +33,23 @@ module.exports = function () {
     }
 
 
+    if (!flag) {
+        $('.expanded').css({
+            'height': '156px'
+        });
 
-    $('.expanded').css({
-        'height': '156px'
-    });
+        $('.noexp').css({
+            'height': '100px'
+        });
 
-    $('.noexp').css({
-        'height': '100px'
-    });
+        $('.expanded1').css({
+            'height': '200px'
+        });
 
-    $('.expanded1').css({
-        'height': '200px'
-    });
-
-    $('.exp-wrap').css({
-        'height': '200px'
-    })
+        $('.exp-wrap').css({
+            'height': '200px'
+        })
+    }
 
 
     function change_q() {
