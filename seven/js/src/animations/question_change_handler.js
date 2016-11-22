@@ -22,6 +22,7 @@ module.exports = function () {
             try {
                 if (e.target.id == cat.toString() + sub.toString() + curr_q.toString() && parseInt(curr_q) <= parseInt(max)) {
 
+                    console.log($('#' + e.target.id))
                         change_q.call($('#' + e.target.id).parent('.active-wrap').parent('.input-wrap').find('.right'));
                     
                 } 
@@ -36,7 +37,10 @@ module.exports = function () {
     $('.expanded').css({
         'height': '156px'
     });
-     
+
+    $('.noexp').css({
+        'height': '100px'
+    });
 
     $('.expanded1').css({
         'height': '200px'

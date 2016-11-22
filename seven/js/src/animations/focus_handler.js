@@ -1,5 +1,6 @@
 ﻿var dropdown_handler = require('./dropdown_handler.js'); 
-var prompt_handler = require('./prompt_handler'); 
+var prompt_handler = require('./prompt_handler');
+
 
 module.exports = function () {
     $('.form-input').on('focus', handle_input);
@@ -19,9 +20,13 @@ module.exports = function () {
                 wrap = $(this).parent('form').parent('.active-wrap').parent('.input-wrap');
             }
 
-            wrap.find('.hideadd').slideDown(300);
-
-
+            var index = wrap.find('.hideadd').find('.add-btn').attr('data-index'); 
+            var lim = wrap.find('.hideadd').find('.add-btn').attr('data-lim'); 
+            if (typeof lim != 'undefined' && parseInt(index) < parseInt(lim)) {
+                wrap.find('.hideadd').slideDown(300);
+            } else if (typeof lim == 'undefined') {
+                wrap.find('.hideadd').slideDown(300);
+            } 
             isAnimating = false;
 
             if ($(this).hasClass('drop')) {
@@ -189,6 +194,7 @@ module.exports = function () {
 
 
         if ($(this).parent('form').parent('.active-wrap').hasClass('exp1') && !$(this).hasClass('expanded')) {
+         
             var self = $(this);
             var expheight = $(this).parent('form').parent('.active-wrap').attr('data-expheight');
             $('.input-overlay[data-sub="' + sub + '"]').css({
@@ -301,7 +307,7 @@ module.exports = function () {
             prompt_handler($(this));
         }
 
-        if (!$(this).hasClass('expanded') && !$(this).hasClass('huge')) {
+        if (!$(this).hasClass('expanded') && !$(this).hasClass('huge') && !(this).hasClass('noexp')) {
 
             var self = $(this);
 
@@ -339,10 +345,10 @@ module.exports = function () {
                 }
             })
         }
-        if (!$(this).hasClass('expanded') && $(this).hasClass('huge')) {
+        if (!$(this).hasClass('expanded') && $(this).hasClass('huge') && !$(this).hasClass('noexp')) {
             var self = $(this);
 
-
+   
             $(this).parent('form').parent('.active-wrap').animate({
                 height: '500px'
             }, 300);
@@ -447,7 +453,7 @@ module.exports = function () {
                         'z-index': '99999',
                         'width': '0px'
                     });
-                    r.find('img').css({
+                    r.find('.icon').css({
                         'display': 'none'
                     }); 
 
@@ -464,7 +470,7 @@ module.exports = function () {
                         'z-index': '99999',
                         'width': '0px'
                     })
-                    w.find('img').css({
+                    w.find('.icon').css({
                         'display': 'none'
                     })
                     r.css({

@@ -64,7 +64,7 @@ module.exports = function () {
                                     'margin-right': '0px',
                                     'width': '0px'
                                 });
-                                $(this).find('img').css({
+                                $(this).find('.icon').css({
                                     'display': 'none'
                                 }); 
 

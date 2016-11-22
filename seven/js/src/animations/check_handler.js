@@ -19,7 +19,8 @@
             }, {
                 duration: 700,
                 complete: function () {
-         
+                    $('.hideadd').slideUp(300);
+
                     thanx.find('.big-input-meter').css({ 'margin-top': '-108px' });
               
                     var cool_check = new Vivus(id, {
