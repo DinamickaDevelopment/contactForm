@@ -28,7 +28,24 @@ module.exports = {
     }, 
 
 
-    handle_submit: function(e, ct) {
+    handle_submit: function (e, ct) {
+
+        var txts = $(this).find('textarea');
+        for (var i = 0; i < txts.length; i++) {
+            if (typeof txts.eq(i).attr('data-wordcount') != 'undefined') {
+                var textval = txts.eq(i).val();
+                textval = textval.replace(/[^a-zA-Z\s]/g, '');
+
+                var words = textval.split(/[\s]+/);
+
+                if (words.length > parseInt(txts.eq(i).attr('data-wordcount'))) {
+                    var err_container = $(this).find('.error').html('word limit exceeded'); 
+                    return false;
+                } else {
+                    $(this).find('.error').html('');
+                }
+            }
+        }
 
         data_handler.refresh_data();
 
