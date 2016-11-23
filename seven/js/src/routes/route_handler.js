@@ -135,7 +135,7 @@ module.exports = {
                         if (new_inputs.eq(i).attr('data-type') == 'radio') {
 
                             new_inputs.eq(i).addClass('rad2');
-                            console.log(new_inputs.eq(i))
+             
                             if (new_inputs.eq(i).hasClass('checked')) {
                                 new_inputs.eq(i).attr('checked', true); 
                             }
@@ -251,17 +251,16 @@ module.exports = {
                         var sub = drops.eq(i).attr('data-sub');
                         var curr = wrap.find('.form-sub[data-sub="' + sub + '"]');
                         var q = drops.eq(i).attr('data-q');
-                        var s_p = parseInt(wrap.find('.form-sub[data-sub="' + sub + '"]').find('.form-input2').length);
-                        if (parseInt(sub) > 0) {
-                            var qs = parseInt(q) + s_p;
-
-                            var p = curr.find('.form-input2[data-q="' + qs + '"]');
-                        } else {
+                        
+                        if (parseInt(sub) == 0) {
                             var p = curr.find('.form-input2[data-q="' + q + '"]');
+                        } else {
+                            var p = curr.find('.form-input2').eq(q-1).first(); 
                         }
+                  
 
                         if (p.length > 0) {
-                            p.after(mapped_drops[i]);
+                            p.before(mapped_drops[i]);
                         } else {
                             if (typeof drops.eq(i).attr('data-placeholder') != 'undefined') {
                                 curr.append(mapped_drops[i])
