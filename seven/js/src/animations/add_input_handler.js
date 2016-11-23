@@ -91,9 +91,8 @@ module.exports = function () {
     
         for (var i = 0; i < subs.length; i++) {
             if (parseInt(subs.eq(i).attr('data-sub')) >= new_sub) {
-
-
-
+                
+                subs.eq(i).find('drop').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1); 
                 subs.eq(i).find('input[type="radio"]').attr('name', n2); 
                 subs.eq(i).children().attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
                 subs.eq(i).find('input').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);

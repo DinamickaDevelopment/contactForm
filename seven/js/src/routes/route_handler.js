@@ -87,10 +87,12 @@ module.exports = {
                     var htext = wr.find('.stats-wrap').find('.form-label').html();
                     var subtext = wr.find('.stats-wrap').find('p.sub').html(); 
 
-                    if (htext.toLowerCase() != 'mock') {
-                        sub_arr[i] = '<div data-sub="' + i + '" class="form-sub">' +
-                           '<h2>' + htext + '</h2>' +
-                           '<p>' + subtext + '</p>' + '</div>';
+                    if (typeof htext != 'undefined') {
+                        if (htext.toLowerCase() != 'mock') {
+                            sub_arr[i] = '<div data-sub="' + i + '" class="form-sub">' +
+                               '<h2>' + htext + '</h2>' +
+                               '<p>' + subtext + '</p>' + '</div>';
+                        } 
                     } else {
                         sub_arr[i] = '<div data-sub="' + i + '" class="form-sub"></div>';
                     }
@@ -173,6 +175,9 @@ module.exports = {
 
                             var span_id = 'span' + new_inputs.eq(i).attr('id');
                             new_inputs.eq(i).removeAttr('id');
+                            if (new_inputs.eq(i).hasClass('huge')) {
+                                new_inputs.eq(i).addClass('xl'); 
+                            }
                             preview.find('div[data-sub="' + sub + '"]').find('.add-file').append(new_inputs.eq(i));
 
                         } else if (new_inputs.eq(i).attr('data-type') != 'radio') {
@@ -251,21 +256,16 @@ module.exports = {
                         var sub = drops.eq(i).attr('data-sub');
                         var curr = wrap.find('.form-sub[data-sub="' + sub + '"]');
                         var q = drops.eq(i).attr('data-q');
-                        
-                        if (parseInt(sub) == 0) {
-                            var p = curr.find('.form-input2[data-q="' + q + '"]');
-                        } else {
-                            var p = curr.find('.form-input2').eq(q-1).first(); 
-                        }
-                  
-
+                        var p = curr.find('.drop-follow'); 
+                            
                         if (p.length > 0) {
-                            p.before(mapped_drops[i]);
+                            p.after(mapped_drops[i]); 
                         } else {
                             if (typeof drops.eq(i).attr('data-placeholder') != 'undefined') {
                                 curr.append(mapped_drops[i])
                             }
                         }
+                        
 
                     }
                 }

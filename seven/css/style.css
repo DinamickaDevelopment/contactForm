@@ -22,6 +22,10 @@
     font-weight: normal; 
 }
 
+.xl {
+    height: 500px!important; 
+}
+
 p.error {
     margin: 0 auto;
     text-align: center;
