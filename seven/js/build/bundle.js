@@ -5882,13 +5882,13 @@
 
 	            for (var i = 0; i < optgroups.length; i++) {
 
-	                this.data[propname].push({});
-	                this.data[propname][i][optgroups.eq(i).attr('label')] = []; 
+	             
+	                this.data[propname][optgroups.eq(i).attr('label')] = []; 
 	                
 	                var cells = optgroups.eq(i).find(':selected');
 
 	                for (var j = 0; j < cells.length; j++) {
-	                    this.data[propname][i][optgroups.eq(i).attr('label')].push(cells.eq(j).val()); 
+	                    this.data[propname][optgroups.eq(i).attr('label')].push(cells.eq(j).val()); 
 	                }
 	            }
 
