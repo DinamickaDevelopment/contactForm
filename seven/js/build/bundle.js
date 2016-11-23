@@ -4939,9 +4939,9 @@
 	                var old_sub_arr = subs.eq(i).find('.input-form');
 
 	                for (var x = 0; x < old_sub_arr.length; x++) {
-	                    var n_s = parseInt(old_sub_arr.eq(j).attr('data-sub'));
-	                    old_sub_arr.eq(j).attr('id', ct_clone.attr('data-category') + n_s + old_sub_arr.eq(j).attr('data-q'));
-	                    old_sub_arr.eq(j).attr('data-sub', n_s); 
+	                    var n_s = parseInt(old_sub_arr.eq(x).attr('data-sub')) + 1;
+	                    old_sub_arr.eq(x).attr('id', ct_clone.attr('data-category') + n_s + old_sub_arr.eq(x).attr('data-q'));
+	                    old_sub_arr.eq(x).attr('data-sub', n_s); 
 	                }
 	            }
 	        } 
