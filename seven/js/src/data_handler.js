@@ -34,13 +34,75 @@
         leadership: []
     },
     data1: {
+        
         programActivities: [],
         programOutput: [],
         programOutcomes: [], 
         serviceArea: [],
         programStatus: []
 
-    }, 
+    },
+    data2: {
+        eventCategory: "Volunteer",
+        eventName: "",
+        eventType: "",
+        eventDescription: "",
+        duties: "",
+        serviceArea: [],
+        populationServed: [], // string, not array! 
+        volunteersRequired: "",
+        eventStartDate: "",
+        eventEndDate: "",
+        eventTime: "",
+        eventAddress: {
+            name : "",
+            street : "",
+            suite : "",
+            city : "",
+            state : "",
+            zip : "",
+            country : "",
+        }, // obj
+        eventContact: {
+            firstName: "",
+            lastName: "",
+            email: ""
+        }
+
+    //{
+    //"eventCategory" : "Volunteer",
+    //    "eventName" : "Mentoring Kids",
+    //    "eventType" : "Mentoring kids from aged 5-10",
+    //    "eventDescription" : "UWNCA seeks a volunteer instructor to teach Spanish to English-speaking union organizers and staff. This Spanish for Organizers course is aimed at providing the basic vocabulary and speaking skills needed for labor organizers to effectively communicate and mobilize their members. Rather than a structured curriculum of grammar and memorization, the focus should be on verbal communication.",
+    //    "duties" : "Provide academic support during assigned hours, Perform front desk activities, including scheduling, record-keeping, Provide tutoring-coordination service.",
+    //    "serviceArea" : [
+    //       {
+    //           "Health" : [ "Hospital", "Family Planning Centers" ] 
+    //       },
+    //       {
+    //           "Education" : [ "Primary", "Elementary Schools" ]
+    //       }
+    //    ],
+    //    "populationServed" : "High School Students, Homeless Families, Teens, Immigrants",
+    //    "volunteersRequired" : 20,
+    //    "eventStartDate" : "10/01/2015",
+    //    "eventEndDate" : "06/30/2015",
+    //    "eventTime" : "Morning Hours",
+    //    "eventAddress" : {
+    //        "name" : "Building one",
+    //        "street" : "2785 Knollside Ln",
+    //        "suite" : "100",
+    //        "city" : "Vienna",
+    //        "state" : "VA",
+    //        "zip" : "22180",
+    //        "country" : "USA",
+    //    },
+    //    "eventContact": {
+    //        "name" : "John Doe",
+    //        "email" : "Jdoe@event.com"
+    //    }
+    //}
+    },
     set_category: function(ct) {
         this.data = this["data" + ct];
     }, 
@@ -223,13 +285,13 @@
 
             for (var i = 0; i < optgroups.length; i++) {
 
-             
-                this.data[propname][optgroups.eq(i).attr('label')] = []; 
-                
+                this.data[propname].push({});
+                this.data[propname][i][optgroups.eq(i).attr('label')] = [];
+
                 var cells = optgroups.eq(i).find(':selected');
 
                 for (var j = 0; j < cells.length; j++) {
-                    this.data[propname][optgroups.eq(i).attr('label')].push(cells.eq(j).val()); 
+                    this.data[propname][i][optgroups.eq(i).attr('label')].push(cells.eq(j).val());
                 }
             }
 

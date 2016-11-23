@@ -1,8 +1,11 @@
 ﻿module.exports = function () {
     $('.addmask').on('click', function () {
-        if ($(this).attr('data-masked') == '1') return false; 
+        if ($(this).attr('data-masked') == '1') return false;
+        var self = $(this); 
 
         var maskval = $(this).attr('data-maskval');
+        var ct = $(this).parent('.form-input2').attr('data-category'); 
+
         $(this).attr('data-masked', '1'); 
 
         if (maskval != 'cash') {
@@ -12,7 +15,9 @@
                     mask: maskval,
                     showMaskOnHover: false,
                     showMaskOnFocus: false,
-                    greedy: false
+                    greedy: false,
+                    onincomplete: invalidMask,
+                    oncomplete: validMask
                 });
 
                 if (maskval == 'nums') {
@@ -22,7 +27,9 @@
                         showMaskOnFocus: false,
                         greedy: false,
                         removeMaskOnSubmit: true,
-                        autoUnmask: true
+                        autoUnmask: true,
+                        onincomplete: invalidMask,
+                        oncomplete: validMask
                     });
                 }
             }  
@@ -32,8 +39,22 @@
                     showMaskOnHover: false,
                     showMaskOnFocus: false,
                     greedy: false,
-                    placeholder: 'dd/mm/yyyy'
+                    placeholder: 'dd/mm/yyyy',
+                    onincomplete: invalidMask,
+                    oncomplete: validMask
                 });
+            } 
+
+
+            function invalidMask() {
+                self.addClass('invalid')
+            } 
+            function validMask() {
+                self.removeClass('invalid');
+                if (typeof ct != 'undefined') {
+                    var err_p = $('.error[data-ct="' + ct + '"]');
+                    err_p.html(''); 
+                }
             }
      
             

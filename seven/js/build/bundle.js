@@ -3771,9 +3771,12 @@
 
 	module.exports = function () {
 	    $('.addmask').on('click', function () {
-	        if ($(this).attr('data-masked') == '1') return false; 
+	        if ($(this).attr('data-masked') == '1') return false;
+	        var self = $(this); 
 
 	        var maskval = $(this).attr('data-maskval');
+	        var ct = $(this).parent('.form-input2').attr('data-category'); 
+
 	        $(this).attr('data-masked', '1'); 
 
 	        if (maskval != 'cash') {
@@ -3783,7 +3786,9 @@
 	                    mask: maskval,
 	                    showMaskOnHover: false,
 	                    showMaskOnFocus: false,
-	                    greedy: false
+	                    greedy: false,
+	                    onincomplete: invalidMask,
+	                    oncomplete: validMask
 	                });
 
 	                if (maskval == 'nums') {
@@ -3793,7 +3798,9 @@
 	                        showMaskOnFocus: false,
 	                        greedy: false,
 	                        removeMaskOnSubmit: true,
-	                        autoUnmask: true
+	                        autoUnmask: true,
+	                        onincomplete: invalidMask,
+	                        oncomplete: validMask
 	                    });
 	                }
 	            }  
@@ -3803,8 +3810,22 @@
 	                    showMaskOnHover: false,
 	                    showMaskOnFocus: false,
 	                    greedy: false,
-	                    placeholder: 'dd/mm/yyyy'
+	                    placeholder: 'dd/mm/yyyy',
+	                    onincomplete: invalidMask,
+	                    oncomplete: validMask
 	                });
+	            } 
+
+
+	            function invalidMask() {
+	                self.addClass('invalid')
+	            } 
+	            function validMask() {
+	                self.removeClass('invalid');
+	                if (typeof ct != 'undefined') {
+	                    var err_p = $('.error[data-ct="' + ct + '"]');
+	                    err_p.html(''); 
+	                }
 	            }
 	     
 	            
@@ -5497,7 +5518,7 @@
 	                        var placeholder = new_inputs.eq(i).attr('placeholder');
 	                        var prompt = new_inputs.eq(i).attr('data-prompt');
 
-	                        var html = '<div class="form-input2" data-q="' + (i + 1) + '">' +
+	                        var html = '<div class="form-input2" data-category="' + data.category + '" data-q="' + (i + 1) + '">' +
 	                            '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
 	                            '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>'
 	                          + '</div> '
@@ -5692,13 +5713,75 @@
 	        leadership: []
 	    },
 	    data1: {
+	        
 	        programActivities: [],
 	        programOutput: [],
 	        programOutcomes: [], 
 	        serviceArea: [],
 	        programStatus: []
 
-	    }, 
+	    },
+	    data2: {
+	        eventCategory: "Volunteer",
+	        eventName: "",
+	        eventType: "",
+	        eventDescription: "",
+	        duties: "",
+	        serviceArea: [],
+	        populationServed: [], // string, not array! 
+	        volunteersRequired: "",
+	        eventStartDate: "",
+	        eventEndDate: "",
+	        eventTime: "",
+	        eventAddress: {
+	            name : "",
+	            street : "",
+	            suite : "",
+	            city : "",
+	            state : "",
+	            zip : "",
+	            country : "",
+	        }, // obj
+	        eventContact: {
+	            firstName: "",
+	            lastName: "",
+	            email: ""
+	        }
+
+	    //{
+	    //"eventCategory" : "Volunteer",
+	    //    "eventName" : "Mentoring Kids",
+	    //    "eventType" : "Mentoring kids from aged 5-10",
+	    //    "eventDescription" : "UWNCA seeks a volunteer instructor to teach Spanish to English-speaking union organizers and staff. This Spanish for Organizers course is aimed at providing the basic vocabulary and speaking skills needed for labor organizers to effectively communicate and mobilize their members. Rather than a structured curriculum of grammar and memorization, the focus should be on verbal communication.",
+	    //    "duties" : "Provide academic support during assigned hours, Perform front desk activities, including scheduling, record-keeping, Provide tutoring-coordination service.",
+	    //    "serviceArea" : [
+	    //       {
+	    //           "Health" : [ "Hospital", "Family Planning Centers" ] 
+	    //       },
+	    //       {
+	    //           "Education" : [ "Primary", "Elementary Schools" ]
+	    //       }
+	    //    ],
+	    //    "populationServed" : "High School Students, Homeless Families, Teens, Immigrants",
+	    //    "volunteersRequired" : 20,
+	    //    "eventStartDate" : "10/01/2015",
+	    //    "eventEndDate" : "06/30/2015",
+	    //    "eventTime" : "Morning Hours",
+	    //    "eventAddress" : {
+	    //        "name" : "Building one",
+	    //        "street" : "2785 Knollside Ln",
+	    //        "suite" : "100",
+	    //        "city" : "Vienna",
+	    //        "state" : "VA",
+	    //        "zip" : "22180",
+	    //        "country" : "USA",
+	    //    },
+	    //    "eventContact": {
+	    //        "name" : "John Doe",
+	    //        "email" : "Jdoe@event.com"
+	    //    }
+	    //}
+	    },
 	    set_category: function(ct) {
 	        this.data = this["data" + ct];
 	    }, 
@@ -5881,13 +5964,13 @@
 
 	            for (var i = 0; i < optgroups.length; i++) {
 
-	             
-	                this.data[propname][optgroups.eq(i).attr('label')] = []; 
-	                
+	                this.data[propname].push({});
+	                this.data[propname][i][optgroups.eq(i).attr('label')] = [];
+
 	                var cells = optgroups.eq(i).find(':selected');
 
 	                for (var j = 0; j < cells.length; j++) {
-	                    this.data[propname][optgroups.eq(i).attr('label')].push(cells.eq(j).val()); 
+	                    this.data[propname][i][optgroups.eq(i).attr('label')].push(cells.eq(j).val());
 	                }
 	            }
 
@@ -5973,18 +6056,20 @@
 	        });
 	        $('#ct2').on('submit', function (e) {
 	            e.preventDefault();
-
-	            try {
-	                $.router.go('/done');
-	            } catch (err) {
-	                done();
-	            }
+	            self.handle_submit.call($('#ct2'), e, '2');
 
 	        });
 	    }, 
 
 
 	    handle_submit: function (e, ct) {
+
+	        if ($(this).find('.invalid').length > 0) {
+	            $(this).find('.error').html('form contains invalid data');
+	            return false; 
+	        } else {
+	            $(this).find('.error').html('');
+	        }
 
 	        var txts = $(this).find('textarea');
 	        for (var i = 0; i < txts.length; i++) {

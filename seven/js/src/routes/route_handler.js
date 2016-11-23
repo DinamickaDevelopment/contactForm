@@ -129,7 +129,7 @@ module.exports = {
                         var placeholder = new_inputs.eq(i).attr('placeholder');
                         var prompt = new_inputs.eq(i).attr('data-prompt');
 
-                        var html = '<div class="form-input2" data-q="' + (i + 1) + '">' +
+                        var html = '<div class="form-input2" data-category="' + data.category + '" data-q="' + (i + 1) + '">' +
                             '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
                             '<p>' + (typeof prompt == "undefined" ? '' : prompt) + '</p>'
                           + '</div> '

@@ -17,18 +17,20 @@ module.exports = {
         });
         $('#ct2').on('submit', function (e) {
             e.preventDefault();
-
-            try {
-                $.router.go('/done');
-            } catch (err) {
-                done();
-            }
+            self.handle_submit.call($('#ct2'), e, '2');
 
         });
     }, 
 
 
     handle_submit: function (e, ct) {
+
+        if ($(this).find('.invalid').length > 0) {
+            $(this).find('.error').html('form contains invalid data');
+            return false; 
+        } else {
+            $(this).find('.error').html('');
+        }
 
         var txts = $(this).find('textarea');
         for (var i = 0; i < txts.length; i++) {
