@@ -106,17 +106,21 @@ module.exports = function () {
                 
                 var radios = subs.eq(i).find('.rad');
                 
-                for (var x = 0; x < radios.length; x++) {
-                    var name1 = radios.eq(x).attr('name').substr(0, radios.eq(x).attr('name').length - 1);
-                    var n2 = name1 + index.toString();
+                if (radios.length > 0) {
+                    for (var x = 0; x < radios.length; x++) {
+                        if (typeof radios.eq(x).attr('name') != 'undefined') {
+                            var name1 = radios.eq(x).attr('name').substr(0, radios.eq(x).attr('name').length - 1);
+                            var n2 = name1 + index.toString();
 
-                    radios.eq(x).attr('name', n2); 
-                    var id = Math.random(); 
-                    if (radios.eq(i).hasClass('y')) {
-                        radios.eq(i).attr('id', id);
-                   
-                    } else {
-                        radios.eq(i).attr('id', id + 'n');
+                            radios.eq(x).attr('name', n2);
+                            var id = Math.random();
+                            if (radios.eq(i).hasClass('y')) {
+                                radios.eq(i).attr('id', id);
+
+                            } else {
+                                radios.eq(i).attr('id', id + 'n');
+                            }
+                        }
                     }
                 }
 

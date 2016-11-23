@@ -53,7 +53,7 @@ module.exports = {
         var btn = $('#continue-btn' + data.category);
 
         var preview = $('.form-preview-wrap');
-        preview.find('#ct' + data.category).find('.form-input2').remove();
+        preview.find('#ct' + data.category).find('.form-sub').remove();
         map_inputs.call(btn);
 
         $('.form-wrap').fadeOut(500, function () {
@@ -87,10 +87,13 @@ module.exports = {
                     var htext = wr.find('.stats-wrap').find('.form-label').html();
                     var subtext = wr.find('.stats-wrap').find('p.sub').html(); 
 
-
-                    sub_arr[i] = '<div data-sub="' + i + '" class="form-sub"">' +
-                       '<h2>' + htext + '</h2>' +
-                       '<p>' + subtext + '</p>' + '</div>';
+                    if (htext.toLowerCase() != 'mock') {
+                        sub_arr[i] = '<div data-sub="' + i + '" class="form-sub">' +
+                           '<h2>' + htext + '</h2>' +
+                           '<p>' + subtext + '</p>' + '</div>';
+                    } else {
+                        sub_arr[i] = '<div data-sub="' + i + '" class="form-sub"></div>';
+                    }
 
 
                 }
@@ -248,8 +251,14 @@ module.exports = {
                         var sub = drops.eq(i).attr('data-sub');
                         var curr = wrap.find('.form-sub[data-sub="' + sub + '"]');
                         var q = drops.eq(i).attr('data-q');
+                        var s_p = parseInt(wrap.find('.form-sub[data-sub="' + sub + '"]').find('.form-input2').length);
+                        if (parseInt(sub) > 0) {
+                            var qs = parseInt(q) + s_p;
 
-                        var p = curr.find('.form-input2[data-q="' + q + '"]');
+                            var p = curr.find('.form-input2[data-q="' + qs + '"]');
+                        } else {
+                            var p = curr.find('.form-input2[data-q="' + q + '"]');
+                        }
 
                         if (p.length > 0) {
                             p.after(mapped_drops[i]);

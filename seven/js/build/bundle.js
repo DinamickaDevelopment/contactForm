@@ -4918,17 +4918,21 @@
 	                
 	                var radios = subs.eq(i).find('.rad');
 	                
-	                for (var x = 0; x < radios.length; x++) {
-	                    var name1 = radios.eq(x).attr('name').substr(0, radios.eq(x).attr('name').length - 1);
-	                    var n2 = name1 + index.toString();
+	                if (radios.length > 0) {
+	                    for (var x = 0; x < radios.length; x++) {
+	                        if (typeof radios.eq(x).attr('name') != 'undefined') {
+	                            var name1 = radios.eq(x).attr('name').substr(0, radios.eq(x).attr('name').length - 1);
+	                            var n2 = name1 + index.toString();
 
-	                    radios.eq(x).attr('name', n2); 
-	                    var id = Math.random(); 
-	                    if (radios.eq(i).hasClass('y')) {
-	                        radios.eq(i).attr('id', id);
-	                   
-	                    } else {
-	                        radios.eq(i).attr('id', id + 'n');
+	                            radios.eq(x).attr('name', n2);
+	                            var id = Math.random();
+	                            if (radios.eq(i).hasClass('y')) {
+	                                radios.eq(i).attr('id', id);
+
+	                            } else {
+	                                radios.eq(i).attr('id', id + 'n');
+	                            }
+	                        }
 	                    }
 	                }
 
@@ -5418,7 +5422,7 @@
 	        var btn = $('#continue-btn' + data.category);
 
 	        var preview = $('.form-preview-wrap');
-	        preview.find('#ct' + data.category).find('.form-input2').remove();
+	        preview.find('#ct' + data.category).find('.form-sub').remove();
 	        map_inputs.call(btn);
 
 	        $('.form-wrap').fadeOut(500, function () {
@@ -5452,10 +5456,13 @@
 	                    var htext = wr.find('.stats-wrap').find('.form-label').html();
 	                    var subtext = wr.find('.stats-wrap').find('p.sub').html(); 
 
-
-	                    sub_arr[i] = '<div data-sub="' + i + '" class="form-sub"">' +
-	                       '<h2>' + htext + '</h2>' +
-	                       '<p>' + subtext + '</p>' + '</div>';
+	                    if (htext.toLowerCase() != 'mock') {
+	                        sub_arr[i] = '<div data-sub="' + i + '" class="form-sub">' +
+	                           '<h2>' + htext + '</h2>' +
+	                           '<p>' + subtext + '</p>' + '</div>';
+	                    } else {
+	                        sub_arr[i] = '<div data-sub="' + i + '" class="form-sub"></div>';
+	                    }
 
 
 	                }
@@ -5613,8 +5620,14 @@
 	                        var sub = drops.eq(i).attr('data-sub');
 	                        var curr = wrap.find('.form-sub[data-sub="' + sub + '"]');
 	                        var q = drops.eq(i).attr('data-q');
+	                        var s_p = parseInt(wrap.find('.form-sub[data-sub="' + sub + '"]').find('.form-input2').length);
+	                        if (parseInt(sub) > 0) {
+	                            var qs = parseInt(q) + s_p;
 
-	                        var p = curr.find('.form-input2[data-q="' + q + '"]');
+	                            var p = curr.find('.form-input2[data-q="' + qs + '"]');
+	                        } else {
+	                            var p = curr.find('.form-input2[data-q="' + q + '"]');
+	                        }
 
 	                        if (p.length > 0) {
 	                            p.after(mapped_drops[i]);
