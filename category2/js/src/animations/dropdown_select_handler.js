@@ -39,8 +39,11 @@ module.exports = function () {
             var self = $(this);
 
             if (!flag) {
-                dropwrap.slideUp(500, cb1)
+                dropwrap.slideUp(500, cb1); 
             } else {
+                dropwrap.parent('.input-wrap').find('.input-overlay').css({
+                    'display': 'block'
+                });
                 dropwrap.css({
                     'overflow': 'hidden'
                 }); 
@@ -56,17 +59,6 @@ module.exports = function () {
                         }, {
                             duration: 300,
                             complete: function () {
-                                dropwrap.parent('.input-wrap').find('.input-overlay').css({
-                                    'display': 'block'
-                                })
-                                $(this).css({
-                                    'opacity': 1,
-                                    'margin-right': '0px',
-                                    'width': '0px'
-                                });
-                                $(this).find('img').css({
-                                    'display': 'none'
-                                }); 
 
                                 var s = dropwrap.find('form').trigger('submit');
                             }
@@ -76,7 +68,7 @@ module.exports = function () {
             }
 
             function cb1() {
-             
+
                     self.animate({
                         marginRight: '200px',
                         opacity: '0'
