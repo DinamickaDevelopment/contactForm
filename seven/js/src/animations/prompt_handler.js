@@ -11,6 +11,10 @@
         p.find('span').html(elem.attr('data-prompt')); 
     }
 
+    if (p.hasClass('radioprompt')) {
+        p.find('.y').trigger('click'); 
+    }
+
     p.slideDown(200, function () {
         $(this).css({
             'display': 'table'

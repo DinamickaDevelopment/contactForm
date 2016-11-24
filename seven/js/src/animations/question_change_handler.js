@@ -12,6 +12,18 @@ module.exports = function (flag) {
     for (var i = 0; i < input_forms.length; i++) {
         input_forms[i].onsubmit = function (e) {
 
+            if ($('#' + e.target.id).find('.multi-zip').length > 0) {
+                if ($('#' + e.target.id).find('.multi-zip').val().search('_') != -1) {
+                    return false; 
+                }
+            }
+
+            if (($('#' + e.target.id).find('.req').length > 0)) {
+                if ($('#' + e.target.id).find('.req').hasClass('invalid')) {
+                    return false;
+                }
+            }
+
             e.preventDefault();
 
             var curr_q = e.target.dataset.q;

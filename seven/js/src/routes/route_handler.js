@@ -48,6 +48,8 @@ module.exports = {
                 $('.stats').html(data.category + '/3');
             }
         });
+
+        submit_handler.remove_submit_handlers();
         submit_handler.add_submit_handlers();
 
         var btn = $('#continue-btn' + data.category);
@@ -130,6 +132,12 @@ module.exports = {
                         var sub = new_inputs.eq(i).attr('data-sub');
                         var placeholder = new_inputs.eq(i).attr('placeholder');
                         var prompt = new_inputs.eq(i).attr('data-prompt');
+                        
+                 
+                        if (new_inputs.eq(i).hasClass('huge')) {
+                            new_inputs.eq(i).removeClass('form-textarea');
+                            new_inputs.eq(i).addClass('form-textarea-huge'); 
+                        }
 
                         var html = '<div class="form-input2" data-category="' + data.category + '" data-q="' + (i + 1) + '">' +
                             '<h3>' + (typeof placeholder == "undefined" ? '' : placeholder) + '</h3>' +
@@ -177,9 +185,7 @@ module.exports = {
 
                             var span_id = 'span' + new_inputs.eq(i).attr('id');
                             new_inputs.eq(i).removeAttr('id');
-                            if (new_inputs.eq(i).hasClass('huge')) {
-                                new_inputs.eq(i).addClass('xl'); 
-                            }
+
                             preview.find('div[data-sub="' + sub + '"]').find('.add-file').append(new_inputs.eq(i));
 
                         } else if (new_inputs.eq(i).attr('data-type') != 'radio') {
@@ -253,7 +259,9 @@ module.exports = {
                         }
 
                         mapped_drops[i] = '<div class="form-input2 clear"><h3>' + drops.eq(i).attr('data-placeholder') + '</h3>'
-                            + '<select data-name="' + drops.eq(i).attr('data-name') + '" class="form-control map-input sel" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
+                            + '<select data-index="' + drops.eq(i).attr('data-index') + '" data-name="' + drops.eq(i).attr('data-name')
+                            + '" class="form-control map-input sel ' + (drops.eq(i).hasClass('one-dimension') ? 'one-dimension' : '') + (drops.eq(i).hasClass('p') ? 'p' : '')
+                            + (drops.eq(i).hasClass('o') ? 'o' : '') + '" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
 
                         var sub = drops.eq(i).attr('data-sub');
                         var curr = wrap.find('.form-sub[data-sub="' + sub + '"]');

@@ -58,9 +58,10 @@ window.onload = function () {
                 }
             });
             $('.form-wrap').fadeIn(300);
+
         });
 
-
+  
 
         if (!init_flag) {
 
@@ -77,6 +78,8 @@ window.onload = function () {
             route_handler.preview_handler(data)
 
         }
+
+        $('.category-wrap[data-category="' + data.ct + '"]').find('.autofocus').trigger('focus');
 
     }
 

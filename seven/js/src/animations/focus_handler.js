@@ -65,6 +65,15 @@ module.exports = function () {
 
     function handle_input(e) {
 
+        var wrap = $(this).parent('form').parent('.active-wrap');
+        if (wrap.length == 0) {
+            wrap = $(this).parent('div').parent('form').parent('.active-wrap');
+        }
+
+        var sub = $(this).attr('data-sub');
+
+        var r = wrap.parent('.input-wrap').find('.right');
+        var w = wrap.parent('.input-wrap').find('.wrong');
 
         if ($(this).hasClass('auto')) {
             isAnimating2 = false;
@@ -97,15 +106,7 @@ module.exports = function () {
             return true; 
         }
         else isAnimating = true; 
-        var wrap = $(this).parent('form').parent('.active-wrap');
-        if (wrap.length == 0) {
-            wrap = $(this).parent('div').parent('form').parent('.active-wrap');
-        }
 
-        var sub = $(this).attr('data-sub');
-
-        var r = wrap.parent('.input-wrap').find('.right'); 
-        var w = wrap.parent('.input-wrap').find('.wrong');
 
         if ($(this).hasClass('input-cell')) {
             isAnimating = false;
@@ -238,10 +239,11 @@ module.exports = function () {
                         show(w);
                     
                 } else {
-   
+              
+                    
                     if (r.width() == 0) {
                         show(r);
-                    }
+                    } 
                    
                     
                 }
@@ -487,7 +489,7 @@ module.exports = function () {
 
         elem.animate({
             width: 100 + 'px',
-            height: function () {
+            complete: function () {
                 if (isBig) return '200px';
                 else {
                     isAnimating = false;

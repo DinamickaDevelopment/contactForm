@@ -46,6 +46,7 @@ module.exports = function () {
         sub.find('textarea').attr('data-sub', new_sub);
         sub.find('div').attr('data-sub', new_sub);
         sub.find('.map-input').attr('data-index', index);
+        sub.find('.drop').attr('data-index', index);
         sub.find('.rad').attr('data-sub', new_sub);
         sub.find('.label-wrap').attr('data-sub', new_sub);
 
