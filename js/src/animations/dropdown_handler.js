@@ -8,7 +8,6 @@
 
     function drop(elem) {
 
- 
         var wrap = elem.parent('div').parent('.input-wrap');
 
         var down = wrap.find('.down');

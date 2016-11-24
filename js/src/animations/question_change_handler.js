@@ -1,12 +1,28 @@
 ﻿var end_form = require('./check_handler'); 
 var small_progress = require('./progress_bar'); 
 
-module.exports = function () {
+module.exports = function (flag) {
+
+    $('.right').on('click', function () {
+        var f = $(this).parent('.input-wrap').find('.active-wrap').find('.input-form').trigger('submit'); 
+    })
 
     var input_forms = document.forms;
 
     for (var i = 0; i < input_forms.length; i++) {
         input_forms[i].onsubmit = function (e) {
+
+            if ($('#' + e.target.id).find('.multi-zip').length > 0) {
+                if ($('#' + e.target.id).find('.multi-zip').val().search('_') != -1) {
+                    return false; 
+                }
+            }
+
+            if (($('#' + e.target.id).find('.req').length > 0)) {
+                if ($('#' + e.target.id).find('.req').hasClass('invalid')) {
+                    return false;
+                }
+            }
 
             e.preventDefault();
 
@@ -31,29 +47,33 @@ module.exports = function () {
         }
     }
 
+    if (!flag) {
+        $('.expanded').css({
+            'height': '156px'
+        });
 
+        $('.noexp').css({
+            'height': '100px'
+        });
 
-    $('.expanded').css({
-        'height': '156px'
-    });
-     
+        $('.expanded1').css({
+            'height': '200px'
+        });
 
-    $('.expanded1').css({
-        'height': '200px'
-    });
-
-    $('.exp-wrap').css({
-        'height': '200px'
-    })
+        $('.exp-wrap').css({
+            'height': '200px'
+        })
+    }
 
 
     function change_q() {
 
-        var r = $(this); 
+        var r = $(this);
+
         var w = $(this).parents('.input-wrap').find('.wrong');
 
         var curr = $(this).parents('.input-wrap').find('.active-wrap');
-        var q = parseInt(curr.attr('data-q')) + 1;
+        var q = parseInt(curr.attr('data-q')) + 1; 
         var sub = parseInt(curr.attr('data-sub'));
         var max = parseInt(r.attr('data-max'));
 
@@ -72,19 +92,37 @@ module.exports = function () {
             'background-color': '#c3cbe1'
         });
 
+        if (curr.hasClass('final') && curr.find('.drop').length > 0) {
+            curr.slideUp(400, function () {
+                curr.parent('.input-wrap').find('.down').animate({
+                    opacity: 0,
+                    marginRight: '200px'
+                }, 400); 
+            });
+        }
+
         if (curr.hasClass('prompt_shown')) {
 
-
-            var pr = curr.parent('.input-wrap').find('.prompt[data-q="' + (q - 1) + '"]');
-
+            var n_q = parseInt(q) - 1; 
+            var pr = curr.parent('.input-wrap').find('.prompt[data-q="' + n_q + '"]');
+           
+            pr.find('span').css({
+                'display': 'none'
+            });
             if (!curr.hasClass('showradio')) {
-                counter = 0; 
-                pr.find('span').fadeOut(100, function () {
+                counter = 0;
+  
                     pr.slideUp({
                         duration: 200,
-                        start: animate_q
+                        start: function () {
+
+                            animate_q();
+
+                        }
                     })
-                })
+              
+
+
             } else {
     
                 var counter = 0; 
@@ -94,7 +132,7 @@ module.exports = function () {
                         duration: 400,
                         complete: function () {
                             if (counter == 0) {
-                                counter++; 
+                                counter++;
                                 animate_q(); 
                             } else {
                                 $(this).stop(true, true); 
@@ -106,11 +144,13 @@ module.exports = function () {
 
 
         } else {
+         
             animate_q();
         }
-
+        
         function animate_q() {
             if (curr.hasClass('collapse')) {
+ 
             
                 curr.parent('.input-wrap').find('.input-overlay').css({
                     display: 'block'
@@ -225,8 +265,24 @@ module.exports = function () {
                                     }, {
                                         duration: 200,
                                         complete: function () {
-
+                                            r.attr('data-q', q); 
                                             curr.removeClass('active-wrap');
+
+                                            next.find('input').first().attr('required');
+                                            next.find('textarea').attr('required'); 
+
+                                            next.find('input').first().addClass('auto').trigger('focus');
+                                            next.find('textarea').addClass('auto').trigger('focus');
+
+                                            if (!next.find('input').first().hasClass('req')) {
+                                                next.find('input').removeAttr('required');
+                                            }
+
+                                            if (!next.find('textarea').hasClass('req')) {
+                                                next.find('textarea').removeAttr('required');
+                                            }
+                                            
+                                           
 
                                             small_progress(q, max, bar, stats);
 

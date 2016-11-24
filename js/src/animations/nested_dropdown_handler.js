@@ -17,7 +17,7 @@
             }, {
                 duration: 200,
                 complete: function () {
-                    $(this).find('img').fadeIn(200); 
+                    $(this).find('.icon').fadeIn(200); 
                 }
             })
 
@@ -30,8 +30,8 @@
 
             n_cells.find('.multi-drop').slideUp(200, function () {
 
-                n_cells.find('.down-sm img').removeClass('rotate2'); 
-                n_cells.find('.down-sm img').css({ 'display': 'none' });
+                n_cells.find('.down-sm .icon').removeClass('rotate2'); 
+                n_cells.find('.down-sm .icon').css({ 'display': 'none' });
                 n_cells.find('.down-sm').fadeOut(100, function () {
                     n_cells.find('.down-sm').css({
                         'width': '0px',
@@ -68,8 +68,8 @@
             var h = parseInt(m.attr('data-dropheight')) + 100;
         }
 
-        if (!$(this).find('img').hasClass('rotate2')) {
-            $(this).find('img').addClass('rotate2');
+        if (!$(this).find('.icon').hasClass('rotate2')) {
+            $(this).find('.icon').addClass('rotate2');
             wrap.animate({
                 height: 100 + h + 'px'
             }, {
@@ -81,7 +81,7 @@
 
 
         } else {
-            $(this).find('img').removeClass('rotate2');
+            $(this).find('.icon').removeClass('rotate2');
             wrap.animate({
                 height: d + 'px'
             }, {
@@ -111,7 +111,7 @@
                 down.find('.icon').addClass('rotate');
             }
 
-            var d = wrap.find('.down-sm img');
+            var d = wrap.find('.down-sm .icon');
 
 
             $(this).css({
