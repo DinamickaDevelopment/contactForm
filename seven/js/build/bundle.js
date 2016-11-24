@@ -3872,7 +3872,7 @@
 	            $(this).removeClass('invalid');
 	            err_p.html('')
 	        } else {
-	            err_p.html('form contains invalid data')
+	            err_p.html('form contains invalid data. Invalid zipcode')
 	        }
 	    })
 	}
@@ -3920,9 +3920,6 @@
 	                isAnimating = false;
 	                return true;
 	            }
-
-
-	            
 	        }
 	    }
 
@@ -6189,6 +6186,15 @@
 
 	var data_handler = __webpack_require__(17);
 	var json_handler = __webpack_require__(18); 
+	var radio_handler = __webpack_require__(4);
+	var inputmask_handler = __webpack_require__(6);
+	var focus_handler = __webpack_require__(7);
+	var question_change_handler = __webpack_require__(9);
+	var file_handler = __webpack_require__(12);
+	var add_input_handler = __webpack_require__(13);
+	var dropdown_select_handler = __webpack_require__(14);
+	var nested_dropdown_handler = __webpack_require__(15);
+	var route_handler = __webpack_require__(16);
 
 	module.exports = {
 
@@ -6385,6 +6391,59 @@
 	        // send form data
 	        json_handler.send_data();
 
+	        function view (data) {
+
+
+	            $('.form-preview-wrap').fadeOut(500, function () {
+
+	                $('input[type="radio"]').css({
+	                    'display': 'none'
+	                });
+
+	                $('.form-preview-wrap').find('.form-input2').remove();
+	                $('.form-wrap').find('.category-wrap[data-category="' + data.ct + '"]').css({ 'display': 'block' });
+	                $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
+
+	                $('.big-container').fadeIn(500);
+	                var max = 3;
+
+	                var step = 100 / max;
+	                var w = step * data.ct;
+
+	                $('.meter-top span').animate({
+	                    width: w + '%'
+	                }, {
+	                    duration: 500,
+	                    complete: function () {
+	                        $('.stats').html(data.ct + '/3');
+	                    }
+	                });
+	                $('.form-wrap').fadeIn(300);
+
+	            });
+
+
+
+	            if (!init_flag) {
+
+	                init_flag = true;
+
+	                radio_handler();
+	                inputmask_handler();
+	                focus_handler();
+	                question_change_handler();
+	                file_handler();
+	                add_input_handler();
+	                dropdown_select_handler();
+	                nested_dropdown_handler();
+	                route_handler.preview_handler(data)
+
+	            }
+
+	            $('.category-wrap[data-category="' + data.ct + '"]').find('.autofocus').trigger('focus');
+
+	        }
+
 	        if (ct < 2) {
 	            var next_cat = parseInt(ct) + 1;
 	            try {
@@ -6424,6 +6483,8 @@
 	                })
 
 	            }
+
+
 	        }
 	    }
 

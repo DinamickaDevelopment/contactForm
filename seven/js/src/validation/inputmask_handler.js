@@ -97,7 +97,7 @@
             $(this).removeClass('invalid');
             err_p.html('')
         } else {
-            err_p.html('form contains invalid data')
+            err_p.html('form contains invalid data. Invalid zipcode')
         }
     })
 }

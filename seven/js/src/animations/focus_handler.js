@@ -37,9 +37,6 @@ module.exports = function () {
                 isAnimating = false;
                 return true;
             }
-
-
-            
         }
     }
 
