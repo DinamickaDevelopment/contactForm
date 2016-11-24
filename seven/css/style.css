@@ -509,6 +509,7 @@ input[type=radio] {
 
 .input-form {
     text-align: left;
+    background-color: #c3cbe1;
 }
  
 /* small input progress bars */ 
