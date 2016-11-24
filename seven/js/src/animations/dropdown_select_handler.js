@@ -56,17 +56,6 @@ module.exports = function () {
                         }, {
                             duration: 300,
                             complete: function () {
-                                dropwrap.parent('.input-wrap').find('.input-overlay').css({
-                                    'display': 'block'
-                                })
-                                $(this).css({
-                                    'opacity': 1,
-                                    'margin-right': '0px',
-                                    'width': '0px'
-                                });
-                                $(this).find('.icon').css({
-                                    'display': 'none'
-                                }); 
 
                                 var s = dropwrap.find('form').trigger('submit');
                             }

@@ -365,6 +365,7 @@ input[type=radio] {
     margin-top: 25px;
     display: none; 
     transition: transform 0.3s linear; 
+    -webkit-transition: transform 0.3s linear; 
 }
 
 .down-icon {
@@ -375,6 +376,7 @@ input[type=radio] {
     margin-top: 25px;
     display: inline-block;
     transition: transform 0.3s linear;
+    -webkit-transition: transform 0.3s linear; 
     background-size: 50px;  
     margin-left: 25px; 
     display: none; 
@@ -389,6 +391,7 @@ input[type=radio] {
     margin-top: 25px;
     display: inline-block;
     transition: transform 0.3s linear;
+    -webkit-transition: transform 0.3s linear; 
     background-size: 50px; 
     margin-left: 25px; 
     display: none; 
@@ -402,6 +405,7 @@ input[type=radio] {
     margin-top: 25px;
     display: inline-block;
     transition: transform 0.3s linear; 
+    -webkit-transition: transform 0.3s linear; 
     margin-left: 25px; 
     background-size: 50px; 
     display: none; 
@@ -413,6 +417,7 @@ input[type=radio] {
     margin-top: 25px;
     display: inline-block;
     transition: transform 0.3s linear;
+    -webkit-transition: transform 0.3s linear; 
     background-size: 50px;
     background-image: url(../img/plus.png);
     background-repeat: no-repeat;
@@ -603,6 +608,7 @@ input[type=radio] {
 
 .rotate {
     transform: rotate(-90deg); 
+    -webkit-transform: rotate(-90deg); 
 }
 
 .wrong {
@@ -642,7 +648,7 @@ input[type=radio] {
 }
 
 
-.sub-exp {
+/*.sub-exp {
     height: 200px;
     margin-top: 0; 
 } 
@@ -650,7 +656,7 @@ input[type=radio] {
 .sub-exp1 {
     height: 200px;
     margin-top: -200px; 
-}
+}*/
 
 
 /* input file */
@@ -781,10 +787,12 @@ input[type=file] {
     margin-left: 25px;
     margin-top: 25px; 
     transition: transform 0.3s linear; 
+    -webkit-transition: transform 0.3s linear; 
 }
 
 .rotate2 {
     transform: rotate(-180deg); 
+    -webkit-transform: rotate(-180deg);  
 } 
 
 .multi-drop {
@@ -958,6 +966,7 @@ p {
     display: inline-block;
     margin-left: 25px;
     transition: transform 0.3s linear;
+    -webkit-transition: transform 0.3s linear; 
 }  
 
 .clear {

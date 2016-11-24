@@ -174,9 +174,13 @@ module.exports = function () {
         refresh_clones(ct);
         route_handler.preview_handler();
 
-        $(this).parent('.add-inp').slideUp(300, function () {
-            sub.slideDown(300);
+        var self = $(this);
+        self.parent('.add-inp').find('span').fadeOut(100, function () {
+            self.parent('.add-inp').slideUp(300, function () {
+                sub.slideDown(300);
+            })
         })
+
     }
 
     function refresh_clones(ct) {

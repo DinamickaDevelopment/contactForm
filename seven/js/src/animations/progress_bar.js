@@ -8,7 +8,7 @@
     bar.animate({
         width: width
     }, {
-        duration: 300,
+        duration: 400,
         complete: function () {
             if (cb) cb(elem);
         }

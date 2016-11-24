@@ -12,6 +12,7 @@ module.exports = function () {
     $('.form-textarea').on('input', handle_textarea);
 
     function add_input() {
+
         if (!$(this).hasClass('addshown') && $(this).hasClass('show-add')) {
 
 
@@ -34,7 +35,7 @@ module.exports = function () {
 
                 dropdown_handler($(this));
                 isAnimating = false;
-                return false;
+                return true;
             }
 
 
@@ -61,7 +62,14 @@ module.exports = function () {
 
     var isAnimating = false; 
 
+
     function handle_input(e) {
+
+
+        if ($(this).hasClass('auto')) {
+            isAnimating2 = false;
+            $(this).removeClass('auto'); 
+        }
 
         $(this).css({
             'color': '#1f467d'
@@ -69,14 +77,24 @@ module.exports = function () {
 
         if (e.target.classList.contains('exp-drop')) {
             dropdown_handler($(this));
-            return false;
+            return true;
         }
+
+        if ($(this).hasClass('showprompt')) {
+            if (!$(this).hasClass('multiprompt')) {
+                $(this).removeClass('showprompt');
+            }
+            prompt_handler($(this));
+        } else if ($(this).parent('.name-wrap').hasClass('showprompt')) {
+            prompt_handler($(this).parent('.name-wrap'));
+        }
+
 
         if (isAnimating) {
             setTimeout(function() {
                 isAnimating = false; 
             }, 100)
-            return false; 
+            return true; 
         }
         else isAnimating = true; 
         var wrap = $(this).parent('form').parent('.active-wrap');
@@ -84,22 +102,14 @@ module.exports = function () {
             wrap = $(this).parent('div').parent('form').parent('.active-wrap');
         }
 
-        var s = wrap.find('.submit');
-
         var sub = $(this).attr('data-sub');
 
         var r = wrap.parent('.input-wrap').find('.right'); 
         var w = wrap.parent('.input-wrap').find('.wrong');
 
-        if (r.width() > 0) {
-            s.css({
-                'display': 'block'
-            })
-        }
-
         if ($(this).hasClass('input-cell')) {
             isAnimating = false;
-            return false; 
+            return true; 
         }
 
         add_input.call(this); 
@@ -138,29 +148,8 @@ module.exports = function () {
             $(this).removeClass('exp-name'); 
         }
 
-        if ($(this).hasClass('showprompt')) {
-            if (!$(this).hasClass('multiprompt')) {
-                $(this).removeClass('showprompt');
-            }
-            prompt_handler($(this));
-        } else if ($(this).parent('.name-wrap').hasClass('showprompt')) {
-            prompt_handler($(this).parent('.name-wrap'));
-        }
-
-        if ($(this).parent('div').hasClass('name-wrap')) {
-            var s = $(this).parent('.name-wrap').parent('form').find('.submit');
-
-            s.css({
-                'display': 'block'
-            })
-        }
         if (!$(this).hasClass('expanded') && $(this).parent('.name-wrap').hasClass('fullname')) {
              
-            var s = $(this).parent('.name-wrap').parent('form').find('.submit'); 
-
-            s.css({
-                'display': 'block'
-            })
             var self = $(this);
 
             $(this).parent('.name-wrap').parent('form').parent('.active-wrap').animate({
@@ -236,22 +225,20 @@ module.exports = function () {
 
         if (!$(this).hasClass('req')) {
 
-            s.css({ 'display': 'block' });
-
             if (r.width() == 0) {
+     
                 show(r);
+             
             }
         } else {
             if (e.type == 'input') {
                 if ($(this).val() == '') {
 
-                    s.css({ 'display': 'none' });
-
                         hide(r);
                         show(w);
                     
                 } else {
-                    s.css({ 'display': 'block' });
+   
                     if (r.width() == 0) {
                         show(r);
                     }
@@ -262,17 +249,18 @@ module.exports = function () {
 
                 if ($(this).hasClass('addmask')) {
                     if ($(this).inputmask('unmaskedvalue') != '') {
-                        s.css({ 'display': 'block' }); 
+                   
                         show(r);
+
                     } else {
-                        s.css({ 'display': 'none' });
+                    
                         hide(r, null, show, w, null);
                     }
                 } else if (!$(this).hasClass('req')) {
-                    s.css({ 'display': 'block' }); 
+             
                     show(r);
                 } else {
-                    s.css({ 'display': 'none' });
+                 
                     show(w);
                 }
             }
@@ -286,21 +274,18 @@ module.exports = function () {
 
     function handle_textarea(e) {
 
+        if ($(this).hasClass('auto')) {
+            isAnimating2 = false;
+            $(this).removeClass('auto');
+        }
+
         var sub = $(this).attr('data-sub');
         var wrap = $(this).parent('form').parent('.active-wrap');
         var all_wrap = wrap.parent('.input-wrap'); 
         var q = wrap.attr('data-q');
-        var s = wrap.find('.submit'); 
 
         var r = wrap.parent('.input-wrap').find('.right');
         var w = wrap.parent('.input-wrap').find('.wrong');
-
-
-        if (r.width() > 0) {
-            s.css({
-                'display': 'block'
-            })
-        }
 
         add_input.call(this);
 
@@ -398,23 +383,23 @@ module.exports = function () {
             setTimeout(function () {
                 isAnimating = false;
             }, 100);
-            return false; 
+            return true; 
         }
         else isAnimating = true;
 
 
         if (!$(this).hasClass('req') && !flag1) {
-            s.css({ 'display': 'block' });
+         
             show(r, true);
         } else {
             if (!flag1) {
                 if ($(this).val() == '') {
-                    s.css({ 'display': 'none' });
+               
                     hide(r, true, show, w, true);
 
 
                 } else {
-                    s.css({ 'display': 'block' });
+                   
                     show(r, true);
                 }
             }
@@ -446,7 +431,7 @@ module.exports = function () {
               
 
                 if (w.width() == 0) {
-                    s.css({ 'display': 'none' });
+                 
                     w.css({
                         'z-index': '100000'
                     })
@@ -462,7 +447,7 @@ module.exports = function () {
                     show(w);
                 }
                
-                return false;
+                return true;
 
             }
             else {
@@ -478,11 +463,11 @@ module.exports = function () {
                     r.css({
                         'z-index': '100000'
                     });
-                    s.css({ 'display': 'block' });
+
                     show(r);
                 }
 
-                return false;
+                return true;
 
             }
         } else {
@@ -492,12 +477,12 @@ module.exports = function () {
     }   
 
     var isAnimating2 = false;
-    function show(elem, isBig, cb) {
+    function show(elem, isBig, cb, isAuto) {
         if (isAnimating2) {
             setTimeout(function () {
                 isAnimating2 = false; 
             }, 100)
-            return false }
+            return true }
         else isAnimating2 = true; 
 
         elem.animate({
@@ -507,7 +492,7 @@ module.exports = function () {
                 else {
                     isAnimating = false;
                     isAnimating2 = false; 
-                    return false
+                    return true
                 };
             }
         }, {
@@ -523,7 +508,7 @@ module.exports = function () {
     }
 
     function hide(elem, isBig, cb, w, isBig2) {
-        if (isAnimating2) return false;
+        if (isAnimating2) return true;
         else isAnimating2 = true;
 
         elem.find('.icon').fadeOut(200, function () {
@@ -534,7 +519,7 @@ module.exports = function () {
                     else {
                         isAnimating = false;
                         isAnimating2 = false;
-                        return false
+                        return true
                     };
                 }
             }, {

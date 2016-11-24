@@ -1,5 +1,5 @@
 ﻿module.exports = function () {
-    $('.addmask').on('click', function () {
+    $('.addmask').on('input', function () {
         if ($(this).attr('data-masked') == '1') return false;
         var self = $(this); 
 

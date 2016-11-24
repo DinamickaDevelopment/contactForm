@@ -3,6 +3,10 @@ var small_progress = require('./progress_bar');
 
 module.exports = function (flag) {
 
+    $('.right').on('click', function () {
+        var f = $(this).parent('.input-wrap').find('.active-wrap').find('.input-form').trigger('submit'); 
+    })
+
     var input_forms = document.forms;
 
     for (var i = 0; i < input_forms.length; i++) {
@@ -22,7 +26,6 @@ module.exports = function (flag) {
             try {
                 if (e.target.id == cat.toString() + sub.toString() + curr_q.toString() && parseInt(curr_q) <= parseInt(max)) {
 
-                    console.log($('#' + e.target.id))
                         change_q.call($('#' + e.target.id).parent('.active-wrap').parent('.input-wrap').find('.right'));
                     
                 } 
@@ -31,7 +34,6 @@ module.exports = function (flag) {
             }
         }
     }
-
 
     if (!flag) {
         $('.expanded').css({
@@ -54,11 +56,12 @@ module.exports = function (flag) {
 
     function change_q() {
 
-        var r = $(this); 
+        var r = $(this);
+
         var w = $(this).parents('.input-wrap').find('.wrong');
 
         var curr = $(this).parents('.input-wrap').find('.active-wrap');
-        var q = parseInt(curr.attr('data-q')) + 1;
+        var q = parseInt(curr.attr('data-q')) + 1; 
         var sub = parseInt(curr.attr('data-sub'));
         var max = parseInt(r.attr('data-max'));
 
@@ -77,19 +80,37 @@ module.exports = function (flag) {
             'background-color': '#c3cbe1'
         });
 
+        if (curr.hasClass('final') && curr.find('.drop').length > 0) {
+            curr.slideUp(400, function () {
+                curr.parent('.input-wrap').find('.down').animate({
+                    opacity: 0,
+                    marginRight: '200px'
+                }, 400); 
+            });
+        }
+
         if (curr.hasClass('prompt_shown')) {
 
-
-            var pr = curr.parent('.input-wrap').find('.prompt[data-q="' + (q - 1) + '"]');
-
+            var n_q = parseInt(q) - 1; 
+            var pr = curr.parent('.input-wrap').find('.prompt[data-q="' + n_q + '"]');
+           
+            pr.find('span').css({
+                'display': 'none'
+            });
             if (!curr.hasClass('showradio')) {
-                counter = 0; 
-                pr.find('span').fadeOut(100, function () {
+                counter = 0;
+  
                     pr.slideUp({
                         duration: 200,
-                        start: animate_q
+                        start: function () {
+
+                            animate_q();
+
+                        }
                     })
-                })
+              
+
+
             } else {
     
                 var counter = 0; 
@@ -99,7 +120,7 @@ module.exports = function (flag) {
                         duration: 400,
                         complete: function () {
                             if (counter == 0) {
-                                counter++; 
+                                counter++;
                                 animate_q(); 
                             } else {
                                 $(this).stop(true, true); 
@@ -111,11 +132,13 @@ module.exports = function (flag) {
 
 
         } else {
+         
             animate_q();
         }
-
+        
         function animate_q() {
             if (curr.hasClass('collapse')) {
+ 
             
                 curr.parent('.input-wrap').find('.input-overlay').css({
                     display: 'block'
@@ -230,8 +253,24 @@ module.exports = function (flag) {
                                     }, {
                                         duration: 200,
                                         complete: function () {
-
+                                            r.attr('data-q', q); 
                                             curr.removeClass('active-wrap');
+
+                                            next.find('input').first().attr('required');
+                                            next.find('textarea').attr('required'); 
+
+                                            next.find('input').first().addClass('auto').trigger('focus');
+                                            next.find('textarea').addClass('auto').trigger('focus');
+
+                                            if (!next.find('input').first().hasClass('req')) {
+                                                next.find('input').removeAttr('required');
+                                            }
+
+                                            if (!next.find('textarea').hasClass('req')) {
+                                                next.find('textarea').removeAttr('required');
+                                            }
+                                            
+                                           
 
                                             small_progress(q, max, bar, stats);
 

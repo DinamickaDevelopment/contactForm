@@ -34,7 +34,7 @@ module.exports = {
             'height': '0px',
             'opacity': '0'
         });
-        var btn = $('#continue-btn');
+
         var max = 3;
 
         var step = 100 / max;
@@ -92,7 +92,9 @@ module.exports = {
                             sub_arr[i] = '<div data-sub="' + i + '" class="form-sub">' +
                                '<h2>' + htext + '</h2>' +
                                '<p>' + subtext + '</p>' + '</div>';
-                        } 
+                        } else {
+                            sub_arr[i] = '<div data-sub="' + i + '" class="form-sub"></div>';
+                        }
                     } else {
                         sub_arr[i] = '<div data-sub="' + i + '" class="form-sub"></div>';
                     }

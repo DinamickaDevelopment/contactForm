@@ -22,8 +22,8 @@ window.onload = function () {
     
     var init_flag = false;
 
-    $('form').attr('autocomplete', 'off'); 
-
+    $('form').attr('autocomplete', 'off');
+   
     $.router.addErrorHandler(function (url) {
         console.log(url);
     });
