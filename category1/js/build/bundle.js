@@ -6236,6 +6236,28 @@
 	            } catch (err) {
 	                done();
 	            }
+
+	            function done() {
+
+	                $('.stats').html('1/1');
+	                $('.meter-top span').animate({
+	                    width: '100%'
+	                }, {
+	                    duration: 500,
+	                    complete: function () {
+
+	                        $('.big-container').fadeOut(500, function () {
+	                            $('.thank-you-screen').css({
+	                                'height': '100%'
+	                            });
+	                            $('.thank-you-screen').animate({
+	                                opacity: 1
+	                            }, 700);
+	                        });
+	                    }
+	                })
+
+	            }
 	        
 	    }
 
