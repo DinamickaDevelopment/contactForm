@@ -3728,7 +3728,7 @@
 		    var r = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.right');
 		    var w = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.wrong');
 
-		    prompt_handler($(this), r, w); 
+		    prompt_handler($(this), true); 
 		})
 		
 	}
@@ -3737,7 +3737,7 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = function (elem) {
+	module.exports = function (elem, flag) {
 
 	    if (elem.hasClass('prompt_shown') && !elem.hasClass('multiprompt')) return false;
 
@@ -3754,15 +3754,21 @@
 	        p.find('.y').trigger('click'); 
 	    }
 
-	    p.slideDown(200, function () {
-	        $(this).css({
-	            'display': 'table'
-	        });
+	    var ln = 200;
+	    if (flag) {
+	        ln = 400;
+	    }
 
-	        $(this).find('span').animate({
-	            opacity: 1
-	        }, 200); 
-	    });
+	        p.slideDown(ln, function () {
+	            $(this).css({
+	                'display': 'table'
+	            });
+
+	            $(this).find('span').animate({
+	                opacity: 1
+	            }, 200);
+	        });
+	    
 
 	    
 	    container.addClass('prompt_shown'); 
@@ -3780,11 +3786,25 @@
 	    });
 
 	    $('.addmask').on('input', function (e) {
-	        if ($(this).attr('data-masked') == '1') return false;
+	        
+
+	        if ($(this).attr('data-masked') == '1') {
+	            if ($(this).inputmask("isComplete")) {
+	                $(this).removeClass('invalid')
+	            } else {
+	                if (!$(this).hasClass('invalid')) {
+	                    $(this).addClass('invalid')
+	                }
+	            }
+	            return false;
+	        } 
+
 
 	        var self = $(this);
 	        e.preventDefault();
-	  
+	        
+	        
+	        self.addClass('invalid');
 
 	        var maskval = $(this).attr('data-maskval');
 	        var ct = $(this).parent('.form-input2').attr('data-category');
@@ -3920,9 +3940,6 @@
 	                isAnimating = false;
 	                return true;
 	            }
-
-
-	            
 	        }
 	    }
 
@@ -4108,48 +4125,41 @@
 	        }
 
 	        if (!$(this).hasClass('req')) {
-
 	            if (r.width() == 0) {
-	     
+
 	                show(r);
-	             
 	            }
 	        } else {
 	            if (e.type == 'input') {
 	                if ($(this).val() == '') {
-
-	                        hide(r);
-	                        show(w);
-	                    
+	                    hide(r);
+	                    show(w);
+	                } else if ($(this).hasClass('invalid')) {
+	                    hide(r);
+	                    show(w);
 	                } else {
-	              
-	                    
 	                    if (r.width() == 0) {
-	                        show(r);
+	                       show(r);
 	                    } 
-	                   
-	                    
 	                }
-	            } else {
-
+	            }
+	            else {
 	                if ($(this).hasClass('addmask')) {
-	                    if ($(this).inputmask('unmaskedvalue') != '') {
-	                   
+	                    if ($(this).inputmask('unmaskedvalue') != '' && !$(this).hasClass('invalid')) {
 	                        show(r);
-
 	                    } else {
-	                    
 	                        hide(r, null, show, w, null);
-	                    }
-	                } else if (!$(this).hasClass('req')) {
-	             
-	                    show(r);
+	                    } 
+	                }
+
+	                if (!$(this).hasClass('req') && (!$(this).hasClass('invalid'))) {
+	                    show(r); 
 	                } else {
-	                 
 	                    show(w);
 	                }
 	            }
 	        }
+
 	    }
 
 	    var right_shown = false;
@@ -4273,18 +4283,18 @@
 	        else isAnimating = true;
 
 
-	        if (!$(this).hasClass('req') && !flag1) {
+	        if (!$(this).hasClass('req') && !flag1 ) {
 	         
 	            show(r, true);
 	        } else {
 	            if (!flag1) {
-	                if ($(this).val() == '') {
+	                if ($(this).val() == '' || $(this).hasClass('invalid')) {
 	               
 	                    hide(r, true, show, w, true);
 
 
 	                } else {
-	                   
+	                    hide(w);
 	                    show(r, true);
 	                }
 	            }
@@ -4356,7 +4366,13 @@
 
 	            }
 	        } else {
-	            show(r); 
+	            if (!$(this).hasClass('req') && !$(this).hasClass('invalid')) {
+	                show(r);
+	            } else if ($(this).hasClass('req') && !$(this).hasClass('invalid') && $(this).val() != '') { 
+	                hide(w, true, show, r, true);
+	            } else {
+	                    show(w); 
+	                }
 	            }
 	        }
 	    }   
@@ -5149,33 +5165,40 @@
 
 	            var self = $(this);
 
-	            if (!flag) {
-	                dropwrap.slideUp(500, cb1); 
-	            } else {
-	                dropwrap.parent('.input-wrap').find('.input-overlay').css({
-	                    'display': 'block'
-	                });
-	                dropwrap.css({
-	                    'overflow': 'hidden'
-	                }); 
-	                dropwrap.animate({
-	                    height: '100px'
-	                }, {
-	                    duration: 500,
-	                    complete: function () {
-	                        var down = dropwrap.find('.down');
-	                        down.animate({
-	                            marginRight: '200px',
-	                            opacity: 0
-	                        }, {
-	                            duration: 300,
-	                            complete: function () {
+	            var form = self.parent('.input-wrap').find('form');
 
-	                                var s = dropwrap.find('form').trigger('submit');
-	                            }
-	                        })
-	                    }
-	                })
+	            if (form.length > 0) {
+	                form.trigger('submit');
+	            } else {
+
+	                if (!flag) {
+	                    dropwrap.slideUp(500, cb1);
+	                } else {
+	                    dropwrap.parent('.input-wrap').find('.input-overlay').css({
+	                        'display': 'block'
+	                    });
+	                    dropwrap.css({
+	                        'overflow': 'hidden'
+	                    });
+	                    dropwrap.animate({
+	                        height: '100px'
+	                    }, {
+	                        duration: 500,
+	                        complete: function () {
+	                            var down = dropwrap.find('.down');
+	                            down.animate({
+	                                marginRight: '200px',
+	                                opacity: 0
+	                            }, {
+	                                duration: 300,
+	                                complete: function () {
+
+	                                    var s = dropwrap.find('form').trigger('submit');
+	                                }
+	                            })
+	                        }
+	                    })
+	                }
 	            }
 
 	            function cb1() {
@@ -6098,6 +6121,15 @@
 
 	var data_handler = __webpack_require__(17);
 	var json_handler = __webpack_require__(18); 
+	var radio_handler = __webpack_require__(4);
+	var inputmask_handler = __webpack_require__(6);
+	var focus_handler = __webpack_require__(7);
+	var question_change_handler = __webpack_require__(9);
+	var file_handler = __webpack_require__(12);
+	var add_input_handler = __webpack_require__(13);
+	var dropdown_select_handler = __webpack_require__(14);
+	var nested_dropdown_handler = __webpack_require__(15);
+	var route_handler = __webpack_require__(16);
 
 	module.exports = {
 
@@ -6226,7 +6258,58 @@
 	        // send form data
 	        json_handler.send_data();
 
+	        function view (data) {
 
+
+	            $('.form-preview-wrap').fadeOut(500, function () {
+
+	                $('input[type="radio"]').css({
+	                    'display': 'none'
+	                });
+
+	                $('.form-preview-wrap').find('.form-input2').remove();
+	                $('.form-wrap').find('.category-wrap[data-category="' + data.ct + '"]').css({ 'display': 'block' });
+	                $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
+
+	                $('.big-container').fadeIn(500);
+	                var max = 3;
+
+	                var step = 100 / max;
+	                var w = step * data.ct;
+
+	                $('.meter-top span').animate({
+	                    width: w + '%'
+	                }, {
+	                    duration: 500,
+	                    complete: function () {
+	                        $('.stats').html(data.ct + '/3');
+	                    }
+	                });
+	                $('.form-wrap').fadeIn(300);
+
+	            });
+
+
+
+	            if (!init_flag) {
+
+	                init_flag = true;
+
+	                radio_handler();
+	                inputmask_handler();
+	                focus_handler();
+	                question_change_handler();
+	                file_handler();
+	                add_input_handler();
+	                dropdown_select_handler();
+	                nested_dropdown_handler();
+	                route_handler.preview_handler(data)
+
+	            }
+
+	            $('.category-wrap[data-category="' + data.ct + '"]').find('.autofocus').trigger('focus');
+
+	        }
 	            try {
 	                $.router.go('/done');
 	            } catch (err) {
