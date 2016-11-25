@@ -3785,6 +3785,12 @@
 	        $(this).maskMoney({ prefix: '$ ', allowNegative: true, thousands: ',', decimal: '.', affixesStay: true });
 	    });
 
+	    $('.addmask[data-maskval="nums"]').on('keydown', function (e) {
+	        if (isNaN(parseInt(e.key))) {
+	            return false;
+	        }
+	    });
+
 	    $('.addmask').on('input', function (e) {
 	        
 
@@ -3803,8 +3809,9 @@
 	        var self = $(this);
 	        e.preventDefault();
 	        
-	        
-	        self.addClass('invalid');
+	        if (self.attr('data-maskval') != 'nums') {
+	            self.addClass('invalid');
+	        }
 
 	        var maskval = $(this).attr('data-maskval');
 	        var ct = $(this).parent('.form-input2').attr('data-category');
@@ -3813,7 +3820,7 @@
 
 	        if (maskval != 'cash') {
 
-	            if (maskval != '99/99/9999') {
+	            if (maskval != '99/99/9999' && maskval != 'nums') {
 	                $(this).inputmask({
 	                    mask: maskval,
 	                    showMaskOnHover: false,
@@ -3822,21 +3829,8 @@
 	                    onincomplete: invalidMask,
 	                    oncomplete: validMask
 	                });
-
-	                if (maskval == 'nums') {
-	                    $(this).inputmask({
-	                        mask: '9[9]{1,100}',
-	                        showMaskOnHover: false,
-	                        showMaskOnFocus: false,
-	                        greedy: false,
-	                        removeMaskOnSubmit: true,
-	                        autoUnmask: true,
-	                        onincomplete: invalidMask,
-	                        oncomplete: validMask
-	                    });
-	                }
 	            }
-	            else {
+	            else if (maskval != 'nums') {
 	                $(this).inputmask({
 	                    mask: maskval,
 	                    showMaskOnHover: false,
