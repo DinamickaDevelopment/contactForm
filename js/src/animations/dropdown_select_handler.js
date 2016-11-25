@@ -38,33 +38,40 @@ module.exports = function () {
 
             var self = $(this);
 
-            if (!flag) {
-                dropwrap.slideUp(500, cb1); 
-            } else {
-                dropwrap.parent('.input-wrap').find('.input-overlay').css({
-                    'display': 'block'
-                });
-                dropwrap.css({
-                    'overflow': 'hidden'
-                }); 
-                dropwrap.animate({
-                    height: '100px'
-                }, {
-                    duration: 500,
-                    complete: function () {
-                        var down = dropwrap.find('.down');
-                        down.animate({
-                            marginRight: '200px',
-                            opacity: 0
-                        }, {
-                            duration: 300,
-                            complete: function () {
+            var form = self.parent('.input-wrap').find('form');
 
-                                var s = dropwrap.find('form').trigger('submit');
-                            }
-                        })
-                    }
-                })
+            if (form.length > 0) {
+                form.trigger('submit');
+            } else {
+
+                if (!flag) {
+                    dropwrap.slideUp(500, cb1);
+                } else {
+                    dropwrap.parent('.input-wrap').find('.input-overlay').css({
+                        'display': 'block'
+                    });
+                    dropwrap.css({
+                        'overflow': 'hidden'
+                    });
+                    dropwrap.animate({
+                        height: '100px'
+                    }, {
+                        duration: 500,
+                        complete: function () {
+                            var down = dropwrap.find('.down');
+                            down.animate({
+                                marginRight: '200px',
+                                opacity: 0
+                            }, {
+                                duration: 300,
+                                complete: function () {
+
+                                    var s = dropwrap.find('form').trigger('submit');
+                                }
+                            })
+                        }
+                    })
+                }
             }
 
             function cb1() {
