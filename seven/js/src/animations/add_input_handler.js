@@ -92,7 +92,7 @@ module.exports = function () {
     
         for (var i = 0; i < subs.length; i++) {
             if (parseInt(subs.eq(i).attr('data-sub')) >= new_sub) {
-                
+                subs.eq(i).find('.label-wrap').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
                 subs.eq(i).find('drop').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1); 
                 subs.eq(i).find('input[type="radio"]').attr('name', n2); 
                 subs.eq(i).children().attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
@@ -102,7 +102,7 @@ module.exports = function () {
                 subs.eq(i).attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
                 subs.eq(i).find('.switch').attr('id', subs.eq(i).find('.switch').attr('id') + 'n' + index); 
                 subs.eq(i).find('.rad').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
-                subs.eq(i).find('.label-wrap').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
+
                 
                 var radios = subs.eq(i).find('.rad');
                 

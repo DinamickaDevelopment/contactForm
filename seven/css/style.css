@@ -34,8 +34,10 @@ p.error {
 }
 
 .form-wrap {
-    text-align: center; 
-    padding: 0px 24%;
+    text-align: center;  
+    display: none; 
+    padding: 0px 24%; 
+    margin-left: -30px; 
 }
 
 .category-wrap {
@@ -163,9 +165,9 @@ p.error {
 
 .form-textarea {
     width: calc(100% - 160px);
-    background-color: #c3cbe1; 
+    background-color: #c3cbe1;
     border: none;
-    font-size: 18px; 
+    font-size: 18px;
     color: #8a97bb;
     position: relative;
     z-index: 100;
@@ -176,10 +178,11 @@ p.error {
     font-family: 'Lato', sans-serif;
     padding-top: 40px;
     padding-bottom: 10px;
-    padding-right: 0; 
-    resize: none; 
-    overflow: hidden;  
-    transition: color linear 0.4s, background-color linear 0.4s; 
+    padding-right: 40px;
+    resize: none;
+    margin-right: 30px;
+    overflow: hidden;
+    transition: color linear 0.4s, background-color linear 0.4s;
 }
 
     .form-textarea:focus {
@@ -317,7 +320,7 @@ input[type=radio] {
     height: 50px;
     z-index: 100;
     display: none;
-    width: calc(100% - 30px);
+    width: calc(100% - 29.5px);
     /* transition: background-color 0.3s linear; */
 }
 
@@ -984,7 +987,8 @@ p {
     margin-right: 20px;
 }
 
-.form-control {
+.form-control { 
+    overflow: hidden; 
     display: block;
     width: calc(100% + 30px); 
     height: auto; 
@@ -1029,6 +1033,9 @@ p {
      padding-left: 0; 
  }
  
+.invalid {
+    background-color: rgb(218, 187, 187)!important; 
+ }
  
 /* thank you screen */ 
 

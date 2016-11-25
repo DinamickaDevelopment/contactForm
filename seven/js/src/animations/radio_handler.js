@@ -35,7 +35,7 @@ module.exports = function () {
 	    var r = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.right');
 	    var w = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.wrong');
 
-	    prompt_handler($(this), r, w); 
+	    prompt_handler($(this), true); 
 	})
 	
 }

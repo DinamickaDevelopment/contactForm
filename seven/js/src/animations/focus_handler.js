@@ -222,48 +222,41 @@ module.exports = function () {
         }
 
         if (!$(this).hasClass('req')) {
-
             if (r.width() == 0) {
-     
+
                 show(r);
-             
             }
         } else {
             if (e.type == 'input') {
                 if ($(this).val() == '') {
-
-                        hide(r);
-                        show(w);
-                    
+                    hide(r);
+                    show(w);
+                } else if ($(this).hasClass('invalid')) {
+                    hide(r);
+                    show(w);
                 } else {
-              
-                    
                     if (r.width() == 0) {
-                        show(r);
+                       show(r);
                     } 
-                   
-                    
                 }
-            } else {
-
+            }
+            else {
                 if ($(this).hasClass('addmask')) {
-                    if ($(this).inputmask('unmaskedvalue') != '') {
-                   
+                    if ($(this).inputmask('unmaskedvalue') != '' && !$(this).hasClass('invalid')) {
                         show(r);
-
                     } else {
-                    
                         hide(r, null, show, w, null);
-                    }
-                } else if (!$(this).hasClass('req')) {
-             
-                    show(r);
+                    } 
+                }
+
+                if (!$(this).hasClass('req') && (!$(this).hasClass('invalid'))) {
+                    show(r); 
                 } else {
-                 
                     show(w);
                 }
             }
         }
+
     }
 
     var right_shown = false;
@@ -387,18 +380,18 @@ module.exports = function () {
         else isAnimating = true;
 
 
-        if (!$(this).hasClass('req') && !flag1) {
+        if (!$(this).hasClass('req') && !flag1 ) {
          
             show(r, true);
         } else {
             if (!flag1) {
-                if ($(this).val() == '') {
+                if ($(this).val() == '' || $(this).hasClass('invalid')) {
                
                     hide(r, true, show, w, true);
 
 
                 } else {
-                   
+                    hide(w);
                     show(r, true);
                 }
             }
@@ -470,7 +463,13 @@ module.exports = function () {
 
             }
         } else {
-            show(r); 
+            if (!$(this).hasClass('req') && !$(this).hasClass('invalid')) {
+                show(r);
+            } else if ($(this).hasClass('req') && !$(this).hasClass('invalid') && $(this).val() != '') { 
+                hide(w, true, show, r, true);
+            } else {
+                    show(w); 
+                }
             }
         }
     }   

@@ -5,11 +5,25 @@
     });
 
     $('.addmask').on('input', function (e) {
-        if ($(this).attr('data-masked') == '1') return false;
+        
+
+        if ($(this).attr('data-masked') == '1') {
+            if ($(this).inputmask("isComplete")) {
+                $(this).removeClass('invalid')
+            } else {
+                if (!$(this).hasClass('invalid')) {
+                    $(this).addClass('invalid')
+                }
+            }
+            return false;
+        } 
+
 
         var self = $(this);
         e.preventDefault();
-  
+        
+        
+        self.addClass('invalid');
 
         var maskval = $(this).attr('data-maskval');
         var ct = $(this).parent('.form-input2').attr('data-category');
@@ -97,7 +111,7 @@
             $(this).removeClass('invalid');
             err_p.html('')
         } else {
-            err_p.html('form contains invalid data. Invalid zipcode')
+            err_p.html('form contains invalid data')
         }
     })
 }

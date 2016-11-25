@@ -3728,7 +3728,7 @@
 		    var r = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.right');
 		    var w = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.wrong');
 
-		    prompt_handler($(this), r, w); 
+		    prompt_handler($(this), true); 
 		})
 		
 	}
@@ -3737,7 +3737,7 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = function (elem) {
+	module.exports = function (elem, flag) {
 
 	    if (elem.hasClass('prompt_shown') && !elem.hasClass('multiprompt')) return false;
 
@@ -3754,15 +3754,21 @@
 	        p.find('.y').trigger('click'); 
 	    }
 
-	    p.slideDown(200, function () {
-	        $(this).css({
-	            'display': 'table'
-	        });
+	    var ln = 200;
+	    if (flag) {
+	        ln = 400;
+	    }
 
-	        $(this).find('span').animate({
-	            opacity: 1
-	        }, 200); 
-	    });
+	        p.slideDown(ln, function () {
+	            $(this).css({
+	                'display': 'table'
+	            });
+
+	            $(this).find('span').animate({
+	                opacity: 1
+	            }, 200);
+	        });
+	    
 
 	    
 	    container.addClass('prompt_shown'); 
@@ -3780,11 +3786,25 @@
 	    });
 
 	    $('.addmask').on('input', function (e) {
-	        if ($(this).attr('data-masked') == '1') return false;
+	        
+
+	        if ($(this).attr('data-masked') == '1') {
+	            if ($(this).inputmask("isComplete")) {
+	                $(this).removeClass('invalid')
+	            } else {
+	                if (!$(this).hasClass('invalid')) {
+	                    $(this).addClass('invalid')
+	                }
+	            }
+	            return false;
+	        } 
+
 
 	        var self = $(this);
 	        e.preventDefault();
-	  
+	        
+	        
+	        self.addClass('invalid');
 
 	        var maskval = $(this).attr('data-maskval');
 	        var ct = $(this).parent('.form-input2').attr('data-category');
@@ -3872,7 +3892,7 @@
 	            $(this).removeClass('invalid');
 	            err_p.html('')
 	        } else {
-	            err_p.html('form contains invalid data. Invalid zipcode')
+	            err_p.html('form contains invalid data')
 	        }
 	    })
 	}
@@ -4105,48 +4125,41 @@
 	        }
 
 	        if (!$(this).hasClass('req')) {
-
 	            if (r.width() == 0) {
-	     
+
 	                show(r);
-	             
 	            }
 	        } else {
 	            if (e.type == 'input') {
 	                if ($(this).val() == '') {
-
-	                        hide(r);
-	                        show(w);
-	                    
+	                    hide(r);
+	                    show(w);
+	                } else if ($(this).hasClass('invalid')) {
+	                    hide(r);
+	                    show(w);
 	                } else {
-	              
-	                    
 	                    if (r.width() == 0) {
-	                        show(r);
+	                       show(r);
 	                    } 
-	                   
-	                    
 	                }
-	            } else {
-
+	            }
+	            else {
 	                if ($(this).hasClass('addmask')) {
-	                    if ($(this).inputmask('unmaskedvalue') != '') {
-	                   
+	                    if ($(this).inputmask('unmaskedvalue') != '' && !$(this).hasClass('invalid')) {
 	                        show(r);
-
 	                    } else {
-	                    
 	                        hide(r, null, show, w, null);
-	                    }
-	                } else if (!$(this).hasClass('req')) {
-	             
-	                    show(r);
+	                    } 
+	                }
+
+	                if (!$(this).hasClass('req') && (!$(this).hasClass('invalid'))) {
+	                    show(r); 
 	                } else {
-	                 
 	                    show(w);
 	                }
 	            }
 	        }
+
 	    }
 
 	    var right_shown = false;
@@ -4270,18 +4283,18 @@
 	        else isAnimating = true;
 
 
-	        if (!$(this).hasClass('req') && !flag1) {
+	        if (!$(this).hasClass('req') && !flag1 ) {
 	         
 	            show(r, true);
 	        } else {
 	            if (!flag1) {
-	                if ($(this).val() == '') {
+	                if ($(this).val() == '' || $(this).hasClass('invalid')) {
 	               
 	                    hide(r, true, show, w, true);
 
 
 	                } else {
-	                   
+	                    hide(w);
 	                    show(r, true);
 	                }
 	            }
@@ -4353,7 +4366,13 @@
 
 	            }
 	        } else {
-	            show(r); 
+	            if (!$(this).hasClass('req') && !$(this).hasClass('invalid')) {
+	                show(r);
+	            } else if ($(this).hasClass('req') && !$(this).hasClass('invalid') && $(this).val() != '') { 
+	                hide(w, true, show, r, true);
+	            } else {
+	                    show(w); 
+	                }
 	            }
 	        }
 	    }   
@@ -5002,7 +5021,7 @@
 	    
 	        for (var i = 0; i < subs.length; i++) {
 	            if (parseInt(subs.eq(i).attr('data-sub')) >= new_sub) {
-	                
+	                subs.eq(i).find('.label-wrap').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
 	                subs.eq(i).find('drop').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1); 
 	                subs.eq(i).find('input[type="radio"]').attr('name', n2); 
 	                subs.eq(i).children().attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
@@ -5012,7 +5031,7 @@
 	                subs.eq(i).attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
 	                subs.eq(i).find('.switch').attr('id', subs.eq(i).find('.switch').attr('id') + 'n' + index); 
 	                subs.eq(i).find('.rad').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
-	                subs.eq(i).find('.label-wrap').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
+
 	                
 	                var radios = subs.eq(i).find('.rad');
 	                
@@ -5146,33 +5165,40 @@
 
 	            var self = $(this);
 
-	            if (!flag) {
-	                dropwrap.slideUp(500, cb1); 
-	            } else {
-	                dropwrap.parent('.input-wrap').find('.input-overlay').css({
-	                    'display': 'block'
-	                });
-	                dropwrap.css({
-	                    'overflow': 'hidden'
-	                }); 
-	                dropwrap.animate({
-	                    height: '100px'
-	                }, {
-	                    duration: 500,
-	                    complete: function () {
-	                        var down = dropwrap.find('.down');
-	                        down.animate({
-	                            marginRight: '200px',
-	                            opacity: 0
-	                        }, {
-	                            duration: 300,
-	                            complete: function () {
+	            var form = self.parent('.input-wrap').find('form');
 
-	                                var s = dropwrap.find('form').trigger('submit');
-	                            }
-	                        })
-	                    }
-	                })
+	            if (form.length > 0) {
+	                form.trigger('submit');
+	            } else {
+
+	                if (!flag) {
+	                    dropwrap.slideUp(500, cb1);
+	                } else {
+	                    dropwrap.parent('.input-wrap').find('.input-overlay').css({
+	                        'display': 'block'
+	                    });
+	                    dropwrap.css({
+	                        'overflow': 'hidden'
+	                    });
+	                    dropwrap.animate({
+	                        height: '100px'
+	                    }, {
+	                        duration: 500,
+	                        complete: function () {
+	                            var down = dropwrap.find('.down');
+	                            down.animate({
+	                                marginRight: '200px',
+	                                opacity: 0
+	                            }, {
+	                                duration: 300,
+	                                complete: function () {
+
+	                                    var s = dropwrap.find('form').trigger('submit');
+	                                }
+	                            })
+	                        }
+	                    })
+	                }
 	            }
 
 	            function cb1() {

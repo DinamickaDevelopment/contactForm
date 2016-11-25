@@ -1,4 +1,4 @@
-﻿module.exports = function (elem) {
+﻿module.exports = function (elem, flag) {
 
     if (elem.hasClass('prompt_shown') && !elem.hasClass('multiprompt')) return false;
 
@@ -15,15 +15,21 @@
         p.find('.y').trigger('click'); 
     }
 
-    p.slideDown(200, function () {
-        $(this).css({
-            'display': 'table'
-        });
+    var ln = 200;
+    if (flag) {
+        ln = 400;
+    }
 
-        $(this).find('span').animate({
-            opacity: 1
-        }, 200); 
-    });
+        p.slideDown(ln, function () {
+            $(this).css({
+                'display': 'table'
+            });
+
+            $(this).find('span').animate({
+                opacity: 1
+            }, 200);
+        });
+    
 
     
     container.addClass('prompt_shown'); 
