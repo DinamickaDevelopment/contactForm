@@ -84,7 +84,7 @@ window.onload = function () {
     }
 
     try {
-        $.router.go('/view/0');
+        $.router.go('/view/1');
     } catch (err) {
         var data = {
             ct: 0

@@ -820,7 +820,7 @@
 
                     <div class="active-wrap first-wrap" data-q="1" data-category="1" data-sub="0">
                         <form class="input-form" id="101" data-max="5" data-q="1" name="01" data-category="1" data-sub="0">
-                            <input data-sub="0" class="form-input map-input req show-add drop-follow autofocus p" data-index="0" name="name" data-q="1" required placeholder="Program Name*" />
+                            <input data-sub="0" class="form-input map-input req show-add drop-follow autofocus p" data-index="0" name="programName" data-q="1" required placeholder="Program Name*" />
                             <input type="submit" class="submit" data-sub="0" data-q="1" />
                         </form>
                     </div>
@@ -955,7 +955,7 @@
                     </div>
                     <div class="hidden-wrap" data-q="3" data-category="1" data-sub="0">
                         <form class="input-form" id="103" data-q="3"data-max="5" name="03" data-category="1" data-sub="0">
-                            <textarea data-sub="0" name="description" data-q="3" class="map-input form-textarea showprompt wordcount p" data-index="0" data-wordcount="50" data-prompt="50 words limit" data-type="t" placeholder="Please describe your overall program."></textarea>
+                            <textarea data-sub="0" name="programDescription" data-q="3" class="map-input form-textarea showprompt wordcount p" data-index="0" data-wordcount="50" data-prompt="50 words limit" data-type="t" placeholder="Please describe your overall program."></textarea>
                             <input type="submit" class="submit sub-exp" data-sub="0" data-q="3" />
                         </form>
                     </div>
@@ -964,8 +964,8 @@
                     <div class="hidden-wrap exp-wrap collapse" data-expheight="200" data-q="4" data-category="1" data-sub="0">
 
                         <form class="input-form" data-q="4" id="104" data-max="5" name="04" data-category="1" data-sub="0">
-                            <input class="form-input map-input addmask multiprompt showprompt p" data-maskval="cash" data-index="0" data-sub="0" data-q="4" data-prompt="Please provide funds invested in this program." name="funds" placeholder="Program Funds" />
-                            <input class="form-input map-input multiprompt showprompt p" data-index="0" data-sub="0" data-q="5" name="fundTypes" data-prompt="Funding source can be individual donor, company, grants and so forth" placeholder="Please add types of funds you received for this program" />
+                            <input class="form-input map-input addmask multiprompt showprompt p" data-maskval="cash" data-index="0" data-sub="0" data-q="4" data-prompt="Please provide funds invested in this program." name="fundsInvested" placeholder="Program Funds" />
+                            <input class="form-input map-input multiprompt showprompt p" data-index="0" data-sub="0" data-q="5" name="fundsType" data-prompt="Funding source can be individual donor, company, grants and so forth" placeholder="Please add types of funds you received for this program" />
                             <input type="submit" class="submit sub-exp1" data-sub="0" data-q="4" />
                         </form>
 
@@ -974,8 +974,8 @@
                     <div class="hidden-wrap exp1 collapse" data-expheight="300" data-q="5" data-category="1" data-sub="0">
                         <form class="input-form" id="105" data-q="5" data-max="5" name="05" data-category="1" data-sub="0">
                             <input class="form-input map-input multiprompt showprompt p" data-index="0" data-sub="0" data-q="6" name="programLength" data-prompt="Please include program length for this program. Examples can be 6 months, 1 year or 5 years." placeholder="Program Length" />
-                            <input class="form-input map-input addmask multiprompt showprompt p" data-index="0" data-maskval="99/99/9999" data-prompt="Please add your program start date." data-sub="0" data-q="7" name="startDate" placeholder="Program Start Date" />
-                            <input class="form-input map-input addmask multiprompt showprompt p" data-index="0" data-maskval="99/99/9999" data-prompt="Please add your program end date." data-sub="0" data-q="8" name="endDate" placeholder="Program End Date" />
+                            <input class="form-input map-input addmask multiprompt showprompt p" data-index="0" data-maskval="99/99/9999" data-prompt="Please add your program start date." data-sub="0" data-q="7" name="programStartDate" placeholder="Program Start Date" />
+                            <input class="form-input map-input addmask multiprompt showprompt p" data-index="0" data-maskval="99/99/9999" data-prompt="Please add your program end date." data-sub="0" data-q="8" name="programEndDate" placeholder="Program End Date" />
 
                             <input type="submit" class="submit sub-exp" data-sub="0" data-q="5" />
                         </form>
@@ -1028,17 +1028,17 @@
                         </div>
                         <div class="big-input-meter"></div>
                     </div>
-                    <div class="add-inp hideadd" id="add5">
+                    <!--<div class="add-inp hideadd" id="add5">
 
                         <div class="add-btn plus" data-index="0" data-category="1" data-sub="0">
                             <div class="icon icon-visible icon-plus"></div>
-                            <!--<img src="img/plus.png" data-tid="no" class="icon-visible" />-->
+
                         </div>
 
                         <div class="add-text">
                             <span class="add-span">Add program</span>
                         </div>
-                    </div>
+                    </div>-->
 
 
                 </div> 
@@ -1062,16 +1062,16 @@
 
                     <div class="hidden-wrap exp1 collapse" data-expheight="200" data-q="2" data-category="1" data-sub="1">
                         <form class="input-form" data-q="2" id="112" data-max="6" name="11" data-category="1" data-sub="1">
-                            <input class="form-input map-input long addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="2" name="unduplicatedSupportedIndividuals" placeholder="Total Number of Unduplicated Individuals supported by this program" />
-                            <input class="form-input map-input long addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="3" name="unduplicatedSupportedFamilies" placeholder="Total Number of Unduplicated Families supported by this program" />
+                            <input class="form-input map-input long addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="2" name="unduplicatedInd" placeholder="Total Number of Unduplicated Individuals supported by this program" />
+                            <input class="form-input map-input long addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="3" name="unduplicatedFam" placeholder="Total Number of Unduplicated Families supported by this program" />
                             <input type="submit" class="submit sub-exp" data-sub="1" data-q="2" />
                         </form>
                     </div>
                     <div class="hidden-wrap exp1 collapse" data-q="3" data-expheight="300" data-category="1" data-sub="1">
                         <form class="input-form" data-q="3" id="113" data-max="6" name="13" data-category="1" data-sub="1">
-                            <input class="form-input map-input long addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="3" name="supportedMales" placeholder="Total number of males supported by this program" />
-                            <input class="form-input map-input long addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="4" name="supportedFemales" placeholder="Total number of females supported by this program" />
-                            <input class="form-input map-input long addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="5" name="supportedUnknownGender" placeholder="Total number of unknown gender supported by this program" />
+                            <input class="form-input map-input long addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="3" name="male" placeholder="Total number of males supported by this program" />
+                            <input class="form-input map-input long addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="4" name="female" placeholder="Total number of females supported by this program" />
+                            <input class="form-input map-input long addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="5" name="unknownGender" placeholder="Total number of unknown gender supported by this program" />
                             <input type="submit" class="submit" data-sub="1" data-q="3" />
                         </form>
                     </div>
@@ -1079,11 +1079,11 @@
 
                     <div class="hidden-wrap exp1 collapse" data-expheight="500" data-q="4" data-category="1" data-sub="1">
                         <form class="input-form" data-q="4" id="114" data-max="6" name="14" data-category="1" data-sub="1">
-                            <input class="form-input map-input showprompt addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-prompt="Please provide the age group of the clients that your program is helping." data-sub="1" data-q="7" name="ageGroupUnder5" placeholder="Program Age Group Under 5" />
-                            <input class="form-input map-input showprompt addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-prompt="Please provide the age group of the clients that your program is helping." data-sub="1" data-q="8" name="ageGroup5To10" placeholder="Program Age Group 5-10" />
-                            <input class="form-input map-input showprompt addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-prompt="Please provide the age group of the clients that your program is helping." data-sub="1" data-q="9" name="ageGroup10To15" placeholder="Program Age Group 10-15" />
-                            <input class="form-input map-input showprompt addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-prompt="Please provide the age group of the clients that your program is helping." data-sub="1" data-q="10" name="ageGroup15To20" placeholder="Program Age Group 15-20" />
-                            <input class="form-input map-input showprompt addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="11" name="ageGroup20To50+" placeholder="Program Age Group 20-50plus" data-prompt="Please provide the age group of the clients that your program is helping." />
+                            <input class="form-input map-input showprompt addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-prompt="Please provide the age group of the clients that your program is helping." data-sub="1" data-q="7" name="ageUnder5" placeholder="Program Age Group Under 5" />
+                            <input class="form-input map-input showprompt addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-prompt="Please provide the age group of the clients that your program is helping." data-sub="1" data-q="8" name="ageUnder5_10" placeholder="Program Age Group 5-10" />
+                            <input class="form-input map-input showprompt addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-prompt="Please provide the age group of the clients that your program is helping." data-sub="1" data-q="9" name="ageUnder10_15" placeholder="Program Age Group 10-15" />
+                            <input class="form-input map-input showprompt addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-prompt="Please provide the age group of the clients that your program is helping." data-sub="1" data-q="10" name="ageUnder15_20" placeholder="Program Age Group 15-20" />
+                            <input class="form-input map-input showprompt addmask" data-maskval="nums" data-index="0" pattern="^[0-9-]{1,20}$" title="Only digits allowed" data-sub="1" data-q="11" name="ageUnder20_50plus" placeholder="Program Age Group 20-50plus" data-prompt="Please provide the age group of the clients that your program is helping." />
                             <input type="submit" class="submit" data-sub="1" data-q="4" />
                         </form>
                     </div>
@@ -1176,25 +1176,25 @@
 
                     <div class="active-wrap first-wrap" data-q="1" data-category="1" data-sub="2">
                         <form class="input-form" data-q="1" data-max="4" id="121" data-category="1" data-sub="2">
-                            <textarea data-sub="2" name="programActivities1" data-q="1" data-index="0" class="map-input form-textarea wordcount showprompt show-add start act" data-prompt="50 words limit" data-wordcount="50" data-type="t" placeholder="Program Activities 1"></textarea>
+                            <textarea data-sub="2" name="programActivities.description" data-q="1" data-index="0" class="map-input form-textarea wordcount showprompt show-add start act" data-prompt="50 words limit" data-wordcount="50" data-type="t" placeholder="Program Activities 1"></textarea>
                             <input type="submit" data-sub="2" data-q="1" class="submit sub-exp" />
                         </form>
                     </div>
                     <div class="hidden-wrap exp-wrap" data-q="2" data-category="1" data-sub="2">
                         <form class="input-form" data-q="2" data-max="4" id="122" data-category="1" data-sub="2">
-                            <textarea data-sub="2" name="programActivities2" data-q="2" data-index="0" class="map-input form-textarea expanded wordcount showprompt push act" data-prompt="50 words limit" data-wordcount="50" data-type="t" placeholder="Program Activities 2"></textarea>
+                            <textarea data-sub="2" name="programActivities.description" data-q="2" data-index="0" class="map-input form-textarea expanded wordcount showprompt push act" data-prompt="50 words limit" data-wordcount="50" data-type="t" placeholder="Program Activities 2"></textarea>
                             <input type="submit" data-sub="2" data-q="2" class="submit sub-exp" />
                         </form>
                     </div>
                     <div class="hidden-wrap exp-wrap" data-q="3" data-category="1" data-sub="2">
                         <form class="input-form" data-max="4" data-q="3" id="123" data-category="1" data-sub="2">
-                            <textarea data-sub="2" name="programOutput1" data-q="3" data-index="0" class="map-input form-textarea expanded showprompt wordcount start act" data-wordcount="50" data-type="t" data-prompt="Products of program activities measured or number of clients served. Examples can be 20 classes taught, 100 educational materials distributed." placeholder="Program Output 1"></textarea>
+                            <textarea data-sub="2" name="programActivities.impactedNumber" data-q="3" data-index="0" class="map-input form-textarea expanded showprompt wordcount start act" data-wordcount="50" data-type="t" data-prompt="Products of program activities measured or number of clients served. Examples can be 20 classes taught, 100 educational materials distributed." placeholder="Program Output 1"></textarea>
                             <input type="submit" data-sub="2" data-q="3" class="submit sub-exp" />
                         </form>
                     </div>
                     <div class="hidden-wrap exp-wrap collapse" data-q="4" data-category="1" data-sub="2">
                         <form class="input-form" data-max="4" data-q="4" id="124" data-category="1" data-sub="2">
-                            <textarea data-sub="2" name="programOutput2" data-q="4" data-index="0" class="map-input form-textarea expanded showprompt wordcount push act" data-wordcount="50" data-type="t" data-prompt="Products of program activities measured or number of clients served. Examples can be 20 classes taught, 100 educational materials distributed." placeholder="Program Output 2"></textarea>
+                            <textarea data-sub="2" name="programActivities.impactedNumber" data-q="4" data-index="0" class="map-input form-textarea expanded showprompt wordcount push act" data-wordcount="50" data-type="t" data-prompt="Products of program activities measured or number of clients served. Examples can be 20 classes taught, 100 educational materials distributed." placeholder="Program Output 2"></textarea>
                             <input type="submit" data-sub="2" data-q="4" class="submit sub-exp" />
                         </form>
                     </div>
@@ -1263,25 +1263,25 @@
 
                     <div class="active-wrap first-wrap" data-q="1" data-category="1" data-sub="3">
                         <form class="input-form" data-max="10" data-q="1" id="151" data-category="1" data-sub="3">
-                            <input name="programOutcomes1" class="form-input map-input showprompt show-add start o" data-index="0" data-sub="3" data-prompt="Please provide details about the program outcomes." data-q="1" placeholder="Outcome 1" />
+                            <input name="programOutcome.outcomeDescription" class="form-input map-input showprompt show-add start o" data-index="0" data-sub="3" data-prompt="Please provide details about the program outcomes." data-q="1" placeholder="Outcome 1" />
                             <input type="submit" data-sub="3" data-q="1" class="submit" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-q="2" data-category="1" data-sub="3">
                         <form class="input-form" data-max="10" data-q="2" id="152" data-category="1" data-sub="3">
-                            <input name="programOutcomes2" class="form-input map-input showprompt push o" data-sub="3" data-index="0" data-prompt="Please provide details about the program outcomes." data-q="2" placeholder="Outcome 2" />
+                            <input name="programOutcome.outcomeDescription" class="form-input map-input showprompt push o" data-sub="3" data-index="0" data-prompt="Please provide details about the program outcomes." data-q="2" placeholder="Outcome 2" />
                             <input type="submit" data-sub="3" data-q="2" class="submit" />
                         </form>
                     </div>
                     <div class="hidden-wrap" data-type="t" data-q="3" data-category="1" data-sub="3">
                         <form class="input-form" data-max="10" data-q="3" id="153" data-category="1" data-sub="3">
-                            <textarea name="shortTermGoals" class="form-textarea map-input wordcount showprompt o" data-index="0" data-type="t" data-wordcount="50" data-prompt="What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job." data-sub="3" data-q="3" placeholder="Impact Goals - Short Term"></textarea>
+                            <textarea name="shortTermImpact" class="form-textarea map-input wordcount showprompt o" data-index="0" data-type="t" data-wordcount="50" data-prompt="What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job." data-sub="3" data-q="3" placeholder="Impact Goals - Short Term"></textarea>
                             <input type="submit" data-sub="3" data-q="3" class="submit" />
                         </form>
                     </div>
                     <div class="hidden-wrap exp-wrap" data-type="t" data-q="4" data-category="1" data-sub="3">
                         <form class="input-form" data-max="10" data-q="4" id="154" data-category="1" data-sub="3">
-                            <textarea name="longTermGoals" class="form-textarea map-input wordcount expanded showprompt wordcount o" data-index="0" data-wordcount="50" data-type="t" data-prompt="What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job." data-sub="3" data-q="4" placeholder="Impact Goals - Long Term"></textarea>
+                            <textarea name="longTermImpact" class="form-textarea map-input wordcount expanded showprompt wordcount o" data-index="0" data-wordcount="50" data-type="t" data-prompt="What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job." data-sub="3" data-q="4" placeholder="Impact Goals - Long Term"></textarea>
                             <input type="submit" data-sub="3" data-q="4" class="submit sub-exp" />
                         </form>
                     </div>
@@ -1299,7 +1299,7 @@
                         </div>
                         <form class="input-form exp" id="156" data-max="10" name="06" data-category="1" data-sub="3" data-q="6">
 
-                            <div class="drop o" data-category="1" data-placeholder="What is the status of this program?" data-height="70px" data-name="programStatus" data-index="0" data-sub="3" data-q="6">
+                            <div class="drop o one-dimension" data-category="1" data-placeholder="What is the status of this program?" data-height="70px" data-name="programStatus" data-index="0" data-sub="3" data-q="6">
                                 <div class="cell big-option" data-text="Completed" data-name="programStatus">
                                     Completed
                                     <svg version="1.1" id="ic650" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
@@ -1339,7 +1339,7 @@
                     </div>
                     <div class="hidden-wrap" data-q="8" data-category="1" data-sub="3">
                         <form class="input-form" data-max="10" data-q="8" id="158" data-category="1" data-sub="3">
-                            <input name="programStats" class="form-input map-input showprompt o"  data-index="0" data-sub="3" data-prompt="Do you have past program level stats that you want to add to your profile? For example: 200 adults participated in job readiness, computer and job skills training; 500 children received eye exams." data-q="8" placeholder="Stats" />
+                            <input name="pastProgramData.impact" class="form-input map-input showprompt o"  data-index="0" data-sub="3" data-prompt="Do you have past program level stats that you want to add to your profile? For example: 200 adults participated in job readiness, computer and job skills training; 500 children received eye exams." data-q="8" placeholder="Stats" />
                             <input type="submit" data-sub="3" data-q="8" class="submit" />
                         </form>
                     </div>
@@ -1363,7 +1363,7 @@
                             </div>
                             <label class="label-wrap no-padding-left" data-sub="3" data-q="10" data-category="1">
                                 <span>Add your recent 990</span>
-                                <input data-sub="3" data-fid="ct1" class="map-input o" data-index="0" name="990" data-type="file" type="file" id="f1310" data-q="10" placeholder="Do you want to upload your recent 990?" data-prompt="If yes, please upload your document here." />
+                                <input data-sub="3" data-fid="ct1" class="map-input o" data-index="0" name="recent990" data-type="file" type="file" id="f1310" data-q="10" placeholder="Do you want to upload your recent 990?" data-prompt="If yes, please upload your document here." />
                             </label>
                             <input type="submit" class="submit" data-q="10" data-sub="3" />
                         </form>
@@ -1405,14 +1405,14 @@
                                 <span class="switch-container centered">
 
                                     <label class="radioli" data-sub="3">
-                                        <input type="radio" name="programResultsMet0" class="yes map-input rad1 unchecked o"  data-index="0" value="true" data-type="radio" data-caption="Yes" data-sub="3" data-q="7" placeholder="Did you meet the program result?" data-category="1" />
+                                        <input type="radio" name="meetProgramResult" class="yes map-input rad1 unchecked o"  data-index="0" value="true" data-type="radio" data-caption="Yes" data-sub="3" data-q="7" placeholder="Did you meet the program result?" data-category="1" />
                                         <span class="rad y fin" id="check17" data-sub="3" data-category="1"></span>
                                         <span class="input-span">Yes</span>
                                     </label>
 
 
                                     <label class="radioli" data-sub="3">
-                                        <input type="radio" name="programResultsMet0" class="no map-input rad1 checked o" data-index="0"  checked value="false" data-type="radio" data-caption="No" data-sub="3" data-q="7" data-category="1" />
+                                        <input type="radio" name="meetProgramResult" class="no map-input rad1 checked o" data-index="0"  checked value="false" data-type="radio" data-caption="No" data-sub="3" data-q="7" data-category="1" />
                                         <span class="rad n fin" id="check17n" data-sub="3" data-category="1"></span>
                                         <span class="input-span">No</span>
                                     </label>

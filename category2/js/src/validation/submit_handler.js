@@ -14,18 +14,26 @@ module.exports = {
 
     add_submit_handlers: function () {
         var self = this; 
+        $('#ct0').on('submit', function (e) {
 
+            e.preventDefault();
+            self.handle_submit.call($('#ct0'), e, '0');
+        });
         $('#ct1').on('submit', function (e) {
 
             e.preventDefault();
             self.handle_submit.call($('#ct1'), e, '1');
         });
+        $('#ct2').on('submit', function (e) {
+            e.preventDefault();
+            self.handle_submit.call($('#ct2'), e, '2');
 
+        });
     }, 
     remove_submit_handlers: function() {
-     
+        $('#ct0').unbind();
         $('#ct1').unbind();
-        
+        $('#ct2').unbind();
     },
 
     handle_submit: function (e, ct) {
@@ -67,51 +75,20 @@ module.exports = {
 
 
         if (ct == "1") {
-            var form_inputs = $(this).find('.map-input').not('.hidden-addition').not('.p').not('.sel').not('.o').not('.act'); 
-            var p_inp = $(this).find('.map-input.p').not('.sel').not('.o').not('.act');
-            var o_inp = $(this).find('.map-input.o').not('.sel').not('.p').not('.act');
-            var a_inp = $(this).find('.map-input.act').not('.sel').not('.o').not('.p');
-
-            for (var k = 0; k < p_inp.length; k++) {
-                var ind = p_inp.eq(k).attr('data-index');
-                var propname1 = p_inp.eq(k).attr('name');
-
-                data_handler.set_multi(p_inp.eq(k), 'programs', propname1, ind);
-            }
-
-
-            for (var k = 0; k < o_inp.length; k++) {
-                var ind = o_inp.eq(k).attr('data-index');
-                var propname1 = o_inp.eq(k).attr('name');
-                if (o_inp.eq(k).hasClass('yes') && o_inp.eq(k).prop('checked')) {
-
-                    data_handler.set_multi(o_inp.eq(k), 'outcomes', propname1, ind, true);
-                } else {
-                    data_handler.set_multi(o_inp.eq(k), 'outcomes', propname1, ind);
-                }
-               
-            }
-
-            for (var k = 0; k < a_inp.length; k++) {
-                var ind = a_inp.eq(k).attr('data-index');
-                var propname1 = a_inp.eq(k).attr('name');
-
-                data_handler.set_multi(a_inp.eq(k), 'activities', propname1, ind);
-            }
-
+            var form_inputs = $(this).find('.map-input').not('.hidden-addition').not('.sel');
 
             for (var i = 0; i < form_inputs.length; i++) {
                 var propname = form_inputs.eq(i).attr('name'); 
                 var ind = form_inputs.eq(i).attr('data-index');
-         
+
                 if (propname != 'regions') {
                     if (propname.split('.').length > 1) {
                         var nested_prop = propname.split('.')[1];
                         var propname = propname.split('.')[0];
-                 
-                        data_handler.set_field(form_inputs.eq(i), propname, nested_prop);
+
+                        data_handler.set_field(form_inputs.eq(i), propname, nested_prop, null, ind);
                     } else {
-                        data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i));
+                        data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i), ind);
                     }
                 } else {
                     data_handler.set_regions(form_inputs.eq(i));
@@ -119,17 +96,12 @@ module.exports = {
             }
 
             for (var i = 0; i < dropdowns.length; i++) {
-                var ind = dropdowns.eq(i).attr('data-index');
-                if (dropdowns.eq(i).hasClass('p') || dropdowns.eq(i).hasClass('o')) {
-                    data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'), true, ind);
-                } else {
-                    data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
-                }
-               
+
+                data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
             }
 
-        } 
 
+        } 
 
         console.log('-------form data---------');
         console.log(data_handler.get_data());
@@ -151,7 +123,7 @@ module.exports = {
                 $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
 
                 $('.big-container').fadeIn(500);
-                var max = 3;
+                var max = 2;
 
                 var step = 100 / max;
                 var w = step * data.ct;
@@ -161,7 +133,7 @@ module.exports = {
                 }, {
                     duration: 500,
                     complete: function () {
-                        $('.stats').html(data.ct + '/3');
+                        $('.stats').html(data.ct + '/2');
                     }
                 });
                 $('.form-wrap').fadeIn(300);
@@ -189,11 +161,14 @@ module.exports = {
             $('.category-wrap[data-category="' + data.ct + '"]').find('.autofocus').trigger('focus');
 
         }
+
+ 
             try {
                 $.router.go('/done');
             } catch (err) {
                 done();
             }
+
 
             function done() {
 
@@ -216,6 +191,9 @@ module.exports = {
                 })
 
             }
+
+
+        
     }
 
 }

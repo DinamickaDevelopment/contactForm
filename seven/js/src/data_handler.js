@@ -34,10 +34,109 @@
         leadership: []
     },
     data1: {
-        programs: [],
-        activities: [],
-        outcomes: []
+        programName: "",
+        serviceArea: [],
+        programDescription: "",
+        fundsInvested: 0,
+        fundsType: "",
+        programLength: "",
+        programStartDate: "",
+        programEndDate: "",
+        populationServed: "",
+        unduplicatedInd: 0,
+        unduplicatedFam: 0,
+        male: 0,
+        female: 0,
+        unknownGender: 0,
+        ageUnder5: 0,
+        ageUnder5_10: 0,
+        ageUnder10_15: 0,
+        ageUnder15_20: 0,
+        ageUnder20_50plus: 0,
+        regionsDescription: "",
+        regions: [],
+        programActivities: [],
+        programOutcome: [],
+        shortTermImpact: "",
+        longTermImpact: "",
+        overallImpact: "",
+        programStatus: "",
+        meetProgramResult: false,
+        pastProgramData: [],
+        programDocument: "",
+        recent990: ""
     },
+
+//{
+//"programName" : "Pathways to a Better Future -- Creating Tomorrow’s Citizens Today",
+//    "serviceArea" : [
+//      {
+//          "Health" : [ "Hospital", "Family Planning Centers" ]
+//      },
+//      {
+//          "Education" : [ "Primary", "Elementary Schools" ]
+//      }
+//    ],
+//    "programDescription" : " Academic and social supports for middle school students; out of school learning opportunities; teacher development; family support and engagement; mentoring and career exposure.",
+//    "fundsInvested" : 20000,
+//    "fundsType" : "Corporate Donation",
+//    "programLength" : "12 Months",
+//    "programStartDate" : "01/01/2015",
+//    "programEndDate" : "06/30/2015",
+//    "populationServed" : "High School Students, Homeless Families, Teens, Immigrants",
+//    "unduplicatedInd" : 22,
+//    "unduplicatedFam" : 22,
+//    "male" : 14,
+//    "female" : 8,
+//    "unknownGender" : 2,
+//    "ageUnder5" : 5,
+//    "ageUnder5-10" : 2,
+//    "ageUnder10-15" : 12,
+//    "ageUnder15-20" : 10,
+//    "ageUnder20-50plus" : 26,
+//    "regionsDescription" : " Fairfax County, Arlington County, Prince William County",
+//    "regions" : [ "20840", "22190"],
+//    "programActivities" : [
+//      {
+//          "description" : "Provide extra curriculum activities to kids",
+//          "impactedNumber" : 22,
+//      },
+//      {
+//          "description" : "Provide food to kids",
+//          "impactedNumber" : 100,
+//      }
+//    ],
+//    "programOutcome" : [
+//      {
+//          "impactedNumber" : 7,
+//          "outcomeDescription" : "Youths staffed information booths at two community events for team building",
+//      },
+//      {
+//          "impactedNumber" : 10,
+//          "outcomeDescription " : "Participants were taught the importance of jogging and running correctly",
+//      }
+//    ],
+//    "shortTermImpact" : "Improved homework completion rates",
+//    "longTermImpact" : "Improved academic performance",
+//    "overallImpact" : "Citizens securing permanent full time job",
+//    "programStatus" : "Complete",
+//    "meetprogramResult" : "true",
+//    "pastprogramData" : [
+//      {
+//          "impact" : "participated in regular exercise and nutrition education to promote healthy lifestyles",
+//          "impactedNumber" : 10,
+//          "impactedGroup" : "children"
+//      },
+//      {
+//          "impact" : "improved lifestyle",
+//          "impactedNumber" : 20,
+//          "impactedGroup" : "homeless"
+//      }
+//    ],
+//    "programDocument" : "/file.pdf",
+//    "recent990" : "/file.pdf",
+//}
+
     data2: {
         eventCategory: "",
         eventName: "",
@@ -63,39 +162,7 @@
             lastName: "",
             email: ""
         }
-    //{
-    //"eventCategory" : "Volunteer",
-    //    "eventName" : "Mentoring Kids",
-    //    "eventType" : "Mentoring kids from aged 5-10",
-    //    "eventDescription" : "UWNCA seeks a volunteer instructor to teach Spanish to English-speaking union organizers and staff. This Spanish for Organizers course is aimed at providing the basic vocabulary and speaking skills needed for labor organizers to effectively communicate and mobilize their members. Rather than a structured curriculum of grammar and memorization, the focus should be on verbal communication.",
-    //    "duties" : "Provide academic support during assigned hours, Perform front desk activities, including scheduling, record-keeping, Provide tutoring-coordination service.",
-    //    "serviceArea" : [
-    //       {
-    //           "Health" : [ "Hospital", "Family Planning Centers" ] 
-    //       },
-    //       {
-    //           "Education" : [ "Primary", "Elementary Schools" ]
-    //       }
-    //    ],
-    //    "populationServed" : "High School Students, Homeless Families, Teens, Immigrants",
-    //    "volunteersRequired" : 20,
-    //    "eventStartDate" : "10/01/2015",
-    //    "eventEndDate" : "06/30/2015",
-    //    "eventTime" : "Morning Hours",
-    //    "eventAddress" : {
-    //        "name" : "Building one",
-    //        "street" : "2785 Knollside Ln",
-    //        "suite" : "100",
-    //        "city" : "Vienna",
-    //        "state" : "VA",
-    //        "zip" : "22180",
-    //        "country" : "USA",
-    //    },
-    //    "eventContact": {
-    //        "name" : "John Doe",
-    //        "email" : "Jdoe@event.com"
-    //    }
-    //}
+
     },
     set_category: function(ct) {
         this.data = this["data" + ct];
@@ -111,7 +178,7 @@
     set_regions: function (elem, flag, index) {
         var r = elem.val().split(' ');
 
-        if (!flag) {
+     
             this.data.regions = r.map(function (item) {
                 return {
                     zipcode: item,
@@ -121,21 +188,11 @@
                     state: ""
                 }
             })
-        } else {
-            this.data.programs[index].regions = r.map(function (item) {
-                return {
-                    zipcode: item,
-                    latlng: "",
-                    formattedAddress: "",
-                    region: "",
-                    state: ""
-                }
-            })
-        }
+      
 
     },
 
-    set_field: function (elem, propname, nested_prop, old_elem) {
+    set_field: function (elem, propname, nested_prop, old_elem, index) {
         if (elem.attr('data-type') == 'file') {
             if (!old_elem.prop('files')) return false; 
 
@@ -205,8 +262,39 @@
                 }
             }
             else {
-       
-                this.data[propname][nested_prop] = elem.val(); 
+                if (Object.prototype.toString.call(this.data[propname]) === '[object Array]') {
+                    if (propname == 'programActivities' || propname == 'programOutcome' || propname== "pastProgramData") {
+                        if (Object.prototype.toString.call(this.data[propname][index]) !== '[object Object]') {
+                            if (propname == 'programActivities') {
+                                this.data[propname].push({
+                                    impactedNumber: 0,
+                                    description: ""
+                                });
+                            }
+                            if (propname == 'programOutcome') {
+                                this.data[propname].push({
+                                    impactedNumber: 0,
+                                    impactedGroup: "",
+                                    impact: ""
+                                });
+                            }
+                            if (propname == 'pastProgramData') {
+                                this.data[propname].push({
+                                    impact: "",
+                                    impactedNumber: 0,
+                                    impactedGroup: ""
+                                })
+                            }
+                            
+                        }
+
+                        this.data[propname][index][nested_prop] = elem.val();
+                        
+                    }
+                } else {
+                    this.data[propname][nested_prop] = elem.val(); 
+                }
+
             }
         }
  
@@ -302,15 +390,17 @@
 
         if (opts.length == 0) return false; 
 
-        if (!flag) {
-            var data = this.data; 
-        } else {
-            if (drop.hasClass('p')) {
-                var data = this.data.programs[index];
-            } else if (drop.hasClass('o')) {
-                var data = this.data.outcomes[index];
-            }
-        }
+        //if (!flag) {
+        //    var data = this.data; 
+        //} else {
+        //    if (drop.hasClass('p')) {
+        //        var data = this.data.programs[index];
+        //    } else if (drop.hasClass('o')) {
+        //        var data = this.data.outcomes[index];
+        //    }
+        //}
+
+        var data = this.data; 
 
         if (typeof data[propname] != 'undefined') {
             if (data[propname].length > 0) {
