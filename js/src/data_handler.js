@@ -1,11 +1,39 @@
 ﻿module.exports = {
-
+   
     data1: {
-        programs: [],
-        activities: [],
-        outcomes: []
+        programName: "",
+        serviceArea: [],
+        programDescription: "",
+        fundsInvested: 0,
+        fundsType: "",
+        programLength: "",
+        programStartDate: "",
+        programEndDate: "",
+        populationServed: "",
+        unduplicatedInd: 0,
+        unduplicatedFam: 0,
+        male: 0,
+        female: 0,
+        unknownGender: 0,
+        ageUnder5: 0,
+        ageUnder5_10: 0,
+        ageUnder10_15: 0,
+        ageUnder15_20: 0,
+        ageUnder20_50plus: 0,
+        regionsDescription: "",
+        regions: [],
+        programActivities: [],
+        programOutcome: [],
+        shortTermImpact: "",
+        longTermImpact: "",
+        overallImpact: "",
+        programStatus: "",
+        meetProgramResult: false,
+        pastProgramData: [],
+        programDocument: "",
+        recent990: ""
     },
- 
+
     set_category: function(ct) {
         this.data = this["data" + ct];
     }, 
@@ -20,7 +48,7 @@
     set_regions: function (elem, flag, index) {
         var r = elem.val().split(' ');
 
-        if (!flag) {
+     
             this.data.regions = r.map(function (item) {
                 return {
                     zipcode: item,
@@ -30,21 +58,11 @@
                     state: ""
                 }
             })
-        } else {
-            this.data.programs[index].regions = r.map(function (item) {
-                return {
-                    zipcode: item,
-                    latlng: "",
-                    formattedAddress: "",
-                    region: "",
-                    state: ""
-                }
-            })
-        }
+      
 
     },
 
-    set_field: function (elem, propname, nested_prop, old_elem) {
+    set_field: function (elem, propname, nested_prop, old_elem, index) {
         if (elem.attr('data-type') == 'file') {
             if (!old_elem.prop('files')) return false; 
 
@@ -114,8 +132,39 @@
                 }
             }
             else {
-       
-                this.data[propname][nested_prop] = elem.val(); 
+                if (Object.prototype.toString.call(this.data[propname]) === '[object Array]') {
+                    if (propname == 'programActivities' || propname == 'programOutcome' || propname== "pastProgramData") {
+                        if (Object.prototype.toString.call(this.data[propname][index]) !== '[object Object]') {
+                            if (propname == 'programActivities') {
+                                this.data[propname].push({
+                                    impactedNumber: 0,
+                                    description: ""
+                                });
+                            }
+                            if (propname == 'programOutcome') {
+                                this.data[propname].push({
+                                    impactedNumber: 0,
+                                    impactedGroup: "",
+                                    impact: ""
+                                });
+                            }
+                            if (propname == 'pastProgramData') {
+                                this.data[propname].push({
+                                    impact: "",
+                                    impactedNumber: 0,
+                                    impactedGroup: ""
+                                })
+                            }
+                            
+                        }
+
+                        this.data[propname][index][nested_prop] = elem.val();
+                        
+                    }
+                } else {
+                    this.data[propname][nested_prop] = elem.val(); 
+                }
+
             }
         }
  
@@ -211,15 +260,17 @@
 
         if (opts.length == 0) return false; 
 
-        if (!flag) {
-            var data = this.data; 
-        } else {
-            if (drop.hasClass('p')) {
-                var data = this.data.programs[index];
-            } else if (drop.hasClass('o')) {
-                var data = this.data.outcomes[index];
-            }
-        }
+        //if (!flag) {
+        //    var data = this.data; 
+        //} else {
+        //    if (drop.hasClass('p')) {
+        //        var data = this.data.programs[index];
+        //    } else if (drop.hasClass('o')) {
+        //        var data = this.data.outcomes[index];
+        //    }
+        //}
+
+        var data = this.data; 
 
         if (typeof data[propname] != 'undefined') {
             if (data[propname].length > 0) {

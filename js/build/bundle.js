@@ -3785,6 +3785,12 @@
 	        $(this).maskMoney({ prefix: '$ ', allowNegative: true, thousands: ',', decimal: '.', affixesStay: true });
 	    });
 
+	    $('.addmask[data-maskval="nums"]').on('keydown', function (e) {
+	        if (isNaN(parseInt(e.key))) {
+	            return false;
+	        }
+	    });
+
 	    $('.addmask').on('input', function (e) {
 	        
 
@@ -3803,8 +3809,9 @@
 	        var self = $(this);
 	        e.preventDefault();
 	        
-	        
-	        self.addClass('invalid');
+	        if (self.attr('data-maskval') != 'nums') {
+	            self.addClass('invalid');
+	        }
 
 	        var maskval = $(this).attr('data-maskval');
 	        var ct = $(this).parent('.form-input2').attr('data-category');
@@ -3813,7 +3820,7 @@
 
 	        if (maskval != 'cash') {
 
-	            if (maskval != '99/99/9999') {
+	            if (maskval != '99/99/9999' && maskval != 'nums') {
 	                $(this).inputmask({
 	                    mask: maskval,
 	                    showMaskOnHover: false,
@@ -3822,21 +3829,8 @@
 	                    onincomplete: invalidMask,
 	                    oncomplete: validMask
 	                });
-
-	                if (maskval == 'nums') {
-	                    $(this).inputmask({
-	                        mask: '9[9]{1,100}',
-	                        showMaskOnHover: false,
-	                        showMaskOnFocus: false,
-	                        greedy: false,
-	                        removeMaskOnSubmit: true,
-	                        autoUnmask: true,
-	                        onincomplete: invalidMask,
-	                        oncomplete: validMask
-	                    });
-	                }
 	            }
-	            else {
+	            else if (maskval != 'nums') {
 	                $(this).inputmask({
 	                    mask: maskval,
 	                    showMaskOnHover: false,
@@ -5788,13 +5782,41 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-
+	   
 	    data1: {
-	        programs: [],
-	        activities: [],
-	        outcomes: []
+	        programName: "",
+	        serviceArea: [],
+	        programDescription: "",
+	        fundsInvested: 0,
+	        fundsType: "",
+	        programLength: "",
+	        programStartDate: "",
+	        programEndDate: "",
+	        populationServed: "",
+	        unduplicatedInd: 0,
+	        unduplicatedFam: 0,
+	        male: 0,
+	        female: 0,
+	        unknownGender: 0,
+	        ageUnder5: 0,
+	        ageUnder5_10: 0,
+	        ageUnder10_15: 0,
+	        ageUnder15_20: 0,
+	        ageUnder20_50plus: 0,
+	        regionsDescription: "",
+	        regions: [],
+	        programActivities: [],
+	        programOutcome: [],
+	        shortTermImpact: "",
+	        longTermImpact: "",
+	        overallImpact: "",
+	        programStatus: "",
+	        meetProgramResult: false,
+	        pastProgramData: [],
+	        programDocument: "",
+	        recent990: ""
 	    },
-	 
+
 	    set_category: function(ct) {
 	        this.data = this["data" + ct];
 	    }, 
@@ -5809,7 +5831,7 @@
 	    set_regions: function (elem, flag, index) {
 	        var r = elem.val().split(' ');
 
-	        if (!flag) {
+	     
 	            this.data.regions = r.map(function (item) {
 	                return {
 	                    zipcode: item,
@@ -5819,21 +5841,11 @@
 	                    state: ""
 	                }
 	            })
-	        } else {
-	            this.data.programs[index].regions = r.map(function (item) {
-	                return {
-	                    zipcode: item,
-	                    latlng: "",
-	                    formattedAddress: "",
-	                    region: "",
-	                    state: ""
-	                }
-	            })
-	        }
+	      
 
 	    },
 
-	    set_field: function (elem, propname, nested_prop, old_elem) {
+	    set_field: function (elem, propname, nested_prop, old_elem, index) {
 	        if (elem.attr('data-type') == 'file') {
 	            if (!old_elem.prop('files')) return false; 
 
@@ -5903,8 +5915,39 @@
 	                }
 	            }
 	            else {
-	       
-	                this.data[propname][nested_prop] = elem.val(); 
+	                if (Object.prototype.toString.call(this.data[propname]) === '[object Array]') {
+	                    if (propname == 'programActivities' || propname == 'programOutcome' || propname== "pastProgramData") {
+	                        if (Object.prototype.toString.call(this.data[propname][index]) !== '[object Object]') {
+	                            if (propname == 'programActivities') {
+	                                this.data[propname].push({
+	                                    impactedNumber: 0,
+	                                    description: ""
+	                                });
+	                            }
+	                            if (propname == 'programOutcome') {
+	                                this.data[propname].push({
+	                                    impactedNumber: 0,
+	                                    impactedGroup: "",
+	                                    impact: ""
+	                                });
+	                            }
+	                            if (propname == 'pastProgramData') {
+	                                this.data[propname].push({
+	                                    impact: "",
+	                                    impactedNumber: 0,
+	                                    impactedGroup: ""
+	                                })
+	                            }
+	                            
+	                        }
+
+	                        this.data[propname][index][nested_prop] = elem.val();
+	                        
+	                    }
+	                } else {
+	                    this.data[propname][nested_prop] = elem.val(); 
+	                }
+
 	            }
 	        }
 	 
@@ -6000,15 +6043,17 @@
 
 	        if (opts.length == 0) return false; 
 
-	        if (!flag) {
-	            var data = this.data; 
-	        } else {
-	            if (drop.hasClass('p')) {
-	                var data = this.data.programs[index];
-	            } else if (drop.hasClass('o')) {
-	                var data = this.data.outcomes[index];
-	            }
-	        }
+	        //if (!flag) {
+	        //    var data = this.data; 
+	        //} else {
+	        //    if (drop.hasClass('p')) {
+	        //        var data = this.data.programs[index];
+	        //    } else if (drop.hasClass('o')) {
+	        //        var data = this.data.outcomes[index];
+	        //    }
+	        //}
+
+	        var data = this.data; 
 
 	        if (typeof data[propname] != 'undefined') {
 	            if (data[propname].length > 0) {
@@ -6135,18 +6180,26 @@
 
 	    add_submit_handlers: function () {
 	        var self = this; 
+	        $('#ct0').on('submit', function (e) {
 
+	            e.preventDefault();
+	            self.handle_submit.call($('#ct0'), e, '0');
+	        });
 	        $('#ct1').on('submit', function (e) {
 
 	            e.preventDefault();
 	            self.handle_submit.call($('#ct1'), e, '1');
 	        });
+	        $('#ct2').on('submit', function (e) {
+	            e.preventDefault();
+	            self.handle_submit.call($('#ct2'), e, '2');
 
+	        });
 	    }, 
 	    remove_submit_handlers: function() {
-	     
+	        $('#ct0').unbind();
 	        $('#ct1').unbind();
-	        
+	        $('#ct2').unbind();
 	    },
 
 	    handle_submit: function (e, ct) {
@@ -6188,51 +6241,20 @@
 
 
 	        if (ct == "1") {
-	            var form_inputs = $(this).find('.map-input').not('.hidden-addition').not('.p').not('.sel').not('.o').not('.act'); 
-	            var p_inp = $(this).find('.map-input.p').not('.sel').not('.o').not('.act');
-	            var o_inp = $(this).find('.map-input.o').not('.sel').not('.p').not('.act');
-	            var a_inp = $(this).find('.map-input.act').not('.sel').not('.o').not('.p');
-
-	            for (var k = 0; k < p_inp.length; k++) {
-	                var ind = p_inp.eq(k).attr('data-index');
-	                var propname1 = p_inp.eq(k).attr('name');
-
-	                data_handler.set_multi(p_inp.eq(k), 'programs', propname1, ind);
-	            }
-
-
-	            for (var k = 0; k < o_inp.length; k++) {
-	                var ind = o_inp.eq(k).attr('data-index');
-	                var propname1 = o_inp.eq(k).attr('name');
-	                if (o_inp.eq(k).hasClass('yes') && o_inp.eq(k).prop('checked')) {
-
-	                    data_handler.set_multi(o_inp.eq(k), 'outcomes', propname1, ind, true);
-	                } else {
-	                    data_handler.set_multi(o_inp.eq(k), 'outcomes', propname1, ind);
-	                }
-	               
-	            }
-
-	            for (var k = 0; k < a_inp.length; k++) {
-	                var ind = a_inp.eq(k).attr('data-index');
-	                var propname1 = a_inp.eq(k).attr('name');
-
-	                data_handler.set_multi(a_inp.eq(k), 'activities', propname1, ind);
-	            }
-
+	            var form_inputs = $(this).find('.map-input').not('.hidden-addition').not('.sel');
 
 	            for (var i = 0; i < form_inputs.length; i++) {
 	                var propname = form_inputs.eq(i).attr('name'); 
 	                var ind = form_inputs.eq(i).attr('data-index');
-	         
+
 	                if (propname != 'regions') {
 	                    if (propname.split('.').length > 1) {
 	                        var nested_prop = propname.split('.')[1];
 	                        var propname = propname.split('.')[0];
-	                 
-	                        data_handler.set_field(form_inputs.eq(i), propname, nested_prop);
+
+	                        data_handler.set_field(form_inputs.eq(i), propname, nested_prop, null, ind);
 	                    } else {
-	                        data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i));
+	                        data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i), ind);
 	                    }
 	                } else {
 	                    data_handler.set_regions(form_inputs.eq(i));
@@ -6240,17 +6262,12 @@
 	            }
 
 	            for (var i = 0; i < dropdowns.length; i++) {
-	                var ind = dropdowns.eq(i).attr('data-index');
-	                if (dropdowns.eq(i).hasClass('p') || dropdowns.eq(i).hasClass('o')) {
-	                    data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'), true, ind);
-	                } else {
-	                    data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
-	                }
-	               
+
+	                data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
 	            }
 
-	        } 
 
+	        } 
 
 	        console.log('-------form data---------');
 	        console.log(data_handler.get_data());
@@ -6272,7 +6289,7 @@
 	                $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
 
 	                $('.big-container').fadeIn(500);
-	                var max = 3;
+	                var max = 2;
 
 	                var step = 100 / max;
 	                var w = step * data.ct;
@@ -6282,7 +6299,7 @@
 	                }, {
 	                    duration: 500,
 	                    complete: function () {
-	                        $('.stats').html(data.ct + '/3');
+	                        $('.stats').html(data.ct + '/2');
 	                    }
 	                });
 	                $('.form-wrap').fadeIn(300);
@@ -6310,11 +6327,14 @@
 	            $('.category-wrap[data-category="' + data.ct + '"]').find('.autofocus').trigger('focus');
 
 	        }
+
+	 
 	            try {
 	                $.router.go('/done');
 	            } catch (err) {
 	                done();
 	            }
+
 
 	            function done() {
 
@@ -6337,6 +6357,9 @@
 	                })
 
 	            }
+
+
+	        
 	    }
 
 	}
