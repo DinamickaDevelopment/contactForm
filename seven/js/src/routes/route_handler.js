@@ -25,6 +25,7 @@ module.exports = {
     preview: function(data) {
 
         $('.map-input').removeAttr('data-masked');
+
         data_handler.set_category(data.category);
 
         $('.big-container').fadeIn(500);
@@ -58,6 +59,9 @@ module.exports = {
         preview.find('#ct' + data.category).find('.form-sub').remove();
         map_inputs.call(btn);
 
+        
+
+
         $('.form-wrap').fadeOut(500, function () {
             preview.fadeIn(500);
         });
@@ -66,7 +70,6 @@ module.exports = {
             'display': 'block',
             'opacity': '0'
         });
-
 
         
         function map_inputs() {
@@ -287,6 +290,8 @@ module.exports = {
                 })
                 preview.fadeIn(500, function () {
                     inputmask_handler();
+                    $('.form-input2').find('.addmask[data-maskval!="cash"]').addClass('mask2'); 
+                    $('.form-input2').find('.addmask[data-maskval!="cash"]').trigger('input'); 
                 });
             });
         }

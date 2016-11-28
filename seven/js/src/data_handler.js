@@ -169,7 +169,7 @@
     }, 
     data: {}, 
     set_ext: function (elem, index) {
-        var phone_ext = elem.inputmask('unmaskedvalue'); 
+        var phone_ext = elem.inputmask('unmaskedvalue');
 
         if (phone_ext.length == 14) {
             this.data.leadership[index].extension = phone_ext.substr(phone_ext.length - 4);

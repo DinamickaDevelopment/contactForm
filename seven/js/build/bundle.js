@@ -3785,8 +3785,10 @@
 	    });
 
 	    $('.addmask[data-maskval="nums"]').on('keydown', function (e) {
-	        if (isNaN(parseInt(e.key)) &&  e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 13) {
+	        if (isNaN(parseInt(e.key)) &&  e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 13 && !$(this).hasClass('mask2')) {
 	            return false;
+	        } else if ($(this).hasClass('mask2')) {
+	            $(this).removeClass('mask2'); 
 	        }
 	    });
 
@@ -3797,7 +3799,9 @@
 	            if ($(this).inputmask("isComplete")) {
 	                $(this).removeClass('invalid')
 	            } else {
+	                    
 	                if (!$(this).hasClass('invalid')) {
+	                    
 	                    $(this).addClass('invalid')
 	                }
 	            }
@@ -3807,7 +3811,7 @@
 	        var self = $(this);
 	        e.preventDefault();
 	        
-	        if (self.attr('data-maskval') != 'nums') {
+	        if (self.attr('data-maskval') != 'nums' && self.val != '' && !self.hasClass('mask2')) {
 	            self.addClass('invalid');
 	        }
 
@@ -3864,6 +3868,12 @@
 	    });
 
 	    $('.multi-zip').on('input', function () {
+	        if ($(this).hasClass('mask2')) {
+	            $(this).removeClass('mask2');
+	            
+	            $(this).removeClass('invalid'); 
+	            return false; 
+	        }
 	        var v = $(this).val().split(' ');
 
 	        var ct = $(this).parent('.form-input2').attr('data-category');
@@ -5512,6 +5522,7 @@
 	    preview: function(data) {
 
 	        $('.map-input').removeAttr('data-masked');
+
 	        data_handler.set_category(data.category);
 
 	        $('.big-container').fadeIn(500);
@@ -5545,6 +5556,9 @@
 	        preview.find('#ct' + data.category).find('.form-sub').remove();
 	        map_inputs.call(btn);
 
+	        
+
+
 	        $('.form-wrap').fadeOut(500, function () {
 	            preview.fadeIn(500);
 	        });
@@ -5553,7 +5567,6 @@
 	            'display': 'block',
 	            'opacity': '0'
 	        });
-
 
 	        
 	        function map_inputs() {
@@ -5774,6 +5787,8 @@
 	                })
 	                preview.fadeIn(500, function () {
 	                    inputmask_handler();
+	                    $('.form-input2').find('.addmask[data-maskval!="cash"]').addClass('mask2'); 
+	                    $('.form-input2').find('.addmask[data-maskval!="cash"]').trigger('input'); 
 	                });
 	            });
 	        }
@@ -5956,7 +5971,7 @@
 	    }, 
 	    data: {}, 
 	    set_ext: function (elem, index) {
-	        var phone_ext = elem.inputmask('unmaskedvalue'); 
+	        var phone_ext = elem.inputmask('unmaskedvalue');
 
 	        if (phone_ext.length == 14) {
 	            this.data.leadership[index].extension = phone_ext.substr(phone_ext.length - 4);

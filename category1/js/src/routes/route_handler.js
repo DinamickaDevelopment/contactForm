@@ -287,6 +287,8 @@ module.exports = {
                 })
                 preview.fadeIn(500, function () {
                     inputmask_handler();
+                    $('.form-input2').find('.addmask[data-maskval!="cash"]').addClass('mask2'); 
+                    $('.form-input2').find('.addmask[data-maskval!="cash"]').trigger('input'); 
                 });
             });
         }
