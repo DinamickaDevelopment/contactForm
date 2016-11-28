@@ -4619,7 +4619,7 @@
 	                counter = 0;
 	  
 	                    pr.slideUp({
-	                        duration: 200,
+	                        duration: 300,
 	                        start: function () {
 
 	                            animate_q();
