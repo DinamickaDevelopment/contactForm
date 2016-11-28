@@ -5,7 +5,7 @@
     });
 
     $('.addmask[data-maskval="nums"]').on('keydown', function (e) {
-        if (isNaN(parseInt(e.key))) {
+        if (isNaN(parseInt(e.key)) &&  e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 13) {
             return false;
         }
     });
@@ -23,7 +23,6 @@
             }
             return false;
         } 
-
 
         var self = $(this);
         e.preventDefault();
