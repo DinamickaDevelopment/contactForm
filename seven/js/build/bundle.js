@@ -68,6 +68,10 @@
 	    
 	    var init_flag = false;
 
+	    document.onkeydown = function (e) {
+	        if (e.keyCode == 9) return false; 
+	    }
+
 	    $('form').attr('autocomplete', 'off');
 	   
 	    $.router.addErrorHandler(function (url) {
@@ -4401,7 +4405,7 @@
 	        }, {
 	            duration: 200,
 	            complete: function () {
-	                elem.find('.icon').fadeIn(200, function () {
+	                elem.find('.icon').fadeIn(100, function () {
 	                    isAnimating = false;
 	                    isAnimating2 = false;
 	                    if (cb) cb();
@@ -4414,26 +4418,33 @@
 	        if (isAnimating2) return true;
 	        else isAnimating2 = true;
 
-	        elem.find('.icon').fadeOut(200, function () {
-	            elem.animate({
-	                width: '0px',
-	                height: function () {
-	                    if (isBig) return '200px';
-	                    else {
-	                        isAnimating = false;
-	                        isAnimating2 = false;
-	                        return true
-	                    };
-	                }
-	            }, {
-	                duration: 200,
-	                complete: function () {
-	                    isAnimating = false;
-	                    isAnimating2 = false;
-	                    if (cb) cb(w, isBig2);
-	                }
-	            })
+
+	        
+	        elem.find('.icon').css({
+	            'display': 'none'
 	        })
+	        elem.animate({
+	            width: '0px',
+	            height: function () {
+	                if (isBig) return '200px';
+	                else {
+
+	                    return true
+	                };
+	            }
+	        }, {
+	            duration: 200,
+	            complete: function () {
+	                isAnimating = false;
+	                isAnimating2 = false;
+	                //if (cb) cb(w, isBig2);
+	            }
+	        });
+
+	        isAnimating = false;
+	        isAnimating2 = false;
+	        if (cb) cb(w, isBig2);
+	        
 	    }
 	}
 
@@ -4761,22 +4772,23 @@
 	                                            r.attr('data-q', q); 
 	                                            curr.removeClass('active-wrap');
 
-	                                            next.find('input').first().attr('required');
-	                                            next.find('textarea').attr('required'); 
+	                                            if (!next.hasClass('nameexp')) {
+	                                                next.find('input').first().attr('required');
+	                                                next.find('textarea').attr('required');
 
-	                                            next.find('input').first().addClass('auto').trigger('focus');
-	                                            next.find('textarea').addClass('auto').trigger('focus');
+	                                                next.find('input').first().addClass('auto').trigger('focus');
+	                                                next.find('textarea').addClass('auto').trigger('focus');
 
-	                                            if (!next.find('input').first().hasClass('req')) {
-	                                                next.find('input').removeAttr('required');
+	                                                if (!next.find('input').first().hasClass('req')) {
+	                                                    next.find('input').removeAttr('required');
+	                                                }
+
+	                                                if (!next.find('textarea').hasClass('req')) {
+	                                                    next.find('textarea').removeAttr('required');
+	                                                }
+
+
 	                                            }
-
-	                                            if (!next.find('textarea').hasClass('req')) {
-	                                                next.find('textarea').removeAttr('required');
-	                                            }
-	                                            
-	                                           
-
 	                                            small_progress(q, max, bar, stats);
 
 	                                            if (next.hasClass('showradio')) {

@@ -18,10 +18,15 @@ var route_handler = require('./routes/route_handler');
 var data_handler = require('./data_handler.js'); 
 var json_handler = require('./json_handler.js'); 
 
-window.onload = function () {
+window.onload = function () { 
     
     var init_flag = false;
+ 
+    document.onkeydown = function (e) {
+        if (e.keyCode == 9) return false; 
+    }
 
+ 
     $('form').attr('autocomplete', 'off');
    
     $.router.addErrorHandler(function (url) {

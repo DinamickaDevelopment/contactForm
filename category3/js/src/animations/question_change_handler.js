@@ -274,22 +274,23 @@ module.exports = function (flag) {
                                             r.attr('data-q', q); 
                                             curr.removeClass('active-wrap');
 
-                                            next.find('input').first().attr('required');
-                                            next.find('textarea').attr('required'); 
+                                            if (!next.hasClass('nameexp')) {
+                                                next.find('input').first().attr('required');
+                                                next.find('textarea').attr('required');
 
-                                            next.find('input').first().addClass('auto').trigger('focus');
-                                            next.find('textarea').addClass('auto').trigger('focus');
+                                                next.find('input').first().addClass('auto').trigger('focus');
+                                                next.find('textarea').addClass('auto').trigger('focus');
 
-                                            if (!next.find('input').first().hasClass('req')) {
-                                                next.find('input').removeAttr('required');
+                                                if (!next.find('input').first().hasClass('req')) {
+                                                    next.find('input').removeAttr('required');
+                                                }
+
+                                                if (!next.find('textarea').hasClass('req')) {
+                                                    next.find('textarea').removeAttr('required');
+                                                }
+
+
                                             }
-
-                                            if (!next.find('textarea').hasClass('req')) {
-                                                next.find('textarea').removeAttr('required');
-                                            }
-                                            
-                                           
-
                                             small_progress(q, max, bar, stats);
 
                                             if (next.hasClass('showradio')) {
