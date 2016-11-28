@@ -67,12 +67,10 @@
 	window.onload = function () { 
 	    
 	    var init_flag = false;
-	 
-	    document.onkeydown = function (e) {
-	        if (e.keyCode == 9) return false; 
-	    }
 
-	 
+	    $('form').attr('tabindex', '-1');
+	    $('input').attr('tabindex', '-1');
+
 	    $('form').attr('autocomplete', 'off');
 	   
 	    $.router.addErrorHandler(function (url) {

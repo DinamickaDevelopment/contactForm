@@ -68,9 +68,10 @@
 	    
 	    var init_flag = false;
 
-	    document.onkeydown = function (e) {
-	        if (e.keyCode == 9) return false; 
-	    }
+
+	    $('form').attr('tabindex', '-1');
+	    $('input').attr('tabindex', '-1');
+
 
 	    $('form').attr('autocomplete', 'off');
 	   
@@ -4617,7 +4618,7 @@
 	                counter = 0;
 	  
 	                    pr.slideUp({
-	                        duration: 200,
+	                        duration: 300,
 	                        start: function () {
 
 	                            animate_q();
