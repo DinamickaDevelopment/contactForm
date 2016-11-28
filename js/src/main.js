@@ -20,7 +20,12 @@ var json_handler = require('./json_handler.js');
 
 window.onload = function () {
     
-    var init_flag = false;
+    var init_flag = false; 
+	
+	document.onkeydown = function (e) {
+        if (e.keyCode == 9) return false; 
+    }
+
 
     $('form').attr('autocomplete', 'off');
    
