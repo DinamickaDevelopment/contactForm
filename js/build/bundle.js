@@ -3786,7 +3786,7 @@
 	    });
 
 	    $('.addmask[data-maskval="nums"]').on('keydown', function (e) {
-	        if (isNaN(parseInt(e.key))) {
+	        if (isNaN(parseInt(e.key)) &&  e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 13) {
 	            return false;
 	        }
 	    });
@@ -3804,7 +3804,6 @@
 	            }
 	            return false;
 	        } 
-
 
 	        var self = $(this);
 	        e.preventDefault();
@@ -4483,6 +4482,7 @@
 	module.exports = function (flag) {
 
 	    $('.right').on('click', function () {
+	        
 	        var f = $(this).parent('.input-wrap').find('.active-wrap').find('.input-form').trigger('submit'); 
 	    })
 
@@ -4498,8 +4498,13 @@
 	            }
 
 	            if (($('#' + e.target.id).find('.req').length > 0)) {
-	                if ($('#' + e.target.id).find('.req').hasClass('invalid')) {
+	                if ($('#' + e.target.id).find('.req.invalid').length > 0) {
 	                    return false;
+	                }
+	                for (var i = 0; i < $('#' + e.target.id).find('.req').length; i++) {
+	                    if ($('#' + e.target.id).find('.req').eq(i).val() == '') {
+	                        return false;
+	                    }
 	                }
 	            }
 
