@@ -94,7 +94,9 @@ module.exports = function () {
         } else if ($(this).parent('.name-wrap').hasClass('showprompt')) {
             prompt_handler($(this).parent('.name-wrap'));
         }
-
+        if ($(this).parent('.name-wrap').hasClass('fullname')) {
+            isAnimating = false; 
+        }
 
         if (isAnimating) {
             setTimeout(function() {
