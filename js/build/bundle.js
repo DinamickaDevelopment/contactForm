@@ -3786,8 +3786,10 @@
 	    });
 
 	    $('.addmask[data-maskval="nums"]').on('keydown', function (e) {
-	        if (isNaN(parseInt(e.key)) &&  e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 13) {
+	        if (isNaN(parseInt(e.key)) &&  e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 13 && !$(this).hasClass('mask2')) {
 	            return false;
+	        } else if ($(this).hasClass('mask2')) {
+	            $(this).removeClass('mask2'); 
 	        }
 	    });
 
@@ -3798,7 +3800,9 @@
 	            if ($(this).inputmask("isComplete")) {
 	                $(this).removeClass('invalid')
 	            } else {
+	                    
 	                if (!$(this).hasClass('invalid')) {
+	                    
 	                    $(this).addClass('invalid')
 	                }
 	            }
@@ -3808,7 +3812,7 @@
 	        var self = $(this);
 	        e.preventDefault();
 	        
-	        if (self.attr('data-maskval') != 'nums') {
+	        if (self.attr('data-maskval') != 'nums' && self.val != '' && !self.hasClass('mask2')) {
 	            self.addClass('invalid');
 	        }
 
@@ -3865,6 +3869,12 @@
 	    });
 
 	    $('.multi-zip').on('input', function () {
+	        if ($(this).hasClass('mask2')) {
+	            $(this).removeClass('mask2');
+	            
+	            $(this).removeClass('invalid'); 
+	            return false; 
+	        }
 	        var v = $(this).val().split(' ');
 
 	        var ct = $(this).parent('.form-input2').attr('data-category');
@@ -5775,6 +5785,8 @@
 	                })
 	                preview.fadeIn(500, function () {
 	                    inputmask_handler();
+	                    $('.form-input2').find('.addmask[data-maskval!="cash"]').addClass('mask2'); 
+	                    $('.form-input2').find('.addmask[data-maskval!="cash"]').trigger('input'); 
 	                });
 	            });
 	        }
