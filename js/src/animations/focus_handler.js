@@ -496,7 +496,7 @@ module.exports = function () {
         }, {
             duration: 200,
             complete: function () {
-                elem.find('.icon').fadeIn(200, function () {
+                elem.find('.icon').fadeIn(100, function () {
                     isAnimating = false;
                     isAnimating2 = false;
                     if (cb) cb();
@@ -509,25 +509,32 @@ module.exports = function () {
         if (isAnimating2) return true;
         else isAnimating2 = true;
 
-        elem.find('.icon').fadeOut(200, function () {
-            elem.animate({
-                width: '0px',
-                height: function () {
-                    if (isBig) return '200px';
-                    else {
-                        isAnimating = false;
-                        isAnimating2 = false;
-                        return true
-                    };
-                }
-            }, {
-                duration: 200,
-                complete: function () {
-                    isAnimating = false;
-                    isAnimating2 = false;
-                    if (cb) cb(w, isBig2);
-                }
-            })
+
+        
+        elem.find('.icon').css({
+            'display': 'none'
         })
+        elem.animate({
+            width: '0px',
+            height: function () {
+                if (isBig) return '200px';
+                else {
+
+                    return true
+                };
+            }
+        }, {
+            duration: 200,
+            complete: function () {
+                isAnimating = false;
+                isAnimating2 = false;
+                //if (cb) cb(w, isBig2);
+            }
+        });
+
+        isAnimating = false;
+        isAnimating2 = false;
+        if (cb) cb(w, isBig2);
+        
     }
 }
