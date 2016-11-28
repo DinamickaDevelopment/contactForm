@@ -37,6 +37,7 @@ module.exports = {
     },
 
     handle_submit: function (e, ct) {
+        
 
         if ($(this).find('.invalid').length > 0) {
             $(this).find('.error').html('form contains invalid data');

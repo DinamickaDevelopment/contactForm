@@ -4,6 +4,7 @@ var small_progress = require('./progress_bar');
 module.exports = function (flag) {
 
     $('.right').on('click', function () {
+        
         var f = $(this).parent('.input-wrap').find('.active-wrap').find('.input-form').trigger('submit'); 
     })
 
@@ -19,8 +20,13 @@ module.exports = function (flag) {
             }
 
             if (($('#' + e.target.id).find('.req').length > 0)) {
-                if ($('#' + e.target.id).find('.req').hasClass('invalid')) {
+                if ($('#' + e.target.id).find('.req.invalid').length > 0) {
                     return false;
+                }
+                for (var i = 0; i < $('#' + e.target.id).find('.req').length; i++) {
+                    if ($('#' + e.target.id).find('.req').eq(i).val() == '') {
+                        return false;
+                    }
                 }
             }
 

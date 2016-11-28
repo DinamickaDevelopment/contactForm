@@ -171,8 +171,13 @@
     set_ext: function (elem, index) {
         var phone_ext = elem.inputmask('unmaskedvalue'); 
 
-        this.data.leadership[index].extension = phone_ext.substr(phone_ext.length - 4);
-        this.data.leadership[index].phone = phone_ext.substr(0, phone_ext.length - 4);
+        if (phone_ext.length == 14) {
+            this.data.leadership[index].extension = phone_ext.substr(phone_ext.length - 4);
+            this.data.leadership[index].phone = phone_ext.substr(0, phone_ext.length - 4);
+        } else {
+            this.data.leadership[index].phone = phone_ext.substring(0, 10); 
+            this.data.leadership[index].extension = ""; 
+        }
      
     },
     set_regions: function (elem, flag, index) {

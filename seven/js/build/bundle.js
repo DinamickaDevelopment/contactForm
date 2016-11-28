@@ -78,7 +78,6 @@
 
 	    function view(data) {
 	        
-	      
 	        $('.form-preview-wrap').fadeOut(500, function () { 
 
 	            $('input[type="radio"]').css({
@@ -130,7 +129,7 @@
 	    }
 
 	    try {
-	        $.router.go('/view/1');
+	        $.router.go('/view/0');
 	    } catch (err) {
 	        var data = {
 	            ct: 0
@@ -3786,7 +3785,7 @@
 	    });
 
 	    $('.addmask[data-maskval="nums"]').on('keydown', function (e) {
-	        if (isNaN(parseInt(e.key))) {
+	        if (isNaN(parseInt(e.key)) &&  e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 13) {
 	            return false;
 	        }
 	    });
@@ -3804,7 +3803,6 @@
 	            }
 	            return false;
 	        } 
-
 
 	        var self = $(this);
 	        e.preventDefault();
@@ -4483,6 +4481,7 @@
 	module.exports = function (flag) {
 
 	    $('.right').on('click', function () {
+	        
 	        var f = $(this).parent('.input-wrap').find('.active-wrap').find('.input-form').trigger('submit'); 
 	    })
 
@@ -4498,8 +4497,13 @@
 	            }
 
 	            if (($('#' + e.target.id).find('.req').length > 0)) {
-	                if ($('#' + e.target.id).find('.req').hasClass('invalid')) {
+	                if ($('#' + e.target.id).find('.req.invalid').length > 0) {
 	                    return false;
+	                }
+	                for (var i = 0; i < $('#' + e.target.id).find('.req').length; i++) {
+	                    if ($('#' + e.target.id).find('.req').eq(i).val() == '') {
+	                        return false;
+	                    }
 	                }
 	            }
 
@@ -5954,8 +5958,13 @@
 	    set_ext: function (elem, index) {
 	        var phone_ext = elem.inputmask('unmaskedvalue'); 
 
-	        this.data.leadership[index].extension = phone_ext.substr(phone_ext.length - 4);
-	        this.data.leadership[index].phone = phone_ext.substr(0, phone_ext.length - 4);
+	        if (phone_ext.length == 14) {
+	            this.data.leadership[index].extension = phone_ext.substr(phone_ext.length - 4);
+	            this.data.leadership[index].phone = phone_ext.substr(0, phone_ext.length - 4);
+	        } else {
+	            this.data.leadership[index].phone = phone_ext.substring(0, 10); 
+	            this.data.leadership[index].extension = ""; 
+	        }
 	     
 	    },
 	    set_regions: function (elem, flag, index) {
@@ -6333,6 +6342,7 @@
 	    },
 
 	    handle_submit: function (e, ct) {
+	        
 
 	        if ($(this).find('.invalid').length > 0) {
 	            $(this).find('.error').html('form contains invalid data');

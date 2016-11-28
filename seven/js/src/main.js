@@ -32,7 +32,6 @@ window.onload = function () {
 
     function view(data) {
         
-      
         $('.form-preview-wrap').fadeOut(500, function () { 
 
             $('input[type="radio"]').css({
@@ -84,7 +83,7 @@ window.onload = function () {
     }
 
     try {
-        $.router.go('/view/1');
+        $.router.go('/view/0');
     } catch (err) {
         var data = {
             ct: 0
