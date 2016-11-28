@@ -3693,6 +3693,7 @@
 	var prompt_handler = __webpack_require__(5); 
 
 	module.exports = function () {
+
 	    $('.rad.y').on('click', function () {
 	        $(this).prev('input').removeClass('unchecked');
 	        $(this).prev('input').addClass('checked');
@@ -3721,7 +3722,6 @@
 			$('#' + new_id).prev('input').removeAttr('checked');
 
 		});
-
 
 		$('.radio-inp').on('click', function () {
 		    var r = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.right');
@@ -4311,7 +4311,7 @@
 	            if (prompt.find('span').find('span').length == 0) {
 	                prompt.find('span').append('<span></span>');
 	            }
-	            prompt.find('span').find('span').html(' ' + words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used');
+	            prompt.find('span').find('span').html(' ' + words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used. Click arrow to go to next field.');
 
 	            if (words.length >= parseInt($(this).attr('data-wordcount'))) {
 

@@ -416,7 +416,7 @@ module.exports = function () {
             if (prompt.find('span').find('span').length == 0) {
                 prompt.find('span').append('<span></span>');
             }
-            prompt.find('span').find('span').html(' ' + words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used');
+            prompt.find('span').find('span').html(' ' + words.length + ' words out out of ' + $(this).attr('data-wordcount') + ' used. Click arrow to go to next field.');
 
             if (words.length >= parseInt($(this).attr('data-wordcount'))) {
 
