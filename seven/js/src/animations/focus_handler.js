@@ -10,9 +10,8 @@ module.exports = function () {
     $('.form-textarea').on('focus', handle_textarea);
 
     $('.form-textarea').on('input', handle_textarea);
-
-    $('form').attr('tabindex', '-1');
-    $('input').attr('tabindex', '-1');
+ 
+    $('*').attr('tabindex', -1); 
     $('form').on('click', function () {
 
         var id = $(this).attr('id'); 
