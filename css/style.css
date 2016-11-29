@@ -22,6 +22,10 @@
     font-weight: normal; 
 }
 
+form:focus {
+    outline: none; 
+}
+
 .xl {
     height: 500px!important; 
 }
