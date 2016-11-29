@@ -303,9 +303,10 @@ module.exports = function (flag) {
                                                 if (!next.find('textarea').hasClass('req')) {
                                                     next.find('textarea').removeAttr('required');
                                                 }
-
-
                                             }
+
+                                            next.find('.map-input').attr('tabindex', 1);
+
                                             small_progress(q, max, bar, stats);
 
                                             if (next.hasClass('showradio')) {

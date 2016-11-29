@@ -9,8 +9,9 @@ module.exports = function () {
 
     $('.form-textarea').on('focus', handle_textarea);
 
-    $('.form-textarea').on('input', handle_textarea);
+    $('.form-textarea').on('input', handle_textarea); 
 
+  
  
     $('*').attr('tabindex', -1); 
     $('form').on('click', function () {
@@ -21,7 +22,9 @@ module.exports = function () {
         if (typeof id != 'undefined') {
             $('form[id != "'+ id +'"]').attr('tabindex', -1); 
         }
-    })
+    }) 
+
+    $('.name-wrap').find('input').attr('tabindex', '1');
 
 
 
@@ -177,7 +180,7 @@ module.exports = function () {
                     }
                 })
 
-
+            
 
             }
             else {
@@ -215,7 +218,7 @@ module.exports = function () {
 
         if (!$(this).hasClass('expanded') && $(this).parent('.name-wrap').hasClass('fullname')) {
              
-            var self = $(this);
+            var self = $(this); 
 
             $(this).parent('.name-wrap').parent('form').parent('.active-wrap').animate({
                 height: '200px'
