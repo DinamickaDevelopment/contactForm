@@ -11,6 +11,10 @@
     min-width: 600px;
 }  
 
+*:focus {
+    outline: none!important; 
+}
+
 .category-heading {
     margin-bottom: 70px;
 }
