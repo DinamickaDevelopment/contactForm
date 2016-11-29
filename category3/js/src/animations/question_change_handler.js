@@ -19,6 +19,20 @@ module.exports = function (flag) {
                 }
             }
 
+            if ($('#' + e.target.id).find('input[data-maskval="(999) 999-9999"]').length > 0) {
+                var phoneinput = $('#' + e.target.id).find('input[data-maskval="(999) 999-9999"]');
+                if (phoneinput.inputmask('unmaskedvalue').length < 10) {
+                    return false; 
+                }
+            }
+
+            if ($('#' + e.target.id).find('input[data-maskval="(999) 999-9999 ext [9999]"]').length > 0) {
+                var phoneinput = $('#' + e.target.id).find('input[data-maskval="(999) 999-9999 ext [9999]"]');
+                if (phoneinput.inputmask('unmaskedvalue').length < 10) {
+                    return false;
+                }
+            }
+
             if (($('#' + e.target.id).find('.req').length > 0)) {
                 if ($('#' + e.target.id).find('.req.invalid').length > 0) {
                     return false;
@@ -44,6 +58,7 @@ module.exports = function (flag) {
             try {
                 if (e.target.id == cat.toString() + sub.toString() + curr_q.toString() && parseInt(curr_q) <= parseInt(max)) {
 
+                   
                         change_q.call($('#' + e.target.id).parent('.active-wrap').parent('.input-wrap').find('.right'));
                     
                 } 

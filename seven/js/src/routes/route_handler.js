@@ -5,6 +5,8 @@ var inputmask_handler = require('../validation/inputmask_handler');
 
 module.exports = {
 
+
+
     preview_handler: function (data) {
         var self = this; 
         $('.view-preview').on('click', function (e) {

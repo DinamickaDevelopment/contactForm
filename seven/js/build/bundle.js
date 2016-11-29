@@ -72,7 +72,6 @@
 	    $('form').attr('tabindex', '-1');
 	    $('input').attr('tabindex', '-1');
 
-
 	    $('form').attr('autocomplete', 'off');
 	   
 	    $.router.addErrorHandler(function (url) {
@@ -3921,6 +3920,20 @@
 
 	    $('.form-textarea').on('input', handle_textarea);
 
+	    $('form').attr('tabindex', '-1');
+	    $('input').attr('tabindex', '-1');
+	    $('form').on('click', function () {
+
+	        var id = $(this).attr('id'); 
+	        $(this).find('.map-input').attr('tabindex', 1);
+
+	        if (typeof id != 'undefined') {
+	            $('form[id != "'+ id +'"]').attr('tabindex', -1); 
+	        }
+	    })
+
+
+
 	    function add_input() {
 
 	        if (!$(this).hasClass('addshown') && $(this).hasClass('show-add')) {
@@ -4005,6 +4018,12 @@
 	            prompt_handler($(this).parent('.name-wrap'));
 	        }
 
+	        if ($(this).hasClass('exp-name')) {
+	            isAnimating = false; 
+	        }
+	        if ($(this).hasClass('invalid')) {
+	            isAnimating = false;
+	        }
 
 	        if (isAnimating) {
 	            setTimeout(function() {
@@ -4024,35 +4043,82 @@
 
 	        if ($(this).hasClass('exp-name')) {
 	            var w = $(this).parent('div').parent('.input-wrap').find('.wrong');
-	            var r = $(this).parent('div').parent('.input-wrap').find('.right'); 
+	            var r = $(this).parent('div').parent('.input-wrap').find('.right');
+
+	            if (w.length == 0) {
+	                w = $(this).parent('div').parent('form').parent('.active-wrap').parent('.input-wrap').find('.wrong');
+	                r = $(this).parent('div').parent('form').parent('.active-wrap').parent('.input-wrap').find('.right');
+	            }
 
 	            var self = $(this);
 
 
-	            w.animate({
-	                marginTop: '-200px',
-	                height: '200px'
-	            })
-	            r.animate({
-	                marginTop: '-200px',
-	                height: '200px'
-	            })
-	            
 	            var next = $(this).parent('.mock-input').next('.exp');
+	            if (next.length == 0) {
+	                next = $(this).parent('.mock-input').parent('form').find('.fullname');
+	                next.css({
+	                    'display': 'none'
+	                })
+	                next.slideDown(300, function () {
 
-	            next.css({
-	                'margin-top': '-100px',
-	                'height': '200px'
-	            }); 
-	            next.slideDown(400, function () {
+	                    next.find('input').eq(0).trigger('focus');
+	                    self.css({ 'opacity': '0' })
 
-	                next.find('input').eq(0).trigger('focus'); 
-	                self.css({'opacity': '0'})
+	                    isAnimating = false;
 
-	                isAnimating = false;
-	         
 
-	            });
+	                });
+
+	                self.parent('.mock-input').animate({
+	                    height: '0px'
+	                    
+	                }, {
+	                    duration: 300,
+	                    complete: function () {
+	                        w.animate({
+	                            marginTop: '-200px',
+	                            height: '200px'
+	                        }, 300)
+	                        r.animate({
+	                            marginTop: '-200px',
+	                            height: '200px'
+	                        }, 300)
+	                    }
+	                })
+
+
+
+	            }
+	            else {
+
+	                next.css({
+	                    'margin-top': '-100px',
+	                    'height': '200px'
+	                });
+
+	                next.slideDown(400, function () {
+
+	                    next.find('input').eq(0).trigger('focus');
+	                    self.css({ 'opacity': '0' })
+
+	                    isAnimating = false;
+
+
+	                });
+
+	                w.animate({
+	                    marginTop: '-200px',
+	                    height: '200px'
+	                }, 300)
+	                r.animate({
+	                    marginTop: '-200px',
+	                    height: '200px'
+	                }, 300)
+	            }
+
+
+
+
 	            $(this).removeClass('exp-name'); 
 	        }
 
@@ -4518,6 +4584,20 @@
 	                }
 	            }
 
+	            if ($('#' + e.target.id).find('input[data-maskval="(999) 999-9999"]').length > 0) {
+	                var phoneinput = $('#' + e.target.id).find('input[data-maskval="(999) 999-9999"]');
+	                if (phoneinput.inputmask('unmaskedvalue').length < 10) {
+	                    return false; 
+	                }
+	            }
+
+	            if ($('#' + e.target.id).find('input[data-maskval="(999) 999-9999 ext [9999]"]').length > 0) {
+	                var phoneinput = $('#' + e.target.id).find('input[data-maskval="(999) 999-9999 ext [9999]"]');
+	                if (phoneinput.inputmask('unmaskedvalue').length < 10) {
+	                    return false;
+	                }
+	            }
+
 	            if (($('#' + e.target.id).find('.req').length > 0)) {
 	                if ($('#' + e.target.id).find('.req.invalid').length > 0) {
 	                    return false;
@@ -4543,6 +4623,7 @@
 	            try {
 	                if (e.target.id == cat.toString() + sub.toString() + curr_q.toString() && parseInt(curr_q) <= parseInt(max)) {
 
+	                   
 	                        change_q.call($('#' + e.target.id).parent('.active-wrap').parent('.input-wrap').find('.right'));
 	                    
 	                } 
@@ -5514,6 +5595,8 @@
 	var inputmask_handler = __webpack_require__(6); 
 
 	module.exports = {
+
+
 
 	    preview_handler: function (data) {
 	        var self = this; 

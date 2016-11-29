@@ -26,7 +26,6 @@ window.onload = function () {
     $('form').attr('tabindex', '-1');
     $('input').attr('tabindex', '-1');
 
-
     $('form').attr('autocomplete', 'off');
    
     $.router.addErrorHandler(function (url) {
