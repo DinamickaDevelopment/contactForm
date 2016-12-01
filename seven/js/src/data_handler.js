@@ -209,11 +209,13 @@
                 }
    
             } else if (old_elem.prop('files').length > 0) {
-                if (typeof old_elem.prop('files')[0] != 'undefined') {
-                    this.data[propname] = old_elem.prop('files')[0].name;
-                } else {
-                    this.data[propname] = '';
-                }
+      
+                    if (typeof old_elem.prop('files')[0] != 'undefined') {
+                        this.data[propname] = old_elem.prop('files')[0].name;
+                    } else {
+                        this.data[propname] = '';
+                    }
+   
             }
 
         } else {
@@ -375,12 +377,16 @@
                 }
             }
             else {
-                if (typeof elem.prop('files') != 'undefined') {
-                    if (typeof elem.prop('files')[0] != 'undefined') {
-                        this.data[catname][index][propname] = elem.prop('files')[0].name;
-                    } else {
-                        this.data[catname][index][propname] = '';
+                try {
+                    if (typeof elem.prop('files') != 'undefined') {
+                        if (typeof elem.prop('files')[0] != 'undefined') {
+                            this.data[catname][index][propname] = elem.prop('files')[0].name;
+                        } else {
+                            this.data[catname][index][propname] = '';
+                        }
                     }
+                } catch (err) {
+                    this.data[catname][index][propname] = '';
                 }
             }
 

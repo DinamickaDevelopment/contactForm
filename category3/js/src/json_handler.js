@@ -9,15 +9,19 @@ module.exports = {
         console.log(data);
 
         // send data
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/');
+        try {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/');
 
-        xhr.send(data);
-        xhr.onload = function () {
-            console.log('request successful');
-        }
-        xhr.onerror = function () {
-            console.log('request error');
+            xhr.send(data);
+            xhr.onload = function () {
+                console.log('request successful');
+            }
+            xhr.onerror = function () {
+                console.log('request error');
+            }
+        } catch (err) {
+            console.log('request error'); 
         }
     }
 

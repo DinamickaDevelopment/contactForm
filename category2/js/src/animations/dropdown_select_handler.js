@@ -112,7 +112,7 @@ module.exports = function () {
                                 $(this).find('.icon').css({ 'display': 'none' }); 
                                 $(this).find('.icon').removeClass('rotate'); 
                                 $(this).css({
-                                    'margin-right': '-30px',
+                                    'margin-right': '0px',
                                     'width': '0px',
                                     'opacity': '1'
                                 });
