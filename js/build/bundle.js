@@ -4830,13 +4830,13 @@
 	                                    curr.prev('.mock-input').css({ 'display': 'none' });
 
 	                                    r.css({
-	                                        'margin-right': '-30px',
+	                                        'margin-right': '0px',
 	                                        'width': '0px',
 	                                        'opacity': 1
 	                                    });
 
 	                                    w.css({
-	                                        'margin-right': '-30px',
+	                                        'margin-right': '0px',
 	                                        'width': '0px',
 	                                        'opacity': 1,
 	                                        'display': 'block'
@@ -5346,7 +5346,7 @@
 	                                $(this).find('.icon').css({ 'display': 'none' }); 
 	                                $(this).find('.icon').removeClass('rotate'); 
 	                                $(this).css({
-	                                    'margin-right': '-30px',
+	                                    'margin-right': '0px',
 	                                    'width': '0px',
 	                                    'opacity': '1'
 	                                });
@@ -6138,12 +6138,16 @@
 	                }
 	            }
 	            else {
-	                if (typeof elem.prop('files') != 'undefined') {
-	                    if (typeof elem.prop('files')[0] != 'undefined') {
-	                        this.data[catname][index][propname] = elem.prop('files')[0].name;
-	                    } else {
-	                        this.data[catname][index][propname] = '';
+	                try {
+	                    if (typeof elem.prop('files') != 'undefined') {
+	                        if (typeof elem.prop('files')[0] != 'undefined') {
+	                            this.data[catname][index][propname] = elem.prop('files')[0].name;
+	                        } else {
+	                            this.data[catname][index][propname] = '';
+	                        }
 	                    }
+	                } catch (err) {
+	                    this.data[catname][index][propname] = '';
 	                }
 	            }
 
@@ -6261,15 +6265,19 @@
 	        console.log(data);
 
 	        // send data
-	        var xhr = new XMLHttpRequest();
-	        xhr.open('POST', '/');
+	        try {
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('POST', '/');
 
-	        xhr.send(data);
-	        xhr.onload = function () {
-	            console.log('request successful');
-	        }
-	        xhr.onerror = function () {
-	            console.log('request error');
+	            xhr.send(data);
+	            xhr.onload = function () {
+	                console.log('request successful');
+	            }
+	            xhr.onerror = function () {
+	                console.log('request error');
+	            }
+	        } catch (err) {
+	            console.log('request error'); 
 	        }
 	    }
 

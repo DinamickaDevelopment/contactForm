@@ -261,13 +261,13 @@ module.exports = function (flag) {
                                     curr.prev('.mock-input').css({ 'display': 'none' });
 
                                     r.css({
-                                        'margin-right': '-30px',
+                                        'margin-right': '0px',
                                         'width': '0px',
                                         'opacity': 1
                                     });
 
                                     w.css({
-                                        'margin-right': '-30px',
+                                        'margin-right': '0px',
                                         'width': '0px',
                                         'opacity': 1,
                                         'display': 'block'
