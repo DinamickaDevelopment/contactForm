@@ -5084,6 +5084,8 @@
 	        sub.find('.drop').attr('data-index', index);
 	        sub.find('.rad').attr('data-sub', new_sub);
 	        sub.find('.label-wrap').attr('data-sub', new_sub);
+	        sub.find('.radioli').attr('data-sub', new_sub);
+	        sub.find('.radioprompt .switch').attr('id', 'check' + Math.random().toString().substr(2)); 
 
 	        for (var k = 0; k < sub.find('svg').length; k++) {
 	            var old_id = sub.find('svg').eq(k).attr('id');
@@ -5127,17 +5129,18 @@
 	    
 	        for (var i = 0; i < subs.length; i++) {
 	            if (parseInt(subs.eq(i).attr('data-sub')) >= new_sub) {
-	                subs.eq(i).find('.label-wrap').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
+	                
 	                subs.eq(i).find('drop').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1); 
 	                subs.eq(i).find('input[type="radio"]').attr('name', n2); 
 	                subs.eq(i).children().attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
 	                subs.eq(i).find('input').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
 	                subs.eq(i).find('textarea').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
 	                subs.eq(i).find('div').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
-	                subs.eq(i).attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
 	                subs.eq(i).find('.switch').attr('id', subs.eq(i).find('.switch').attr('id') + 'n' + index); 
 	                subs.eq(i).find('.rad').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
-
+	                subs.eq(i).find('.label-wrap').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
+	                sub.find('.radioli').attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
+	                subs.eq(i).attr('data-sub', parseInt(subs.eq(i).attr('data-sub')) + 1);
 	                
 	                var radios = subs.eq(i).find('.rad');
 	                
@@ -5223,7 +5226,8 @@
 	        var clone_counter = parseInt($('.category-wrap[data-category="'+ ct + '"]').attr('data-subs'));
 	        clone_counter++; 
 	        $('.category-wrap').attr('data-subs', clone_counter); 
-	        all_clones = $('.category-wrap').clone(); 
+	        all_clones = $('.category-wrap').clone();
+	        all_clones.find('input').val(''); 
 	    }
 	}
 

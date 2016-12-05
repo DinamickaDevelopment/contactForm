@@ -32,6 +32,7 @@ module.exports = function () {
 
 
 	$('.radio-inp').on('click', function () {
+
 	    var r = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.right');
 	    var w = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.wrong');
 
