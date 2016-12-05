@@ -310,7 +310,8 @@ module.exports = function (flag) {
                                             small_progress(q, max, bar, stats);
 
                                             if (next.hasClass('showradio')) {
-                                                next.find('.radio-inp').trigger('click'); 
+                                                next.find('.radio-inp').trigger('click');
+                               
                                             }
                                         }
                                     })

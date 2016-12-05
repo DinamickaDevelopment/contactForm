@@ -564,6 +564,7 @@ input[type=radio] {
     margin: 0 auto;
     margin-top: 100px;
     margin-bottom: 100px;
+    margin-right: 30px;
 }
 
 #continue-btn {
@@ -638,10 +639,6 @@ input[type=radio] {
     cursor: pointer;
     cursor: pointer;
     /*transition: width linear 0.05s;*/
-}
-
-.check-container {
-    margin-left: -30px;
 }
 
 
@@ -929,7 +926,7 @@ p {
 .continue-btn-container-2 {
     margin: 0 auto;
     margin-top: 100px;
-    margin-bottom: 100px;
+    margin-bottom: 100px; 
 }
 
 .continue-btn {
