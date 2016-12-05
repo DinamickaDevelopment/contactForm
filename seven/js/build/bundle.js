@@ -5172,10 +5172,6 @@
 	            }
 	        } 
 
-	        if (subs.length == 0) {
-
-	        }
-
 	        for (var j = 0; j < sub_arr.length; j++) {
 
 
@@ -5210,8 +5206,8 @@
 	        dropdown_select_handler();
 	        nested_dropdown_handler();
 	        $('.add-btn').on('click', add_inp_handler);
-	        refresh_clones(ct);
 	        route_handler.preview_handler();
+	        refresh_clones(ct);
 
 	        var self = $(this);
 	        self.parent('.add-inp').find('span').fadeOut(100, function () {
@@ -5227,7 +5223,8 @@
 	        clone_counter++; 
 	        $('.category-wrap').attr('data-subs', clone_counter); 
 	        all_clones = $('.category-wrap').clone();
-	        all_clones.find('input').val(''); 
+	        all_clones.find('input').val('');
+	        all_clones.find('textarea').val('');
 	    }
 	}
 
@@ -5972,76 +5969,6 @@
 	        programDocument: "",
 	        recent990: ""
 	    },
-
-	//{
-	//"programName" : "Pathways to a Better Future -- Creating Tomorrow’s Citizens Today",
-	//    "serviceArea" : [
-	//      {
-	//          "Health" : [ "Hospital", "Family Planning Centers" ]
-	//      },
-	//      {
-	//          "Education" : [ "Primary", "Elementary Schools" ]
-	//      }
-	//    ],
-	//    "programDescription" : " Academic and social supports for middle school students; out of school learning opportunities; teacher development; family support and engagement; mentoring and career exposure.",
-	//    "fundsInvested" : 20000,
-	//    "fundsType" : "Corporate Donation",
-	//    "programLength" : "12 Months",
-	//    "programStartDate" : "01/01/2015",
-	//    "programEndDate" : "06/30/2015",
-	//    "populationServed" : "High School Students, Homeless Families, Teens, Immigrants",
-	//    "unduplicatedInd" : 22,
-	//    "unduplicatedFam" : 22,
-	//    "male" : 14,
-	//    "female" : 8,
-	//    "unknownGender" : 2,
-	//    "ageUnder5" : 5,
-	//    "ageUnder5-10" : 2,
-	//    "ageUnder10-15" : 12,
-	//    "ageUnder15-20" : 10,
-	//    "ageUnder20-50plus" : 26,
-	//    "regionsDescription" : " Fairfax County, Arlington County, Prince William County",
-	//    "regions" : [ "20840", "22190"],
-	//    "programActivities" : [
-	//      {
-	//          "description" : "Provide extra curriculum activities to kids",
-	//          "impactedNumber" : 22,
-	//      },
-	//      {
-	//          "description" : "Provide food to kids",
-	//          "impactedNumber" : 100,
-	//      }
-	//    ],
-	//    "programOutcome" : [
-	//      {
-	//          "impactedNumber" : 7,
-	//          "outcomeDescription" : "Youths staffed information booths at two community events for team building",
-	//      },
-	//      {
-	//          "impactedNumber" : 10,
-	//          "outcomeDescription " : "Participants were taught the importance of jogging and running correctly",
-	//      }
-	//    ],
-	//    "shortTermImpact" : "Improved homework completion rates",
-	//    "longTermImpact" : "Improved academic performance",
-	//    "overallImpact" : "Citizens securing permanent full time job",
-	//    "programStatus" : "Complete",
-	//    "meetprogramResult" : "true",
-	//    "pastprogramData" : [
-	//      {
-	//          "impact" : "participated in regular exercise and nutrition education to promote healthy lifestyles",
-	//          "impactedNumber" : 10,
-	//          "impactedGroup" : "children"
-	//      },
-	//      {
-	//          "impact" : "improved lifestyle",
-	//          "impactedNumber" : 20,
-	//          "impactedGroup" : "homeless"
-	//      }
-	//    ],
-	//    "programDocument" : "/file.pdf",
-	//    "recent990" : "/file.pdf",
-	//}
 
 	    data2: {
 	        eventCategory: "",
