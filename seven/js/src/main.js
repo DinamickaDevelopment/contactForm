@@ -66,7 +66,7 @@ window.onload = function () {
 
   
 
-        if (!init_flag) {
+        if (typeof init_flag != 'undefined' && !init_flag) {
 
             init_flag = true; 
 

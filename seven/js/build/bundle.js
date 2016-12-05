@@ -112,7 +112,7 @@
 
 	  
 
-	        if (!init_flag) {
+	        if (typeof init_flag != 'undefined' && !init_flag) {
 
 	            init_flag = true; 
 
@@ -5047,6 +5047,8 @@
 
 	module.exports = function () {
 	    var all_clones = $('.category-wrap').clone();
+	    var sb = ''; 
+
 	    $('.add-btn').on('click', add_inp_handler); 
 
 	    function add_inp_handler(e) {
@@ -5196,6 +5198,7 @@
 
 
 	        wrap.after(sub);
+	        sb = sub; 
 	        $('*').unbind(); 
 
 	        radio_handler();

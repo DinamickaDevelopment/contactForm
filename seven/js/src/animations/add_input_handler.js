@@ -12,6 +12,8 @@ var counter = 0;
 
 module.exports = function () {
     var all_clones = $('.category-wrap').clone();
+    var sb = ''; 
+
     $('.add-btn').on('click', add_inp_handler); 
 
     function add_inp_handler(e) {
@@ -161,6 +163,7 @@ module.exports = function () {
 
 
         wrap.after(sub);
+        sb = sub; 
         $('*').unbind(); 
 
         radio_handler();
