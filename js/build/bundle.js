@@ -5174,10 +5174,6 @@
 	            }
 	        } 
 
-	        if (subs.length == 0) {
-
-	        }
-
 	        for (var j = 0; j < sub_arr.length; j++) {
 
 
@@ -5212,8 +5208,8 @@
 	        dropdown_select_handler();
 	        nested_dropdown_handler();
 	        $('.add-btn').on('click', add_inp_handler);
-	        refresh_clones(ct);
 	        route_handler.preview_handler();
+	        refresh_clones(ct);
 
 	        var self = $(this);
 	        self.parent('.add-inp').find('span').fadeOut(100, function () {
@@ -5229,7 +5225,8 @@
 	        clone_counter++; 
 	        $('.category-wrap').attr('data-subs', clone_counter); 
 	        all_clones = $('.category-wrap').clone();
-	        all_clones.find('input').val(''); 
+	        all_clones.find('input').val('');
+	        all_clones.find('textarea').val('');
 	    }
 	}
 
