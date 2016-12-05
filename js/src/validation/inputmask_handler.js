@@ -5,11 +5,11 @@
     });
 
     $('.addmask[data-maskval="nums"]').on('keydown', function (e) {
-        if (isNaN(parseInt(e.key)) &&  e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 13 && !$(this).hasClass('mask2')) {
+        if (isNaN(parseInt(e.key)) &&  e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 13 && e.keyCode != 9 && !$(this).hasClass('mask2')) {
             return false;
-        } else if ($(this).hasClass('mask2')) {
+        } else if (e.keyCode != 9 && $(this).hasClass('mask2')) {
             $(this).removeClass('mask2'); 
-        }
+        } 
     });
 
     $('.addmask').on('input', function (e) {
