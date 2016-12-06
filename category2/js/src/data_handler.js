@@ -1,5 +1,5 @@
 ﻿module.exports = {
-   
+
     data1: {
         programName: "",
         serviceArea: [],
@@ -24,14 +24,14 @@
         regions: [],
         programActivities: [],
         programOutcome: [],
-        shortTermImpact: "",
-        longTermImpact: "",
-        overallImpact: "",
+        shortTermImpact: [],
+        longTermImpact: [],
+        overallImpact: [],
         programStatus: "",
         meetProgramResult: false,
         pastProgramData: [],
-        programDocument: "",
-        recent990: ""
+        programDocuments: [],
+        recent990: []
     },
 
     set_category: function(ct) {
@@ -39,10 +39,15 @@
     }, 
     data: {}, 
     set_ext: function (elem, index) {
-        var phone_ext = elem.inputmask('unmaskedvalue'); 
+        var phone_ext = elem.inputmask('unmaskedvalue');
 
-        this.data.leadership[index].extension = phone_ext.substr(phone_ext.length - 4);
-        this.data.leadership[index].phone = phone_ext.substr(0, phone_ext.length - 4);
+        if (phone_ext.length == 14) {
+            this.data.leadership[index].extension = phone_ext.substr(phone_ext.length - 4);
+            this.data.leadership[index].phone = phone_ext.substr(0, phone_ext.length - 4);
+        } else {
+            this.data.leadership[index].phone = phone_ext.substring(0, 10); 
+            this.data.leadership[index].extension = ""; 
+        }
      
     },
     set_regions: function (elem, flag, index) {
@@ -64,21 +69,47 @@
 
     set_field: function (elem, propname, nested_prop, old_elem, index) {
         if (elem.attr('data-type') == 'file') {
-            if (!old_elem.prop('files')) return false; 
+           
+            if (!old_elem.prop('files')) return false;
 
             if (elem.prop('files').length > 0) {
                 if (typeof elem.prop('files')[0] != 'undefined') {
-                    this.data[propname] = elem.prop('files')[0].name;
+
+                    if (Object.prototype.toString.call(this.data[propname]) === '[object Array]') {
+                        this.data[propname].push(elem.prop('files')[0].name)
+                    } else {
+                        this.data[propname] = elem.prop('files')[0].name;
+                    }
+                    
+
+              
                 } else {
-                    this.data[propname] = ''; 
+                    if (Object.prototype.toString.call(this.data[propname]) !== '[object Array]') {
+                        this.data[propname] = '';
+                    }
+
                 }
    
-            } else if (old_elem.prop('files').length > 0) {
-                if (typeof old_elem.prop('files')[0] != 'undefined') {
-                    this.data[propname] = old_elem.prop('files')[0].name;
-                } else {
-                    this.data[propname] = '';
-                }
+            } else if ( old_elem.prop('files').length > 0) {
+      
+                    if (typeof old_elem.prop('files')[0] != 'undefined') {
+                        
+                        if (Object.prototype.toString.call(this.data[propname]) === '[object Array]') {
+                            this.data[propname].push(old_elem.prop('files')[0].name)
+                        } else {
+                            this.data[propname] = old_elem.prop('files')[0].name;
+                        }
+
+                    } else {
+
+                        if (Object.prototype.toString.call(this.data[propname]) !== '[object Array]') {
+                            this.data[propname] = '';
+                        } 
+                           
+                        
+                        
+                    }
+   
             }
 
         } else {

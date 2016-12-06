@@ -20,6 +20,7 @@ var json_handler = require('./json_handler.js');
 
 window.onload = function () {
     
+	route_handler.clone_ct(); 
     var init_flag = false; 
 	
 

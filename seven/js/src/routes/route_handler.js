@@ -5,9 +5,18 @@ var inputmask_handler = require('../validation/inputmask_handler');
 
 module.exports = {
 
+    ct: '', 
+    clone_ct: function () {
+        var ct = $('.category-wrap[data-category="1"]').clone();
+ 
+        this.ct = ct;
+   
+        return ct; 
 
-
+    },
     preview_handler: function (data) {
+
+  
         var self = this; 
         $('.view-preview').on('click', function (e) {
         var ct = e.target.dataset.category;

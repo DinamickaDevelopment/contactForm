@@ -57,14 +57,14 @@
         regions: [],
         programActivities: [],
         programOutcome: [],
-        shortTermImpact: "",
-        longTermImpact: "",
-        overallImpact: "",
+        shortTermImpact: [],
+        longTermImpact: [],
+        overallImpact: [],
         programStatus: "",
         meetProgramResult: false,
         pastProgramData: [],
-        programDocument: "",
-        recent990: ""
+        programDocuments: [],
+        recent990: []
     },
 
     data2: {
@@ -129,21 +129,45 @@
 
     set_field: function (elem, propname, nested_prop, old_elem, index) {
         if (elem.attr('data-type') == 'file') {
-            if (!old_elem.prop('files')) return false; 
+           
+            if (!old_elem.prop('files')) return false;
 
             if (elem.prop('files').length > 0) {
                 if (typeof elem.prop('files')[0] != 'undefined') {
-                    this.data[propname] = elem.prop('files')[0].name;
+
+                    if (Object.prototype.toString.call(this.data[propname]) === '[object Array]') {
+                        this.data[propname].push(elem.prop('files')[0].name)
+                    } else {
+                        this.data[propname] = elem.prop('files')[0].name;
+                    }
+                    
+
+              
                 } else {
-                    this.data[propname] = ''; 
+                    if (Object.prototype.toString.call(this.data[propname]) !== '[object Array]') {
+                        this.data[propname] = '';
+                    }
+
                 }
    
-            } else if (old_elem.prop('files').length > 0) {
+            } else if ( old_elem.prop('files').length > 0) {
       
                     if (typeof old_elem.prop('files')[0] != 'undefined') {
-                        this.data[propname] = old_elem.prop('files')[0].name;
+                        
+                        if (Object.prototype.toString.call(this.data[propname]) === '[object Array]') {
+                            this.data[propname].push(old_elem.prop('files')[0].name)
+                        } else {
+                            this.data[propname] = old_elem.prop('files')[0].name;
+                        }
+
                     } else {
-                        this.data[propname] = '';
+
+                        if (Object.prototype.toString.call(this.data[propname]) !== '[object Array]') {
+                            this.data[propname] = '';
+                        } 
+                           
+                        
+                        
                     }
    
             }

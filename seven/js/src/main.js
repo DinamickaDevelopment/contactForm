@@ -20,6 +20,8 @@ var json_handler = require('./json_handler.js');
 
 window.onload = function () {
     
+
+    route_handler.clone_ct(); 
     var init_flag = false;
 
 
@@ -35,6 +37,7 @@ window.onload = function () {
     $.router.add('/view/:ct', view);
 
     function view(data) {
+
         
         $('.form-preview-wrap').fadeOut(500, function () { 
 

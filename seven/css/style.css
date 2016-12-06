@@ -564,7 +564,7 @@ input[type=radio] {
     margin: 0 auto;
     margin-top: 100px;
     margin-bottom: 100px;
-    margin-right: 30px;
+    margin-right: 60px;
 }
 
 #continue-btn {
@@ -781,6 +781,15 @@ input[type=file] {
         background-color: #cfd8f1;
     }
 
+.input-cell2 {
+    transition: background-color linear 0.3s;
+}
+
+    .input-cell2:focus {
+        background-color: #cfd8f1;
+    }
+
+
 .down-sm {
     width: 0px;
     height: 100px;
@@ -917,16 +926,42 @@ p {
     outline: none;
 }
 
+.add-program-btn:focus {
+   outline: none;
+}
+ 
+.add-program-btn {
+    font-weight: 600;
+    color: #fff;
+    border-radius: 25px;
+    height: 50px;
+    padding-left: 10px; 
+    background-color: #21c37e;;
+    padding-right: 10px;
+    transition: all 0.2s ease-in-out;
+    border: 3px solid #21c37e;;
+    font-size: 17px;
+    cursor: pointer;
+    display: inline-block;
+}
+
 .continue-btn:hover {
     transition: 0.2s background-color 0.2s color ease-in-out;
     color: #1f467d;
     background-color: rgba(134, 143, 183, 0.42);
+} 
+
+.add-program-btn:hover {
+    transition: 0.2s background-color 0.2s color ease-in-out;
+    color: #21c37e;
+    background-color: rgb(239, 245, 255); 
 }
 
 .continue-btn-container-2 {
     margin: 0 auto;
     margin-top: 100px;
     margin-bottom: 100px; 
+    text-align: center; 
 }
 
 .continue-btn {
@@ -938,11 +973,12 @@ p {
     background-color: #1f467d;
     transition: all 0.2s ease-in-out;
     border: 3px solid #1f467d;
-    margin: 0 auto;
-    display: block;
+    display: inline-block; 
     font-size: 17px;
     cursor: pointer;
 }
+
+
 
 .rad2 + div {
     transition: background-color 0.3s linear;
