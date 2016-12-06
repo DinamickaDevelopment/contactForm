@@ -66,6 +66,7 @@
 
 	window.onload = function () {
 	    
+		route_handler.clone_ct(); 
 	    var init_flag = false; 
 		
 
@@ -3794,7 +3795,10 @@
 	        if (isNaN(parseInt(e.key)) &&  e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 13 && e.keyCode != 9 && !$(this).hasClass('mask2')) {
 	            return false;
 	        } else if (e.keyCode != 9 && $(this).hasClass('mask2')) {
-	            $(this).removeClass('mask2'); 
+	            $(this).removeClass('mask2');
+	            if (isNaN(parseInt(e.key))) {
+	                return false; 
+	            }
 	        } 
 	    });
 
@@ -5050,6 +5054,10 @@
 
 	module.exports = function () {
 	    var all_clones = $('.category-wrap').clone();
+	    var clone_subs = all_clones.find('.clonable').clone();
+	    var outcomes_clone = $('.input-wrap[data-clonename="programOutcomes1"]'); 
+	   
+
 	    $('.add-btn').on('click', add_inp_handler); 
 
 	    function add_inp_handler(e) {
@@ -5067,7 +5075,21 @@
 	        if (wrap.length == 0) {
 	            wrap = $(this).parent('div').parent('div').parent('.input-wrap');
 	        }
+
+	        var clonename = ct_clone.find('.input-wrap[data-sub="' + $(this).attr('data-sub') + '"]').attr('data-clonename');
 	        var sub = ct_clone.find('.input-wrap[data-sub="' + $(this).attr('data-sub') + '"]');
+
+	        for (var i = 0; i < clone_subs.length; i++) {
+	            if (clonename == clone_subs.eq(i).attr('data-clonename')) {
+	                sub = clone_subs.eq(i).clone(); 
+	            }
+	        }
+
+	        if (clonename == 'programOutcomes' || clonename == 'programOutcomes1') {
+	            
+	            sub = outcomes_clone.clone(); 
+	        }
+	        
 
 	        sub.css({
 	            'display': 'none'
@@ -5188,10 +5210,10 @@
 
 	        var statstext = sub.find('.stats-wrap').find('.form-label').html();
 	        var show_index = index + 1;
-	        if (index > 1) {
-	            statstext = statstext.substr(0, statstext.length - 2);
+	        //if (index > 1 && clonename == 'programOutcomes1') {
+	        //    statstext = statstext.substr(0, statstext.length - 2);
 	           
-	        }
+	        //}
 	        statstext = statstext + ' ' + show_index.toString();
 	        
 	        
@@ -5199,6 +5221,7 @@
 
 
 	        wrap.after(sub);
+	        sb = sub; 
 	        $('*').unbind(); 
 
 	        radio_handler();
@@ -5603,7 +5626,15 @@
 	var inputmask_handler = __webpack_require__(6); 
 
 	module.exports = {
+	    ct: '', 
+	    clone_ct: function () {
+	        var ct = $('.category-wrap[data-category="1"]').clone();
+	 
+	        this.ct = ct;
+	   
+	        return ct; 
 
+	    },
 	    preview_handler: function (data) {
 	        var self = this; 
 	        $('.view-preview').on('click', function (e) {
@@ -5900,7 +5931,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	   
+
 	    data1: {
 	        programName: "",
 	        serviceArea: [],
@@ -5925,14 +5956,14 @@
 	        regions: [],
 	        programActivities: [],
 	        programOutcome: [],
-	        shortTermImpact: "",
-	        longTermImpact: "",
-	        overallImpact: "",
+	        shortTermImpact: [],
+	        longTermImpact: [],
+	        overallImpact: [],
 	        programStatus: "",
 	        meetProgramResult: false,
 	        pastProgramData: [],
-	        programDocument: "",
-	        recent990: ""
+	        programDocuments: [],
+	        recent990: []
 	    },
 
 	    set_category: function(ct) {
@@ -5940,10 +5971,15 @@
 	    }, 
 	    data: {}, 
 	    set_ext: function (elem, index) {
-	        var phone_ext = elem.inputmask('unmaskedvalue'); 
+	        var phone_ext = elem.inputmask('unmaskedvalue');
 
-	        this.data.leadership[index].extension = phone_ext.substr(phone_ext.length - 4);
-	        this.data.leadership[index].phone = phone_ext.substr(0, phone_ext.length - 4);
+	        if (phone_ext.length == 14) {
+	            this.data.leadership[index].extension = phone_ext.substr(phone_ext.length - 4);
+	            this.data.leadership[index].phone = phone_ext.substr(0, phone_ext.length - 4);
+	        } else {
+	            this.data.leadership[index].phone = phone_ext.substring(0, 10); 
+	            this.data.leadership[index].extension = ""; 
+	        }
 	     
 	    },
 	    set_regions: function (elem, flag, index) {
@@ -5965,21 +6001,47 @@
 
 	    set_field: function (elem, propname, nested_prop, old_elem, index) {
 	        if (elem.attr('data-type') == 'file') {
-	            if (!old_elem.prop('files')) return false; 
+	           
+	            if (!old_elem.prop('files')) return false;
 
 	            if (elem.prop('files').length > 0) {
 	                if (typeof elem.prop('files')[0] != 'undefined') {
-	                    this.data[propname] = elem.prop('files')[0].name;
+
+	                    if (Object.prototype.toString.call(this.data[propname]) === '[object Array]') {
+	                        this.data[propname].push(elem.prop('files')[0].name)
+	                    } else {
+	                        this.data[propname] = elem.prop('files')[0].name;
+	                    }
+	                    
+
+	              
 	                } else {
-	                    this.data[propname] = ''; 
+	                    if (Object.prototype.toString.call(this.data[propname]) !== '[object Array]') {
+	                        this.data[propname] = '';
+	                    }
+
 	                }
 	   
-	            } else if (old_elem.prop('files').length > 0) {
-	                if (typeof old_elem.prop('files')[0] != 'undefined') {
-	                    this.data[propname] = old_elem.prop('files')[0].name;
-	                } else {
-	                    this.data[propname] = '';
-	                }
+	            } else if ( old_elem.prop('files').length > 0) {
+	      
+	                    if (typeof old_elem.prop('files')[0] != 'undefined') {
+	                        
+	                        if (Object.prototype.toString.call(this.data[propname]) === '[object Array]') {
+	                            this.data[propname].push(old_elem.prop('files')[0].name)
+	                        } else {
+	                            this.data[propname] = old_elem.prop('files')[0].name;
+	                        }
+
+	                    } else {
+
+	                        if (Object.prototype.toString.call(this.data[propname]) !== '[object Array]') {
+	                            this.data[propname] = '';
+	                        } 
+	                           
+	                        
+	                        
+	                    }
+	   
 	            }
 
 	        } else {
@@ -6306,29 +6368,23 @@
 
 	    add_submit_handlers: function () {
 	        var self = this; 
-	        $('#ct0').on('submit', function (e) {
 
-	            e.preventDefault();
-	            self.handle_submit.call($('#ct0'), e, '0');
-	        });
 	        $('#ct1').on('submit', function (e) {
 
 	            e.preventDefault();
 	            self.handle_submit.call($('#ct1'), e, '1');
 	        });
-	        $('#ct2').on('submit', function (e) {
-	            e.preventDefault();
-	            self.handle_submit.call($('#ct2'), e, '2');
-
-	        });
+	        $('.add-program-btn').on('click', function (e) {
+	            self.handle_submit.call($('#ct1'), e, '1', true);
+	        })
 	    }, 
 	    remove_submit_handlers: function() {
-	        $('#ct0').unbind();
+
 	        $('#ct1').unbind();
-	        $('#ct2').unbind();
+	        $('.add-program-btn').unbind(); 
 	    },
 
-	    handle_submit: function (e, ct) {
+	    handle_submit: function (e, ct, flag) {
 
 	        if ($(this).find('.invalid').length > 0) {
 	            $(this).find('.error').html('form contains invalid data');
@@ -6380,7 +6436,24 @@
 
 	                        data_handler.set_field(form_inputs.eq(i), propname, nested_prop, null, ind);
 	                    } else {
-	                        data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i), ind);
+
+	                        if (form_inputs.eq(i).attr('data-type') == 'file') {
+
+	                            var old_inp = wrap.find('.map-input[name="' + form_inputs.eq(i).attr('name') + '"][data-index="' + form_inputs.eq(i).attr('data-index') + '"]');
+
+	                            if (form_inputs.eq(i + 1).attr('name') != 'recent990') {
+	                                data_handler.set_field(form_inputs.eq(i), propname, null, old_inp, ind);
+	                            }
+	                            if (form_inputs.eq(i).attr('name') == 'programDocuments') {
+	                                data_handler.set_field(form_inputs.eq(i), propname, null, old_inp, ind);
+	                            }
+
+	                    
+	                        } else if (form_inputs.eq(i - 1).attr('name') != 'recent990') {
+	                            data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i), ind);
+	                        }
+	                          
+	                        
 	                    }
 	                } else {
 	                    data_handler.set_regions(form_inputs.eq(i));
@@ -6393,7 +6466,7 @@
 	            }
 
 
-	        } 
+	        }
 
 	        console.log('-------form data---------');
 	        console.log(data_handler.get_data());
@@ -6401,9 +6474,9 @@
 	        // send form data
 	        json_handler.send_data();
 
-	        function view (data) {
+	        function view (data, init_flag, add_flag) {
 
-
+	           
 	            $('.form-preview-wrap').fadeOut(500, function () {
 
 	                $('input[type="radio"]').css({
@@ -6415,7 +6488,7 @@
 	                $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
 
 	                $('.big-container').fadeIn(500);
-	                var max = 2;
+	                var max = 3;
 
 	                var step = 100 / max;
 	                var w = step * data.ct;
@@ -6425,14 +6498,32 @@
 	                }, {
 	                    duration: 500,
 	                    complete: function () {
-	                        $('.stats').html(data.ct + '/2');
+	                        $('.stats').html(data.ct + '/3');
 	                    }
 	                });
 	                $('.form-wrap').fadeIn(300);
 
 	            });
 
+	            if (add_flag) {
+	                var data_handler = __webpack_require__(17);
+	                var json_handler = __webpack_require__(18);
+	                var radio_handler = __webpack_require__(4);
+	                var inputmask_handler = __webpack_require__(6);
+	                var focus_handler = __webpack_require__(7);
+	                var question_change_handler = __webpack_require__(9);
+	                var file_handler = __webpack_require__(12);
+	                var add_input_handler = __webpack_require__(13);
+	                var dropdown_select_handler = __webpack_require__(14);
+	                var nested_dropdown_handler = __webpack_require__(15);
+	                var route_handler = __webpack_require__(16);;
 
+	                var ct1 = route_handler.ct;
+	                ct2 = ct1.clone();
+	                $('.form-wrap').find('.category-wrap[data-category="1"]').remove();
+	                $('.form-wrap').find('.category-wrap[data-category="0"]').after(ct2);
+	                init_flag = false; 
+	            }
 
 	            if (!init_flag) {
 
@@ -6450,16 +6541,28 @@
 
 	            }
 
+
+
 	            $('.category-wrap[data-category="' + data.ct + '"]').find('.autofocus').trigger('focus');
 
 	        }
 
-	 
-	            try {
-	                $.router.go('/done');
-	            } catch (err) {
-	                done();
-	            }
+				if (!flag) {
+					try {
+						$.router.go('/done');
+					} catch (err) {
+						done();
+					}
+				} else {
+					
+				
+					$('#ct1').unbind();
+					$('.add-program-btn').unbind();
+
+					$('*').unbind();
+				
+					view({ ct: 1 }, true, true);
+				}
 
 
 	            function done() {
