@@ -143,7 +143,7 @@ module.exports = {
                             if (form_inputs.eq(i + 1).attr('name') != 'recent990') {
                                 data_handler.set_field(form_inputs.eq(i), propname, null, old_inp, ind);
                             }
-							if (form_inputs.eq(i).attr('name') == 'programDocuments') {
+							if (form_inputs.eq(i).attr('name') == 'programDocument') {
                                 data_handler.set_field(form_inputs.eq(i), propname, null, old_inp, ind);
                             }
 
