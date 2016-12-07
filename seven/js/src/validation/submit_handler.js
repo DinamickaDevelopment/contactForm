@@ -21,17 +21,25 @@ module.exports = {
             self.handle_submit.call($('#ct0'), e, '0');
         });
         $('#ct1').on('submit', function (e) {
+           
+            if ($('.add-program-btn').hasClass('clicked')) {
+                $('.add-program-btn').removeClass('clicked');
+                e.preventDefault();
+                self.handle_submit.call($('#ct1'), e, '1', true);
+            } else {
+                e.preventDefault();
+                self.handle_submit.call($('#ct1'), e, '1');
+            }
 
-            e.preventDefault();
-            self.handle_submit.call($('#ct1'), e, '1');
         });
         $('#ct2').on('submit', function (e) {
             e.preventDefault();
             self.handle_submit.call($('#ct2'), e, '2');
 
         });
-        $('.add-program-btn').on('click', function (e) {
-            self.handle_submit.call($('#ct1'), e, '1', true);
+
+        $('.add-program-btn').on('click', function () {
+            $(this).addClass('clicked'); 
         })
     }, 
     remove_submit_handlers: function() {

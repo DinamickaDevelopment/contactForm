@@ -2,6 +2,7 @@
 
     $('.exp-cell').on('click', function (e) {
 
+        if ($(this).hasClass('selected')) return false; 
 
         var wrap = $(this).parent('div');
 

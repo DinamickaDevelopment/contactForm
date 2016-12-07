@@ -4,7 +4,13 @@ var small_progress = require('./progress_bar');
 module.exports = function (flag) {
 
     $('.right').on('click', function () {
-        
+        var q = parseInt($(this).attr('data-q'));
+        var max = parseInt($(this).attr('data-max'));
+        if ((q+1) > max) {
+            $(this).parent('.input-wrap').find('.active-wrap').find('.map-input2').attr('tabindex', '-1');
+
+        }
+
         var f = $(this).parent('.input-wrap').find('.active-wrap').find('.input-form').trigger('submit'); 
     })
 
@@ -98,6 +104,11 @@ module.exports = function (flag) {
         var sub = parseInt(curr.attr('data-sub'));
         var max = parseInt(r.attr('data-max'));
 
+        if (q > max) {
+
+            curr.parent('.input-wrap').find('.map-input').attr('tabindex', '-1');
+        }
+
         var next = $(this).parent('.input-wrap').find('.hidden-wrap[data-q="' + q + '"][data-sub="' + sub + '"]');
 
         next.css({
@@ -170,6 +181,14 @@ module.exports = function (flag) {
         }
         
         function animate_q() {
+            if (q > max) {
+                var n_q = parseInt(q) - 1;
+                var pr1 = curr.parent('.input-wrap').find('.prompt');
+                pr1.remove();
+
+
+            }
+
             if (curr.hasClass('collapse')) {
  
             
@@ -249,7 +268,6 @@ module.exports = function (flag) {
 
                             if (q > max) {
 
-
                                 small_progress(q, max, bar, stats, end_form, curr);
                                 return false;
                             }
@@ -279,7 +297,7 @@ module.exports = function (flag) {
                                     next.addClass('active-wrap');
                                     next.removeClass('hidden-wrap');
                                     next.css({ 'opacity': '0' })
-
+                                  
 
                                     next.animate({
                                         opacity: 1
@@ -310,8 +328,7 @@ module.exports = function (flag) {
                                             small_progress(q, max, bar, stats);
 
                                             if (next.hasClass('showradio')) {
-                                                next.find('.radio-inp').trigger('click');
-                               
+                                                next.find('.radio-inp').trigger('click'); 
                                             }
                                         }
                                     })

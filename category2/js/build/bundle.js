@@ -4578,7 +4578,13 @@
 	module.exports = function (flag) {
 
 	    $('.right').on('click', function () {
-	        
+	        var q = parseInt($(this).attr('data-q'));
+	        var max = parseInt($(this).attr('data-max'));
+	        if ((q+1) > max) {
+	            $(this).parent('.input-wrap').find('.active-wrap').find('.map-input2').attr('tabindex', '-1');
+
+	        }
+
 	        var f = $(this).parent('.input-wrap').find('.active-wrap').find('.input-form').trigger('submit'); 
 	    })
 
@@ -4672,6 +4678,11 @@
 	        var sub = parseInt(curr.attr('data-sub'));
 	        var max = parseInt(r.attr('data-max'));
 
+	        if (q > max) {
+
+	            curr.parent('.input-wrap').find('.map-input').attr('tabindex', '-1');
+	        }
+
 	        var next = $(this).parent('.input-wrap').find('.hidden-wrap[data-q="' + q + '"][data-sub="' + sub + '"]');
 
 	        next.css({
@@ -4744,6 +4755,14 @@
 	        }
 	        
 	        function animate_q() {
+	            if (q > max) {
+	                var n_q = parseInt(q) - 1;
+	                var pr1 = curr.parent('.input-wrap').find('.prompt');
+	                pr1.remove();
+
+
+	            }
+
 	            if (curr.hasClass('collapse')) {
 	 
 	            
@@ -4823,7 +4842,6 @@
 
 	                            if (q > max) {
 
-
 	                                small_progress(q, max, bar, stats, end_form, curr);
 	                                return false;
 	                            }
@@ -4853,7 +4871,7 @@
 	                                    next.addClass('active-wrap');
 	                                    next.removeClass('hidden-wrap');
 	                                    next.css({ 'opacity': '0' })
-
+	                                  
 
 	                                    next.animate({
 	                                        opacity: 1
@@ -4884,8 +4902,7 @@
 	                                            small_progress(q, max, bar, stats);
 
 	                                            if (next.hasClass('showradio')) {
-	                                                next.find('.radio-inp').trigger('click');
-	                               
+	                                                next.find('.radio-inp').trigger('click'); 
 	                                            }
 	                                        }
 	                                    })
@@ -5466,6 +5483,7 @@
 
 	    $('.exp-cell').on('click', function (e) {
 
+	        if ($(this).hasClass('selected')) return false; 
 
 	        var wrap = $(this).parent('div');
 
@@ -6392,13 +6410,21 @@
 	        var self = this; 
 
 	        $('#ct1').on('submit', function (e) {
+	           
+	            if ($('.add-program-btn').hasClass('clicked')) {
+	                $('.add-program-btn').removeClass('clicked');
+	                e.preventDefault();
+	                self.handle_submit.call($('#ct1'), e, '1', true);
+	            } else {
+	                e.preventDefault();
+	                self.handle_submit.call($('#ct1'), e, '1');
+	            }
 
-	            e.preventDefault();
-	            self.handle_submit.call($('#ct1'), e, '1');
-	        });
-	        $('.add-program-btn').on('click', function (e) {
-	            self.handle_submit.call($('#ct1'), e, '1', true);
-	        })
+	        }); 
+			
+	        $('.add-program-btn').on('click', function () {
+	            $(this).addClass('clicked'); 
+	        }); 
 	    }, 
 	    remove_submit_handlers: function() {
 
@@ -6486,7 +6512,6 @@
 
 	                data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
 	            }
-
 
 	        }
 
