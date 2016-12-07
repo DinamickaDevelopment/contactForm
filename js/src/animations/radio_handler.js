@@ -1,6 +1,7 @@
 var prompt_handler = require('./prompt_handler'); 
 
 module.exports = function () {
+
     $('.rad.y').on('click', function () {
         $(this).prev('input').removeClass('unchecked');
         $(this).prev('input').addClass('checked');
@@ -29,7 +30,6 @@ module.exports = function () {
 		$('#' + new_id).prev('input').removeAttr('checked');
 
 	});
-
 
 	$('.radio-inp').on('click', function () {
 	    var r = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.right');

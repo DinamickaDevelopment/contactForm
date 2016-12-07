@@ -12,6 +12,9 @@ var counter = 0;
 
 module.exports = function () {
     var all_clones = $('.category-wrap').clone();
+    var clone_subs = all_clones.find('.clonable').clone();
+   
+
     $('.add-btn').on('click', add_inp_handler); 
 
     function add_inp_handler(e) {
@@ -29,7 +32,15 @@ module.exports = function () {
         if (wrap.length == 0) {
             wrap = $(this).parent('div').parent('div').parent('.input-wrap');
         }
+
+        var clonename = ct_clone.find('.input-wrap[data-sub="' + $(this).attr('data-sub') + '"]').attr('data-clonename');
         var sub = ct_clone.find('.input-wrap[data-sub="' + $(this).attr('data-sub') + '"]');
+
+        for (var i = 0; i < clone_subs.length; i++) {
+            if (clonename == clone_subs.eq(i).attr('data-clonename')) {
+                sub = clone_subs.eq(i).clone(); 
+            }
+        }
 
         sub.css({
             'display': 'none'
@@ -150,10 +161,10 @@ module.exports = function () {
 
         var statstext = sub.find('.stats-wrap').find('.form-label').html();
         var show_index = index + 1;
-        if (index > 1) {
-            statstext = statstext.substr(0, statstext.length - 2);
+        //if (index > 1 && clonename == 'programOutcomes1') {
+        //    statstext = statstext.substr(0, statstext.length - 2);
            
-        }
+        //}
         statstext = statstext + ' ' + show_index.toString();
         
         
@@ -161,6 +172,7 @@ module.exports = function () {
 
 
         wrap.after(sub);
+        sb = sub; 
         $('*').unbind(); 
 
         radio_handler();
