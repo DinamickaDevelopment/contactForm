@@ -5054,7 +5054,6 @@
 	module.exports = function () {
 	    var all_clones = $('.category-wrap').clone();
 	    var clone_subs = all_clones.find('.clonable').clone();
-	    var outcomes_clone = $('.input-wrap[data-clonename="programOutcomes1"]'); 
 	   
 
 	    $('.add-btn').on('click', add_inp_handler); 
@@ -5083,12 +5082,6 @@
 	                sub = clone_subs.eq(i).clone(); 
 	            }
 	        }
-
-	        if (clonename == 'programOutcomes' || clonename == 'programOutcomes1') {
-	            
-	            sub = outcomes_clone.clone(); 
-	        }
-	        
 
 	        sub.css({
 	            'display': 'none'
@@ -5471,8 +5464,16 @@
 	module.exports = function () {
 
 	    $('.exp-cell').on('click', function (e) {
+
+
 	        var wrap = $(this).parent('div');
-	        
+
+	        var all_wrap = wrap.parent('form').parent('.active-wrap');
+	        var all_wrap2; 
+	        if (all_wrap.length == 0) {
+	            all_wrap2 = wrap.parent('.active-wrap');
+	        }
+
 	        var curr = $(this).attr('data-cell'); 
 
 	        if (!$(this).hasClass('selected')) {
@@ -5498,7 +5499,22 @@
 	                'color': '#8a97bb'
 	            });
 
+
+	            if (all_wrap.length > 0) {
+	                all_wrap.animate({
+	                    height: '300px'
+	                }, 200);
+
+	            } else {
+	                if (typeof all_wrap2 != 'undefined') {
+	                    all_wrap2.animate({
+	                        height: '200px'
+	                    }, 200);
+	                }
+	            }
 	            n_cells.find('.multi-drop').slideUp(200, function () {
+
+	                
 
 	                n_cells.find('.down-sm .icon').removeClass('rotate2'); 
 	                n_cells.find('.down-sm .icon').css({ 'display': 'none' });
@@ -5896,7 +5912,7 @@
 	                        mapped_drops[i] = '<div class="form-input2 clear"><h3>' + drops.eq(i).attr('data-placeholder') + '</h3>'
 	                            + '<select data-index="' + drops.eq(i).attr('data-index') + '" data-name="' + drops.eq(i).attr('data-name')
 	                            + '" class="form-control map-input sel ' + (drops.eq(i).hasClass('one-dimension') ? 'one-dimension' : '') + (drops.eq(i).hasClass('p') ? 'p' : '')
-	                            + (drops.eq(i).hasClass('o') ? 'o' : '') + '" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
+	                            + ' ' + (drops.eq(i).hasClass('o') ? 'o' : '') + '" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
 
 	                        var sub = drops.eq(i).attr('data-sub');
 	                        var curr = wrap.find('.form-sub[data-sub="' + sub + '"]');
@@ -5994,14 +6010,14 @@
 	        regions: [],
 	        programActivities: [],
 	        programOutcome: [],
-	        shortTermImpact: [],
-	        longTermImpact: [],
-	        overallImpact: [],
+	        shortTermImpact: "",
+	        longTermImpact: "",
+	        overallImpact: "",
 	        programStatus: "",
 	        meetProgramResult: false,
 	        pastProgramData: [],
-	        programDocuments: [],
-	        recent990: []
+	        programDocument: "",
+	        recent990: ""
 	    },
 
 	    data2: {
@@ -6047,10 +6063,10 @@
 	        }
 	     
 	    },
-	    set_regions: function (elem, flag, index) {
+	    set_regions: function (elem, flag) {
 	        var r = elem.val().split(' ');
 
-	     
+	        if (!flag) {
 	            this.data.regions = r.map(function (item) {
 	                return {
 	                    zipcode: item,
@@ -6060,6 +6076,11 @@
 	                    state: ""
 	                }
 	            })
+	        } else {
+	            this.data.regions = r.map(function (item) {
+	                return item; 
+	            })
+	        }
 	      
 
 	    },
@@ -6567,14 +6588,14 @@
 	                            }
 
 	                    
-	                        } else if (form_inputs.eq(i - 1).attr('name') != 'recent990') {
+	                        } else {
 	                            data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i), ind);
 	                        }
 	                          
 	                        
 	                    }
 	                } else {
-	                    data_handler.set_regions(form_inputs.eq(i));
+	                    data_handler.set_regions(form_inputs.eq(i), true);
 	                }
 	            }
 

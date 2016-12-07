@@ -13,7 +13,6 @@ var counter = 0;
 module.exports = function () {
     var all_clones = $('.category-wrap').clone();
     var clone_subs = all_clones.find('.clonable').clone();
-    var outcomes_clone = $('.input-wrap[data-clonename="programOutcomes1"]'); 
    
 
     $('.add-btn').on('click', add_inp_handler); 
@@ -42,12 +41,6 @@ module.exports = function () {
                 sub = clone_subs.eq(i).clone(); 
             }
         }
-
-        if (clonename == 'programOutcomes' || clonename == 'programOutcomes1') {
-            
-            sub = outcomes_clone.clone(); 
-        }
-        
 
         sub.css({
             'display': 'none'

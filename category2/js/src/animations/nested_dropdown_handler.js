@@ -1,8 +1,16 @@
 ﻿module.exports = function () {
 
     $('.exp-cell').on('click', function (e) {
+
+
         var wrap = $(this).parent('div');
-        
+
+        var all_wrap = wrap.parent('form').parent('.active-wrap');
+        var all_wrap2; 
+        if (all_wrap.length == 0) {
+            all_wrap2 = wrap.parent('.active-wrap');
+        }
+
         var curr = $(this).attr('data-cell'); 
 
         if (!$(this).hasClass('selected')) {
@@ -28,7 +36,22 @@
                 'color': '#8a97bb'
             });
 
+
+            if (all_wrap.length > 0) {
+                all_wrap.animate({
+                    height: '300px'
+                }, 200);
+
+            } else {
+                if (typeof all_wrap2 != 'undefined') {
+                    all_wrap2.animate({
+                        height: '200px'
+                    }, 200);
+                }
+            }
             n_cells.find('.multi-drop').slideUp(200, function () {
+
+                
 
                 n_cells.find('.down-sm .icon').removeClass('rotate2'); 
                 n_cells.find('.down-sm .icon').css({ 'display': 'none' });

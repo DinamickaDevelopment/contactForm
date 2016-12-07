@@ -57,14 +57,14 @@
         regions: [],
         programActivities: [],
         programOutcome: [],
-        shortTermImpact: [],
-        longTermImpact: [],
-        overallImpact: [],
+        shortTermImpact: "",
+        longTermImpact: "",
+        overallImpact: "",
         programStatus: "",
         meetProgramResult: false,
         pastProgramData: [],
-        programDocuments: [],
-        recent990: []
+        programDocument: "",
+        recent990: ""
     },
 
     data2: {
@@ -110,10 +110,10 @@
         }
      
     },
-    set_regions: function (elem, flag, index) {
+    set_regions: function (elem, flag) {
         var r = elem.val().split(' ');
 
-     
+        if (!flag) {
             this.data.regions = r.map(function (item) {
                 return {
                     zipcode: item,
@@ -123,6 +123,11 @@
                     state: ""
                 }
             })
+        } else {
+            this.data.regions = r.map(function (item) {
+                return item; 
+            })
+        }
       
 
     },

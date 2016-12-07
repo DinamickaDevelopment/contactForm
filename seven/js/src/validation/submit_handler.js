@@ -148,14 +148,14 @@ module.exports = {
                             }
 
                     
-                        } else if (form_inputs.eq(i - 1).attr('name') != 'recent990') {
+                        } else {
                             data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i), ind);
                         }
                           
                         
                     }
                 } else {
-                    data_handler.set_regions(form_inputs.eq(i));
+                    data_handler.set_regions(form_inputs.eq(i), true);
                 }
             }
 

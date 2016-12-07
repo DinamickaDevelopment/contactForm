@@ -973,8 +973,8 @@
                     <div class="hidden-wrap exp-wrap collapse" data-expheight="200" data-q="4" data-category="1" data-sub="0">
 
                         <form class="input-form" data-q="4" id="104" data-max="5" name="04" data-category="1" data-sub="0">
-                            <input class="form-input map-input addmask multiprompt showprompt p" data-maskval="cash" data-index="0" data-sub="0" data-q="4" data-prompt="Please provide funds invested in this program." name="fundsInvested" placeholder="Program Funds" />
-                            <input class="form-input map-input multiprompt showprompt p" data-index="0" data-sub="0" data-q="5" name="fundsType" data-prompt="Funding source can be individual donor, company, grants and so forth" placeholder="Please add types of funds you received for this program" />
+                            <input class="form-input map-input addmask multiprompt showprompt p input-cell2" data-maskval="cash" data-index="0" data-sub="0" data-q="4" data-prompt="Please provide funds invested in this program." name="fundsInvested" placeholder="Program Funds" />
+                            <input class="form-input map-input multiprompt showprompt p input-cell2" data-index="0" data-sub="0" data-q="5" name="fundsType" data-prompt="Funding source can be individual donor, company, grants and so forth" placeholder="Please add types of funds you received for this program" />
                             <input type="submit" class="submit sub-exp1" data-sub="0" data-q="4" />
                         </form>
 
@@ -1180,26 +1180,20 @@
                     <div class="stats-wrap">
                         <label class="form-label" id="label12">Program Activities</label>
                         <p class="sub" id="sub12">Please provide different activities used by the program. Examples can be providing tutoring services, credit counseling, food, hygiene and so forth. You can add more program activities.</p>
-                        <span class="small-stats" id="stats12" data-max="2">0/2</span>
+                        <span class="small-stats" id="stats12" data-max="1">0/1</span>
                     </div>
 
-                    <div class="active-wrap first-wrap" data-q="1" data-category="1" data-sub="2">
-                        <form class="input-form" data-q="1" data-max="2" id="121" data-category="1" data-sub="2">
-                            <textarea data-sub="2" name="programActivities.description" data-q="1" data-index="0" class="map-input form-textarea wordcount showprompt show-add start act" data-prompt="50 words limit" data-wordcount="50" data-type="t" placeholder="Program Activities 1"></textarea>
-                            <input type="submit" data-sub="2" data-q="1" class="submit sub-exp" />
+                    <div class="active-wrap first-wrap exp1 collapse" data-expheight="200" data-q="1" data-category="1" data-sub="2">
+                        <form class="input-form" data-q="1" data-max="1" id="121" data-category="1" data-sub="2">
+                            <input data-sub="2" name="programActivities.description" data-q="1" data-index="0" class="map-input form-input showprompt multiprompt show-add start act input-cell2" data-prompt="Example: Classes taught and Educational materials distributed." data-wordcount="50" data-type="t" placeholder="Program Activities" />
+                            <input data-sub="2" name="programActivities.impactedNumber" data-q="2" data-index="0" class="map-input form-input showprompt multiprompt push act input-cell2" data-prompt="Example: 20 or 100" data-wordcount="50" data-type="t" placeholder="Program Output #" />
+                            <input type="submit" data-sub="2" data-q="1" class="submit" />
                         </form>
                     </div>
-                    <div class="hidden-wrap exp-wrap collapse" data-q="2" data-category="1" data-sub="2">
-                        <form class="input-form" data-q="2" data-max="2" id="122" data-category="1" data-sub="2">
-                            <textarea data-sub="2" name="programActivities.impactedNumber" data-q="2" data-index="0" class="map-input form-textarea expanded wordcount showprompt push act" data-prompt="50 words limit" data-wordcount="50" data-type="t" placeholder="Program Activities 2"></textarea>
-                            <input type="submit" data-sub="2" data-q="2" class="submit sub-exp" />
-                        </form>
-                    </div>
-
 
                     <div class="input-overlay"></div>
 
-                    <div class="right" data-sub="2" data-q="1" data-max="2">
+                    <div class="right" data-sub="2" data-q="1" data-max="1">
 
                         <div class="icon arr-icon"></div>
                         </div>
@@ -1208,10 +1202,10 @@
                         </div>
 
                     <div class="prompt" data-q="1">
-                        <span class="sp">50 words limit.</span>
+                        <span class="sp">Example: Classes taught and Educational materials distributed.</span>
                     </div>
                     <div class="prompt" data-q="2">
-                        <span class="sp">50 words limit.</span>
+                        <span class="sp">Example: 20 or 100</span>
                     </div>
 
 
@@ -1239,14 +1233,14 @@
                         </div>
 
                         <div class="add-text">
-                            <span class="add-span">Add program activities</span>
+                            <span class="add-span">Add Program Activities and Output</span>
                         </div>
                     </div>
 
                 </div>
 
                 <!--Program Output--> 
-                <div class="input-wrap clonable" data-clonename="programOutput" data-sub="3">
+                <!--<div class="input-wrap clonable" data-clonename="programOutput" data-sub="3">
                     <div class="stats-wrap">
                         <label class="form-label" id="label13">Program Output</label>
                         <p class="sub" id="sub13"></p>
@@ -1308,189 +1302,52 @@
                             <span class="add-span">Add program output</span>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
                     <!--Program Outcomes-->
-                    <div class="input-wrap clonable" data-clonename="programOutcomes" data-sub="4">
+                    <div class="input-wrap clonable" data-clonename="programOutcomes" data-sub="3">
 
                         <div class="stats-wrap">
                             <label class="form-label" id="label13">Program Outcomes</label>
                             <p class="sub" id="sub13">Please provide details about the program outcomes. Please provide details on how exactly this program helped your main objective of the program. Examples can be decreased high school dropout by 13%. Or, 200 high school students exposed to write resumes.</p>
-                            <span class="small-stats" id="stats13" data-max="10">0/10</span>
+                            <span class="small-stats" id="stats13" data-max="1">0/1</span>
                         </div>
 
-                        <div class="active-wrap first-wrap" data-q="1" data-category="1" data-sub="4">
-                            <form class="input-form" data-max="10" data-q="1" id="141" data-category="1" data-sub="4">
-                                <input name="programOutcome.outcomeDescription" class="form-input map-input showprompt show-add start o" data-index="0" data-sub="4" data-prompt="Please provide details about the program outcomes." data-q="1" placeholder="Outcome 1" />
-                                <input type="submit" data-sub="4" data-q="1" class="submit" />
+                        <div class="active-wrap first-wrap exp1 collapse" data-expheight="200" data-q="1" data-category="1" data-sub="3">
+                            <form class="input-form" data-max="1" data-q="1" id="131" data-category="1" data-sub="3">
+                                <input name="programOutcome.outcomeDescription" class="form-input map-input showprompt multiprompt input-cell2 show-add start o" data-index="0" data-sub="3" data-prompt="Example: Decreased high school dropout or High school students exposed to write resumes." data-q="1" placeholder="Program Outcome" />
+                                <input name="programOutcome.impactedNumber" class="form-input map-input showprompt multiprompt input-cell2 push o" data-sub="3" data-index="0" data-prompt="Example: 15% or 200" data-q="2" placeholder="Program Outcome #" />
+                                <input type="submit" data-sub="3" data-q="1" class="submit" />
                             </form>
                         </div>
-                        <div class="hidden-wrap" data-q="2" data-category="1" data-sub="4">
-                            <form class="input-form" data-max="10" data-q="2" id="142" data-category="1" data-sub="4">
-                                <input name="programOutcome.impactedNumber" class="form-input map-input showprompt push o" data-sub="4" data-index="0" data-prompt="Please provide details about the program outcomes." data-q="2" placeholder="Outcome 2" />
-                                <input type="submit" data-sub="4" data-q="2" class="submit" />
-                            </form>
-                        </div>
-                        <div class="hidden-wrap" data-type="t" data-q="3" data-category="1" data-sub="4">
-                            <form class="input-form" data-max="10" data-q="3" id="143" data-category="1" data-sub="4">
-                                <textarea name="shortTermImpact" class="form-textarea map-input wordcount showprompt o" data-index="0" data-type="t" data-wordcount="50" data-prompt="What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job." data-sub="4" data-q="3" placeholder="Impact Goals - Short Term"></textarea>
-                                <input type="submit" data-sub="4" data-q="3" class="submit" />
-                            </form>
-                        </div>
-                        <div class="hidden-wrap exp-wrap" data-type="t" data-q="4" data-category="1" data-sub="4">
-                            <form class="input-form" data-max="10" data-q="4" id="144" data-category="1" data-sub="4">
-                                <textarea name="longTermImpact" class="form-textarea map-input wordcount expanded showprompt wordcount o" data-index="0" data-wordcount="50" data-type="t" data-prompt="What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job." data-sub="4" data-q="4" placeholder="Impact Goals - Long Term"></textarea>
-                                <input type="submit" data-sub="4" data-q="4" class="submit sub-exp" />
-                            </form>
-                        </div>
-                        <div class="hidden-wrap exp-wrap collapse" data-type="t" data-q="5" data-category="1" data-sub="4">
-                            <form class="input-form" data-max="10" data-q="5" id="145" data-category="1" data-sub="4">
-                                <textarea name="overallImpact" class="form-textarea map-input wordcount expanded showprompt wordcount drop-follow o" data-index="0" data-type="t" data-wordcount="50" data-prompt="Please provide details about what impact this program brings to your participants or those you serve." data-sub="4" data-q="5" placeholder="Overall Program Impact"></textarea>
-                                <input type="submit" data-sub="4" data-q="5" class="submit sub-exp" />
-                            </form>
-                        </div>
-
-                        <div class="hidden-wrap dropstyle" data-dropheight="400" data-q="6" data-category="1" data-sub="4">
-                            <input class="form-input exp-drop curr-inp mock" placeholder="Program Status" data-sub="4" data-q="6" />
-                            <div class="down no-margin-right">
-                                <div class="icon down-icon"></div>
-                            </div>
-                            <form class="input-form exp" id="146" data-max="10" name="06" data-category="1" data-sub="4" data-q="6">
-
-                                <div class="drop o one-dimension" data-category="1" data-placeholder="What is the status of this program?" data-height="70px" data-name="programStatus" data-index="0" data-sub="4" data-q="6">
-                                    <div class="cell big-option" data-text="Completed" data-name="programStatus">
-                                        Completed
-                                        <svg version="1.1" id="ic640" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                                        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
-					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
-					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
-				            </svg>
-                                    </div>
-                                    <div class="cell big-option" data-text="Ongoing">
-                                        Ongoing
-                                        <svg version="1.1" id="ic641" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                                        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
-					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
-					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
-				            </svg>
-                                    </div>
-                                    <div class="cell big-option" data-text="Not started">
-                                        Not started
-                                        <svg version="1.1" id="ic642" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                                        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
-					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
-					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
-				            </svg>
-                                    </div>
-                                </div>
-                                <input type="submit" class="submit" data-sub="4" data-q="6" />
-                            </form>
-                        </div>
-
-                        <div class="hidden-wrap showradio" data-q="7" data-category="1" data-type="r" data-sub="4">
-                            <form class="input-form" id="147" data-max="10" data-q="7" data-category="1" data-sub="4">
-                                <div class="form-input showprompt radio-inp">
-                                    <span class="radio-q">Did you meet the program result?</span>
-                                </div>
-                                <input type="submit" data-sub="4" data-q="7" class="submit" />
-                            </form>
-                        </div>
-                        <div class="hidden-wrap" data-q="8" data-category="1" data-sub="4">
-                            <form class="input-form" data-max="10" data-q="8" id="148" data-category="1" data-sub="4">
-                                <input name="pastProgramData.impact" class="form-input map-input showprompt o" data-index="0" data-sub="4" data-prompt="Do you have past program level stats that you want to add to your profile? For example: 200 adults participated in job readiness, computer and job skills training; 500 children received eye exams." data-q="8" placeholder="Stats" />
-                                <input type="submit" data-sub="4" data-q="8" class="submit" />
-                            </form>
-                        </div>
-                        <div class="hidden-wrap" data-q="9" data-type="file" data-category="1" data-sub="4">
-                            <form class="input-form" id="149" data-max="10" data-sub="4" data-q="9" data-category="1">
-                                <div class="skip-container" data-q="9" data-sub="4" data-category="1">
-                                    <span class="skip-btn">Skip</span>
-                                </div>
-                                <label class="label-wrap no-padding-left" data-sub="4" data-q="9" data-category="1">
-                                    <span>Add any program document for this program</span>
-                                    <input data-sub="4" data-fid="ct1" class="map-input o" data-index="0" name="programDocuments" data-type="file" type="file" id="f139" data-q="9" placeholder="Do you have a program document that you want to upload?" data-prompt="If yes, please upload your documents here. 5 mb maximum file size." />
-                                </label>
-
-                                <input type="submit" class="submit" data-q="9" data-sub="4" />
-                            </form>
-                        </div>
-                        <div class="hidden-wrap" data-q="10" data-type="file" data-category="1" data-sub="4">
-                            <form class="input-form radioform" id="1410" data-max="10" data-sub="4" data-q="10" data-category="1">
-                                <div class="skip-container" data-q="10" data-sub="4" data-category="1">
-                                    <span class="skip-btn">Skip</span>
-                                </div>
-                                <label class="label-wrap no-padding-left" data-sub="4" data-q="10" data-category="1">
-                                    <span>Add your recent 990</span>
-                                    <input data-sub="4" data-fid="ct1" class="map-input o" data-index="0" name="recent990" data-type="file" type="file" id="f1310" data-q="10" placeholder="Do you want to upload your recent 990?" data-prompt="If yes, please upload your document here." />
-                                </label>
-                                <input type="submit" class="submit" data-q="10" data-sub="4" />
-                            </form>
-                        </div>
+                        
 
 
 
                         <div class="input-overlay"></div>
 
-                        <div class="right" data-sub="4" data-q="1" data-max="10">
+                        <div class="right" data-sub="3" data-q="1" data-max="1">
                             <div class="icon arr-icon"></div>
                         </div>
-                        <div class="wrong" data-sub="4">
+                        <div class="wrong" data-sub="3">
                             <div class="icon cross-icon"></div>
                         </div>
 
                         <div class="prompt" data-q="1">
-                            <span class="sp">Please provide details about the program outcomes.</span>
+                            <span class="sp">Example: Decreased high school dropout or High school students exposed to write resumes.</span>
                         </div>
                         <div class="prompt" data-q="2">
-                            <span class="sp">Please provide details about the program outcomes.</span>
-                        </div>
-                        <div class="prompt" data-q="3">
-                            <span class="sp">What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job.</span>
-                        </div>
-                        <div class="prompt" data-q="4">
-                            <span class="sp">What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job.</span>
-                        </div>
-                        <div class="prompt" data-q="5">
-                            <span class="sp">Please provide details about what impact this program brings to your participants or those you serve.</span>
+                            <span class="sp">Example: 15% or 200</span>
                         </div>
 
-                        <div class="prompt radioprompt" data-q="7">
-                            <span class="sp1">
-                                Did you meet the program requirement and make an impact?
-                            </span>
-                            <form class="radioform" data-sub="4" data-category="1" data-q="7">
-                                <span>
-                                    <label class="switch" id="switch17">
-                                        <span class="switch-container centered">
 
-                                            <label class="radioli" data-sub="4">
-                                                <input type="radio" name="meetProgramResult" class="yes map-input rad1 unchecked o" data-index="0" value="true" data-type="radio" data-caption="Yes" data-sub="4" data-q="7" placeholder="Did you meet the program result?" data-category="1" />
-                                                <span class="rad y fin" id="check17" data-sub="4" data-category="1"></span>
-                                                <span class="input-span">Yes</span>
-                                            </label>
-
-
-                                            <label class="radioli" data-sub="4">
-                                                <input type="radio" name="meetProgramResult" class="no map-input rad1 checked o" data-index="0" checked value="false" data-type="radio" data-caption="No" data-sub="4" data-q="7" data-category="1" />
-                                                <span class="rad n fin" id="check17n" data-sub="4" data-category="1"></span>
-                                                <span class="input-span">No</span>
-                                            </label>
-                                        </span>
-                                    </label>
-                                </span>
-                            </form>
-                        </div>
-
-                        <div class="prompt" data-q="8">
-                            <span class="sp">Do you have past program level stats that you want to add to your profile? For example: 200 adults participated in job readiness, computer and job skills training; 500 children received eye exams.</span>
-                        </div>
-
+  
                         <div class="input-meter">
                             <div class="meter-span"></div>
                         </div>
                         <div class="thanx">
                             <div class="check-container">
-                                <svg version="1.1" id="c104" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                                <svg version="1.1" id="c103" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
                                 <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
 					c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
 					c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
@@ -1501,18 +1358,182 @@
                             <div class="big-input-meter"></div>
                         </div>
 
-                        <div class="add-inp hideadd" id="add6">
+                        <div class="add-inp hideadd" id="add088">
 
-                            <div class="add-btn plus" data-index="0" data-category="1" data-sub="4">
+                            <div class="add-btn plus" data-index="0" data-category="1" data-sub="3">
                                 <div class="icon icon-plus icon-visible"></div>
                             </div>
 
                             <div class="add-text">
-                                <span>Add outcomes</span>
+                                <span>Add Program Outcomes</span>
                             </div>
                         </div>
 
                     </div>
+
+                <!--Overall Program Impact-->
+                <div class="input-wrap" data-sub="4">
+                    <div class="stats-wrap">
+                        <label class="form-label" id="label14">Overall Program Impact</label>
+                        <p class="sub" id="sub14"></p>
+                        <span class="small-stats" id="stats14" data-max="3">0/7</span>
+                    </div>
+                    <div class="active-wrap" data-type="t" data-q="1" data-category="1" data-sub="4">
+                        <form class="input-form" data-max="7" data-q="1" id="141" data-category="1" data-sub="4">
+                            <textarea name="shortTermImpact" class="form-textarea map-input wordcount showprompt o" data-index="0" data-type="t" data-wordcount="50" data-prompt="What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job." data-sub="4" data-q="1" placeholder="Impact Goals - Short Term"></textarea>
+                            <input type="submit" data-sub="4" data-q="1" class="submit" />
+                        </form>
+                    </div>
+                    <div class="hidden-wrap exp-wrap" data-type="t" data-q="2" data-category="1" data-sub="4">
+                        <form class="input-form" data-max="7" data-q="2" id="142" data-category="1" data-sub="4">
+                            <textarea name="longTermImpact" class="form-textarea map-input wordcount expanded showprompt wordcount o" data-index="0" data-wordcount="50" data-type="t" data-prompt="What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job." data-sub="4" data-q="2" placeholder="Impact Goals - Long Term"></textarea>
+                            <input type="submit" data-sub="4" data-q="2" class="submit sub-exp" />
+                        </form>
+                    </div>
+                    <div class="hidden-wrap exp-wrap collapse" data-type="t" data-q="3" data-category="1" data-sub="4">
+                        <form class="input-form" data-max="7" data-q="3" id="143" data-category="1" data-sub="4">
+                            <textarea name="overallImpact" class="form-textarea map-input wordcount expanded showprompt wordcount drop-follow o" data-index="0" data-type="t" data-wordcount="50" data-prompt="Please provide details about what impact this program brings to your participants or those you serve." data-sub="4" data-q="3" placeholder="Overall Program Impact"></textarea>
+                            <input type="submit" data-sub="4" data-q="3" class="submit sub-exp" />
+                        </form>
+                    </div>
+
+                    <div class="hidden-wrap dropstyle" data-dropheight="400" data-q="4" data-category="1" data-sub="4">
+                        <input class="form-input exp-drop curr-inp mock" placeholder="Program Status" data-sub="4" data-q="4" />
+                        <div class="down no-margin-right">
+                            <div class="icon down-icon"></div>
+                        </div>
+                        <form class="input-form exp" id="144" data-max="7" name="06" data-category="1" data-sub="4" data-q="4">
+
+                            <div class="drop o one-dimension" data-category="1" data-placeholder="What is the status of this program?" data-height="70px" data-name="programStatus" data-index="0" data-sub="4" data-q="4">
+                                <div class="cell big-option" data-text="Completed" data-name="programStatus">
+                                    Completed
+                                    <svg version="1.1" id="ic640" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
+					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
+					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
+				            </svg>
+                                </div>
+                                <div class="cell big-option" data-text="Ongoing">
+                                    Ongoing
+                                    <svg version="1.1" id="ic641" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
+					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
+					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
+				            </svg>
+                                </div>
+                                <div class="cell big-option" data-text="Not started">
+                                    Not started
+                                    <svg version="1.1" id="ic642" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
+					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
+					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
+				            </svg>
+                                </div>
+                            </div>
+                            <input type="submit" class="submit" data-sub="4" data-q="4" />
+                        </form>
+                    </div>
+
+                    <div class="hidden-wrap showradio" data-q="5" data-category="1" data-type="r" data-sub="4">
+                        <form class="input-form" id="145" data-max="7" data-q="5" data-category="1" data-sub="4">
+                            <div class="form-input showprompt radio-inp">
+                                <span class="radio-q">Did you meet the program result?</span>
+                            </div>
+                            <input type="submit" data-sub="4" data-q="5" class="submit" />
+                        </form>
+                    </div>
+
+                    <div class="hidden-wrap" data-q="6" data-type="file" data-category="1" data-sub="4">
+                        <form class="input-form" id="146" data-max="7" data-sub="4" data-q="6" data-category="1">
+                            <div class="skip-container" data-q="6" data-sub="4" data-category="1">
+                                <span class="skip-btn">Skip</span>
+                            </div>
+                            <label class="label-wrap no-padding-left" data-sub="4" data-q="6" data-category="1">
+                                <span>Add any program document for this program</span>
+                                <input data-sub="4" data-fid="ct1" class="map-input o" data-index="0" name="programDocument" data-type="file" type="file" id="f139" data-q="6" placeholder="Do you have a program document that you want to upload?" data-prompt="If yes, please upload your documents here. 5 mb maximum file size." />
+                            </label>
+
+                            <input type="submit" class="submit" data-q="6" data-sub="4" />
+                        </form>
+                    </div>
+                    <div class="hidden-wrap" data-q="7" data-type="file" data-category="1" data-sub="4">
+                        <form class="input-form radioform" id="147" data-max="7" data-sub="4" data-q="7" data-category="1">
+                            <div class="skip-container" data-q="7" data-sub="4" data-category="1">
+                                <span class="skip-btn">Skip</span>
+                            </div>
+                            <label class="label-wrap no-padding-left" data-sub="4" data-q="7" data-category="1">
+                                <span>Add your recent 990</span>
+                                <input data-sub="4" data-fid="ct1" class="map-input o" data-index="0" name="recent990" data-type="file" type="file" id="f1310" data-q="7" placeholder="Do you want to upload your recent 990?" data-prompt="If yes, please upload your document here." />
+                            </label>
+                            <input type="submit" class="submit" data-q="7" data-sub="4" />
+                        </form>
+                    </div> 
+
+
+                    <div class="input-overlay"></div>
+
+                    <div class="right" data-sub="4" data-q="1" data-max="7">
+                        <div class="icon arr-icon"></div>
+                    </div>
+                    <div class="wrong" data-sub="4">
+                        <div class="icon cross-icon"></div>
+                    </div>
+
+
+                    <div class="prompt" data-q="1">
+                        <span class="sp">What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job.</span>
+                    </div>
+                    <div class="prompt" data-q="2">
+                        <span class="sp">What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job.</span>
+                    </div>
+                    <div class="prompt" data-q="3">
+                        <span class="sp">Please provide details about what impact this program brings to your participants or those you serve.</span>
+                    </div>
+
+                    <div class="prompt radioprompt" data-q="5">
+                        <span class="sp1">
+                            Did you meet the program requirement and make an impact?
+                        </span>
+                        <form class="radioform" data-sub="4" data-category="1" data-q="5">
+                            <span>
+                                <label class="switch" id="switch17">
+                                    <span class="switch-container centered">
+
+                                        <label class="radioli" data-sub="4">
+                                            <input type="radio" name="meetProgramResult" class="yes map-input rad1 unchecked o" data-index="0" value="true" data-type="radio" data-caption="Yes" data-sub="4" data-q="5" placeholder="Did you meet the program result?" data-category="1" />
+                                            <span class="rad y fin" id="check17" data-sub="4" data-category="1"></span>
+                                            <span class="input-span">Yes</span>
+                                        </label>
+
+
+                                        <label class="radioli" data-sub="4">
+                                            <input type="radio" name="meetProgramResult" class="no map-input rad1 checked o" data-index="0" checked value="false" data-type="radio" data-caption="No" data-sub="4" data-q="5" data-category="1" />
+                                            <span class="rad n fin" id="check17n" data-sub="4" data-category="1"></span>
+                                            <span class="input-span">No</span>
+                                        </label>
+                                    </span>
+                                </label>
+                            </span>
+                        </form>
+                    </div>
+
+                    <div class="input-meter">
+                        <div class="meter-span"></div>
+                    </div>
+                    <div class="thanx">
+                        <div class="check-container">
+                            <svg version="1.1" id="c104" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                            <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
+					c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
+					c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
+				    </svg>
+
+                            <p class="thanx-p">Thank you!</p>
+                        </div>
+                        <div class="big-input-meter"></div>
+                    </div>
+
+                </div>
 
                 <!--Past Program Data--> 
                 <div class="input-wrap clonable" data-clonename="pastProgramData" data-sub="5">
@@ -1521,32 +1542,22 @@
                     <div class="stats-wrap">
                         <label class="form-label" id="label15">Past Program Data</label>
                         <p class="sub" id="sub15"></p>
-                        <span class="small-stats" id="stats15" data-max="3">0/3</span>
+                        <span class="small-stats" id="stats15" data-max="3">0/1</span>
                     </div>
 
 
-                    <div class="active-wrap first-wrap" data-q="1" data-category="1" data-sub="5">
-                        <form class="input-form" data-max="3" data-q="1" id="151" data-category="1" data-sub="5">
-                            <input name="pastProgramData.impact" class="form-input map-input showprompt show-add start o" data-index="0" data-sub="5" data-prompt="Please provide details about the program outcomes." data-q="1" placeholder="Past Program Outcome 1" />
+                    <div class="active-wrap first-wrap exp1 collapse" data-expheight="300" data-q="1" data-category="1" data-sub="5">
+                        <form class="input-form" data-max="1" data-q="1" id="151" data-category="1" data-sub="5">
+                            <input name="pastProgramData.impact" class="form-input map-input showprompt multiprompt show-add start o input-cell2" data-index="0" data-sub="5" data-prompt="Please provide details about the program outcomes." data-q="1" placeholder="Past Program Outcome" />
+                            <input name="pastProgramData.impactedNumber" class="form-input map-input multiprompt showprompt input-cell2" placeholder="Past Program Outcome #" data-index="0" data-sub="5" data-prompt="For example: 200 adults participated in job readiness, computer and job skills training; 500 children received eye exams." />
+                            <input name="pastProgramData.impactedGroup" class="form-input map-input multiprompt showprompt input-cell2" placeholder="Population Served" data-index="0" data-sub="5" data-prompt="Examples can be high school students, homeless families, teens, immigrants and so forth.">
                             <input type="submit" data-sub="5" data-q="1" class="submit" />
-                        </form>
-                    </div>
-                    <div class="hidden-wrap" data-q="2" data-category="1" data-sub="5">
-                        <form class="input-form" data-max="3" data-q="2" id="152" data-category="1" data-sub="5">
-                            <input name="pastProgramData.impactedNumber" class="form-input map-input showprompt" placeholder="Past Program Outcome 2" data-index="0" data-sub="5" data-prompt="For example: 200 adults participated in job readiness, computer and job skills training; 500 children received eye exams." />
-                            <input type="submit" data-sub="5" data-q="2" class="submit" />
-                        </form>
-                    </div>
-                    <div class="hidden-wrap" data-q="3" data-category="1" data-sub="5">
-                        <form class="input-form" data-max="3" data-q="3" id="153" data-category="1" data-sub="5">
-                            <input name="pastProgramData.impactedGroup" class="form-input map-input showprompt" placeholder="Population Served"  data-index="0" data-sub="5" data-prompt="Examples can be high school students, homeless families, teens, immigrants and so forth.">
-                            <input type="submit" data-sub="5" data-q="3" class="submit" />
                         </form>
                     </div>
 
                     <div class="input-overlay"></div>
 
-                    <div class="right" data-sub="5" data-q="1" data-max="3">
+                    <div class="right" data-sub="5" data-q="1" data-max="1">
                         <div class="icon arr-icon"></div>
                     </div>
                     <div class="wrong" data-sub="5">
@@ -1558,7 +1569,7 @@
                     </div>
                     <div class="prompt" data-q="2">
                         <span class="sp">
-                            example: 200 adults participated in job readiness, computer and job skills training; 500 children received eye exams.
+                            For example: 200 adults participated in job readiness, computer and job skills training; 500 children received eye exams.
                         </span>
                     </div>
                     <div class="prompt" data-q="3">
@@ -1590,7 +1601,7 @@
                         </div>
 
                         <div class="add-text">
-                            <span>Add past program data</span>
+                            <span>Add Past Program Data</span>
                         </div>
                     </div>
                 </div>
@@ -1599,139 +1610,6 @@
                     <button id="continue-btn1" class="continue-btn view-preview" data-category="1" data-view="1" data-max="3">Continue</button>
                 </div>
                 </div>
-
-            <!--Program Outcomes for cloning-->
-            <div class="input-wrap clonable hidden-wrap" data-clonename="programOutcomes1" data-sub="">
-
-                <div class="stats-wrap">
-                    <label class="form-label" id="label13">Program Outcomes</label>
-                    <p class="sub" id="sub13">Please provide details about the program outcomes. Please provide details on how exactly this program helped your main objective of the program. Examples can be decreased high school dropout by 13%. Or, 200 high school students exposed to write resumes.</p>
-                    <span class="small-stats" id="stats13" data-max="8">0/8</span>
-                </div>
-
-                <div class="active-wrap first-wrap" data-q="1" data-category="1" data-sub="4">
-                    <form class="input-form" data-max="8" data-q="1" id="141" data-category="1" data-sub="4">
-                        <input name="programOutcome.outcomeDescription" class="form-input map-input showprompt show-add start o" data-index="0" data-sub="4" data-prompt="Please provide details about the program outcomes." data-q="1" placeholder="Outcome 1" />
-                        <input type="submit" data-sub="4" data-q="1" class="submit" />
-                    </form>
-                </div>
-                <div class="hidden-wrap" data-q="2" data-category="1" data-sub="4">
-                    <form class="input-form" data-max="8" data-q="2" id="142" data-category="1" data-sub="4">
-                        <input name="programOutcome.impactedNumber" class="form-input map-input showprompt push o" data-sub="4" data-index="0" data-prompt="Please provide details about the program outcomes." data-q="2" placeholder="Outcome 2" />
-                        <input type="submit" data-sub="4" data-q="2" class="submit" />
-                    </form>
-                </div>
-                <div class="hidden-wrap" data-type="t" data-q="3" data-category="1" data-sub="4">
-                    <form class="input-form" data-max="8" data-q="3" id="143" data-category="1" data-sub="4">
-                        <textarea name="shortTermImpact" class="form-textarea map-input wordcount showprompt o" data-index="0" data-type="t" data-wordcount="50" data-prompt="What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job." data-sub="4" data-q="3" placeholder="Impact Goals - Short Term"></textarea>
-                        <input type="submit" data-sub="4" data-q="3" class="submit" />
-                    </form>
-                </div>
-                <div class="hidden-wrap exp-wrap" data-type="t" data-q="4" data-category="1" data-sub="4">
-                    <form class="input-form" data-max="8" data-q="4" id="144" data-category="1" data-sub="4">
-                        <textarea name="longTermImpact" class="form-textarea map-input wordcount expanded showprompt wordcount o" data-index="0" data-wordcount="50" data-type="t" data-prompt="What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job." data-sub="4" data-q="4" placeholder="Impact Goals - Long Term"></textarea>
-                        <input type="submit" data-sub="4" data-q="4" class="submit sub-exp" />
-                    </form>
-                </div>
-                <div class="hidden-wrap exp-wrap collapse" data-type="t" data-q="5" data-category="1" data-sub="4">
-                    <form class="input-form" data-max="8" data-q="5" id="145" data-category="1" data-sub="4">
-                        <textarea name="overallImpact" class="form-textarea map-input wordcount expanded showprompt wordcount drop-follow o" data-index="0" data-type="t" data-wordcount="50" data-prompt="Please provide details about what impact this program brings to your participants or those you serve." data-sub="4" data-q="5" placeholder="Overall Program Impact"></textarea>
-                        <input type="submit" data-sub="4" data-q="5" class="submit sub-exp" />
-                    </form>
-                </div>
-
-                <div class="hidden-wrap" data-q="6" data-category="1" data-sub="4">
-                    <form class="input-form" data-max="8" data-q="6" id="148" data-category="1" data-sub="4">
-                        <input name="pastProgramData.impact" class="form-input map-input showprompt o" data-index="0" data-sub="4" data-prompt="Do you have past program level stats that you want to add to your profile? For example: 200 adults participated in job readiness, computer and job skills training; 500 children received eye exams." data-q="6" placeholder="Stats" />
-                        <input type="submit" data-sub="4" data-q="6" class="submit" />
-                    </form>
-                </div>
-                <div class="hidden-wrap" data-q="7" data-type="file" data-category="1" data-sub="4">
-                    <form class="input-form" id="149" data-max="8" data-sub="4" data-q="7" data-category="1">
-                        <div class="skip-container" data-q="7" data-sub="4" data-category="1">
-                            <span class="skip-btn">Skip</span>
-                        </div>
-                        <label class="label-wrap no-padding-left" data-sub="4" data-q="7" data-category="1">
-                            <span>Add any program document for this program</span>
-                            <input data-sub="4" data-fid="ct1" class="map-input o" data-index="0" name="programDocuments" data-type="file" type="file" id="f139a" data-q="7" placeholder="Do you have a program document that you want to upload?" data-prompt="If yes, please upload your documents here. 5 mb maximum file size." />
-                        </label>
-
-                        <input type="submit" class="submit" data-q="7" data-sub="4" />
-                    </form>
-                </div>
-                <div class="hidden-wrap" data-q="8" data-type="file" data-category="1" data-sub="4">
-                    <form class="input-form radioform" id="1410" data-max="8" data-sub="4" data-q="8" data-category="1">
-                        <div class="skip-container" data-q="8" data-sub="4" data-category="1">
-                            <span class="skip-btn">Skip</span>
-                        </div>
-                        <label class="label-wrap no-padding-left" data-sub="4" data-q="8" data-category="1">
-                            <span>Add your recent 990</span>
-                            <input data-sub="4" data-fid="ct1" class="map-input o" data-index="0" name="recent990" data-type="file" type="file" id="f1310a" data-q="8" placeholder="Do you want to upload your recent 990?" data-prompt="If yes, please upload your document here." />
-                        </label>
-                        <input type="submit" class="submit" data-q="8" data-sub="4" />
-                    </form>
-                </div>
-
-
-
-                <div class="input-overlay"></div>
-
-                <div class="right" data-sub="4" data-q="1" data-max="8">
-                    <div class="icon arr-icon"></div>
-                </div>
-                <div class="wrong" data-sub="4">
-                    <div class="icon cross-icon"></div>
-                </div>
-
-                <div class="prompt" data-q="1">
-                    <span class="sp">Please provide details about the program outcomes.</span>
-                </div>
-                <div class="prompt" data-q="2">
-                    <span class="sp">Please provide details about the program outcomes.</span>
-                </div>
-                <div class="prompt" data-q="3">
-                    <span class="sp">What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job.</span>
-                </div>
-                <div class="prompt" data-q="4">
-                    <span class="sp">What is/was your short term, medium and long-term goal. Example can be for short term: to be able to have a resume; medium: to be to be able to go for interview and face the real word; long term: to be to be able to secure a job.</span>
-                </div>
-                <div class="prompt" data-q="5">
-                    <span class="sp">Please provide details about what impact this program brings to your participants or those you serve.</span>
-                </div>
-
-                <div class="prompt" data-q="6">
-                    <span class="sp">Do you have past program level stats that you want to add to your profile? For example: 200 adults participated in job readiness, computer and job skills training; 500 children received eye exams.</span>
-                </div>
-
-                <div class="input-meter">
-                    <div class="meter-span"></div>
-                </div>
-                <div class="thanx">
-                    <div class="check-container">
-                        <svg version="1.1" id="c104" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
-					c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
-					c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
-				    </svg>
-
-                        <p class="thanx-p">Thank you!</p>
-                    </div>
-                    <div class="big-input-meter"></div>
-                </div>
-
-                <div class="add-inp hideadd" id="add009">
-
-                    <div class="add-btn plus" data-index="0" data-category="1" data-sub="4">
-                        <div class="icon icon-plus icon-visible"></div>
-                    </div>
-
-                    <div class="add-text">
-                        <span>Add outcomes</span>
-                    </div>
-                </div>
-
-            </div>
-
 
             <!--3 category-->
             <div class="category-wrap" data-category="2" data-subs="4">

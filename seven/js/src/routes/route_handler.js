@@ -275,7 +275,7 @@ module.exports = {
                         mapped_drops[i] = '<div class="form-input2 clear"><h3>' + drops.eq(i).attr('data-placeholder') + '</h3>'
                             + '<select data-index="' + drops.eq(i).attr('data-index') + '" data-name="' + drops.eq(i).attr('data-name')
                             + '" class="form-control map-input sel ' + (drops.eq(i).hasClass('one-dimension') ? 'one-dimension' : '') + (drops.eq(i).hasClass('p') ? 'p' : '')
-                            + (drops.eq(i).hasClass('o') ? 'o' : '') + '" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
+                            + ' ' + (drops.eq(i).hasClass('o') ? 'o' : '') + '" multiple style="height: ' + drops.eq(i).attr('data-height') + '">' + cells.join('') + '</select></div>';
 
                         var sub = drops.eq(i).attr('data-sub');
                         var curr = wrap.find('.form-sub[data-sub="' + sub + '"]');
