@@ -16,13 +16,21 @@ module.exports = {
         var self = this; 
 
         $('#ct1').on('submit', function (e) {
+           
+            if ($('.add-program-btn').hasClass('clicked')) {
+                $('.add-program-btn').removeClass('clicked');
+                e.preventDefault();
+                self.handle_submit.call($('#ct1'), e, '1', true);
+            } else {
+                e.preventDefault();
+                self.handle_submit.call($('#ct1'), e, '1');
+            }
 
-            e.preventDefault();
-            self.handle_submit.call($('#ct1'), e, '1');
-        });
-        $('.add-program-btn').on('click', function (e) {
-            self.handle_submit.call($('#ct1'), e, '1', true);
-        })
+        }); 
+		
+        $('.add-program-btn').on('click', function () {
+            $(this).addClass('clicked'); 
+        }); 
     }, 
     remove_submit_handlers: function() {
 
@@ -110,7 +118,6 @@ module.exports = {
 
                 data_handler.set_drop(dropdowns.eq(i), dropdowns.eq(i).attr('data-name'));
             }
-
 
         }
 
