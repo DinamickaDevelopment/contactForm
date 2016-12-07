@@ -565,6 +565,7 @@ input[type=radio] {
     margin-top: 100px;
     margin-bottom: 100px;
     margin-right: 60px;
+    margin-left: 30px;
 }
 
 #continue-btn {
@@ -1165,7 +1166,6 @@ p {
 
 .form-input2 input {
     transition: background-color linear 0.3s;
-    box-sizing: border-box;
 }
 
     .form-input2 input:focus {

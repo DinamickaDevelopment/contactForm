@@ -90,19 +90,19 @@ module.exports = {
                             if (form_inputs.eq(i + 1).attr('name') != 'recent990') {
                                 data_handler.set_field(form_inputs.eq(i), propname, null, old_inp, ind);
                             }
-                            if (form_inputs.eq(i).attr('name') == 'programDocuments') {
+							if (form_inputs.eq(i).attr('name') == 'programDocuments') {
                                 data_handler.set_field(form_inputs.eq(i), propname, null, old_inp, ind);
                             }
 
                     
-                        } else if (form_inputs.eq(i - 1).attr('name') != 'recent990') {
+                        } else {
                             data_handler.set_field(form_inputs.eq(i), propname, null, inputs.eq(i), ind);
                         }
                           
                         
                     }
                 } else {
-                    data_handler.set_regions(form_inputs.eq(i));
+                    data_handler.set_regions(form_inputs.eq(i), true);
                 }
             }
 
