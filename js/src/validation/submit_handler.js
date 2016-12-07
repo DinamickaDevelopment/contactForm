@@ -141,7 +141,7 @@ module.exports = {
                 $('.form-wrap').find('.category-wrap[data-category!="' + data.ct + '"]').css({ 'display': 'none' });
 
                 $('.big-container').fadeIn(500);
-                var max = 3;
+                var max = 2;
 
                 var step = 100 / max;
                 var w = step * data.ct;
@@ -151,7 +151,7 @@ module.exports = {
                 }, {
                     duration: 500,
                     complete: function () {
-                        $('.stats').html(data.ct + '/3');
+                        $('.stats').html(data.ct + '/2');
                     }
                 });
                 $('.form-wrap').fadeIn(300);
