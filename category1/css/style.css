@@ -152,7 +152,9 @@ p.error {
     color: #8a97bb;
     position: relative;
     z-index: 100;
-    padding-left: 30px;
+    padding-left: 30px; 
+	padding-right: 130px;
+	box-sizing: border-box; 
     display: inline-block;
     background-color: #c3cbe1;
     padding-bottom: 0;
@@ -565,6 +567,7 @@ input[type=radio] {
     margin-top: 100px;
     margin-bottom: 100px;
     margin-right: 60px;
+    margin-left: 30px;
 }
 
 #continue-btn {
@@ -1166,6 +1169,8 @@ p {
 .form-input2 input {
     transition: background-color linear 0.3s;
     box-sizing: border-box;
+    padding-right: 30px!important;
+
 }
 
     .form-input2 input:focus {
