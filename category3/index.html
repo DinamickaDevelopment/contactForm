@@ -28,10 +28,10 @@
             <div class="category-wrap" data-category="2" data-subs="4">
                 <!--category heading-->
                 <div class="category-heading">
-                    <h1>VOLUNTEER INFORMATION</h1>
+                    <h1>VOLUNTEER/EVENT OPPORTUNITY</h1>
                 </div>
 
-    
+
                 <div class="input-wrap" data-sub="0">
 
                     <div class="stats-wrap">
@@ -40,21 +40,46 @@
                         <span class="small-stats" id="stats20" data-max="4">0/4</span>
                     </div>
 
-                    <div class="active-wrap first-wrap" data-q="1" data-category="2" data-sub="0">
-                        <form class="input-form" data-max="4" data-q="1" id="201" data-category="2" data-sub="0">
-                            <input name="eventCategory" autofocus class="form-input map-input showprompt autofocus" data-sub="0" data-prompt="Volunteer Opportunity or Event." data-q="1" placeholder="What kind of opportunity is this?" />
+                    <div class="active-wrap dropstyle-overflow first-wrap" data-dropheight="300" data-q="1" data-category="2" data-sub="0">
+
+                        <input class="form-input exp-drop curr-inp mock" placeholder="What kind of opportunity is this?" data-sub="1" data-q="2" />
+
+
+                        <div class="down no-margin-right" id="d201">
+                            <div class="icon down-icon"></div>
+                        </div>
+
+                        <form class="input-form exp" data-max="4" data-q="1" id="201" data-category="2" data-sub="0">
+                            <div class="drop one-dimension" data-category="2" data-placeholder="What kind of opportunity is this?" data-height="50px" data-name="eventCategory" data-sub="0" data-q="1">
+                                <div class="cell big-option" data-text="Volunteer" data-name="eventCategory">
+                                    Volunteer
+                                    <svg version="1.1" id="ic200a" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
+					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
+					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
+				            </svg>
+                                </div>
+                                <div class="cell big-option" data-text="Event">
+                                    Event
+                                    <svg version="1.1" id="ic201a" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
+					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
+					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
+				            </svg>
+                                </div>
+                            </div>
                             <input type="submit" data-sub="0" data-q="1" class="submit" />
                         </form>
-                    </div> 
+                    </div>
                     <div class="hidden-wrap" data-q="2" data-category="2" data-sub="0">
                         <form class="input-form" data-max="4" data-q="2" id="202" data-category="2" data-sub="0">
                             <input name="eventName" class="form-input map-input" data-sub="0" data-q="2" placeholder="Name of the volunteer/event opportunity" />
                             <input type="submit" data-sub="0" data-q="2" class="submit" />
                         </form>
-                    </div> 
-                    <div class="hidden-wrap" data-q="3" data-category="2" data-sub="0">
+                    </div>
+                    <div class="hidden-wrap collapse" data-q="3" data-category="2" data-sub="0">
                         <form class="input-form" data-max="4" data-q="3" id="203" data-category="2" data-sub="0">
-                            <input name="eventType" class="form-input map-input showprompt" data-prompt="Please add few areas of focus for this opportunity. Examples can be mentoring, food packing and supply, tutoring." data-sub="0" data-q="3" placeholder="Type of volunteer/event opportunity" />
+                            <textarea name="eventType" class="form-textarea map-input showprompt" data-wordcount="50" data-prompt="Please add few areas of focus for this opportunity. Examples can be mentoring, food packing and supply, tutoring." data-sub="0" data-q="3" placeholder="Type of volunteer/event opportunity"></textarea>
                             <input type="submit" data-sub="0" data-q="3" class="submit" />
                         </form>
                     </div>
@@ -63,9 +88,9 @@
                             <textarea data-sub="0" name="eventDescription" class="form-textarea wordcount huge showprompt map-input" data-q="4" data-prompt="Please add a detailed volunteer description to elaborate your opportunity up to 250 words." data-wordcount="250" placeholder="Description of the volunteer/event opportunity"></textarea>
                             <input type="submit" class="submit sub-exp" data-q="4" data-sub="0" />
                         </form>
-                    </div> 
+                    </div>
 
-                    <div class="input-overlay"></div> 
+                    <div class="input-overlay"></div>
 
                     <div class="right" data-sub="0" data-q="1" data-max="4">
 
@@ -77,7 +102,7 @@
 
                     <div class="prompt" data-q="1">
                         <span class="sp">Volunteer Opportunity or Event.</span>
-                    </div> 
+                    </div>
                     <div class="prompt" data-q="3">
                         <span class="sp">Please add few areas of focus for this opportunity. Examples can be mentoring, food packing and supply, tutoring.</span>
                     </div>
@@ -108,16 +133,16 @@
                 <div class="input-wrap" data-sub="1">
 
                     <div class="stats-wrap">
-                        <label class="form-label colormask" id="label21">Mock</label>
+                        <label class="form-label" id="label21">Population Served</label>
                         <p class="sub" id="sub21"></p>
-                        <span class="small-stats" id="stats21" data-max="3">0/3</span>
+                        <span class="small-stats" id="stats21" data-max="5">0/5</span>
                     </div>
 
                     <div class="active-wrap dropstyle-overflow first-wrap" data-dropheight="300" data-q="1" data-category="1" data-sub="1">
                         <input class="form-input exp-drop curr-inp mock" placeholder="Your volunteer/event service areas" data-sub="1" data-q="2" />
 
 
-                        <div class="down no-margin-right" id="d201">
+                        <div class="down no-margin-right" id="d211">
                             <div class="icon down-icon"></div>
                         </div>
                         <form class="input-form exp" id="211" data-max="5" data-q="1" name="02" data-category="2" data-sub="1">
@@ -239,14 +264,14 @@
                             </div>
                             <input type="submit" class="submit" data-sub="1" data-q="1" />
                         </form>
-                    </div> 
+                    </div>
 
                     <div class="hidden-wrap dropstyle" data-dropheight="500" data-q="2" data-category="2" data-sub="1">
                         <input class="form-input exp-drop curr-inp mock" placeholder="Volunteer served population?" data-sub="1" data-q="2" />
                         <div class="down no-margin-right">
                             <div class="icon down-icon"></div>
                         </div>
-                        <form class="input-form exp" id="212" data-max="10" name="02" data-category="2" data-sub="1" data-q="2">
+                        <form class="input-form exp" id="212" data-max="5" name="02" data-category="2" data-sub="1" data-q="2">
 
                             <div class="drop" data-category="1" data-placeholder="Volunteer served population?" data-height="85px" data-name="populationServed" data-sub="1" data-q="2">
                                 <div class="cell big-option" data-text="Kids" data-name="Kids">
@@ -284,48 +309,33 @@
                             </div>
                             <input type="submit" class="submit" data-sub="1" data-q="2" />
                         </form>
-                    </div> 
+                    </div>
 
-                    <div class="hidden-wrap dropstyle" data-dropheight="400" data-q="3" data-category="2" data-sub="1">
-                        <input class="form-input exp-drop curr-inp mock" placeholder="Number of volunteers required" data-sub="1" data-q="3" />
-                        <div class="down no-margin-right">
-                            <div class="icon down-icon"></div>
-                        </div>
-                        <form class="input-form exp" id="213" data-max="10" name="03" data-category="2" data-sub="1" data-q="3">
+                    <div class="hidden-wrap" data-q="3" data-category="2" data-sub="1">
 
-                            <div class="drop one-dimension" data-category="1" data-placeholder="Number of volunteers required" data-height="70px" data-name="volunteersRequired" data-sub="1" data-q="3">
-                                <div class="cell big-option" data-text="2 people" data-name="eventTime">
-                                    2 people
-                                    <svg version="1.1" id="ic220a" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
-					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
-					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
-				            </svg>
-                                </div>
-                                <div class="cell big-option" data-text="5-10 people">
-                                    5-10 people
-                                    <svg version="1.1" id="ic221a" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
-					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
-					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
-				            </svg>
-                                </div>
-                                <div class="cell big-option" data-text="20 people">
-                                    20 people
-                                    <svg version="1.1" id="ic222a" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
-					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
-					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
-				            </svg>
-                                </div>
-                            </div>
+                        <form class="input-form" id="213" data-max="5" name="03" data-category="2" data-sub="1" data-q="3">
+                            <input class="form-input map-input addmask showprompt" data-maskval="nums" name="volunteersRequired" data-prompt="Example: 10, 20 or 50." data-sub="1" data-q="3" type="text" placeholder="Volunteers required" />
                             <input type="submit" class="submit" data-sub="1" data-q="3" />
                         </form>
                     </div>
 
 
+                    <div class="hidden-wrap exp1 collapse" data-expheight="200" data-q="4" data-category="2" data-sub="1">
+                        <form class="input-form" id="214" data-max="5" data-sub="1" data-q="4" data-category="2">
+                            <input class="form-input map-input addmask input-cell2" data-maskval="99/99/9999" name="eventStartDate" data-sub="1" data-q="4" type="text" placeholder="Volunteer/event start date" />
+                            <input class="form-input map-input addmask input-cell2" data-maskval="99/99/9999" name="eventEndDate" data-sub="1" data-q="5" type="text" placeholder="Volunteer/event end date" />
+                            <input type="submit" class="submit sub-exp" data-q="4" data-sub="1" />
+                        </form>
+                    </div>
+
+                    <div class="hidden-wrap" data-q="5" data-category="2" data-sub="1">
+                        <form class="input-form" id="215" data-max="5" data-sub="1" data-q="5" data-category="2">
+                            <input class="form-input map-input showprompt" data-prompt="Example: Morning Hours, Afternoon Hours, Evening Hours or 10:00 AM - 12:00 PM, 2:00 PM - 5:00 PM." name="eventTime" data-sub="1" data-q="5" type="text" placeholder="Volunteer/event time" />
+                        </form>
+                    </div>
+
                     <div class="input-overlay"></div>
-                    <div class="right hidden" data-sub="1" data-q="1" data-max="3">
+                    <div class="right hidden" data-sub="1" data-q="1" data-max="5">
 
                         <div class="icon arr-icon"></div>
                     </div>
@@ -333,6 +343,12 @@
                         <div class="icon cross-icon"></div>
                     </div>
 
+                    <div class="prompt" data-q="3">
+                        <span class="sp">Example: 10, 20 or 50.</span>
+                    </div>
+                    <div class="prompt" data-q="5">
+                        <span class="sp">Example: Morning Hours, Afternoon Hours, Evening Hours or 10:00 AM - 12:00 PM, 2:00 PM - 5:00 PM.</span>
+                    </div>
 
                     <div class="input-meter">
                         <div class="meter-span"></div>
@@ -354,22 +370,22 @@
 
                 <!--sub3-->
                 <!--Field:  Main point of contact Full Name (First and Last Name field)
-                Field:  Main point of contact email address for the volunteer/event opportunity
-                Field:  Volunteer/event start date (date field)
-                Date
-                Field:  Volunteer/event end date  (date field)
-                Date
-                Field:  Please add different times of the day. Examples can be morning, afternoon, and evening.  (drop down or selection field)
-                Morning Hours
-                Afternoon Hours
-                Evening Hours-->
+        Field:  Main point of contact email address for the volunteer/event opportunity
+        Field:  Volunteer/event start date (date field)
+        Date
+        Field:  Volunteer/event end date  (date field)
+        Date
+        Field:  Please add different times of the day. Examples can be morning, afternoon, and evening.  (drop down or selection field)
+        Morning Hours
+        Afternoon Hours
+        Evening Hours-->
 
                 <div class="input-wrap" data-sub="2">
 
                     <div class="stats-wrap">
-                        <label class="form-label colormask" id="label22">Mock</label>
+                        <label class="form-label" id="label22">Contact Detail</label>
                         <p class="sub" id="sub22"></p>
-                        <span class="small-stats" id="stats22" data-max="4">0/4</span>
+                        <span class="small-stats" id="stats22" data-max="2">0/2</span>
                     </div>
 
 
@@ -380,95 +396,52 @@
 
 
                     <div class="active-wrap exp collapse warp" data-q="1" data-category="2" data-sub="2">
-                        <form class="input-form" id="221" data-max="4" data-sub="2" data-q="1" data-category="2">
+                        <form class="input-form" id="221" data-max="2" data-sub="2" data-q="1" data-category="2">
                             <div class="name-wrap">
-                                <input class="form-input map-input input-cell2" name="eventContact.firstName" data-prompt="Main point of contact First Name" data-sub="2" data-q="1" type="text" placeholder="First name" />
-                                <input class="form-input map-input input-cell2" name="eventContact.lastName" data-prompt="Main point of contact Last Name"  data-sub="2" data-q="2" type="text" placeholder="Last name" />
+                                <input class="form-input map-input" name="eventContact.firstName" data-prompt="Main point of contact First Name" data-sub="2" data-q="1" type="text" placeholder="First name" />
+                                <input class="form-input map-input" name="eventContact.lastName" data-prompt="Main point of contact Last Name" data-sub="2" data-q="2" type="text" placeholder="Last name" />
                             </div>
                             <input type="submit" class="submit sub-exp1" data-q="1" data-sub="2" />
                         </form>
                     </div>
 
                     <div class="hidden-wrap" data-q="2" data-category="2" data-sub="2">
-                        <form class="input-form" id="222" data-max="4" data-sub="2" data-q="2" data-category="2">
+                        <form class="input-form" id="222" data-max="2" data-sub="2" data-q="2" data-category="2">
                             <input class="form-input map-input" name="eventContact.email" data-prompt="Main point of contact Email" data-sub="2" data-q="3" type="email" placeholder="Main point of contact Email" />
                             <input type="submit" class="submit" data-q="2" data-sub="2" />
                         </form>
                     </div>
 
-                        <div class="hidden-wrap exp1 collapse" data-expheight="200" data-q="3" data-category="2" data-sub="2">
-                            <form class="input-form" id="223" data-max="4" data-sub="2" data-q="3" data-category="2">
-                                <input class="form-input map-input addmask input-cell2" data-maskval="99/99/9999" name="eventStartDate" data-sub="2" data-q="4" type="text" placeholder="Volunteer/event start date" />
-                                <input class="form-input map-input addmask input-cell2" data-maskval="99/99/9999" name="eventEndDate" data-sub="2" data-q="5" type="text" placeholder="Volunteer/event end date" />
-                                <input type="submit" class="submit sub-exp" data-q="3" data-sub="2" />
-                            </form>
-                        </div>
-
-                        <div class="hidden-wrap dropstyle collapse" data-dropheight="400" data-q="4" data-category="2" data-sub="2">
-                            <input class="form-input exp-drop curr-inp mock" placeholder="Volunteer event time" data-sub="2" data-q="4" />
-                            <div class="down no-margin-right">
-                                <div class="icon down-icon"></div>
-                            </div>
-                            <form class="input-form exp" id="224" data-max="10" name="03" data-category="2" data-sub="2" data-q="4">
-
-                                <div class="drop one-dimension" data-category="1" data-placeholder="Volunteer event time" data-height="70px" data-name="eventTime" data-sub="2" data-q="4">
-                                    <div class="cell big-option" data-text="Morning Hours" data-name="eventTime">
-                                        Morning Hours
-                                        <svg version="1.1" id="ic220" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                                        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
-					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
-					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
-				            </svg>
-                                    </div>
-                                    <div class="cell big-option" data-text="Afternoon Hours">
-                                        Afternoon Hours
-                                        <svg version="1.1" id="ic221" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                                        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
-					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
-					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
-				            </svg>
-                                    </div>
-                                    <div class="cell big-option" data-text="Evening Hours">
-                                        Evening Hours
-                                        <svg version="1.1" id="ic222" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                                        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
-					        c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
-					        c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
-				            </svg>
-                                    </div>
-                                </div>
-                                <input type="submit" class="submit" data-sub="2" data-q="4" />
-                            </form>
-                        </div>
-
-                        <div class="input-overlay"></div>
 
 
-                        <div class="right" data-sub="2" data-q="1" data-max="4">
-
-                            <div class="icon arr-icon"></div>
-                        </div>
-                        <div class="wrong" data-sub="2">
-                            <div class="icon cross-icon"></div>
-                        </div>
+                    <div class="input-overlay"></div>
 
 
-                        <div class="input-meter">
-                            <div class="meter-span"></div>
-                        </div>
-                        <div class="thanx">
-                            <div class="check-container">
-                                <svg version="1.1" id="c202" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                                <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
+                    <div class="right" data-sub="2" data-q="1" data-max="2">
+
+                        <div class="icon arr-icon"></div>
+                    </div>
+                    <div class="wrong" data-sub="2">
+                        <div class="icon cross-icon"></div>
+                    </div>
+
+
+                    <div class="input-meter">
+                        <div class="meter-span"></div>
+                    </div>
+                    <div class="thanx">
+                        <div class="check-container">
+                            <svg version="1.1" id="c202" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                            <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" stroke-miterlimit="5" id="checkmark" d="M41.8,18.4L24.061,35.045l-1.838,1.524c-1,1-2.049,0.238-3.049-0.762L8.8,26.9
 					c-0.925-1.495-0.477-2.571,0.106-3.109l0.583-0.045c0.135-0.224,0.852,0.045,1.659,0.493l10.223,8.519l17.486-16.096
 					c0.763-0.717,2.152-1.435,2.646-1.166L42.04,15.9C42.398,16.528,42.8,17.4,41.8,18.4z"></path>
 				    </svg>
 
-                                <p class="thanx-p">Thank you!</p>
-                            </div>
-                            <div class="big-input-meter"></div>
+                            <p class="thanx-p">Thank you!</p>
                         </div>
+                        <div class="big-input-meter"></div>
                     </div>
+                </div>
 
                 <div class="input-wrap" data-sub="3">
                     <div class="stats-wrap">
@@ -528,7 +501,7 @@
 
                 </div>
 
-                
+
 
                 <div class="continue-btn-container">
                     <button id="continue-btn2" class="continue-btn view-preview" data-category="2" data-view="2" data-max="3">Continue</button>
