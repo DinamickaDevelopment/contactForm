@@ -66,6 +66,8 @@
 
 	window.onload = function () {
 	    
+	    route_handler.clone_ct();
+		route_handler.clone_ct2();
 	    var init_flag = false; 
 		
 
@@ -5659,8 +5661,25 @@
 	var submit_handler = __webpack_require__(19);
 	var inputmask_handler = __webpack_require__(6); 
 
-	module.exports = {
+	module.exports = { 
 
+	    ct: '', 
+	    ct2: '',
+	    clone_ct: function () {
+	        var ct = $('.category-wrap[data-category="1"]').clone();
+	 
+	        this.ct = ct;
+	   
+	        return ct; 
+
+	    },
+	    clone_ct2: function() {
+	        var ct = $('.category-wrap[data-category="2"]').clone();
+	 
+	        this.ct2 = ct;
+	   
+	        return ct; 
+	    }, 
 	    preview_handler: function (data) {
 	        var self = this; 
 	        $('.view-preview').on('click', function (e) {
@@ -6339,23 +6358,46 @@
 	            self.handle_submit.call($('#ct0'), e, '0');
 	        });
 	        $('#ct1').on('submit', function (e) {
+	           
+	            if ($('.add-program-btn').hasClass('clicked')) {
+	                $('.add-program-btn').removeClass('clicked');
+	                e.preventDefault();
+	                self.handle_submit.call($('#ct1'), e, '1', true);
+	            } else {
+	                e.preventDefault();
+	                self.handle_submit.call($('#ct1'), e, '1');
+	            }
 
-	            e.preventDefault();
-	            self.handle_submit.call($('#ct1'), e, '1');
 	        });
 	        $('#ct2').on('submit', function (e) {
-	            e.preventDefault();
-	            self.handle_submit.call($('#ct2'), e, '2');
+
+	            if ($('.add-event-btn').hasClass('clicked')) {
+	                $('.add-event-btn').removeClass('clicked');
+	                e.preventDefault();
+	                self.handle_submit.call($('#ct2'), e, '2', true);
+	            } else {
+
+	                e.preventDefault();
+	                self.handle_submit.call($('#ct2'), e, '2');
+	            }
 
 	        });
+
+	        $('.add-program-btn').on('click', function () {
+	            $(this).addClass('clicked');
+	        });
+
+	        $('.add-event-btn').on('click', function () {
+	            $(this).addClass('clicked'); 
+	        })
 	    }, 
 	    remove_submit_handlers: function() {
 	        $('#ct0').unbind();
 	        $('#ct1').unbind();
 	        $('#ct2').unbind();
+	        $('.add-program-btn').unbind(); 
 	    },
-
-	    handle_submit: function (e, ct) {
+	    handle_submit: function (e, ct, flag) {
 
 	        if ($(this).find('.invalid').length > 0) {
 	            $(this).find('.error').html('form contains invalid data');
@@ -6420,9 +6462,9 @@
 	        // send form data
 	        json_handler.send_data(); 
 			
-	        function view (data) {
+	        function view (data, init_flag, add_flag) {
 
-
+	           
 	            $('.form-preview-wrap').fadeOut(500, function () {
 
 	                $('input[type="radio"]').css({
@@ -6451,7 +6493,42 @@
 
 	            });
 
+	            if (add_flag) {
+	                var data_handler = __webpack_require__(17);
+	                var json_handler = __webpack_require__(18);
+	                var radio_handler = __webpack_require__(4);
+	                var inputmask_handler = __webpack_require__(6);
+	                var focus_handler = __webpack_require__(7);
+	                var question_change_handler = __webpack_require__(9);
+	                var file_handler = __webpack_require__(12);
+	                var add_input_handler = __webpack_require__(13);
+	                var dropdown_select_handler = __webpack_require__(14);
+	                var nested_dropdown_handler = __webpack_require__(15);
+	                var route_handler = __webpack_require__(16);;
 
+	                if (data.ct == '1') {
+	                    var ct1 = route_handler.ct;
+	                    ct2 = ct1.clone();
+	                    $('.form-wrap').find('.category-wrap[data-category="1"]').remove();
+	                    if ($('.form-wrap').find('.category-wrap[data-category="0"]').length > 0) {
+	                        $('.form-wrap').find('.category-wrap[data-category="0"]').after(ct2);
+	                    } else {
+	                        $('.form-wrap').append(ct2);
+	                    }
+
+	                   
+	                } else if (data.ct == '2') {
+	                    var ct1 = route_handler.ct2;
+	                    ct2 = ct1.clone();
+	                    $('.form-wrap').find('.category-wrap[data-category="2"]').remove();
+	                    if ($('.form-wrap').find('.category-wrap[data-category="1"]').length > 0) {
+	                        $('.form-wrap').find('.category-wrap[data-category="1"]').after(ct2);
+	                    } else {
+	                        $('.form-wrap').append(ct2);
+	                    }
+	                }
+	                init_flag = false; 
+	            }
 
 	            if (!init_flag) {
 
@@ -6469,49 +6546,67 @@
 
 	            }
 
+
+
 	            $('.category-wrap[data-category="' + data.ct + '"]').find('.autofocus').trigger('focus');
 
 	        }
-
-	        if (ct < 2) {
-	            var next_cat = parseInt(ct) + 1;
-	            try {
-	                $.router.go('/view/' + next_cat);
-	            } catch (err) {
-	                var dt = {
-	                    ct: next_cat
+			
+	        if (!flag) {
+	            if (ct < 2) {
+	                var next_cat = parseInt(ct) + 1;
+	                try {
+	                    $.router.go('/view/' + next_cat);
+	                } catch (err) {
+	                    var dt = {
+	                        ct: next_cat
+	                    }
+	                    view(dt);
 	                }
-	                view(dt);
+	            } else {
+	                try {
+	                    $.router.go('/done');
+	                } catch (err) {
+	                    done();
+	                }
+
+
+	                function done() {
+
+	                    $('.stats').html('3/3');
+	                    $('.meter-top span').animate({
+	                        width: '100%'
+	                    }, {
+	                        duration: 500,
+	                        complete: function () {
+
+	                            $('.big-container').fadeOut(500, function () {
+	                                $('.thank-you-screen').css({
+	                                    'height': '100%'
+	                                });
+	                                $('.thank-you-screen').animate({
+	                                    opacity: 1
+	                                }, 700);
+	                            });
+	                        }
+	                    })
+
+	                }
 	            }
 	        } else {
-	            try {
-	                $.router.go('/done');
-	            } catch (err) {
-	                done();
-	            }
+	         
+	            $('#ct0').unbind();
+	            $('#ct1').unbind();
+	            $('#ct2').unbind();
+	            $('.add-program-btn').unbind();
 
-	            function done() {
+	            $('*').unbind();
+	        
+	            view({ ct: parseInt(ct) }, true, true);
+	           
 
-	                $('.stats').html('3/3');
-	                $('.meter-top span').animate({
-	                    width: '100%'
-	                }, {
-	                    duration: 500,
-	                    complete: function () {
 
-	                        $('.big-container').fadeOut(500, function () {
-	                            $('.thank-you-screen').css({
-	                                'height': '100%'
-	                            });
-	                            $('.thank-you-screen').animate({
-	                                opacity: 1
-	                            }, 700);
-	                        });
-	                    }
-	                })
-
-	            }
-
+	            
 	        }
 	    }
 

@@ -3,8 +3,25 @@ var json_handler = require('../json_handler');
 var submit_handler = require('../validation/submit_handler');
 var inputmask_handler = require('../validation/inputmask_handler'); 
 
-module.exports = {
+module.exports = { 
 
+    ct: '', 
+    ct2: '',
+    clone_ct: function () {
+        var ct = $('.category-wrap[data-category="1"]').clone();
+ 
+        this.ct = ct;
+   
+        return ct; 
+
+    },
+    clone_ct2: function() {
+        var ct = $('.category-wrap[data-category="2"]').clone();
+ 
+        this.ct2 = ct;
+   
+        return ct; 
+    }, 
     preview_handler: function (data) {
         var self = this; 
         $('.view-preview').on('click', function (e) {
