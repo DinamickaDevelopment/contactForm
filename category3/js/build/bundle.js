@@ -3699,6 +3699,7 @@
 	var prompt_handler = __webpack_require__(5); 
 
 	module.exports = function () {
+
 	    $('.rad.y').on('click', function () {
 	        $(this).prev('input').removeClass('unchecked');
 	        $(this).prev('input').addClass('checked');
@@ -3727,7 +3728,6 @@
 			$('#' + new_id).prev('input').removeAttr('checked');
 
 		});
-
 
 		$('.radio-inp').on('click', function () {
 		    var r = $(this).parent('form').parent('.active-wrap').parent('.input-wrap').find('.right');
@@ -4574,7 +4574,13 @@
 	module.exports = function (flag) {
 
 	    $('.right').on('click', function () {
-	        
+	        var q = parseInt($(this).attr('data-q'));
+	        var max = parseInt($(this).attr('data-max'));
+	        if ((q+1) > max) {
+	            $(this).parent('.input-wrap').find('.active-wrap').find('.map-input2').attr('tabindex', '-1');
+
+	        }
+
 	        var f = $(this).parent('.input-wrap').find('.active-wrap').find('.input-form').trigger('submit'); 
 	    })
 
@@ -4668,6 +4674,11 @@
 	        var sub = parseInt(curr.attr('data-sub'));
 	        var max = parseInt(r.attr('data-max'));
 
+	        if (q > max) {
+
+	            curr.parent('.input-wrap').find('.map-input').attr('tabindex', '-1');
+	        }
+
 	        var next = $(this).parent('.input-wrap').find('.hidden-wrap[data-q="' + q + '"][data-sub="' + sub + '"]');
 
 	        next.css({
@@ -4740,6 +4751,14 @@
 	        }
 	        
 	        function animate_q() {
+	            if (q > max) {
+	                var n_q = parseInt(q) - 1;
+	                var pr1 = curr.parent('.input-wrap').find('.prompt');
+	                pr1.remove();
+
+
+	            }
+
 	            if (curr.hasClass('collapse')) {
 	 
 	            
@@ -4819,7 +4838,6 @@
 
 	                            if (q > max) {
 
-
 	                                small_progress(q, max, bar, stats, end_form, curr);
 	                                return false;
 	                            }
@@ -4849,7 +4867,7 @@
 	                                    next.addClass('active-wrap');
 	                                    next.removeClass('hidden-wrap');
 	                                    next.css({ 'opacity': '0' })
-
+	                                  
 
 	                                    next.animate({
 	                                        opacity: 1
@@ -5049,6 +5067,9 @@
 
 	module.exports = function () {
 	    var all_clones = $('.category-wrap').clone();
+	    var clone_subs = all_clones.find('.clonable').clone();
+	   
+
 	    $('.add-btn').on('click', add_inp_handler); 
 
 	    function add_inp_handler(e) {
@@ -5066,7 +5087,15 @@
 	        if (wrap.length == 0) {
 	            wrap = $(this).parent('div').parent('div').parent('.input-wrap');
 	        }
+
+	        var clonename = ct_clone.find('.input-wrap[data-sub="' + $(this).attr('data-sub') + '"]').attr('data-clonename');
 	        var sub = ct_clone.find('.input-wrap[data-sub="' + $(this).attr('data-sub') + '"]');
+
+	        for (var i = 0; i < clone_subs.length; i++) {
+	            if (clonename == clone_subs.eq(i).attr('data-clonename')) {
+	                sub = clone_subs.eq(i).clone(); 
+	            }
+	        }
 
 	        sub.css({
 	            'display': 'none'
@@ -5187,10 +5216,10 @@
 
 	        var statstext = sub.find('.stats-wrap').find('.form-label').html();
 	        var show_index = index + 1;
-	        if (index > 1) {
-	            statstext = statstext.substr(0, statstext.length - 2);
+	        //if (index > 1 && clonename == 'programOutcomes1') {
+	        //    statstext = statstext.substr(0, statstext.length - 2);
 	           
-	        }
+	        //}
 	        statstext = statstext + ' ' + show_index.toString();
 	        
 	        
@@ -5198,6 +5227,7 @@
 
 
 	        wrap.after(sub);
+	        sb = sub; 
 	        $('*').unbind(); 
 
 	        radio_handler();
@@ -5448,8 +5478,17 @@
 	module.exports = function () {
 
 	    $('.exp-cell').on('click', function (e) {
+
+	        if ($(this).hasClass('selected')) return false; 
+
 	        var wrap = $(this).parent('div');
-	        
+
+	        var all_wrap = wrap.parent('form').parent('.active-wrap');
+	        var all_wrap2; 
+	        if (all_wrap.length == 0) {
+	            all_wrap2 = wrap.parent('.active-wrap');
+	        }
+
 	        var curr = $(this).attr('data-cell'); 
 
 	        if (!$(this).hasClass('selected')) {
@@ -5475,7 +5514,22 @@
 	                'color': '#8a97bb'
 	            });
 
+
+	            if (all_wrap.length > 0) {
+	                all_wrap.animate({
+	                    height: '300px'
+	                }, 200);
+
+	            } else {
+	                if (typeof all_wrap2 != 'undefined') {
+	                    all_wrap2.animate({
+	                        height: '200px'
+	                    }, 200);
+	                }
+	            }
 	            n_cells.find('.multi-drop').slideUp(200, function () {
+
+	                
 
 	                n_cells.find('.down-sm .icon').removeClass('rotate2'); 
 	                n_cells.find('.down-sm .icon').css({ 'display': 'none' });
