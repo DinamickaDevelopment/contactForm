@@ -9,7 +9,6 @@ module.exports = {
         var ct = $('.category-wrap[data-category="1"]').clone();
  
         this.ct = ct;
-   
         return ct; 
 
     },
