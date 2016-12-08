@@ -188,7 +188,7 @@ module.exports = function (flag) {
             if (q > max) {
                 var n_q = parseInt(q) - 1;
                 var pr1 = curr.parent('.input-wrap').find('.prompt');
-                pr1.remove();
+                pr1.slideUp(100);
 
 
             }
