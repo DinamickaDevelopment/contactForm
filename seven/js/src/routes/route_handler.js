@@ -6,6 +6,7 @@ var inputmask_handler = require('../validation/inputmask_handler');
 module.exports = {
 
     ct: '', 
+    ct2: '',
     clone_ct: function () {
         var ct = $('.category-wrap[data-category="1"]').clone();
  
@@ -14,6 +15,13 @@ module.exports = {
         return ct; 
 
     },
+    clone_ct2: function() {
+        var ct = $('.category-wrap[data-category="2"]').clone();
+ 
+        this.ct2 = ct;
+   
+        return ct; 
+    }, 
     preview_handler: function (data) {
 
   

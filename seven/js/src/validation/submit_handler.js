@@ -33,12 +33,24 @@ module.exports = {
 
         });
         $('#ct2').on('submit', function (e) {
-            e.preventDefault();
-            self.handle_submit.call($('#ct2'), e, '2');
+
+            if ($('.add-event-btn').hasClass('clicked')) {
+                $('.add-event-btn').removeClass('clicked');
+                e.preventDefault();
+                self.handle_submit.call($('#ct2'), e, '2', true);
+            } else {
+
+                e.preventDefault();
+                self.handle_submit.call($('#ct2'), e, '2');
+            }
 
         });
 
         $('.add-program-btn').on('click', function () {
+            $(this).addClass('clicked');
+        });
+
+        $('.add-event-btn').on('click', function () {
             $(this).addClass('clicked'); 
         })
     }, 
@@ -245,10 +257,27 @@ module.exports = {
                 var nested_dropdown_handler = require('../animations/nested_dropdown_handler.js');
                 var route_handler = require('../routes/route_handler.js');;
 
-                var ct1 = route_handler.ct;
-                ct2 = ct1.clone();
-                $('.form-wrap').find('.category-wrap[data-category="1"]').remove();
-                $('.form-wrap').find('.category-wrap[data-category="0"]').after(ct2);
+                if (data.ct == '1') {
+                    var ct1 = route_handler.ct;
+                    ct2 = ct1.clone();
+                    $('.form-wrap').find('.category-wrap[data-category="1"]').remove();
+                    if ($('.form-wrap').find('.category-wrap[data-category="0"]').length > 0) {
+                        $('.form-wrap').find('.category-wrap[data-category="0"]').after(ct2);
+                    } else {
+                        $('.form-wrap').append(ct2);
+                    }
+
+                   
+                } else if (data.ct == '2') {
+                    var ct1 = route_handler.ct2;
+                    ct2 = ct1.clone();
+                    $('.form-wrap').find('.category-wrap[data-category="2"]').remove();
+                    if ($('.form-wrap').find('.category-wrap[data-category="1"]').length > 0) {
+                        $('.form-wrap').find('.category-wrap[data-category="1"]').after(ct2);
+                    } else {
+                        $('.form-wrap').append(ct2);
+                    }
+                }
                 init_flag = false; 
             }
 
@@ -324,7 +353,7 @@ module.exports = {
 
             $('*').unbind();
         
-            view({ ct: 1 }, true, true);
+            view({ ct: parseInt(ct) }, true, true);
            
 
 

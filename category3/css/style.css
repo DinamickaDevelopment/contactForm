@@ -948,6 +948,25 @@ p {
     display: inline-block;
 }
 
+.add-event-btn:focus {
+   outline: none;
+}
+ 
+.add-event-btn {
+    font-weight: 600;
+    color: #fff;
+    border-radius: 25px;
+    height: 50px;
+    padding-left: 10px; 
+    background-color: #21c37e;;
+    padding-right: 10px;
+    transition: all 0.2s ease-in-out;
+    border: 3px solid #21c37e;;
+    font-size: 17px;
+    cursor: pointer;
+    display: inline-block;
+}
+
 .continue-btn:hover {
     transition: 0.2s background-color 0.2s color ease-in-out;
     color: #1f467d;

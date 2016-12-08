@@ -67,7 +67,8 @@
 	window.onload = function () {
 	    
 
-	    route_handler.clone_ct(); 
+	    route_handler.clone_ct();
+	    route_handler.clone_ct2();
 	    var init_flag = false;
 
 
@@ -5666,6 +5667,7 @@
 	module.exports = {
 
 	    ct: '', 
+	    ct2: '',
 	    clone_ct: function () {
 	        var ct = $('.category-wrap[data-category="1"]').clone();
 	 
@@ -5674,6 +5676,13 @@
 	        return ct; 
 
 	    },
+	    clone_ct2: function() {
+	        var ct = $('.category-wrap[data-category="2"]').clone();
+	 
+	        this.ct2 = ct;
+	   
+	        return ct; 
+	    }, 
 	    preview_handler: function (data) {
 
 	  
@@ -6496,12 +6505,24 @@
 
 	        });
 	        $('#ct2').on('submit', function (e) {
-	            e.preventDefault();
-	            self.handle_submit.call($('#ct2'), e, '2');
+
+	            if ($('.add-event-btn').hasClass('clicked')) {
+	                $('.add-event-btn').removeClass('clicked');
+	                e.preventDefault();
+	                self.handle_submit.call($('#ct2'), e, '2', true);
+	            } else {
+
+	                e.preventDefault();
+	                self.handle_submit.call($('#ct2'), e, '2');
+	            }
 
 	        });
 
 	        $('.add-program-btn').on('click', function () {
+	            $(this).addClass('clicked');
+	        });
+
+	        $('.add-event-btn').on('click', function () {
 	            $(this).addClass('clicked'); 
 	        })
 	    }, 
@@ -6708,10 +6729,27 @@
 	                var nested_dropdown_handler = __webpack_require__(15);
 	                var route_handler = __webpack_require__(16);;
 
-	                var ct1 = route_handler.ct;
-	                ct2 = ct1.clone();
-	                $('.form-wrap').find('.category-wrap[data-category="1"]').remove();
-	                $('.form-wrap').find('.category-wrap[data-category="0"]').after(ct2);
+	                if (data.ct == '1') {
+	                    var ct1 = route_handler.ct;
+	                    ct2 = ct1.clone();
+	                    $('.form-wrap').find('.category-wrap[data-category="1"]').remove();
+	                    if ($('.form-wrap').find('.category-wrap[data-category="0"]').length > 0) {
+	                        $('.form-wrap').find('.category-wrap[data-category="0"]').after(ct2);
+	                    } else {
+	                        $('.form-wrap').append(ct2);
+	                    }
+
+	                   
+	                } else if (data.ct == '2') {
+	                    var ct1 = route_handler.ct2;
+	                    ct2 = ct1.clone();
+	                    $('.form-wrap').find('.category-wrap[data-category="2"]').remove();
+	                    if ($('.form-wrap').find('.category-wrap[data-category="1"]').length > 0) {
+	                        $('.form-wrap').find('.category-wrap[data-category="1"]').after(ct2);
+	                    } else {
+	                        $('.form-wrap').append(ct2);
+	                    }
+	                }
 	                init_flag = false; 
 	            }
 
@@ -6787,7 +6825,7 @@
 
 	            $('*').unbind();
 	        
-	            view({ ct: 1 }, true, true);
+	            view({ ct: parseInt(ct) }, true, true);
 	           
 
 
