@@ -5954,8 +5954,10 @@
 	                        if (p.length > 0) {
 	                            p.after(mapped_drops[i]); 
 	                        } else {
-	                            if (typeof drops.eq(i).attr('data-placeholder') != 'undefined') {
+								if (typeof drops.eq(i).attr('data-placeholder') != 'undefined' && !drops.eq(i).hasClass('first-drop')) {
 	                                curr.append(mapped_drops[i])
+	                            } else if (drops.eq(i).hasClass('first-drop')) {
+	                                 wrap.find('#ct2').find('.form-sub[data-sub="' + sub + '"]').find('.form-input2').first().before(mapped_drops[i]); 
 	                            }
 	                        }
 	                        
