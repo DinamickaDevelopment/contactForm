@@ -4585,7 +4585,11 @@
 
 	        }
 
-	        var f = $(this).parent('.input-wrap').find('.active-wrap').find('.input-form').trigger('submit'); 
+	        if ($(this).parent('.input-wrap').find('.active-wrap').find('.input-form').find('input[type="email"]').length == 0) {
+	            var f = $(this).parent('.input-wrap').find('.active-wrap').find('.input-form').trigger('submit');
+	        } else {
+	            $(this).parent('.input-wrap').find('.active-wrap').find('.input-form').find('.submit').trigger('click'); 
+	        }
 	    })
 
 	    var input_forms = document.forms;
