@@ -174,7 +174,11 @@ module.exports = {
                 var ct1 = route_handler.ct;
                 ct2 = ct1.clone();
                 $('.form-wrap').find('.category-wrap[data-category="1"]').remove();
-                $('.form-wrap').find('.category-wrap[data-category="0"]').after(ct2);
+                if ($('.form-wrap').find('.category-wrap[data-category="0"]').length > 0) {
+                    $('.form-wrap').find('.category-wrap[data-category="0"]').after(ct2);
+                } else {
+                    $('.form-wrap').append(ct2); 
+                }
                 init_flag = false; 
             }
 

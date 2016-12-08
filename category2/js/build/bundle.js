@@ -5070,7 +5070,7 @@
 
 
 	module.exports = function () {
-	    var all_clones = $('.category-wrap').clone();
+	    var all_clones = $('.form-wrap').clone();
 	    var clone_subs = all_clones.find('.clonable').clone();
 	   
 
@@ -5084,7 +5084,7 @@
 
 	        $(this).attr('data-index', index); 
 
-	        var ct_clone = all_clones.eq(parseInt($(this).attr('data-category'))); 
+	        var ct_clone = all_clones.find('.category-wrap[data-category="'+ $(this).attr('data-category') + '"]'); 
 	        var ct = parseInt($(this).attr('data-category'));
 
 	        var wrap = $(this).parent('div').parent('.input-wrap'); 
@@ -5258,7 +5258,7 @@
 	        var clone_counter = parseInt($('.category-wrap[data-category="'+ ct + '"]').attr('data-subs'));
 	        clone_counter++; 
 	        $('.category-wrap').attr('data-subs', clone_counter); 
-	        all_clones = $('.category-wrap').clone();
+	        all_clones = $('.form-wrap').clone();
 	        all_clones.find('input').val('');
 	        all_clones.find('textarea').val('');
 	    }
@@ -5665,7 +5665,6 @@
 	        var ct = $('.category-wrap[data-category="1"]').clone();
 	 
 	        this.ct = ct;
-	   
 	        return ct; 
 
 	    },
@@ -6568,7 +6567,11 @@
 	                var ct1 = route_handler.ct;
 	                ct2 = ct1.clone();
 	                $('.form-wrap').find('.category-wrap[data-category="1"]').remove();
-	                $('.form-wrap').find('.category-wrap[data-category="0"]').after(ct2);
+	                if ($('.form-wrap').find('.category-wrap[data-category="0"]').length > 0) {
+	                    $('.form-wrap').find('.category-wrap[data-category="0"]').after(ct2);
+	                } else {
+	                    $('.form-wrap').append(ct2); 
+	                }
 	                init_flag = false; 
 	            }
 

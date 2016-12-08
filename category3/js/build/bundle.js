@@ -5066,7 +5066,7 @@
 
 
 	module.exports = function () {
-	    var all_clones = $('.category-wrap').clone();
+	    var all_clones = $('.form-wrap').clone();
 	    var clone_subs = all_clones.find('.clonable').clone();
 	   
 
@@ -5080,7 +5080,7 @@
 
 	        $(this).attr('data-index', index); 
 
-	        var ct_clone = all_clones.eq(parseInt($(this).attr('data-category'))); 
+	        var ct_clone = all_clones.find('.category-wrap[data-category="'+ $(this).attr('data-category') + '"]'); 
 	        var ct = parseInt($(this).attr('data-category'));
 
 	        var wrap = $(this).parent('div').parent('.input-wrap'); 
@@ -5254,7 +5254,7 @@
 	        var clone_counter = parseInt($('.category-wrap[data-category="'+ ct + '"]').attr('data-subs'));
 	        clone_counter++; 
 	        $('.category-wrap').attr('data-subs', clone_counter); 
-	        all_clones = $('.category-wrap').clone();
+	        all_clones = $('.form-wrap').clone();
 	        all_clones.find('input').val('');
 	        all_clones.find('textarea').val('');
 	    }
